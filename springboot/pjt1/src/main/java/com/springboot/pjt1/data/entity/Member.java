@@ -31,6 +31,6 @@ public class Member {
     private Date createTime;
     @Temporal(TemporalType.TIMESTAMP)
     private Date modifyTime;
-    @Column(nullable = false)
-    private char isAdmin;
+    @Column
+    private String isAdmin;
 }

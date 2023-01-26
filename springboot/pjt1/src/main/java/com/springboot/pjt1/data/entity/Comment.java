@@ -1,10 +1,12 @@
 package com.springboot.pjt1.data.entity;
 
 import jdk.jfr.ContentType;
+import lombok.Data;
 
 import javax.persistence.*;
 import java.util.Date;
 
+@Data
 @Entity
 @Table(name="comment")
 public class Comment {

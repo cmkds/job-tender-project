@@ -1,8 +1,11 @@
 package com.springboot.pjt1.data.entity;
 
+import lombok.Data;
+
 import javax.persistence.*;
 import java.util.Date;
 
+@Data
 @Entity
 @Table(name="machine")
 public class Machine {
