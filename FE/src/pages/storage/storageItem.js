@@ -6,3 +6,9 @@
 
 // storage/:card-no
 // share
+
+const StorageItem = () => {
+  return <div></div>;
+};
+
+export default StorageItem;
