@@ -35,7 +35,7 @@ function App() {
             <Route path="/main" element={<Main />}></Route>
             <Route path="/logbox" element={<LogBox />}></Route>
             <Route path="/feed/:id" element={<Feed />}></Route>
-            <Route path="/storage" element={<Storage />}></Route>
+            <Route path="/storage/*" element={<Storage />}></Route>
             <Route path="/:user" element={<User />}></Route>
           </Routes>
         </div>
