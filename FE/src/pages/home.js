@@ -15,9 +15,9 @@ const Home = () => {
 
   const printImg = () => {
     if (clicked) {
-      return <motion.img initial={{ scale: 1 }} animate={{ scale: 1.3 }} className='postOpen' onClick={()=>{setClicked(!clicked)}} src={process.env.PUBLIC_URL + `assets/open2.png`}/>
+      return <motion.img initial={{ scale: 1 }} animate={{ scale: 1.2 }} className='postOpen' onClick={()=>{setClicked(!clicked)}} src={process.env.PUBLIC_URL + `assets/open2.png`}/>
     } else {
-      return <motion.img initial={{ scale: 1.3 }} animate={{ scale: 1 }} className='postClosed' onClick={()=>{setClicked(!clicked)}} src={process.env.PUBLIC_URL + `assets/post.png`}/>
+      return <motion.img initial={{ scale: 1.2 }} animate={{ scale: 1 }} className='postClosed' onClick={()=>{setClicked(!clicked)}} src={process.env.PUBLIC_URL + `assets/post.png`}/>
     }
   }
 

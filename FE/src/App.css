@@ -18,11 +18,17 @@ body {
   .App {
     width: 640px;
   }
+  .BottomBar {
+    width: 640px;
+  }
 }
 
 @media (max-width: 650px) {
   .App {
-    width: 90vw;
+    width: 100vw;
+  }
+  .BottomBar {
+    width: 100vw;
   }
 }
 
@@ -39,7 +45,7 @@ body {
 
 /* 상단바 */
 header {
-  padding-top: 20%;
+  /* padding-top: 20%; */
   background-color: #ffb9b9;
 }
 
@@ -107,17 +113,16 @@ header {
 
 .logoTop {
   display: flex;
-  margin-left: auto;
-  margin-right: auto;
-  width: 120px;
-  margin-top: 10px;
+  margin: auto;
+  height: 80%;
 }
+
 
 .logo {
   /* position: flex; */
   display: flex;
   margin:auto;
-  margin-top: 80px;
+  margin-top: 10%;
   width: 300px;
   height: 270px;
   /* left: 23px;
@@ -125,22 +130,20 @@ header {
 }
 
 .postClosed {
-  animation: scale2 6s linear infinite;
   display: flex;
   margin: auto;
-  margin-top: 100px;
-  width: 196px;
-  height: 123px;
+  margin-top: 120px;
+  width: 40%;
+  height: 30%;
 }
 
 .postOpen {
-  animation: rotate_image 6s linear infinite, scale1 6s linear infinite;
   transform-origin: 50% 50%;
   display: flex;
   margin: auto;
-  margin-top: 43px;
-  width: 196px;
-  height: 180px;
+  margin-top: 75px;
+  width: 40%;
+  height: 30%;
 }
 
 .naver {
@@ -201,3 +204,10 @@ topbar {
   background: #FFB9B9;
 }
 
+.BottomBar {
+  min-height: 6vh;
+}
+
+.BottomBarIcon {
+  min-width: 3vh;
+}
