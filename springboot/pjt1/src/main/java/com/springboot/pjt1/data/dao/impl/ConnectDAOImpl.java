@@ -3,6 +3,7 @@ package com.springboot.pjt1.data.dao.impl;
 import com.springboot.pjt1.data.dao.ConnectDAO;
 import com.springboot.pjt1.data.entity.Connect;
 import com.springboot.pjt1.data.repository.ConnectRepository;
+import com.springboot.pjt1.data.repository.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

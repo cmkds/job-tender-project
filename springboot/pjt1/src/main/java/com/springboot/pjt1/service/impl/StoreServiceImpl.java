@@ -1,8 +1,10 @@
 package com.springboot.pjt1.service.impl;
 
+import com.springboot.pjt1.data.dao.MemberDAO;
 import com.springboot.pjt1.data.dao.StoreDAO;
 import com.springboot.pjt1.data.dto.StoreDTO;
 import com.springboot.pjt1.data.dto.StoreDTO;
+import com.springboot.pjt1.data.entity.Member;
 import com.springboot.pjt1.data.entity.Store;
 import com.springboot.pjt1.service.StoreService;
 import org.springframework.stereotype.Service;
@@ -10,9 +12,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class StoreServiceImpl implements StoreService {
     private final StoreDAO storeDAO;
+    private final MemberDAO memberDAO;
 
-    public StoreServiceImpl(StoreDAO storeDAO) {
+    public StoreServiceImpl(StoreDAO storeDAO, MemberDAO memberDAO) {
         this.storeDAO = storeDAO;
+        this.memberDAO = memberDAO;
     }
 
 
@@ -48,6 +52,11 @@ public class StoreServiceImpl implements StoreService {
         store.setRecentSeq(storeDTO.getRecentSeq());
         store.setRecentTime(storeDTO.getRecentTime());
 
+        // FK 연결
+        Member mem = memberDAO.SelectMemberById(storeDTO.getMemberSeq());
+        store.setMember(mem);
+        mem.addStore(store);
+
         Store savedStore = storeDAO.InsertStore(store);
         StoreDTO rStoreDTO = new StoreDTO();
 
@@ -60,9 +69,11 @@ public class StoreServiceImpl implements StoreService {
         rStoreDTO.setCreateTime(savedStore.getCreateTime());
         rStoreDTO.setRecentSeq(savedStore.getRecentSeq());
         rStoreDTO.setRecentTime(savedStore.getRecentTime());
+        rStoreDTO.setMemberSeq(mem.getMemberSeq());
 
         return rStoreDTO;
     }
+
 
     @Override
     public StoreDTO updateStore(long storeSeq, String photo, String video, String post, String voice, long recentSeq) throws Exception {

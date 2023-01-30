@@ -7,7 +7,9 @@ import com.springboot.pjt1.data.entity.Member;
 import com.springboot.pjt1.service.MemberService;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class MemberServiceImpl implements MemberService {
@@ -36,11 +38,35 @@ public class MemberServiceImpl implements MemberService {
         return memberDTO;
     }
 
+    public List<MemberDTO> getMembers(){
+        List<Member> members = memberDAO.SelectMemberAll();
+        List<MemberDTO> memberDTOs = new ArrayList<>();
+
+        for (int i = 0; i < members.size(); i++) {
+            MemberDTO memberDTO = new MemberDTO();
+
+            memberDTO.setMemberProfile(members.get(i).getMemberProfile());
+            memberDTO.setMemberState(members.get(i).getMemberState());
+            memberDTO.setMemberSeq(members.get(i).getMemberSeq());
+            memberDTO.setCreateTime(new Date());
+            memberDTO.setAddrSpec(members.get(i).getAddrSpec());
+            memberDTO.setAddrBase(members.get(i).getAddrBase());
+            memberDTO.setNickname(members.get(i).getNickname());
+            memberDTO.setIsAdmin(members.get(i).getIsAdmin());
+            memberDTO.setEmail(members.get(i).getEmail());
+            memberDTO.setModifyTime(members.get(i).getModifyTime());
+            memberDTO.setName(members.get(i).getName());
+
+            memberDTOs.add(memberDTO);
+        }
+
+        return memberDTOs;
+    }
+
     @Override
     public MemberDTO insertMember(MemberDTO memberDTO) throws Exception {
         Member member = new Member();
 
-        System.out.println("!!!!!!");
         System.out.println(memberDTO.getIsAdmin());
         member.setMemberProfile(memberDTO.getMemberProfile());
         member.setMemberState(memberDTO.getMemberState());

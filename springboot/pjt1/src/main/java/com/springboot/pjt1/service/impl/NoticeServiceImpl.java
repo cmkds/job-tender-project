@@ -1,8 +1,10 @@
 package com.springboot.pjt1.service.impl;
 
+import com.springboot.pjt1.data.dao.MemberDAO;
 import com.springboot.pjt1.data.dao.NoticeDAO;
 import com.springboot.pjt1.data.dto.NoticeDTO;
 import com.springboot.pjt1.data.dto.NoticeDTO;
+import com.springboot.pjt1.data.entity.Member;
 import com.springboot.pjt1.data.entity.Notice;
 import com.springboot.pjt1.service.NoticeService;
 import org.springframework.stereotype.Service;
@@ -10,9 +12,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class NoticeServiceImpl implements NoticeService {
     private final NoticeDAO noticeDAO;
+    private final MemberDAO memberDAO;
 
-    public NoticeServiceImpl(NoticeDAO noticeDAO) {
+    public NoticeServiceImpl(NoticeDAO noticeDAO, MemberDAO memberDAO) {
         this.noticeDAO = noticeDAO;
+        this.memberDAO = memberDAO;
     }
     @Override
     public NoticeDTO getNotice(long noticeSeq) {
@@ -41,6 +45,10 @@ public class NoticeServiceImpl implements NoticeService {
         notice.setCreateSeq(noticeDTO.getCreateSeq());
         notice.setModifySeq(noticeDTO.getModifySeq());
         notice.setModifyTime(noticeDTO.getModifyTime());
+
+        Member mem = memberDAO.SelectMemberById(noticeDTO.getMemberSeq());
+        notice.setMember(mem);
+        mem.addNotice(notice);
 
         Notice savedNotice = noticeDAO.InsertNotice(notice);
         NoticeDTO rNoticeDTO = new NoticeDTO();

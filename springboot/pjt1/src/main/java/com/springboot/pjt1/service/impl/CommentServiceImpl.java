@@ -1,8 +1,13 @@
 package com.springboot.pjt1.service.impl;
 
 import com.springboot.pjt1.data.dao.CommentDAO;
+import com.springboot.pjt1.data.dao.FeedDAO;
+import com.springboot.pjt1.data.dao.MemberDAO;
 import com.springboot.pjt1.data.dto.CommentDTO;
+import com.springboot.pjt1.data.dto.FeedDTO;
 import com.springboot.pjt1.data.entity.Comment;
+import com.springboot.pjt1.data.entity.Feed;
+import com.springboot.pjt1.data.entity.Member;
 import com.springboot.pjt1.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,10 +15,14 @@ import org.springframework.stereotype.Service;
 @Service
 public class CommentServiceImpl implements CommentService {
     private final CommentDAO commentDAO;
+    private final FeedDAO feedDAO;
+    private final MemberDAO memberDAO;
 
     @Autowired
-    public CommentServiceImpl(CommentDAO commentDAO) {
+    public CommentServiceImpl(CommentDAO commentDAO, FeedDAO feedDAO, MemberDAO memberDAO) {
         this.commentDAO = commentDAO;
+        this.feedDAO = feedDAO;
+        this.memberDAO = memberDAO;
     }
     @Override
     public CommentDTO getComment(long commentSeq) {
@@ -23,8 +32,6 @@ public class CommentServiceImpl implements CommentService {
         commentDTO.setCommentSeq(comment.getCommentSeq());
         commentDTO.setContent(comment.getContent());
         commentDTO.setCreateTime(comment.getCreateTime());
-        //commentDTO.setFeedSeq(comment.getFeedSeq());
-        //commentDTO.setOwnerSeq(comment.getOwnerSeq());
         commentDTO.setModifyTime(comment.getModifyTime());
 
         return commentDTO;
@@ -35,18 +42,23 @@ public class CommentServiceImpl implements CommentService {
 
         comment.setCommentSeq(commentDTO.getCommentSeq());
         comment.setContent(commentDTO.getContent());
-        //comment.setOwnerSeq(comment.getOwnerSeq());
-        //comment.setFeedSeq(commentDTO.getFeedSeq());
         comment.setCreateTime(commentDTO.getCreateTime());
         comment.setModifyTime(commentDTO.getModifyTime());
+
+        // insert FK
+        Feed feed = feedDAO.SelectFeedById(commentDTO.getFeedSeq());
+        comment.setFeed(feed);
+        feed.addComment(comment);
+
+        Member member = memberDAO.SelectMemberById(commentDTO.getMemberSeq());
+        comment.setMember(member);
+        member.addComment(comment);
 
         Comment savedComment = commentDAO.insertComment(comment);
         CommentDTO rCommentDTO = new CommentDTO();
 
         rCommentDTO.setCommentSeq(savedComment.getCommentSeq());
         rCommentDTO.setContent(savedComment.getContent());
-        //rCommentDTO.setOwnerSeq(savedComment.getOwnerSeq());
-        //rCommentDTO.setFeedSeq(savedComment.getFeedSeq());
         rCommentDTO.setCreateTime(savedComment.getCreateTime());
         rCommentDTO.setModifyTime(savedComment.getModifyTime());
 
@@ -59,8 +71,6 @@ public class CommentServiceImpl implements CommentService {
 
         rCommentDTO.setCommentSeq(updatedComment.getCommentSeq());
         rCommentDTO.setContent(updatedComment.getContent());
-        //rCommentDTO.setOwnerSeq(updatedComment.getOwnerSeq());
-        //rCommentDTO.setFeedSeq(updatedComment.getFeedSeq());
         rCommentDTO.setCreateTime(updatedComment.getCreateTime());
         rCommentDTO.setModifyTime(updatedComment.getModifyTime());
 

@@ -1,5 +1,6 @@
 package com.springboot.pjt1.data.dto;
 
+import com.springboot.pjt1.data.entity.Member;
 import lombok.Data;
 
 import java.util.Date;
@@ -15,4 +16,5 @@ public class StoreDTO {
     private long createSeq;
     private Date recentTime;
     private long recentSeq;
+    private long memberSeq;
 }

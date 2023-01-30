@@ -8,11 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 @Component
 public class MemberDAOImpl implements MemberDAO {
     private MemberRepository memberRepository;
-
     @Autowired
     public MemberDAOImpl(MemberRepository memberRepository){
         this.memberRepository = memberRepository;
@@ -29,6 +29,12 @@ public class MemberDAOImpl implements MemberDAO {
         Member selectedMember = memberRepository.getById(memberSeq);
 
         return selectedMember;
+    }
+
+    public List<Member> SelectMemberAll(){
+        List<Member> selectedMembers = memberRepository.findAll();
+
+        return selectedMembers;
     }
 
     @Override

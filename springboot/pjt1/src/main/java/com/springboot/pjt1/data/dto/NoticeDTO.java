@@ -13,4 +13,6 @@ public class NoticeDTO {
     private Date modifyTime;
     private long modifySeq;
     private int hit;
+
+    private long memberSeq;
 }

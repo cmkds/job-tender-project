@@ -1,8 +1,11 @@
 package com.springboot.pjt1.service.impl;
 
 import com.springboot.pjt1.data.dao.ConnectDAO;
+import com.springboot.pjt1.data.dao.MemberDAO;
 import com.springboot.pjt1.data.dto.ConnectDTO;
 import com.springboot.pjt1.data.entity.Connect;
+import com.springboot.pjt1.data.entity.Feed;
+import com.springboot.pjt1.data.entity.Member;
 import com.springboot.pjt1.service.ConnectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,10 +13,12 @@ import org.springframework.stereotype.Service;
 @Service
 public class ConnectServiceImpl implements ConnectService {
     private final ConnectDAO connectDAO;
+    private final MemberDAO memberDAO;
 
     @Autowired
-    public ConnectServiceImpl(ConnectDAO connectDAO) {
+    public ConnectServiceImpl(ConnectDAO connectDAO, MemberDAO memberDAO) {
         this.connectDAO = connectDAO;
+        this.memberDAO = memberDAO;
     }
 
     @Override
@@ -37,6 +42,15 @@ public class ConnectServiceImpl implements ConnectService {
         connect.setFollower(connectDTO.getFollower());
         connect.setFollowing(connectDTO.getFollowing());
         connect.setCreateTime(connectDTO.getCreateTime());
+
+        // insert FK
+        Member mem = memberDAO.SelectMemberById(connectDTO.getFollower());
+        connect.setMember(mem);
+        mem.addConnect(connect);
+
+        Member mem2 = memberDAO.SelectMemberById(connectDTO.getFollowing());
+        connect.setMember(mem2);
+        mem2.addConnect(connect);
 
         Connect savedConnect = connectDAO.InsertConnect(connect);
         ConnectDTO rConnectDTO = new ConnectDTO();

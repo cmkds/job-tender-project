@@ -1,19 +1,23 @@
 package com.springboot.pjt1.service.impl;
 
 import com.springboot.pjt1.data.dao.FeedDAO;
+import com.springboot.pjt1.data.dao.MemberDAO;
 import com.springboot.pjt1.data.dto.ConnectDTO;
 import com.springboot.pjt1.data.dto.FeedDTO;
 import com.springboot.pjt1.data.entity.Connect;
 import com.springboot.pjt1.data.entity.Feed;
+import com.springboot.pjt1.data.entity.Member;
 import com.springboot.pjt1.service.FeedService;
 import org.springframework.stereotype.Service;
 
 @Service
 public class FeedServiceImpl implements FeedService {
     private final FeedDAO feedDAO;
+    private final MemberDAO memberDAO;
 
-    public FeedServiceImpl(FeedDAO feedDAO) {
+    public FeedServiceImpl(FeedDAO feedDAO, MemberDAO memberDAO) {
         this.feedDAO = feedDAO;
+        this.memberDAO = memberDAO;
     }
     @Override
     public FeedDTO getFeed(long feedSeq) {
@@ -24,7 +28,6 @@ public class FeedServiceImpl implements FeedService {
         feedDTO.setContent(feed.getContent());
         feedDTO.setPost(feed.getPost());
         feedDTO.setCreateTime(feed.getCreateTime());
-        //feedDTO.setMemberSeq(feed.getMemberSeq());
         feedDTO.setCreateTime(feed.getCreateTime());
         feedDTO.setHeart(feed.getHeart());
 
@@ -39,9 +42,12 @@ public class FeedServiceImpl implements FeedService {
         feed.setContent(feedDTO.getContent());
         feed.setPost(feedDTO.getPost());
         feed.setCreateTime(feedDTO.getCreateTime());
-        //feed.setMemberSeq(feedDTO.getMemberSeq());
         feed.setCreateTime(feedDTO.getCreateTime());
         feed.setHeart(feedDTO.getHeart());
+
+        Member mem = memberDAO.SelectMemberById(feedDTO.getMemberSeq());
+        feed.setMember(mem);
+        mem.addFeed(feed);
 
         Feed savedFeed = feedDAO.InsertFeed(feed);
         FeedDTO rFeedDTO = new FeedDTO();

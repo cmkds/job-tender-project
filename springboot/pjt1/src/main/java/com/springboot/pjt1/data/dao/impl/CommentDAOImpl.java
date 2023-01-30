@@ -20,6 +20,7 @@ public class CommentDAOImpl implements CommentDAO{
 
     @Override
     public Comment insertComment(Comment comment) throws Exception {
+
         Comment savedComment = commentRepository.save(comment);
 
         return savedComment;

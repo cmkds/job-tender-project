@@ -11,5 +11,5 @@ public class CommentDTO {
     private Date modifyTime;
     private Date createTime;
     private long feedSeq; //
-    private long ownerSeq; //
+    private long memberSeq; //
 }

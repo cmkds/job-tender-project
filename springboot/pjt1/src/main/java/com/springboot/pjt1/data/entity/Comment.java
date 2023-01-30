@@ -21,7 +21,6 @@ public class Comment {
     @Temporal(TemporalType.TIMESTAMP)
     private Date createTime;
 
-
     // mapping
     @ManyToOne
     @JoinColumn(name = "memberSeq")
