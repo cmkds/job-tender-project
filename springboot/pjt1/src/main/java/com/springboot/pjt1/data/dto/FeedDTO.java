@@ -13,7 +13,7 @@ public class FeedDTO {
     @Column
     private String content;
     private String post;
-    private int like;
+    private int heart;
     private Date createTime;
     private Date modifyTime;
 }

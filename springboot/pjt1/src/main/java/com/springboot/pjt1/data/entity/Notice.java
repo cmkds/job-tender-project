@@ -11,6 +11,7 @@ import java.util.Date;
 public class Notice {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @Column(name = "NOTICE_SEQ")
     private long noticeSeq;
     @Column
     String content;
@@ -24,4 +25,16 @@ public class Notice {
     private long modifySeq;
     @Column
     private int hit;
+
+    // mapping
+    @ManyToOne
+    @JoinColumn(name = "memberSeq")
+    private Member member;
+
+    public void setMember(Member member){
+        this.member = member;
+
+        if (!member.getNotices().contains(this))
+            member.getNotices().add(this);
+    }
 }

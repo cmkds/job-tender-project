@@ -11,7 +11,7 @@ import java.util.Date;
 public class Connect {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column
+//    @Column(name = "CONNECT_SEQ")
     private long connectSeq;
     @Temporal(TemporalType.TIMESTAMP)
     private Date createTime;
@@ -19,4 +19,16 @@ public class Connect {
     private long follower; // fk
     @Column
     private long following; // fk
+
+    // mapping
+    @ManyToOne
+    @JoinColumn(name = "memberSeq")
+    private Member member;
+
+    public void setMember(Member member){
+        this.member = member;
+
+        if (!member.getConnects().contains(this))
+            member.getConnects().add(this);
+    }
 }

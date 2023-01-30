@@ -22,7 +22,7 @@ public class MachineDataServiceImpl implements MachineDataService {
 
         machineDataDTO.setMachineDataSeq(machineData.getMachineDataSeq());
         machineDataDTO.setCreateTime(machineData.getCreateTime());
-        machineDataDTO.setMachineSeq(machineData.getMachineSeq());
+        //machineDataDTO.setMachineSeq(machineData.getMachineSeq());
         machineDataDTO.setVideo(machineData.getVideo());
         machineDataDTO.setPost(machineData.getPost());
         machineDataDTO.setVoice(machineData.getVoice());
@@ -38,7 +38,7 @@ public class MachineDataServiceImpl implements MachineDataService {
         machineData.setMachineDataSeq(machineDataDTO.getMachineDataSeq());
         machineData.setMachineDataSeq(machineDataDTO.getMachineDataSeq());
         machineData.setCreateTime(machineDataDTO.getCreateTime());
-        machineData.setMachineSeq(machineDataDTO.getMachineSeq());
+        //machineData.setMachineSeq(machineDataDTO.getMachineSeq());
         machineData.setVideo(machineDataDTO.getVideo());
         machineData.setPost(machineDataDTO.getPost());
         machineData.setVoice(machineDataDTO.getVoice());
@@ -50,7 +50,7 @@ public class MachineDataServiceImpl implements MachineDataService {
         rMachineDataDTO.setMachineDataSeq(savedMachineData.getMachineDataSeq());
         rMachineDataDTO.setMachineDataSeq(savedMachineData.getMachineDataSeq());
         rMachineDataDTO.setCreateTime(savedMachineData.getCreateTime());
-        rMachineDataDTO.setMachineSeq(savedMachineData.getMachineSeq());
+        //rMachineDataDTO.setMachineSeq(savedMachineData.getMachineSeq());
         rMachineDataDTO.setVideo(savedMachineData.getVideo());
         rMachineDataDTO.setPost(savedMachineData.getPost());
         rMachineDataDTO.setVoice(savedMachineData.getVoice());

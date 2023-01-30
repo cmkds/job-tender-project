@@ -11,6 +11,7 @@ import java.util.Date;
 public class MachineData {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @Column(name = "MACHINE_DATA_SEQ")
     private long machineDataSeq;
     @Column(nullable = false)
     private String photo;
@@ -22,6 +23,17 @@ public class MachineData {
     private String voice;
     @Temporal(TemporalType.TIMESTAMP)
     private Date createTime;
-    @Column
-    private long machineSeq;
+
+
+    // mapping
+    @ManyToOne
+    @JoinColumn(name = "machineSeq")
+    private Machine machine;
+
+    public void setMachine(Machine machine){
+        this.machine = machine;
+
+        if (!machine.getMachineDatas().contains(this))
+            machine.getMachineDatas().add(this);
+    }
 }

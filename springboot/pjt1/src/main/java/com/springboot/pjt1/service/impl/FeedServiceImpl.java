@@ -24,9 +24,9 @@ public class FeedServiceImpl implements FeedService {
         feedDTO.setContent(feed.getContent());
         feedDTO.setPost(feed.getPost());
         feedDTO.setCreateTime(feed.getCreateTime());
-        feedDTO.setMemberSeq(feed.getMemberSeq());
+        //feedDTO.setMemberSeq(feed.getMemberSeq());
         feedDTO.setCreateTime(feed.getCreateTime());
-        feedDTO.setLike(feed.getLike());
+        feedDTO.setHeart(feed.getHeart());
 
         return feedDTO;
     }
@@ -39,9 +39,9 @@ public class FeedServiceImpl implements FeedService {
         feed.setContent(feedDTO.getContent());
         feed.setPost(feedDTO.getPost());
         feed.setCreateTime(feedDTO.getCreateTime());
-        feed.setMemberSeq(feedDTO.getMemberSeq());
+        //feed.setMemberSeq(feedDTO.getMemberSeq());
         feed.setCreateTime(feedDTO.getCreateTime());
-        feed.setLike(feedDTO.getLike());
+        feed.setHeart(feedDTO.getHeart());
 
         Feed savedFeed = feedDAO.InsertFeed(feed);
         FeedDTO rFeedDTO = new FeedDTO();
@@ -50,9 +50,9 @@ public class FeedServiceImpl implements FeedService {
         rFeedDTO.setContent(savedFeed.getContent());
         rFeedDTO.setPost(savedFeed.getPost());
         rFeedDTO.setCreateTime(savedFeed.getCreateTime());
-        rFeedDTO.setMemberSeq(savedFeed.getMemberSeq());
+        //rFeedDTO.setMemberSeq(savedFeed.getMemberSeq());
         rFeedDTO.setCreateTime(savedFeed.getCreateTime());
-        rFeedDTO.setLike(savedFeed.getLike());
+        rFeedDTO.setHeart(savedFeed.getHeart());
 
         return rFeedDTO;
     }
@@ -66,9 +66,9 @@ public class FeedServiceImpl implements FeedService {
         rFeedDTO.setContent(updatedFeed.getContent());
         rFeedDTO.setPost(updatedFeed.getPost());
         rFeedDTO.setCreateTime(updatedFeed.getCreateTime());
-        rFeedDTO.setMemberSeq(updatedFeed.getMemberSeq());
+        //rFeedDTO.setMemberSeq(updatedFeed.getMemberSeq());
         rFeedDTO.setCreateTime(updatedFeed.getCreateTime());
-        rFeedDTO.setLike(updatedFeed.getLike());
+        rFeedDTO.setHeart(updatedFeed.getHeart());
 
         return rFeedDTO;
     }

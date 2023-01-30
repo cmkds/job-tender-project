@@ -11,6 +11,7 @@ import java.util.Date;
 public class Store {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @Column(name="STORE_SEQ")
     private long storeSeq;
     @Column
     private String photo;
@@ -28,4 +29,17 @@ public class Store {
     private Date recentTime;
     @Column
     private long recentSeq;
+
+    // mapping
+    @ManyToOne
+    @JoinColumn(name = "memberSeq")
+    private Member member;
+
+    public void setMember(Member member){
+        this.member = member;
+
+        if (!member.getStores().contains(this))
+            member.getStores().add(this);
+    }
+
 }

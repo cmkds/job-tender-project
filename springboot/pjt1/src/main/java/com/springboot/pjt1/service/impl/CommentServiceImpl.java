@@ -23,8 +23,8 @@ public class CommentServiceImpl implements CommentService {
         commentDTO.setCommentSeq(comment.getCommentSeq());
         commentDTO.setContent(comment.getContent());
         commentDTO.setCreateTime(comment.getCreateTime());
-        commentDTO.setFeedSeq(comment.getFeedSeq());
-        commentDTO.setOwnerSeq(comment.getOwnerSeq());
+        //commentDTO.setFeedSeq(comment.getFeedSeq());
+        //commentDTO.setOwnerSeq(comment.getOwnerSeq());
         commentDTO.setModifyTime(comment.getModifyTime());
 
         return commentDTO;
@@ -35,8 +35,8 @@ public class CommentServiceImpl implements CommentService {
 
         comment.setCommentSeq(commentDTO.getCommentSeq());
         comment.setContent(commentDTO.getContent());
-        comment.setOwnerSeq(comment.getOwnerSeq());
-        comment.setFeedSeq(commentDTO.getFeedSeq());
+        //comment.setOwnerSeq(comment.getOwnerSeq());
+        //comment.setFeedSeq(commentDTO.getFeedSeq());
         comment.setCreateTime(commentDTO.getCreateTime());
         comment.setModifyTime(commentDTO.getModifyTime());
 
@@ -45,8 +45,8 @@ public class CommentServiceImpl implements CommentService {
 
         rCommentDTO.setCommentSeq(savedComment.getCommentSeq());
         rCommentDTO.setContent(savedComment.getContent());
-        rCommentDTO.setOwnerSeq(savedComment.getOwnerSeq());
-        rCommentDTO.setFeedSeq(savedComment.getFeedSeq());
+        //rCommentDTO.setOwnerSeq(savedComment.getOwnerSeq());
+        //rCommentDTO.setFeedSeq(savedComment.getFeedSeq());
         rCommentDTO.setCreateTime(savedComment.getCreateTime());
         rCommentDTO.setModifyTime(savedComment.getModifyTime());
 
@@ -59,8 +59,8 @@ public class CommentServiceImpl implements CommentService {
 
         rCommentDTO.setCommentSeq(updatedComment.getCommentSeq());
         rCommentDTO.setContent(updatedComment.getContent());
-        rCommentDTO.setOwnerSeq(updatedComment.getOwnerSeq());
-        rCommentDTO.setFeedSeq(updatedComment.getFeedSeq());
+        //rCommentDTO.setOwnerSeq(updatedComment.getOwnerSeq());
+        //rCommentDTO.setFeedSeq(updatedComment.getFeedSeq());
         rCommentDTO.setCreateTime(updatedComment.getCreateTime());
         rCommentDTO.setModifyTime(updatedComment.getModifyTime());
 

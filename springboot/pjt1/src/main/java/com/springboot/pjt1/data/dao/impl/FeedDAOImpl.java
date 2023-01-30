@@ -43,7 +43,7 @@ public class FeedDAOImpl implements FeedDAO {
             Feed feed = selectedFeed.get();
 
             feed.setContent(content);
-            feed.setMemberSeq(memberSeq);
+            //feed.setMemberSeq(memberSeq);
             feed.setPost(post);
 
             feed.setCreateTime(new Date());

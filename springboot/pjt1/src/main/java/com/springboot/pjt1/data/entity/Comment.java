@@ -12,7 +12,7 @@ import java.util.Date;
 public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column
+    //@Column(name = "COMMENT_SEQ")
     private long commentSeq;
     @Column(nullable = false)
     private String content;
@@ -20,8 +20,28 @@ public class Comment {
     private Date modifyTime;
     @Temporal(TemporalType.TIMESTAMP)
     private Date createTime;
-    @Column(nullable = false)
-    private long feedSeq; //
-    @Column(nullable = false)
-    private long ownerSeq; //
+
+
+    // mapping
+    @ManyToOne
+    @JoinColumn(name = "memberSeq")
+    private Member member;
+
+    public void setMember(Member member){
+        this.member = member;
+
+        if (!member.getComments().contains(this))
+            member.getComments().add(this);
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "feedSeq")
+    private Feed feed;
+
+    public void setMember(Feed feed){
+        this.feed = feed;
+
+        if (!feed.getComments().contains(this))
+            feed.getComments().add(this);
+    }
 }
