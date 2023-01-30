@@ -12,7 +12,7 @@ import UserList from "./user/UserList";
 
 const User = () => {
   return (
-    <BrowserRouter>
+    <div>
       <h2>User Page</h2>
       <h2>App.js</h2>
 
@@ -22,7 +22,7 @@ const User = () => {
         <Route path="/:user/following" element={<Following />} />
         <Route path="/:user/follower" element={<Follower />} />
       </Routes>
-    </BrowserRouter>
+    </div>
   );
 };
 
