@@ -16,6 +16,7 @@ import LogBox from "./pages/LogBox";
 import Feed from "./pages/Feed";
 import Storage from "./pages/Storage";
 import User from "./pages/User";
+import BottomBar from "./components/BottomBar";
 
 function App() {
   return (
@@ -23,7 +24,7 @@ function App() {
       <BrowserRouter>
         <div className="App">
           <TopBar
-            className="topbar"
+            // className="topbar"
             head_btn_center={"중단 홈"}
             head_btn_right={"우측 로그인 버튼"}
           />
@@ -38,6 +39,7 @@ function App() {
             <Route path="/storage" element={<Storage />}></Route>
             <Route path="/:user" element={<User />}></Route>
           </Routes>
+          <BottomBar/>
         </div>
         <RouteTest />
       </BrowserRouter>
