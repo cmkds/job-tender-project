@@ -37,9 +37,6 @@ public class Store {
 
     public void setMember(Member member){
         this.member = member;
-
-        if (!member.getStores().contains(this))
-            member.getStores().add(this);
     }
 
 }

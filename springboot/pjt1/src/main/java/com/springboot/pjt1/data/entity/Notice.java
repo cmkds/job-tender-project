@@ -33,8 +33,5 @@ public class Notice {
 
     public void setMember(Member member){
         this.member = member;
-
-        if (!member.getNotices().contains(this))
-            member.getNotices().add(this);
     }
 }

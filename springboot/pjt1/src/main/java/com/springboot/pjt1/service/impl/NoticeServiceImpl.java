@@ -48,7 +48,6 @@ public class NoticeServiceImpl implements NoticeService {
 
         Member mem = memberDAO.SelectMemberById(noticeDTO.getMemberSeq());
         notice.setMember(mem);
-        mem.addNotice(notice);
 
         Notice savedNotice = noticeDAO.InsertNotice(notice);
         NoticeDTO rNoticeDTO = new NoticeDTO();

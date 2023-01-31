@@ -1,8 +1,12 @@
 package com.springboot.pjt1.service.impl;
 
+import com.springboot.pjt1.data.dao.MachineDAO;
 import com.springboot.pjt1.data.dao.MachineDataDAO;
+import com.springboot.pjt1.data.dto.MachineDTO;
 import com.springboot.pjt1.data.dto.MachineDataDTO;
+import com.springboot.pjt1.data.entity.Machine;
 import com.springboot.pjt1.data.entity.MachineData;
+import com.springboot.pjt1.data.entity.Member;
 import com.springboot.pjt1.service.MachineDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,10 +14,12 @@ import org.springframework.stereotype.Service;
 @Service
 public class MachineDataServiceImpl implements MachineDataService {
     private final MachineDataDAO machineDataDAO;
+    private final MachineDAO machineDAO;
 
     @Autowired
-    public MachineDataServiceImpl(MachineDataDAO machineDataDAO) {
+    public MachineDataServiceImpl(MachineDataDAO machineDataDAO, MachineDAO machineDAO) {
         this.machineDataDAO = machineDataDAO;
+        this.machineDAO = machineDAO;
     }
     @Override
     public MachineDataDTO getMachineData(long machineDataSeq) {
@@ -38,11 +44,13 @@ public class MachineDataServiceImpl implements MachineDataService {
         machineData.setMachineDataSeq(machineDataDTO.getMachineDataSeq());
         machineData.setMachineDataSeq(machineDataDTO.getMachineDataSeq());
         machineData.setCreateTime(machineDataDTO.getCreateTime());
-        //machineData.setMachineSeq(machineDataDTO.getMachineSeq());
         machineData.setVideo(machineDataDTO.getVideo());
         machineData.setPost(machineDataDTO.getPost());
         machineData.setVoice(machineDataDTO.getVoice());
         machineData.setPhoto(machineDataDTO.getPhoto());
+
+        Machine mac = machineDAO.SelectMachineById(machineDataDTO.getMachineSeq());
+        machineData.setMachine(mac);
 
         MachineData savedMachineData = machineDataDAO.InsertMachineData(machineData);
         MachineDataDTO rMachineDataDTO = new MachineDataDTO();
@@ -50,7 +58,6 @@ public class MachineDataServiceImpl implements MachineDataService {
         rMachineDataDTO.setMachineDataSeq(savedMachineData.getMachineDataSeq());
         rMachineDataDTO.setMachineDataSeq(savedMachineData.getMachineDataSeq());
         rMachineDataDTO.setCreateTime(savedMachineData.getCreateTime());
-        //rMachineDataDTO.setMachineSeq(savedMachineData.getMachineSeq());
         rMachineDataDTO.setVideo(savedMachineData.getVideo());
         rMachineDataDTO.setPost(savedMachineData.getPost());
         rMachineDataDTO.setVoice(savedMachineData.getVoice());

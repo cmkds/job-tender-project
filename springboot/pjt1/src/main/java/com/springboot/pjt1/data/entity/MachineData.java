@@ -32,8 +32,5 @@ public class MachineData {
 
     public void setMachine(Machine machine){
         this.machine = machine;
-
-        if (!machine.getMachineDatas().contains(this))
-            machine.getMachineDatas().add(this);
     }
 }

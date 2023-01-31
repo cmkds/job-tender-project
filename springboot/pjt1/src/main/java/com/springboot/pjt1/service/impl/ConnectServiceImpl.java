@@ -46,11 +46,9 @@ public class ConnectServiceImpl implements ConnectService {
         // insert FK
         Member mem = memberDAO.SelectMemberById(connectDTO.getFollower());
         connect.setMember(mem);
-        mem.addConnect(connect);
 
         Member mem2 = memberDAO.SelectMemberById(connectDTO.getFollowing());
         connect.setMember(mem2);
-        mem2.addConnect(connect);
 
         Connect savedConnect = connectDAO.InsertConnect(connect);
         ConnectDTO rConnectDTO = new ConnectDTO();

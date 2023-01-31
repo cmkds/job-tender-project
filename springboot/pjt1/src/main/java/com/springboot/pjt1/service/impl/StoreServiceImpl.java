@@ -55,7 +55,6 @@ public class StoreServiceImpl implements StoreService {
         // FK 연결
         Member mem = memberDAO.SelectMemberById(storeDTO.getMemberSeq());
         store.setMember(mem);
-        mem.addStore(store);
 
         Store savedStore = storeDAO.InsertStore(store);
         StoreDTO rStoreDTO = new StoreDTO();

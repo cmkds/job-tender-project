@@ -27,24 +27,10 @@ public class Feed {
     private Date modifyTime;
 
     // mapping
-    @OneToMany(mappedBy = "feed")
-    private List<Comment> comments = new ArrayList<>();
-    public void addComment(Comment comment){
-        this.comments.add(comment);
 
-        if(comment.getFeed() != this)
-            comment.setFeed(this);
-    }
 
     // member
     @ManyToOne
     @JoinColumn(name = "memberSeq")
     private Member member;
-
-    public void setMember(Member member){
-        this.member = member;
-
-        if (!member.getFeeds().contains(this))
-            member.getFeeds().add(this);
-    }
 }

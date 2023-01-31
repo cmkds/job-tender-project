@@ -27,8 +27,5 @@ public class Connect {
 
     public void setMember(Member member){
         this.member = member;
-
-        if (!member.getConnects().contains(this))
-            member.getConnects().add(this);
     }
 }

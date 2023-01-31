@@ -28,19 +28,12 @@ public class Comment {
 
     public void setMember(Member member){
         this.member = member;
-
-        if (!member.getComments().contains(this))
-            member.getComments().add(this);
     }
 
     @ManyToOne
     @JoinColumn(name = "feedSeq")
     private Feed feed;
-
-    public void setMember(Feed feed){
+    public void setFeed(Feed feed){
         this.feed = feed;
-
-        if (!feed.getComments().contains(this))
-            feed.getComments().add(this);
     }
 }

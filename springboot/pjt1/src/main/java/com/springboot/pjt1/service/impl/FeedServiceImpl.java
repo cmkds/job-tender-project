@@ -47,7 +47,6 @@ public class FeedServiceImpl implements FeedService {
 
         Member mem = memberDAO.SelectMemberById(feedDTO.getMemberSeq());
         feed.setMember(mem);
-        mem.addFeed(feed);
 
         Feed savedFeed = feedDAO.InsertFeed(feed);
         FeedDTO rFeedDTO = new FeedDTO();

@@ -1,18 +1,22 @@
 package com.springboot.pjt1.service.impl;
 
 import com.springboot.pjt1.data.dao.MachineDAO;
+import com.springboot.pjt1.data.dao.MachineLocationDAO;
 import com.springboot.pjt1.data.dto.MachineDTO;
 import com.springboot.pjt1.data.dto.MachineDTO;
 import com.springboot.pjt1.data.entity.Machine;
+import com.springboot.pjt1.data.entity.MachineLocation;
 import com.springboot.pjt1.service.MachineService;
 import org.springframework.stereotype.Service;
 
 @Service
 public class MachineServiceImpl implements MachineService {
     private final MachineDAO machineDAO;
+    private final MachineLocationDAO machineLocationDAO;
 
-    public MachineServiceImpl(MachineDAO machineDAO) {
+    public MachineServiceImpl(MachineDAO machineDAO, MachineLocationDAO machineLocationDAO) {
         this.machineDAO = machineDAO;
+        this.machineLocationDAO = machineLocationDAO;
     }
     @Override
     public MachineDTO getMachine(long machineSeq) {
@@ -35,6 +39,9 @@ public class MachineServiceImpl implements MachineService {
         machine.setCreateTime(machineDTO.getCreateTime());
         machine.setLocSeq(machineDTO.getLocSeq());
         machine.setRecentTime(machineDTO.getRecentTime());
+
+        MachineLocation loc_mac = machineLocationDAO.SelectMachineLocationById(machine.getLocSeq());
+        machine.setMachineLocation(loc_mac);
 
         Machine savedMachine = machineDAO.InsertMachine(machine);
         MachineDTO rMachineDTO = new MachineDTO();

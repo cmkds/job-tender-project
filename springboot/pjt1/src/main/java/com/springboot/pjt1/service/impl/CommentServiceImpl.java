@@ -48,11 +48,9 @@ public class CommentServiceImpl implements CommentService {
         // insert FK
         Feed feed = feedDAO.SelectFeedById(commentDTO.getFeedSeq());
         comment.setFeed(feed);
-        feed.addComment(comment);
 
         Member member = memberDAO.SelectMemberById(commentDTO.getMemberSeq());
         comment.setMember(member);
-        member.addComment(comment);
 
         Comment savedComment = commentDAO.insertComment(comment);
         CommentDTO rCommentDTO = new CommentDTO();

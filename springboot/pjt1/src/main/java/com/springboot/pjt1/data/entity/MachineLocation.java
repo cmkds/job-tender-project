@@ -18,14 +18,6 @@ public class MachineLocation {
     String name;
 
     // mapping
-    @OneToOne(mappedBy = "machineLocation")
-    private Machine machine;
-    public void addMachine(Machine machine){
-        this.machine = machine;
-
-        if(machine.getMachineLocation() != this)
-            machine.setMachineLocation(this);
-    }
 
 
 }
