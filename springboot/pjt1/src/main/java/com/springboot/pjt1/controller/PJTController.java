@@ -62,7 +62,6 @@ public class PJTController {
         return ResponseEntity.status(HttpStatus.OK).body(rMemberDto);
     }
 
-
     @PostMapping("/store")
     public ResponseEntity<StoreDTO> createStore(@RequestBody StoreDTO storeDTO) throws Exception{
         StoreDTO rStoreDto = storeService.insertStore(storeDTO);
