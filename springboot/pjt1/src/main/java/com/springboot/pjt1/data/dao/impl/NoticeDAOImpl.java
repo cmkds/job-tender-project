@@ -32,7 +32,7 @@ public class NoticeDAOImpl implements NoticeDAO {
     }
 
     @Override
-    public Notice UpdateNoticeById(long noticeSeq, String content, long modifySeq) throws Exception {
+    public Notice UpdateNoticeById(long noticeSeq, String content) throws Exception {
         // get data using ID
         Optional<Notice> selectedNotice = noticeRepository.findById(noticeSeq);
         Notice updatedNotice;
@@ -41,9 +41,7 @@ public class NoticeDAOImpl implements NoticeDAO {
             Notice notice = selectedNotice.get();
 
             notice.setContent(content);
-
             notice.setModifyTime(new Date());
-            notice.setModifySeq(modifySeq);
 
             updatedNotice = noticeRepository.save(notice);
         }

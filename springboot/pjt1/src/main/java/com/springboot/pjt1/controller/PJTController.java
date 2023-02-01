@@ -25,11 +25,13 @@ public class PJTController {
     private final MemberService memberService;
     private final NoticeService noticeService;
     private final StoreService storeService;
+    private final HeartService heartService;
+
 
     @Autowired
     public PJTController(CommentService commentService, ConnectService connectService, FeedService feedService, MachineDataService machineDataService,
                          MachineLocationService machineLocationService, MachineService machineService, MemberService memberService,
-                         NoticeService noticeService, StoreService storeService) {
+                         NoticeService noticeService, StoreService storeService, HeartService heartService) {
         this.commentService = commentService;
         this.connectService = connectService;
         this.feedService = feedService;
@@ -39,6 +41,7 @@ public class PJTController {
         this.memberService = memberService;
         this.noticeService = noticeService;
         this.storeService = storeService;
+        this.heartService = heartService;
     }
 
     @GetMapping("/member")
@@ -115,5 +118,13 @@ public class PJTController {
         MachineDataDTO rMachineDataDto = machineDataService.insertMachineData(machineDataDTO);
 
         return ResponseEntity.status(HttpStatus.OK).body(rMachineDataDto);
+    }
+
+    //
+    @GetMapping("/account")
+    public ResponseEntity<Boolean> findNickName(@RequestParam String nickname) {
+        boolean result = memberService.IsNicknameExist(nickname);
+
+        return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 }

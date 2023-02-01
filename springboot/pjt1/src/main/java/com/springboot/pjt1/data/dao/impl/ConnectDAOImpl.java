@@ -34,28 +34,6 @@ public class ConnectDAOImpl implements ConnectDAO {
     }
 
     @Override
-    public Connect UpdateConnectById(long connectSeq, long follower, long following)throws Exception{
-        // get data using ID
-        Optional<Connect> selectedConnect = connectRepository.findById(connectSeq);
-        Connect updatedConnect;
-
-        if(selectedConnect.isPresent()){
-            Connect connect = selectedConnect.get();
-
-            connect.setFollower(follower);
-            connect.setFollowing(following);
-            connect.setCreateTime(new Date());
-
-            updatedConnect = connectRepository.save(connect);
-        }
-
-        else
-            throw new Exception();
-
-        return updatedConnect;
-    }
-
-    @Override
     public void DeleteConnectById(long connectSeq) throws Exception {
         Optional<Connect> selectedConnect = connectRepository.findById(connectSeq);
 

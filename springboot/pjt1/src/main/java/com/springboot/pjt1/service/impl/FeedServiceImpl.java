@@ -30,6 +30,7 @@ public class FeedServiceImpl implements FeedService {
         feedDTO.setCreateTime(feed.getCreateTime());
         feedDTO.setCreateTime(feed.getCreateTime());
         feedDTO.setHeart(feed.getHeart());
+        feedDTO.setMemberSeq(feed.getMember().getMemberSeq());
 
         return feedDTO;
     }
@@ -55,9 +56,9 @@ public class FeedServiceImpl implements FeedService {
         rFeedDTO.setContent(savedFeed.getContent());
         rFeedDTO.setPost(savedFeed.getPost());
         rFeedDTO.setCreateTime(savedFeed.getCreateTime());
-        //rFeedDTO.setMemberSeq(savedFeed.getMemberSeq());
         rFeedDTO.setCreateTime(savedFeed.getCreateTime());
         rFeedDTO.setHeart(savedFeed.getHeart());
+        rFeedDTO.setMemberSeq(savedFeed.getMember().getMemberSeq());
 
         return rFeedDTO;
     }
@@ -71,9 +72,9 @@ public class FeedServiceImpl implements FeedService {
         rFeedDTO.setContent(updatedFeed.getContent());
         rFeedDTO.setPost(updatedFeed.getPost());
         rFeedDTO.setCreateTime(updatedFeed.getCreateTime());
-        //rFeedDTO.setMemberSeq(updatedFeed.getMemberSeq());
         rFeedDTO.setCreateTime(updatedFeed.getCreateTime());
         rFeedDTO.setHeart(updatedFeed.getHeart());
+        rFeedDTO.setMemberSeq(updatedFeed.getMember().getMemberSeq());
 
         return rFeedDTO;
     }

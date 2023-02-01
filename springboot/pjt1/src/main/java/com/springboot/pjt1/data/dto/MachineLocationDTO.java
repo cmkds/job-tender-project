@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class MachineLocationDTO {
-    long locSeq;
+    long machineLocationSeq;
     String city;
     String name;
 }

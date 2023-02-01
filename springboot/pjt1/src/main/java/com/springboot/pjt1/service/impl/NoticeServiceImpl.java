@@ -28,8 +28,8 @@ public class NoticeServiceImpl implements NoticeService {
         noticeDTO.setHit(notice.getHit());
         noticeDTO.setCreateTime(notice.getCreateTime());
         noticeDTO.setCreateSeq(notice.getCreateSeq());
-        noticeDTO.setModifySeq(notice.getModifySeq());
         noticeDTO.setModifyTime(notice.getModifyTime());
+        noticeDTO.setMemberSeq(notice.getMember().getMemberSeq());
 
         return noticeDTO;
     }
@@ -43,7 +43,6 @@ public class NoticeServiceImpl implements NoticeService {
         notice.setHit(noticeDTO.getHit());
         notice.setCreateTime(noticeDTO.getCreateTime());
         notice.setCreateSeq(noticeDTO.getCreateSeq());
-        notice.setModifySeq(noticeDTO.getModifySeq());
         notice.setModifyTime(noticeDTO.getModifyTime());
 
         Member mem = memberDAO.SelectMemberById(noticeDTO.getMemberSeq());
@@ -57,15 +56,15 @@ public class NoticeServiceImpl implements NoticeService {
         rNoticeDTO.setHit(savedNotice.getHit());
         rNoticeDTO.setCreateTime(savedNotice.getCreateTime());
         rNoticeDTO.setCreateSeq(savedNotice.getCreateSeq());
-        rNoticeDTO.setModifySeq(savedNotice.getModifySeq());
         rNoticeDTO.setModifyTime(savedNotice.getModifyTime());
+        rNoticeDTO.setMemberSeq(savedNotice.getMember().getMemberSeq());
 
         return rNoticeDTO;
     }
 
     @Override
-    public NoticeDTO updateNotice(long noticeSeq, String content, long modifySeq) throws Exception {
-        Notice updatedNotice = noticeDAO.UpdateNoticeById(noticeSeq, content, modifySeq);
+    public NoticeDTO updateNotice(long noticeSeq, String content) throws Exception {
+        Notice updatedNotice = noticeDAO.UpdateNoticeById(noticeSeq, content);
         NoticeDTO rNoticeDTO = new NoticeDTO();
 
         rNoticeDTO.setNoticeSeq(updatedNotice.getNoticeSeq());
@@ -73,8 +72,8 @@ public class NoticeServiceImpl implements NoticeService {
         rNoticeDTO.setHit(updatedNotice.getHit());
         rNoticeDTO.setCreateTime(updatedNotice.getCreateTime());
         rNoticeDTO.setCreateSeq(updatedNotice.getCreateSeq());
-        rNoticeDTO.setModifySeq(updatedNotice.getModifySeq());
         rNoticeDTO.setModifyTime(updatedNotice.getModifyTime());
+        rNoticeDTO.setMemberSeq(updatedNotice.getMember().getMemberSeq());
 
         return rNoticeDTO;
     }

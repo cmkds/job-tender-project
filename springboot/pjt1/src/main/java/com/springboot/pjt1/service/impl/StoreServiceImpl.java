@@ -30,10 +30,9 @@ public class StoreServiceImpl implements StoreService {
         storeDTO.setPhoto(store.getPhoto());
         storeDTO.setVideo(store.getVideo());
         storeDTO.setVoice(store.getVoice());
-        storeDTO.setCreateSeq(store.getCreateSeq());
         storeDTO.setCreateTime(store.getCreateTime());
-        storeDTO.setRecentSeq(store.getRecentSeq());
         storeDTO.setRecentTime(store.getRecentTime());
+        storeDTO.setMemberSeq(store.getMember().getMemberSeq());
 
         return storeDTO;
     }
@@ -47,9 +46,7 @@ public class StoreServiceImpl implements StoreService {
         store.setPhoto(storeDTO.getPhoto());
         store.setVideo(storeDTO.getVideo());
         store.setVoice(storeDTO.getVoice());
-        store.setCreateSeq(storeDTO.getCreateSeq());
         store.setCreateTime(storeDTO.getCreateTime());
-        store.setRecentSeq(storeDTO.getRecentSeq());
         store.setRecentTime(storeDTO.getRecentTime());
 
         // FK 연결
@@ -64,11 +61,9 @@ public class StoreServiceImpl implements StoreService {
         rStoreDTO.setPhoto(savedStore.getPhoto());
         rStoreDTO.setVideo(savedStore.getVideo());
         rStoreDTO.setVoice(savedStore.getVoice());
-        rStoreDTO.setCreateSeq(savedStore.getCreateSeq());
         rStoreDTO.setCreateTime(savedStore.getCreateTime());
-        rStoreDTO.setRecentSeq(savedStore.getRecentSeq());
         rStoreDTO.setRecentTime(savedStore.getRecentTime());
-        rStoreDTO.setMemberSeq(mem.getMemberSeq());
+        rStoreDTO.setMemberSeq(savedStore.getMember().getMemberSeq());
 
         return rStoreDTO;
     }
@@ -76,7 +71,7 @@ public class StoreServiceImpl implements StoreService {
 
     @Override
     public StoreDTO updateStore(long storeSeq, String photo, String video, String post, String voice, long recentSeq) throws Exception {
-        Store updatedStore = storeDAO.UpdateStoreById(storeSeq,photo,video,post, voice, recentSeq);
+        Store updatedStore = storeDAO.UpdateStoreById(storeSeq,photo,video,post, voice);
         StoreDTO rStoreDTO = new StoreDTO();
 
         rStoreDTO.setStoreSeq(updatedStore.getStoreSeq());
@@ -84,10 +79,9 @@ public class StoreServiceImpl implements StoreService {
         rStoreDTO.setPhoto(updatedStore.getPhoto());
         rStoreDTO.setVideo(updatedStore.getVideo());
         rStoreDTO.setVoice(updatedStore.getVoice());
-        rStoreDTO.setCreateSeq(updatedStore.getCreateSeq());
         rStoreDTO.setCreateTime(updatedStore.getCreateTime());
-        rStoreDTO.setRecentSeq(updatedStore.getRecentSeq());
         rStoreDTO.setRecentTime(updatedStore.getRecentTime());
+        rStoreDTO.setMemberSeq(updatedStore.getMember().getMemberSeq());
 
         return rStoreDTO;
     }

@@ -30,6 +30,8 @@ public class HeartServiceImpl implements HeartService {
 
         heartDTO.setHeartSeq(heart.getHeartSeq());
         heartDTO.setCreateTime(heart.getCreateTime());
+        heartDTO.setMemberSeq(heart.getMember().getMemberSeq());
+        heartDTO.setFeedSeq(heart.getFeed().getFeedSeq());
 
         return heartDTO;
     }
@@ -52,6 +54,8 @@ public class HeartServiceImpl implements HeartService {
 
         rHeartDTO.setHeartSeq(savedHeart.getHeartSeq());
         rHeartDTO.setCreateTime(savedHeart.getCreateTime());
+        rHeartDTO.setMemberSeq(savedHeart.getMember().getMemberSeq());
+        rHeartDTO.setFeedSeq(savedHeart.getFeed().getFeedSeq());
 
         return rHeartDTO;
     }

@@ -1,9 +1,7 @@
 package com.springboot.pjt1.service.impl;
 
-import com.springboot.pjt1.data.dao.MachineDAO;
 import com.springboot.pjt1.data.dao.MachineLocationDAO;
 import com.springboot.pjt1.data.dto.MachineLocationDTO;
-import com.springboot.pjt1.data.entity.Machine;
 import com.springboot.pjt1.data.entity.MachineLocation;
 import com.springboot.pjt1.service.MachineLocationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +20,7 @@ public class MachineLocationServiceImpl implements MachineLocationService {
         MachineLocation MachineLocation = machineLocationDAO.SelectMachineLocationById(machineLocationSeq);
         MachineLocationDTO machineLocationDTO = new MachineLocationDTO();
 
-        machineLocationDTO.setLocSeq(MachineLocation.getLocSeq());
+        machineLocationDTO.setMachineLocationSeq(MachineLocation.getMachineLocationSeq());
         machineLocationDTO.setCity(MachineLocation.getCity());
         machineLocationDTO.setName(MachineLocation.getName());
 
@@ -33,16 +31,14 @@ public class MachineLocationServiceImpl implements MachineLocationService {
     public MachineLocationDTO insertMachineLocation(MachineLocationDTO machineLocationDTO) throws Exception {
         MachineLocation MachineLocation = new MachineLocation();
 
-        MachineLocation.setLocSeq(machineLocationDTO.getLocSeq());
+        MachineLocation.setMachineLocationSeq(machineLocationDTO.getMachineLocationSeq());
         MachineLocation.setCity(machineLocationDTO.getCity());
         MachineLocation.setName(machineLocationDTO.getName());
-
-
 
         MachineLocation savedMachineLocation = machineLocationDAO.InsertMachineLocation(MachineLocation);
         MachineLocationDTO rMachineLocationDTO = new MachineLocationDTO();
 
-        rMachineLocationDTO.setLocSeq(savedMachineLocation.getLocSeq());
+        rMachineLocationDTO.setMachineLocationSeq(savedMachineLocation.getMachineLocationSeq());
         rMachineLocationDTO.setCity(savedMachineLocation.getCity());
         rMachineLocationDTO.setName(savedMachineLocation.getName());
 
@@ -54,7 +50,7 @@ public class MachineLocationServiceImpl implements MachineLocationService {
         MachineLocation updatedMachineLocation = machineLocationDAO.UpdateMachineLocationById(machineLocationSeq, city, name);
         MachineLocationDTO rMachineLocationDTO = new MachineLocationDTO();
 
-        rMachineLocationDTO.setLocSeq(updatedMachineLocation.getLocSeq());
+        rMachineLocationDTO.setMachineLocationSeq(updatedMachineLocation.getMachineLocationSeq());
         rMachineLocationDTO.setCity(updatedMachineLocation.getCity());
         rMachineLocationDTO.setName(updatedMachineLocation.getName());
 

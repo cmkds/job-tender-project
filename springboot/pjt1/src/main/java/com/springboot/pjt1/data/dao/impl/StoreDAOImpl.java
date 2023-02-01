@@ -49,7 +49,7 @@ public class StoreDAOImpl implements StoreDAO {
 
     @Override
     public Store UpdateStoreById(long storeSeq, String photo, String video,
-                                 String post, String voice, long recentSeq) throws Exception {
+                                 String post, String voice) throws Exception {
         // get data using ID
         Optional<Store> selectedStore = storeRepository.findById(storeSeq);
         Store updatedStore;
@@ -63,7 +63,6 @@ public class StoreDAOImpl implements StoreDAO {
             store.setVoice(voice);
 
             store.setRecentTime(new Date());
-            store.setRecentSeq(recentSeq);
 
             updatedStore = storeRepository.save(store);
         }

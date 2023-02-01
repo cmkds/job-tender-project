@@ -27,9 +27,9 @@ public class ConnectServiceImpl implements ConnectService {
         ConnectDTO connectDTO = new ConnectDTO();
 
         connectDTO.setConnectSeq(connect.getConnectSeq());
-        connectDTO.setFollower(connect.getFollower());
-        connectDTO.setFollowing(connect.getFollowing());
         connectDTO.setCreateTime(connect.getCreateTime());
+        connectDTO.setFollowing(connect.getFollowing().getMemberSeq());
+        connectDTO.setFollower(connect.getFollower().getMemberSeq());
 
         return connectDTO;
     }
@@ -39,37 +39,22 @@ public class ConnectServiceImpl implements ConnectService {
         Connect connect = new Connect();
 
         connect.setConnectSeq(connectDTO.getConnectSeq());
-        connect.setFollower(connectDTO.getFollower());
-        connect.setFollowing(connectDTO.getFollowing());
         connect.setCreateTime(connectDTO.getCreateTime());
 
         // insert FK
-        Member mem = memberDAO.SelectMemberById(connectDTO.getFollower());
-        connect.setMember(mem);
+        Member mem1 = memberDAO.SelectMemberById(connectDTO.getFollower());
+        connect.setFollower(mem1);
 
         Member mem2 = memberDAO.SelectMemberById(connectDTO.getFollowing());
-        connect.setMember(mem2);
+        connect.setFollowing(mem2);
 
         Connect savedConnect = connectDAO.InsertConnect(connect);
         ConnectDTO rConnectDTO = new ConnectDTO();
 
         rConnectDTO.setConnectSeq(savedConnect.getConnectSeq());
-        rConnectDTO.setFollower(savedConnect.getFollower());
-        rConnectDTO.setFollowing(savedConnect.getFollowing());
         rConnectDTO.setCreateTime(savedConnect.getCreateTime());
-
-        return rConnectDTO;
-    }
-
-    @Override
-    public ConnectDTO updateConnect(long connectSeq, long followerSeq, long followingSeq) throws Exception {
-        Connect updatedConnect = connectDAO.UpdateConnectById(connectSeq,followerSeq, followingSeq);
-        ConnectDTO rConnectDTO = new ConnectDTO();
-
-        rConnectDTO.setConnectSeq(updatedConnect.getConnectSeq());
-        rConnectDTO.setFollower(updatedConnect.getFollower());
-        rConnectDTO.setFollowing(updatedConnect.getFollowing());
-        rConnectDTO.setCreateTime(updatedConnect.getCreateTime());
+        rConnectDTO.setFollower(savedConnect.getFollower().getMemberSeq());
+        rConnectDTO.setFollowing(savedConnect.getFollowing().getMemberSeq());
 
         return rConnectDTO;
     }

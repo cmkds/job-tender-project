@@ -6,6 +6,6 @@ import org.springframework.stereotype.Service;
 public interface NoticeService {
     NoticeDTO getNotice(long noticeSeq);
     NoticeDTO insertNotice(NoticeDTO noticeDTO)throws Exception;
-    NoticeDTO updateNotice(long noticeSeq, String content, long modifySeq)throws Exception;
+    NoticeDTO updateNotice(long noticeSeq, String content)throws Exception;
     void deleteNotice(long noticeSeq)throws Exception;
 }

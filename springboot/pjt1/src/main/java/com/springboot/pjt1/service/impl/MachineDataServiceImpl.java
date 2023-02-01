@@ -28,11 +28,11 @@ public class MachineDataServiceImpl implements MachineDataService {
 
         machineDataDTO.setMachineDataSeq(machineData.getMachineDataSeq());
         machineDataDTO.setCreateTime(machineData.getCreateTime());
-        //machineDataDTO.setMachineSeq(machineData.getMachineSeq());
         machineDataDTO.setVideo(machineData.getVideo());
         machineDataDTO.setPost(machineData.getPost());
         machineDataDTO.setVoice(machineData.getVoice());
         machineDataDTO.setPhoto(machineData.getPhoto());
+        machineDataDTO.setMachineSeq(machineData.getMachine().getMachineSeq());
 
         return machineDataDTO;
     }
@@ -62,14 +62,12 @@ public class MachineDataServiceImpl implements MachineDataService {
         rMachineDataDTO.setPost(savedMachineData.getPost());
         rMachineDataDTO.setVoice(savedMachineData.getVoice());
         rMachineDataDTO.setPhoto(savedMachineData.getPhoto());
+        rMachineDataDTO.setMachineSeq(savedMachineData.getMachine().getMachineSeq());
 
         return rMachineDataDTO;
     }
 
-    @Override
-    public MachineDataDTO updateMachineData(long machineDataSeq) throws Exception {
-        return null;
-    }
+
 
     @Override
     public void deleteMachineData(long machineDataSeq) throws Exception {

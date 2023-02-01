@@ -31,6 +31,7 @@ public class CommentServiceImpl implements CommentService {
 
         commentDTO.setCommentSeq(comment.getCommentSeq());
         commentDTO.setContent(comment.getContent());
+        commentDTO.setMemberSeq(comment.getMember().getMemberSeq());
         commentDTO.setCreateTime(comment.getCreateTime());
         commentDTO.setModifyTime(comment.getModifyTime());
 
@@ -38,6 +39,7 @@ public class CommentServiceImpl implements CommentService {
     }
     @Override
     public CommentDTO insertComment(CommentDTO commentDTO) throws Exception {
+        // insert Entity
         Comment comment = new Comment();
 
         comment.setCommentSeq(commentDTO.getCommentSeq());
@@ -52,13 +54,17 @@ public class CommentServiceImpl implements CommentService {
         Member member = memberDAO.SelectMemberById(commentDTO.getMemberSeq());
         comment.setMember(member);
 
+        // insert
         Comment savedComment = commentDAO.insertComment(comment);
+
+        // return DTO
         CommentDTO rCommentDTO = new CommentDTO();
 
         rCommentDTO.setCommentSeq(savedComment.getCommentSeq());
         rCommentDTO.setContent(savedComment.getContent());
         rCommentDTO.setCreateTime(savedComment.getCreateTime());
         rCommentDTO.setModifyTime(savedComment.getModifyTime());
+        rCommentDTO.setMemberSeq(commentDTO.getMemberSeq());
 
         return rCommentDTO;
     }
@@ -71,6 +77,7 @@ public class CommentServiceImpl implements CommentService {
         rCommentDTO.setContent(updatedComment.getContent());
         rCommentDTO.setCreateTime(updatedComment.getCreateTime());
         rCommentDTO.setModifyTime(updatedComment.getModifyTime());
+        rCommentDTO.setMemberSeq(updatedComment.getMember().getMemberSeq());
 
         return rCommentDTO;
     }

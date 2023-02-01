@@ -9,5 +9,5 @@ public class MachineDTO {
     private long machineSeq;
     private Date recentTime;
     private Date createTime;
-    private long locSeq;
+    private long machineLocationSeq;
 }

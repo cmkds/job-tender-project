@@ -11,7 +11,6 @@ import java.util.Date;
 public class Connect {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    @Column(name = "CONNECT_SEQ")
     private long connectSeq;
     @Temporal(TemporalType.TIMESTAMP)
     @Column(nullable = false)
@@ -19,7 +18,7 @@ public class Connect {
 
     // mapping
     @ManyToOne
-    @JoinColumn(name = "memberSeq")
+    @JoinColumn(name = "followerSeq")
     private Member follower;
 
     public void setFollower(Member follower){
@@ -27,7 +26,7 @@ public class Connect {
     }
 
     @ManyToOne
-    @JoinColumn(name = "memberSeq")
+    @JoinColumn(name = "followingSeq")
     private Member following;
 
     public void setFollowing(Member following){

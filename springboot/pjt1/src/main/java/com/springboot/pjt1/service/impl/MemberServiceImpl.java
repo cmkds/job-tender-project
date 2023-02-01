@@ -67,7 +67,6 @@ public class MemberServiceImpl implements MemberService {
     public MemberDTO insertMember(MemberDTO memberDTO) throws Exception {
         Member member = new Member();
 
-        System.out.println(memberDTO.getIsAdmin());
         member.setMemberProfile(memberDTO.getMemberProfile());
         member.setMemberState(memberDTO.getMemberState());
         member.setMemberSeq(memberDTO.getMemberSeq());
@@ -123,4 +122,6 @@ public class MemberServiceImpl implements MemberService {
     public void deleteMember(long memberSeq) throws Exception {
         memberDAO.DeleteMemberById(memberSeq);
     }
+
+
 }
