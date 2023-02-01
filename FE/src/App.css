@@ -121,8 +121,13 @@ header {
 .logo {
   /* position: flex; */
   display: flex;
+<<<<<<< HEAD
   margin:auto;
   margin-top: 10%;
+=======
+  margin: auto;
+  margin-top: 80px;
+>>>>>>> feature_FE_function
   width: 300px;
   height: 270px;
   /* left: 23px;
@@ -151,7 +156,7 @@ header {
   margin: auto;
   width: 225px;
 }
-.naver img{
+.naver img {
   height: 100%;
   width: 100%;
 }
@@ -177,33 +182,35 @@ header {
 }
 
 .cardeni {
-  animation: 1s ease-in-out loadEffect2; }
+  animation: 1s ease-in-out loadEffect2;
+}
 
 @keyframes loadEffect2 {
-  0%{
-      opacity: 0;
-      transform: translateX(-5px);
+  0% {
+    opacity: 0;
+    transform: translateX(-5px);
   }
-  50%{
-      opacity: 0.5;
-      transform: translateX(-2.5px);
+  50% {
+    opacity: 0.5;
+    transform: translateX(-2.5px);
   }
-  100%{
-      opacity: 1;
-      transform: translateX(0px);
+  100% {
+    opacity: 1;
+    transform: translateX(0px);
   }
 }
 
 topbar {
   position: absolute;
-  width: 390px;
+  width: 100%;
   height: 101px;
   left: 50%;
   top: 0px;
   align-items: center;
-  background: #FFB9B9;
+  background: #ffb9b9;
 }
 
+<<<<<<< HEAD
 .BottomBar {
   min-height: 6vh;
 }
@@ -211,3 +218,9 @@ topbar {
 .BottomBarIcon {
   min-width: 3vh;
 }
+=======
+.bottom {
+  height: 70px;
+  background-color: rgb(185, 169, 169);
+}
+>>>>>>> feature_FE_function

@@ -39,11 +39,22 @@ export default function FixedBottomNavigation() {
             }
           }}
         >
-          <BottomNavigationAction icon={<MailOutlineIcon />} />
-          <BottomNavigationAction icon={<HomeIcon />} />
-          <BottomNavigationAction icon={<MenuIcon />} />
-        </BottomNavigation>
-      </Paper>
-    </Box>
+          <BottomNavigation
+            showLabels
+            value={value}
+            onChange={(event, newValue) => {
+              setValue(newValue);
+            }}
+          >
+            <BottomNavigationAction
+              onClick={() => navigate("/main")}
+              icon={<MailOutlineIcon />}
+            />
+            <BottomNavigationAction icon={<HomeIcon />} />
+            <BottomNavigationAction icon={<MenuIcon />} />
+          </BottomNavigation>
+        </Paper>
+      </Box>
+    </div>
   );
 }

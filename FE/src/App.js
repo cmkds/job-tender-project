@@ -39,9 +39,9 @@ function App() {
             <Route path="/storage/*" element={<Storage />}></Route>
             <Route path="/:user" element={<User />}></Route>
           </Routes>
-          <BottomBar/>
+          <BottomBar />
         </div>
-        {/* <RouteTest /> */}
+        <RouteTest />
       </BrowserRouter>
     </div>
   );

@@ -8,10 +8,34 @@ const Menu = () => {
   const navigate = useNavigate();
   return (
     <div>
-      <MenuBar leftChild={"보관함"} rightChild={">"} />
-      <MenuBar leftChild={"공지사항"} rightChild={">"} />
-      <MenuBar leftChild={"로그박스 사용방법"} rightChild={">"} />
-      <MenuBar leftChild={"로그박스 위치"} rightChild={">"} />
+      <div
+        onClick={() => {
+          navigate("/storage");
+        }}
+      >
+        <MenuBar leftChild={"보관함"} rightChild={">"} />
+      </div>
+      <div
+        onClick={() => {
+          navigate("/logbox");
+        }}
+      >
+        <MenuBar leftChild={"로그박스 소개"} rightChild={">"} />
+      </div>
+      <div
+        onClick={() => {
+          navigate("/menual");
+        }}
+      >
+        <MenuBar leftChild={"로그박스 사용방법"} rightChild={">"} />
+      </div>
+      <div
+        onClick={() => {
+          navigate("/map");
+        }}
+      >
+        <MenuBar leftChild={"로그박스 위치"} rightChild={">"} />
+      </div>
     </div>
   );
 };
