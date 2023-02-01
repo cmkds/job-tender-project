@@ -117,17 +117,11 @@ header {
   height: 80%;
 }
 
-
 .logo {
   /* position: flex; */
   display: flex;
-<<<<<<< HEAD
-  margin:auto;
-  margin-top: 10%;
-=======
   margin: auto;
-  margin-top: 80px;
->>>>>>> feature_FE_function
+  margin-top: 10%;
   width: 300px;
   height: 270px;
   /* left: 23px;
@@ -210,7 +204,6 @@ topbar {
   background: #ffb9b9;
 }
 
-<<<<<<< HEAD
 .BottomBar {
   min-height: 6vh;
 }
@@ -218,9 +211,3 @@ topbar {
 .BottomBarIcon {
   min-width: 3vh;
 }
-=======
-.bottom {
-  height: 70px;
-  background-color: rgb(185, 169, 169);
-}
->>>>>>> feature_FE_function
