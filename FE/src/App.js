@@ -41,7 +41,7 @@ function App() {
           </Routes>
           <BottomBar/>
         </div>
-        {/* <RouteTest /> */}
+        <RouteTest />
       </BrowserRouter>
     </div>
   );

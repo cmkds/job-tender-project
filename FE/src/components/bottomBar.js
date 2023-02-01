@@ -1,6 +1,5 @@
 // feed, main, menu 버튼 컴포넌트
 import { useNavigate } from 'react-router-dom';
-
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -10,15 +9,11 @@ import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import HomeIcon from '@mui/icons-material/Home';
 import MenuIcon from '@mui/icons-material/Menu';
 import Paper from '@mui/material/Paper';
-// import { Link } from "react-router-dom";
-import Fab from '@mui/material/Fab'
 
 export default function FixedBottomNavigation() {
   const [value, setValue] = React.useState(null);
   const ref = React.useRef(null);
   const navigate = useNavigate()
-  const goMenu = navigate('/menu')
-
   return (
     <Box sx={{ pb: 7 }} ref={ref}>
       <CssBaseline />
@@ -27,21 +22,35 @@ export default function FixedBottomNavigation() {
           className="BottomBar"
           showLabels
           value={value}
-          
           onChange={(event, newValue) => {
             setValue(newValue);
           }}
           sx={{
             ' .Mui-selected':{
-              color:'#FFFFFF',
+              color: '#FFFFFF !important',
               bgcolor:'#FFB9B9',
-              borderRadius: '7px'
+              borderRadius: '7px',
             }
           }}
         >
-          <BottomNavigationAction icon={<MailOutlineIcon />} />
-          <BottomNavigationAction icon={<HomeIcon />} />
-          <BottomNavigationAction icon={<MenuIcon />} />
+          <BottomNavigationAction 
+            onClick={() => {
+              navigate("/feed")
+            }}
+            icon={<MailOutlineIcon />} 
+          />
+          <BottomNavigationAction 
+            onClick={() => {
+              navigate("/main")
+            }}
+            icon={<HomeIcon />} 
+          />
+          <BottomNavigationAction 
+            onClick={() => {
+              navigate("/menu")
+            }}
+            icon={<MenuIcon />} 
+          />
         </BottomNavigation>
       </Paper>
     </Box>
