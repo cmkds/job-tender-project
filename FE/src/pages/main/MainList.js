@@ -18,7 +18,7 @@ const MainList = () => {
 
   const feedArr = feedList.sort(compare);
 
-  // console.log(feedList);
+  console.log(feedList);
   console.log(feedArr);
   return (
     <div>

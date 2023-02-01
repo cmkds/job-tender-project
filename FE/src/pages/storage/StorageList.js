@@ -1,8 +1,17 @@
-// storage  전체 보관함 페이지
-// /storage
+import { useContext } from "react";
+import { StorageStateContext } from "../Storage";
+import StorageItem from "./StorageItem";
 
 const StorageList = () => {
-  return <div></div>;
+  const storageList = useContext(StorageStateContext);
+
+  return (
+    <div>
+      {storageList.map((it) => (
+        <StorageItem key={it.id} {...it} />
+      ))}
+    </div>
+  );
 };
 
 export default StorageList;

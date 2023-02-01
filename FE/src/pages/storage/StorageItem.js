@@ -1,14 +1,19 @@
-// /storage/:card-no
-// 엽서 상세 페이지 하나하나 보는거
+import { useNavigate } from "react-router-dom";
 
-// storage/:card-no
-// 버튼스
-
-// storage/:card-no
-// share
-
-const StorageItem = () => {
-  return <div></div>;
+const StorageItem = ({ id, photo_url, video_url, post_url }) => {
+  const navigate = useNavigate();
+  // console.log(photo_url);
+  return (
+    <div className="storage_wrapper">
+      {/* 날짜로 바뀜. */}
+      <p>{`${id}번 째 포스트`}</p>
+      <img
+        src={`${photo_url}`}
+        alt="사진이 없습니다."
+        onClick={() => navigate(`/storage/${id}`)}
+      />
+    </div>
+  );
 };
 
 export default StorageItem;
