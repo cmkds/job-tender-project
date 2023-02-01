@@ -10,7 +10,14 @@ const MainItem = (feedId) => {
 
   const findFeed = () => {};
 
-  return <div>{feedId.id}</div>;
+  return (
+    <div>
+      {feedId.id}
+      {feedsData.map((it) => (
+        <p></p>
+      ))}
+    </div>
+  );
 };
 
 export default MainItem;

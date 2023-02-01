@@ -121,11 +121,9 @@ header {
   /* position: flex; */
   display: flex;
   margin: auto;
-  margin-top: 10%;
-  width: 300px;
-  height: 270px;
-  /* left: 23px;
-  top: 122px; */
+  /* margin-top: 10%; */
+  /* width: 300px; */
+  width: 80%;
 }
 
 .postClosed {
@@ -210,4 +208,12 @@ topbar {
 
 .BottomBarIcon {
   min-width: 3vh;
+}
+
+.main {
+  /* display: flex; */
+  /* height: 700px; */
+  background-image: url("../public/assets/background/2.jpg");
+  background-size: cover;
+  /* justify-content: space-between; */
 }
