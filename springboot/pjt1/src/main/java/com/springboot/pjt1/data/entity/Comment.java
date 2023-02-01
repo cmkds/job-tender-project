@@ -17,15 +17,16 @@ public class Comment {
     @Column(nullable = false)
     private String content;
     @Temporal(TemporalType.TIMESTAMP)
+    @Column(nullable = false)
     private Date modifyTime;
     @Temporal(TemporalType.TIMESTAMP)
+    @Column(nullable = false)
     private Date createTime;
 
     // mapping
     @ManyToOne
     @JoinColumn(name = "memberSeq")
     private Member member;
-
     public void setMember(Member member){
         this.member = member;
     }

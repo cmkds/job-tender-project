@@ -15,11 +15,11 @@ public class Machine {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long machineSeq;
     @Temporal(TemporalType.TIMESTAMP)
+    @Column(nullable = false)
     private Date recentTime;
     @Temporal(TemporalType.TIMESTAMP)
+    @Column(nullable = false)
     private Date createTime;
-    @Column
-    private long locSeq;
 
     @OneToOne
     @JoinColumn(name = "MACHINE_LOCATION_SEQ")

@@ -11,10 +11,10 @@ public class MachineLocation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "MACHINE_LOCATION_SEQ")
-    long locSeq;
-    @Column
+    long machineLocationSeq;
+    @Column(nullable = false)
     String city;
-    @Column
+    @Column(nullable = false)
     String name;
 
     // mapping

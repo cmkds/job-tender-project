@@ -31,10 +31,12 @@ public class Member {
     @Column
     private String memberState;
     @Temporal(TemporalType.TIMESTAMP)
+    @Column(nullable = false)
     private Date createTime;
     @Temporal(TemporalType.TIMESTAMP)
+    @Column(nullable = false)
     private Date modifyTime;
-    @Column
+    @Column(nullable = false)
     private String isAdmin;
 
     // mapping

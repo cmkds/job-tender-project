@@ -22,8 +22,8 @@ public class MachineData {
     @Column
     private String voice;
     @Temporal(TemporalType.TIMESTAMP)
+    @Column(nullable = false)
     private Date createTime;
-
 
     // mapping
     @ManyToOne

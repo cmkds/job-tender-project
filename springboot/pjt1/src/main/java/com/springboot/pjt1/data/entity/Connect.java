@@ -14,18 +14,23 @@ public class Connect {
 //    @Column(name = "CONNECT_SEQ")
     private long connectSeq;
     @Temporal(TemporalType.TIMESTAMP)
+    @Column(nullable = false)
     private Date createTime;
-    @Column
-    private long follower; // fk
-    @Column
-    private long following; // fk
 
     // mapping
     @ManyToOne
     @JoinColumn(name = "memberSeq")
-    private Member member;
+    private Member follower;
 
-    public void setMember(Member member){
-        this.member = member;
+    public void setFollower(Member follower){
+        this.follower = follower;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "memberSeq")
+    private Member following;
+
+    public void setFollowing(Member following){
+        this.following = following;
     }
 }

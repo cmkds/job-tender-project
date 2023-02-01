@@ -16,13 +16,13 @@ public class Notice {
     @Column
     String content;
     @Temporal(TemporalType.TIMESTAMP)
+    @Column(nullable = false)
     private Date createTime;
     @Column
     private long createSeq;
     @Temporal(TemporalType.TIMESTAMP)
+    @Column(nullable = false)
     private Date modifyTime;
-    @Column
-    private long modifySeq;
     @Column
     private int hit;
 

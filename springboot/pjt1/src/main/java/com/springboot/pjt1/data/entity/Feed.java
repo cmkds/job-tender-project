@@ -22,15 +22,20 @@ public class Feed {
     @Column(nullable = false)
     private int heart;
     @Temporal(TemporalType.TIMESTAMP)
+    @Column(nullable = false)
     private Date createTime;
     @Temporal(TemporalType.TIMESTAMP)
+    @Column(nullable = false)
     private Date modifyTime;
 
     // mapping
-
 
     // member
     @ManyToOne
     @JoinColumn(name = "memberSeq")
     private Member member;
+
+    public void setMember(Member member){
+        this.member = member;
+    }
 }

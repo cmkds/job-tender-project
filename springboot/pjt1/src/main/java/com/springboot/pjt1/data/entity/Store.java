@@ -22,13 +22,11 @@ public class Store {
     @Column
     private String voice;
     @Temporal(TemporalType.TIMESTAMP)
+    @Column(nullable = false)
     private Date createTime;
-    @Column
-    private long createSeq;
     @Temporal(TemporalType.TIMESTAMP)
+    @Column(nullable = false)
     private Date recentTime;
-    @Column
-    private long recentSeq;
 
     // mapping
     @ManyToOne
