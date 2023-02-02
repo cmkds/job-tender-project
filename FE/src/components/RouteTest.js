@@ -19,7 +19,7 @@ const RouteTest = () => {
       <br />
       <Link to={"/storage"}>storage</Link>
       <br />
-      <Link to={"/:user"}>user</Link>
+      <Link to={"/user/1"}>user</Link>
       <br />
       {/* 테스트용 comment/1 */}
       <Link to={"/comment/1"}>comment</Link>

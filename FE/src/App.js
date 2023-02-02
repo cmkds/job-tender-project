@@ -38,7 +38,7 @@ function App() {
             <Route path="/logbox" element={<LogBox />}></Route>
             <Route path="/feed/:id" element={<Feed />}></Route>
             <Route path="/storage/*" element={<Storage />}></Route>
-            <Route path="/:user" element={<User />}></Route>
+            <Route path="/user/*" element={<User />}></Route>
             <Route path="/Comment/:feedId" element={<Comment />}></Route>
           </Routes>
           <BottomBar />
