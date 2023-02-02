@@ -5,10 +5,10 @@
 // 아니면 일반 개인 피드 페이지
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import Follower from "./user/Follower";
-import Following from "./user/Following";
-import UserItem from "./user/UserItem";
-import UserList from "./user/UserList";
+import Follower from "../components/user/Follower";
+import Following from "../components/user/Following";
+import UserItem from "../components/user/UserItem";
+import UserList from "../components/user/UserList";
 
 const User = () => {
   return (

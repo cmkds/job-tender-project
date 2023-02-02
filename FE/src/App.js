@@ -16,6 +16,7 @@ import LogBox from "./pages/LogBox";
 import Feed from "./pages/Feed";
 import Storage from "./pages/Storage";
 import User from "./pages/User";
+import Comment from "./pages/Comment";
 import BottomBar from "./components/BottomBar";
 
 function App() {
@@ -38,6 +39,7 @@ function App() {
             <Route path="/feed/:id" element={<Feed />}></Route>
             <Route path="/storage/*" element={<Storage />}></Route>
             <Route path="/:user" element={<User />}></Route>
+            <Route path="/Comment/:feedId" element={<Comment />}></Route>
           </Routes>
           <BottomBar />
         </div>

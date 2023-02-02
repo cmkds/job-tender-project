@@ -1,7 +1,7 @@
 // 댓글 컴포넌트
 // 해당 댓글 id를 가져와서
 // 해당 유저의 목록과 글의 내용을 가져온다
-
+import CommentItem from "./CommentItem";
 // api로 통신
 const dummyData = [
   {
@@ -18,13 +18,13 @@ const dummyData = [
   },
 ];
 
-const Comment = () => {
+const CommentList = () => {
   <div>
     {dummyData.map((it) => (
-      <CommentsItem key={it.id} {...it} />
+      <CommentItem key={it.id} {...it} />
     ))}
   </div>;
   return;
 };
 
-export default Comment;
+export default CommentList;

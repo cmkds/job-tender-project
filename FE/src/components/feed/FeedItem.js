@@ -1,14 +1,16 @@
 import { useContext } from "react";
-import { MainStateContext } from "../Main";
-
-const MainItem = (feedId) => {
-  const followersData = useContext(MainStateContext)[0];
-  const feedsData = useContext(MainStateContext)[1];
+import { useNavigate } from "react-router-dom";
+import { FeedStateContext } from "../../pages/Feed";
+import Profile from "../Profile";
+const FeedItem = (feedId) => {
+  const followersData = useContext(FeedStateContext)[0];
+  const feedsData = useContext(FeedStateContext)[1];
   // console.log(feedId);
   // console.log(followersData);
   // console.log(feedId.id);
   // console.log(feedsData[0].id);
   // console.log(feedsData[1].id);
+  const navigate = useNavigate();
 
   const findFeed = () => {
     let temp = feedsData.filter((it) => Object.values(feedId).includes(it.id));
@@ -21,7 +23,15 @@ const MainItem = (feedId) => {
   if (check.length) {
     return (
       <div>
+        {/* 유저 아이디 넣기 */}
+        <Profile />
+        {/* array는 [인덱스] 객체는 .key이름 */}
         <img src={check[0].context.post_image} />
+        <p>{check[0].id}번 째 피드</p>
+        {/* 댓글 넣기 요건 네비게이트로 감.*/}
+        <button onClick={() => navigate(`/comment/${check[0].id}`)}>
+          댓글 보기
+        </button>
       </div>
     );
   }
@@ -51,4 +61,4 @@ const MainItem = (feedId) => {
   // );
 };
 
-export default MainItem;
+export default FeedItem;

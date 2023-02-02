@@ -1,12 +1,12 @@
 import { useContext } from "react";
-import MainItem from "./MainItem";
-import { MainStateContext } from "../Main";
+import FeedItem from "./FeedItem";
+import { FeedStateContext } from "../../pages/Feed";
 
-const MainList = () => {
-  const MainList = useContext(MainStateContext)[0];
+const FeedList = () => {
+  const FeedList = useContext(FeedStateContext)[0];
 
   const feedList = [];
-  const makeFeedList = MainList.map((it) =>
+  const makeFeedList = FeedList.map((it) =>
     it.feeds.map((that) => feedList.push({ id: that }))
   );
 
@@ -23,10 +23,10 @@ const MainList = () => {
   return (
     <div>
       {feedList.map((it) => (
-        <MainItem key={it.id} {...it} />
+        <FeedItem key={it.id} {...it} />
       ))}
     </div>
   );
 };
 
-export default MainList;
+export default FeedList;

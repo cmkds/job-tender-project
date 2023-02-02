@@ -20,6 +20,7 @@ const RouteTest = () => {
       <Link to={"/storage"}>storage</Link>
       <br />
       <Link to={"/:user"}>user</Link>
+      <textarea name="" id="" cols="30" rows="10"></textarea>
     </>
   );
 };
