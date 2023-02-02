@@ -12,6 +12,9 @@ import com.springboot.pjt1.data.entity.Member;
 import com.springboot.pjt1.service.FeedService;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class FeedServiceImpl implements FeedService {
     private final FeedDAO feedDAO;
@@ -37,6 +40,113 @@ public class FeedServiceImpl implements FeedService {
         feedDTO.setMemberSeq(feed.getMember().getMemberSeq());
 
         return feedDTO;
+    }
+
+    @Override
+    public List<FeedDTO> getFeedAll() {
+        List<Feed> feeds = feedDAO.SelectFeedAll();
+        List<FeedDTO> feedDTOs = new ArrayList<>();
+
+        for (int i = 0; i < feeds.size(); i++){
+            FeedDTO feedDTO = new FeedDTO();
+
+            feedDTO.setFeedSeq(feeds.get(i).getFeedSeq());
+            feedDTO.setContent(feeds.get(i).getContent());
+            feedDTO.setPost(feeds.get(i).getPost());
+            feedDTO.setCreateTime(feeds.get(i).getCreateTime());
+            feedDTO.setCreateTime(feeds.get(i).getCreateTime());
+            feedDTO.setHeart(feeds.get(i).getHeart());
+            feedDTO.setMemberSeq(feeds.get(i).getMember().getMemberSeq());
+
+            feedDTOs.add(feedDTO);
+        }
+
+        return feedDTOs;
+    }
+
+    @Override
+    public List<FeedDTO> getFeedAllOrderByHeart() {
+        List<Feed> feeds = feedDAO.SelectFeedAllOrderByHeart();
+        List<FeedDTO> feedDTOs = new ArrayList<>();
+
+        for (int i = 0; i < feeds.size(); i++){
+            FeedDTO feedDTO = new FeedDTO();
+
+            feedDTO.setFeedSeq(feeds.get(i).getFeedSeq());
+            feedDTO.setContent(feeds.get(i).getContent());
+            feedDTO.setPost(feeds.get(i).getPost());
+            feedDTO.setCreateTime(feeds.get(i).getCreateTime());
+            feedDTO.setCreateTime(feeds.get(i).getCreateTime());
+            feedDTO.setHeart(feeds.get(i).getHeart());
+            feedDTO.setMemberSeq(feeds.get(i).getMember().getMemberSeq());
+
+            feedDTOs.add(feedDTO);
+        }
+
+        return feedDTOs;
+    }
+
+    @Override
+    public List<FeedDTO> getFeedAllOrderByCreateTime() {
+        List<Feed> feeds = feedDAO.SelectFeedAllOrderByCreateTime();
+        List<FeedDTO> feedDTOs = new ArrayList<>();
+
+        for (int i = 0; i < feeds.size(); i++){
+            FeedDTO feedDTO = new FeedDTO();
+
+            feedDTO.setFeedSeq(feeds.get(i).getFeedSeq());
+            feedDTO.setContent(feeds.get(i).getContent());
+            feedDTO.setPost(feeds.get(i).getPost());
+            feedDTO.setCreateTime(feeds.get(i).getCreateTime());
+            feedDTO.setCreateTime(feeds.get(i).getCreateTime());
+            feedDTO.setHeart(feeds.get(i).getHeart());
+            feedDTO.setMemberSeq(feeds.get(i).getMember().getMemberSeq());
+
+            feedDTOs.add(feedDTO);
+        }
+        return feedDTOs;
+    }
+
+    @Override
+    public List<FeedDTO> getFeedAllOrderByHeartByCity(String city) {
+        List<Feed> feeds = feedDAO.SelectFeedAllOrderByHeartByCity(city);
+        List<FeedDTO> feedDTOs = new ArrayList<>();
+
+        for (int i = 0; i < feeds.size(); i++){
+            FeedDTO feedDTO = new FeedDTO();
+
+            feedDTO.setFeedSeq(feeds.get(i).getFeedSeq());
+            feedDTO.setContent(feeds.get(i).getContent());
+            feedDTO.setPost(feeds.get(i).getPost());
+            feedDTO.setCreateTime(feeds.get(i).getCreateTime());
+            feedDTO.setCreateTime(feeds.get(i).getCreateTime());
+            feedDTO.setHeart(feeds.get(i).getHeart());
+            feedDTO.setMemberSeq(feeds.get(i).getMember().getMemberSeq());
+
+            feedDTOs.add(feedDTO);
+        }
+        return feedDTOs;
+    }
+
+    @Override
+    public List<FeedDTO> getFeedAllOrderByCreateTimeByCity(String city) {
+        List<Feed> feeds = feedDAO.SelectFeedAllOrderByCreateTimeByCity(city);
+        List<FeedDTO> feedDTOs = new ArrayList<>();
+
+        for (int i = 0; i < feeds.size(); i++){
+            FeedDTO feedDTO = new FeedDTO();
+
+            feedDTO.setFeedSeq(feeds.get(i).getFeedSeq());
+            feedDTO.setContent(feeds.get(i).getContent());
+            feedDTO.setPost(feeds.get(i).getPost());
+            feedDTO.setCreateTime(feeds.get(i).getCreateTime());
+            feedDTO.setCreateTime(feeds.get(i).getCreateTime());
+            feedDTO.setHeart(feeds.get(i).getHeart());
+            feedDTO.setMemberSeq(feeds.get(i).getMember().getMemberSeq());
+
+            feedDTOs.add(feedDTO);
+        }
+        return feedDTOs;
     }
 
     @Override
@@ -91,5 +201,27 @@ public class FeedServiceImpl implements FeedService {
     @Override
     public void deleteFeed(long feedSeq) throws Exception {
         feedDAO.DeleteFeedById(feedSeq);
+    }
+
+    @Override
+    public List<FeedDTO> getFollowerFeed(long memberSeq) {
+        List<Feed> feeds = feedDAO.SelectFollowerFeed(memberSeq);
+        List<FeedDTO> feedDTOs = new ArrayList<>();
+
+        for (int i = 0; i < feeds.size(); i++){
+            FeedDTO feedDTO = new FeedDTO();
+
+            feedDTO.setFeedSeq(feeds.get(i).getFeedSeq());
+            feedDTO.setContent(feeds.get(i).getContent());
+            feedDTO.setPost(feeds.get(i).getPost());
+            feedDTO.setCreateTime(feeds.get(i).getCreateTime());
+            feedDTO.setCreateTime(feeds.get(i).getCreateTime());
+            feedDTO.setHeart(feeds.get(i).getHeart());
+            feedDTO.setMemberSeq(feeds.get(i).getMember().getMemberSeq());
+
+            feedDTOs.add(feedDTO);
+        }
+
+        return feedDTOs;
     }
 }

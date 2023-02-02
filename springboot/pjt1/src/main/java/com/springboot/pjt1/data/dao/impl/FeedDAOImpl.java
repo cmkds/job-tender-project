@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 @Component
@@ -31,6 +32,41 @@ public class FeedDAOImpl implements FeedDAO {
         Feed selectedFeed = feedRepository.getById(feedSeq);
 
         return selectedFeed;
+    }
+
+    @Override
+    public List<Feed> SelectFeedAll() {
+        List<Feed> selectedFeeds = feedRepository.findAll();
+
+        return selectedFeeds;
+    }
+
+    @Override
+    public List<Feed> SelectFeedAllOrderByHeart() {
+        List<Feed> selectedFeeds = feedRepository.findAllByOrderByHeartAsc();
+
+        return selectedFeeds;
+    }
+
+    @Override
+    public List<Feed> SelectFeedAllOrderByCreateTime() {
+        List<Feed> selectedFeeds = feedRepository.findAllByOrderByCreateTimeAsc();//
+
+        return selectedFeeds;
+    }
+
+    @Override
+    public List<Feed> SelectFeedAllOrderByHeartByCity(String city) {
+        List<Feed> selectedFeeds = feedRepository.findAllByOrderByHeartAsc();//
+
+        return selectedFeeds;
+    }
+
+    @Override
+    public List<Feed> SelectFeedAllOrderByCreateTimeByCity(String city) {
+        List<Feed> selectedFeeds = feedRepository.findAllByOrderByCreateTimeAsc();//
+
+        return selectedFeeds;
     }
 
     @Override
@@ -68,5 +104,12 @@ public class FeedDAOImpl implements FeedDAO {
 
         else
             throw new Exception();
+    }
+
+    @Override
+    public List<Feed> SelectFollowerFeed(long memberSeq) {
+        List<Feed> feeds = feedRepository.findByMember(memberSeq);
+
+        return feeds;
     }
 }

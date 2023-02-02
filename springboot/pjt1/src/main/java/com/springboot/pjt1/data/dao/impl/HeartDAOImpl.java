@@ -27,14 +27,21 @@ public class HeartDAOImpl implements HeartDAO{
     }
 
     @Override
-    public Heart SelectHeartById(Long HeartSeq) {
+    public Heart SelectHeartById(long HeartSeq) {
         Heart SelectedHeart = heartRepository.getById(HeartSeq);
 
         return SelectedHeart;
     }
 
     @Override
-    public void deleteHeartById(Long HeartSeq) throws Exception {
+    public Heart SelectHeartByFeedAndMember(long feedSeq, long memberSeq) {
+        Optional<Heart> selectedHeart = heartRepository.findByFeedAndMember(feedSeq, memberSeq);
+
+        return selectedHeart.isPresent() ? selectedHeart.get() : null;
+    }
+
+    @Override
+    public void deleteHeartById(long HeartSeq) throws Exception {
         Optional<Heart> SelectedHeart = heartRepository.findById(HeartSeq);
         
         if (SelectedHeart.isPresent()){

@@ -75,6 +75,8 @@ public class MemberDAOImpl implements MemberDAO {
             member.setNickname(memberInitDTO.getNickname());
             member.setMemberProfile(memberInitDTO.getMemberProfile());
             member.setMemberState(memberInitDTO.getMemberState());
+            member.setCreateTime(new Date());
+            member.setModifyTime(new Date());
 
             updatedMember = memberRepository.save(member);
         }

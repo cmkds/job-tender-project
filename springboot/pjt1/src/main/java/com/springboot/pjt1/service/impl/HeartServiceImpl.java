@@ -35,6 +35,35 @@ public class HeartServiceImpl implements HeartService {
 
         return heartDTO;
     }
+
+    @Override
+    public HeartDTO getHeartByFeedAndMember(long feedSeq, long memberSeq) {
+        Heart heart = heartDAO.SelectHeartByFeedAndMember(feedSeq, memberSeq);
+
+        if (heart == null)
+            return null;
+
+        HeartDTO heartDTO = new HeartDTO();
+
+        heartDTO.setHeartSeq(heart.getHeartSeq());
+        heartDTO.setCreateTime(heart.getCreateTime());
+        heartDTO.setMemberSeq(heart.getMember().getMemberSeq());
+        heartDTO.setFeedSeq(heart.getFeed().getFeedSeq());
+
+        return heartDTO;
+    }
+
+    public HeartDTO getHeartByFeedAndMember(long heartSeq) {
+        Heart heart = heartDAO.SelectHeartById(heartSeq);
+        HeartDTO heartDTO = new HeartDTO();
+
+        heartDTO.setHeartSeq(heart.getHeartSeq());
+        heartDTO.setCreateTime(heart.getCreateTime());
+        heartDTO.setMemberSeq(heart.getMember().getMemberSeq());
+        heartDTO.setFeedSeq(heart.getFeed().getFeedSeq());
+
+        return heartDTO;
+    }
     @Override
     public HeartDTO insertHeart(HeartDTO heartDTO) throws Exception {
         Heart heart = new Heart();

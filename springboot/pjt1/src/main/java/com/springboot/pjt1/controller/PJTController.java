@@ -127,10 +127,78 @@ public class PJTController {
         return ResponseEntity.status(HttpStatus.OK).body(memberService.findNickname(nickname));
     }
 
-    @PutMapping("/account/{id}")
-    public ResponseEntity<MemberDTO> updateMemberInit(@RequestBody MemberInitDTO memberInitDTO, @PathVariable long id) throws  Exception{
-        MemberDTO rmemberDTO = memberService.updateMember(id, memberInitDTO);
+    @PutMapping("/account/{memberSeq}")
+    public ResponseEntity<MemberDTO> updateMemberInit(@RequestBody MemberInitDTO memberInitDTO, @PathVariable long memberSeq) throws  Exception{
+        MemberDTO rmemberDTO = memberService.updateMember(memberSeq, memberInitDTO);
 
         return ResponseEntity.status(HttpStatus.OK).body(rmemberDTO);
+    }
+
+    @DeleteMapping("/account/{memberSeq}")
+    public ResponseEntity<Void> deleteMember(@PathVariable long memberSeq) throws Exception{
+        memberService.deleteMember(memberSeq);
+
+        return new ResponseEntity<Void>(HttpStatus.OK);
+    }
+
+    @GetMapping("/main/hot")
+    public ResponseEntity<List<FeedDTO>> getHotFeed(){
+        List<FeedDTO> feedDTOList = feedService.getFeedAllOrderByHeart();
+        return ResponseEntity.status(HttpStatus.OK).body(feedDTOList);
+    }
+
+    @GetMapping("/main/new")
+    public ResponseEntity<List<FeedDTO>> getNewFeed(){
+        List<FeedDTO> feedDTOList = feedService.getFeedAllOrderByCreateTime();
+        return ResponseEntity.status(HttpStatus.OK).body(feedDTOList);
+    }
+
+    @GetMapping("/main/hot/{city}")
+    public ResponseEntity<List<FeedDTO>> getHotFeedByCity(@PathVariable String city){
+        List<FeedDTO> feedDTOList = feedService.getFeedAllOrderByHeartByCity(city);
+        return ResponseEntity.status(HttpStatus.OK).body(feedDTOList);
+    }
+
+    @GetMapping("/main/new/{city}")
+    public ResponseEntity<List<FeedDTO>> getNewFeedByCity(@PathVariable String city){
+        List<FeedDTO> feedDTOList = feedService.getFeedAllOrderByCreateTimeByCity(city);
+        return ResponseEntity.status(HttpStatus.OK).body(feedDTOList);
+    }
+
+    @PostMapping("/heart")
+    public ResponseEntity<HeartDTO> createHeart(@RequestBody HeartDTO heartDTO) throws Exception{
+        HeartDTO rHeartDTO = heartService.insertHeart(heartDTO);
+
+        return ResponseEntity.status(HttpStatus.OK).body(rHeartDTO);
+    }
+
+    @DeleteMapping("/heart/{feedSeq}/{memberSeq}")
+    public ResponseEntity<Void> deleteHeart(@PathVariable long feedSeq, @PathVariable long memberSeq) throws Exception{
+        HeartDTO heartDTO = heartService.getHeartByFeedAndMember(feedSeq, memberSeq);
+        if (heartDTO == null)
+            return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
+
+        else {
+            heartService.deleteHeart(heartDTO.getHeartSeq());
+            return new ResponseEntity<Void>(HttpStatus.OK);
+        }
+    }
+
+    @GetMapping("/heart/{feedSeq}/{memberSeq}")
+    public ResponseEntity<Boolean> getHeart(@PathVariable long feedSeq, @PathVariable long memberSeq){
+        HeartDTO heartDTO = heartService.getHeartByFeedAndMember(feedSeq, memberSeq);
+
+        if (heartDTO == null)
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(false);
+
+        else
+            return ResponseEntity.status(HttpStatus.OK).body(true);
+    }
+
+    @GetMapping()
+    public ResponseEntity<List<FeedDTO>> getFollowerFeed(long memberSeq){
+        List<FeedDTO> feedDtos = feedService.getFollowerFeed(memberSeq);
+
+        return ResponseEntity.status(HttpStatus.OK).body(feedDtos);
     }
 }
