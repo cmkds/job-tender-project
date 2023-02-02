@@ -1,5 +1,6 @@
 from PyQt5 import QtWidgets, QtCore
 from PyQt5.QtWidgets import *
+from PyQt5.QtGui import *
 from PyQt5.uic import loadUi
 from PyQt5.QtCore import *
 import sys
@@ -227,11 +228,54 @@ class BackgroundPage(QWidget):
 
 class MemoPage(QWidget):
     command = QtCore.pyqtSignal(int)  # 신호 생성
+    clear_command = QtCore.pyqtSignal(int)
+    plus_command = QtCore.pyqtSignal(int)
+    minus_command = QtCore.pyqtSignal(int)
+    color_command = QtCore.pyqtSignal(int)
+    save_command = QtCore.pyqtSignal(int)
+    #pen_size = 5
+    #pen_color = Qt.black
     def __init__(self):
         super(MemoPage, self).__init__()
         loadUi("MemoPage.ui", self)
         backgroundPage.command.connect(self.createTimer)
-        #self.time = 180
+        self.memowidget = MyApp(self.clear_command, self.plus_command, self.minus_command, self.color_command, self.save_command)
+        self.exlayout.addWidget(self.memowidget)
+        self.flag = 1
+        self.redBtn.setHidden(True)
+        self.blueBtn.setHidden(True)
+        self.blackBtn.setHidden(True)
+
+
+    def plusSize(self):
+        self.plus_command.emit(1)
+
+    def minusSize(self):
+        self.minus_command.emit(1)
+
+    def changeColor(self):
+        if self.flag == 0:
+            self.redBtn.setHidden(True)
+            self.blueBtn.setHidden(True)
+            self.blackBtn.setHidden(True)
+            self.flag = 1
+        else:
+            self.redBtn.setHidden(False)
+            self.blueBtn.setHidden(False)
+            self.blackBtn.setHidden(False)
+            self.flag = 0
+
+    def changeRed(self):
+        self.color_command.emit(1)
+
+    def changeBlue(self):
+        self.color_command.emit(2)
+
+    def changeBlack(self):
+        self.color_command.emit(3)
+
+    def clear(self):
+        self.clear_command.emit(1)
 
     def createTimer(self):
         self.time = 180
@@ -245,14 +289,82 @@ class MemoPage(QWidget):
         self.lcdNumber.display(self.time)
         if self.time == 0:
             self.timerVar.stop()
+            self.changePage()
 
     def changePage(self):
+        self.save_command.emit(1)
         widget.setCurrentIndex(widget.currentIndex()+1)
-        print("wow1")
         self.command.emit(1) #신호 전송
-        print("wow2")
 
 
+class MyApp(QWidget):
+    def __init__(self, clear_command, plus_command, minus_command, color_command, save_command):
+        super().__init__()
+        self.image = QImage(QSize(858, 598), QImage.Format_RGB32)
+        self.image.fill(Qt.white)
+        self.drawing = False
+        clear_command.connect(self.clear_r)
+        plus_command.connect(self.plusSize_r)
+        minus_command.connect(self.minusSize_r)
+        color_command.connect(self.color)
+        save_command.connect(self.save)
+        self.brush_size = 5
+        self.brush_color = Qt.black
+        self.last_point = QPoint()
+        #self.initUI()
+        ##self.cor = []
+        ##self.sub_cor = []
+
+    def color(self, num):
+        if num == 1:
+            self.brush_color = Qt.red
+        elif num == 2:
+            self.brush_color = Qt.blue
+        elif num == 3:
+            self.brush_color = Qt.black
+
+    def clear_r(self, num):
+        self.image.fill(Qt.white)
+        self.update()
+
+    def plusSize_r(self):
+        self.brush_size += 1
+
+    def minusSize_r(self):
+        if self.brush_size >= 1:
+            self.brush_size -= 1
+        else:
+            self.brush_size = 1
+
+    def paintEvent(self, e):
+        canvas = QPainter(self)
+        canvas.drawImage(self.rect(), self.image, self.image.rect())
+
+    def mousePressEvent(self, e):
+        if e.button() == Qt.LeftButton:
+            self.drawing = True
+            self.last_point = e.pos()
+
+    def mouseMoveEvent(self, e):
+        if (e.buttons() & Qt.LeftButton) & self.drawing:
+            painter = QPainter(self.image)
+            painter.setPen(QPen(self.brush_color, self.brush_size, Qt.SolidLine, Qt.RoundCap))
+            painter.drawLine(self.last_point, e.pos())
+            self.last_point = e.pos()
+            self.update()
+
+    def mouseReleaseEvent(self, e):
+        if e.button() == Qt.LeftButton:
+            self.drawing = False
+            ##self.cor.append(self.sub_cor[:])
+
+    def save(self):
+        fpath = './memo/memo1.jpg'
+        self.image.save(fpath, "JPEG")
+        self.image.fill(Qt.white)
+        self.update()
+
+###
 class AddressPage(QWidget):
     command = QtCore.pyqtSignal(int)
     def __init__(self):
@@ -442,8 +554,10 @@ if __name__ == "__main__" :
     widget.addWidget(finishPage)
 
     #프로그램 화면을 보여주는 코드
-    widget.setFixedHeight(600)
-    widget.setFixedWidth(1024)
+    #widget.setFixedHeight(796)
+    #widget.setFixedWidth(1152)
+    widget.setFixedHeight(850)
+    widget.setFixedWidth(1530)
     widget.show()
 
     #프로그램을 이벤트루프로 진입시키는(프로그램을 작동시키는) 코드
