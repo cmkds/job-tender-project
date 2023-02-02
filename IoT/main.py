@@ -1,12 +1,128 @@
-from PyQt5 import QtWidgets, QtCore
+from PyQt5 import QtWidgets, QtCore, QtGui
 from PyQt5.QtWidgets import *
 from PyQt5.uic import loadUi
 from PyQt5.QtCore import *
 import sys
-from PyQt5.QtGui import QPalette, QPixmap, QBrush
+import cv2
+from time import sleep
+from PyQt5.QtGui import *
 from PyQt5.QtGui import QFontDatabase, QFont
 import startres_rc
 import image_rc
+
+# 사진 촬영 완료 Flag
+pictureFin = False
+
+class CameraThread(QThread):
+    def __init__(self , frameNum):
+        super().__init__()
+        picturePage1.command.connect(self.takePicture)
+        self.frameNum = frameNum
+        print(self.frameNum)
+        # 카메라 상수
+        self.resolution = [1280, 720]
+
+        #frame1 138 : 70
+        #frame2 55 : 93
+        self.pictureRatio = [[138,70],[55,93]]
+        self.screenSize = [
+            [1000, 508],
+            [414,700]
+        ]
+
+    def run(self):
+
+        #frame1 가로 138 , 세로 70 -> 1000 * 508
+        #frame2 가로 55 , 세로 93 -> 414 * 700
+
+        picturePage1.pictureStreaming.resize(self.screenSize[self.frameNum-1][0],self.screenSize[self.frameNum-1][1])
+        #picturePage1.pictureStreaming.resize(414, 700)
+        self.cam = cv2.VideoCapture(0)
+
+        self.cam.set(cv2.CAP_PROP_FRAME_WIDTH, self.resolution[0])
+        self.cam.set(cv2.CAP_PROP_FRAME_HEIGHT, self.resolution[1])
+
+        #self.cam.set(cv2.CAP_PROP_FRAME_WIDTH, 1600)
+        #self.cam.set(cv2.CAP_PROP_FRAME_HEIGHT, 900)
+
+        fps = self.cam.get(cv2.CAP_PROP_FPS)
+
+        print(fps)
+
+        if fps == 0.0:
+            fps = 30.0
+
+        TIME_PER_FRAME = 1 / fps
+
+        while self.cameraFlag:
+            ret, img = self.cam.read()
+            #자르기
+
+            if ret:
+                img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+                # img[세로 , 가로]
+
+                if self.frameNum == 1:
+                    afterHeight = (self.resolution[0] * self.pictureRatio[self.frameNum - 1][1]) // self.pictureRatio[self.frameNum - 1][0]
+                    temp = (self.resolution[1] - afterHeight) // 2
+                    img2 = img[temp:(self.resolution[1] -temp), :]
+                elif self.frameNum == 2:
+                    afterWidth = (self.resolution[1] * self.pictureRatio[self.frameNum - 1][0]) // self.pictureRatio[self.frameNum-1][1]
+                    temp = (self.resolution[0] - afterWidth) // 2
+                    img2 = img[:, temp:(self.resolution[0] - temp)]
+
+
+                resizeImg = cv2.resize(img2, (self.screenSize[self.frameNum-1][0], self.screenSize[self.frameNum-1][1]), interpolation=cv2.INTER_CUBIC)
+
+                h,w,c = resizeImg.shape
+                qImg = QImage(resizeImg.data,w,h,w*c, QImage.Format_RGB888)
+                streamingPixmap = QPixmap.fromImage(qImg)
+                picturePage1.pictureStreaming.setPixmap(streamingPixmap)
+            else:
+                print("streampicture x")
+
+            sleep(TIME_PER_FRAME)
+            print("sleeping")
+
+        self.cam.release()
+        print("cam off")
+
+    def takePicture(self, cnt):
+        global pictureFin
+        ret, img = self.cam.read()
+
+        if ret:
+            if self.frameNum == 1:
+                afterHeight = (self.resolution[0] * self.pictureRatio[self.frameNum - 1][1]) // \
+                              self.pictureRatio[self.frameNum - 1][0]
+                temp = (self.resolution[1] - afterHeight) // 2
+                img2 = img[temp:(self.resolution[1] - temp), :]
+            elif self.frameNum == 2:
+                afterWidth = (self.resolution[1] * self.pictureRatio[self.frameNum - 1][0]) // \
+                             self.pictureRatio[self.frameNum - 1][1]
+                temp = (self.resolution[0] - afterWidth) // 2
+                img2 = img[:, temp:(self.resolution[0] - temp)]
+
+            # img = cv2.flip(img, 1)
+            cv2.imwrite('./picture/photo{}.jpg'.format(cnt), img)
+            cv2.imwrite('./picture/photo{}(2).jpg'.format(cnt), img2)
+
+            self.cameraFlag = False
+
+            img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+
+            resizeImg = cv2.resize(img2, (self.screenSize[self.frameNum-1][0], self.screenSize[self.frameNum-1][1]), interpolation=cv2.INTER_CUBIC)
+
+            h, w, c = resizeImg.shape
+            qImg = QImage(resizeImg.data, w, h, w * c, QImage.Format_RGB888)
+            picturePixmap = QPixmap.fromImage(qImg)
+            picturePage1.pictureStreaming.setPixmap(picturePixmap)
+            print("사진{}".format(cnt))
+            sleep(1)
+            pictureFin = True
+        else:
+            print("takepicture x")
+
 
 
 class StartPage(QWidget):
@@ -50,7 +166,9 @@ class SelectFramePage(QWidget):
 
 
 class CostPage(QWidget):
-    command = QtCore.pyqtSignal(int)
+    commandTimer = QtCore.pyqtSignal(int)
+    commandCamera = QtCore.pyqtSignal(int)
+
     def __init__(self):
         super(CostPage, self).__init__()
         loadUi("CostPage.ui", self)
@@ -61,80 +179,76 @@ class CostPage(QWidget):
             self.changePage()
 
     def changePage(self):
-        if selectFramePage.selectNum == 1:
-            self.command.emit(selectFramePage.selectNum)
-            widget.setCurrentIndex(3)
-        elif selectFramePage.selectNum == 2:
-            self.command.emit(selectFramePage.selectNum)
-            widget.setCurrentIndex(4)
+        self.commandTimer.emit(selectFramePage.selectNum)
+        widget.setCurrentIndex(widget.currentIndex()+1)
+        self.commandCamera.emit(selectFramePage.selectNum)
+
 
 
 
 class PicturePage1(QWidget):
+    command = QtCore.pyqtSignal(int)
+    upload_command = QtCore.pyqtSignal(int)
     def __init__(self):
         super(PicturePage1, self).__init__()
         loadUi("PicturePage1.ui",self)
         #self.costTempBtn.clicked.connect(self.changePage)
-
-        #사진 찍는 시간 타이머
-        #self.time = 11
         self.lcdNumber.setDigitCount(2)
-        costPage.command.connect(self.createTimer)
+        costPage.commandTimer.connect(self.createTimer)
+        costPage.commandCamera.connect(self.showCamera)
+
+        self.pictureCnt = 0
+
+    #카메라 쓰레드 실행
 
 
-    def createTimer(self,num):
-        if num == 1:
-            self.time = 11
-            self.timerVar = QTimer()
-            self.timerVar.setInterval(1000)
-            self.timerVar.timeout.connect(self.printTime)
-            self.timerVar.start()
+    def showCamera(self):
+        self.camThread = CameraThread(selectFramePage.selectNum)
+        self.camThread.start()
+        self.camThread.cameraFlag = True
+
+    def createTimer(self):
+        self.time = 11
+        self.timerVar = QTimer()
+        self.timerVar.setInterval(1000)
+        self.timerVar.timeout.connect(self.printTime)
+        self.timerVar.start()
 
     def printTime(self):
         self.time -= 1
         self.lcdNumber.display(self.time)
         #self.timer.setText(str(self.time))
         if self.time == 0:
-            self.timerVar.stop()
-        print(self.time)
-
-    def changePage(self):
-        self.timerVar.stop()
-        widget.setCurrentIndex(5)
-
-
-class PicturePage2(QWidget):
-    def __init__(self):
-        super(PicturePage2, self).__init__()
-        loadUi("PicturePage2.ui",self)
-        #self.costTempBtn.clicked.connect(self.changePage)
-        #사진 찍는 시간 타이머
-        #self.time = 11
-        self.lcdNumber.setDigitCount(2)
-        costPage.command.connect(self.createTimer)
-
-
-
-    def createTimer(self, num):
-        if num == 2:
             self.time = 11
-            self.timerVar = QTimer()
-            self.timerVar.setInterval(1000)
-            self.timerVar.timeout.connect(self.printTime)
-            self.timerVar.start()
-
-    def printTime(self):
-        self.time -= 1
-        self.lcdNumber.display(self.time)
-        if self.time == 0:
-            self.timerVar.stop()
+            self.takePicture()
         print(self.time)
 
-
-
     def changePage(self):
+        self.camThread.cameraFlag = False
+        print("cf false")
+        self.camThread.cam.release()
+        #self.camThread.terminate()
         self.timerVar.stop()
-        widget.setCurrentIndex(5)
+        self.upload_command.emit(1)
+        widget.setCurrentIndex(widget.currentIndex()+1)
+
+    def takePicture(self):
+        global pictureFin
+        if self.pictureCnt < 4:
+            self.pictureCnt += 1
+            self.command.emit(self.pictureCnt)
+            self.timerVar.stop()
+            while not pictureFin:
+                sleep(0.1)
+
+            if self.pictureCnt < 4:
+                self.camThread.start()
+                self.createTimer()
+                self.camThread.cameraFlag = True
+                pictureFin = False
+            else:
+                self.pictureCnt = 0
+                self.changePage()
 
 
 class SelectPicturePage(QWidget):
@@ -143,16 +257,12 @@ class SelectPicturePage(QWidget):
     def __init__(self):
         super(SelectPicturePage, self).__init__()
         loadUi("SelectPicturePage.ui",self)
-
+        picturePage1.upload_command.connect(self.pictureUpload)
+        #self.image1 = QPixmap("./picture/photo1(2).jpg")
         self.picture1Check.setHidden(True)
         self.picture2Check.setHidden(True)
         self.picture3Check.setHidden(True)
         self.picture4Check.setHidden(True)
-        #self.selectPicture1Btn.clicked.connect(self.selectPicture1)
-        #self.selectPicture2Btn.clicked.connect(self.selectPicture2)
-        #self.selectPicture3Btn.clicked.connect(self.selectPicture3)
-        #self.selectPicture4Btn.clicked.connect(self.selectPicture4)
-        #self.nextBtn.clicked.connect(self.changePage)
 
     def selectPicture1(self):
         self.picture2Check.setHidden(True)
@@ -182,9 +292,19 @@ class SelectPicturePage(QWidget):
         self.picture4Check.setHidden(False)
         self.selectNum = 4
 
+    def pictureUpload(self):
+        self.selectPicture1Btn.setStyleSheet("border-image:url('./picture/photo1(2).jpg')")
+        self.selectPicture1Btn.resize(414,210)
+        self.selectPicture2Btn.setStyleSheet("border-image:url('./picture/photo2(2).jpg')")
+        self.selectPicture2Btn.resize(414, 210)
+        self.selectPicture3Btn.setStyleSheet("border-image:url('./picture/photo3(2).jpg')")
+        self.selectPicture3Btn.resize(414, 210)
+        self.selectPicture4Btn.setStyleSheet("border-image:url('./picture/photo4(2).jpg')")
+        self.selectPicture4Btn.resize(414, 210)
+
     def changePage(self):
         if self.selectNum != 0:
-            widget.setCurrentIndex(6)
+            widget.setCurrentIndex(widget.currentIndex()+1)
             self.command.emit(1)
             self.picture1Check.setHidden(True)
             self.picture2Check.setHidden(True)
@@ -197,7 +317,6 @@ class BackgroundPage(QWidget):
     command = QtCore.pyqtSignal(int)
     def __init__(self):
         super(BackgroundPage, self).__init__()
-        print("bp")
         loadUi("BackgroundPage.ui", self)
         # self.costTempBtn.clicked.connect(self.changePage)
         # 사진 찍는 시간 타이머
@@ -217,21 +336,22 @@ class BackgroundPage(QWidget):
         self.lcdNumber.display(self.time)
         if self.time == 0:
             self.timerVar.stop()
-            widget.setCurrentIndex(7)
+            widget.setCurrentIndex(widget.currentIndex()+1)
             self.command.emit(1)
 
     def changePage(self):
-        widget.setCurrentIndex(7)
+        widget.setCurrentIndex(widget.currentIndex()+1)
         self.command.emit(1)
 
 
 class MemoPage(QWidget):
     command = QtCore.pyqtSignal(int)  # 신호 생성
+
     def __init__(self):
         super(MemoPage, self).__init__()
         loadUi("MemoPage.ui", self)
         backgroundPage.command.connect(self.createTimer)
-        #self.time = 180
+
 
     def createTimer(self):
         self.time = 180
@@ -245,12 +365,12 @@ class MemoPage(QWidget):
         self.lcdNumber.display(self.time)
         if self.time == 0:
             self.timerVar.stop()
+            self.changePage()
 
     def changePage(self):
+        self.save_command.emit(1)
         widget.setCurrentIndex(widget.currentIndex()+1)
-        print("wow1")
         self.command.emit(1) #신호 전송
-        print("wow2")
 
 
 class AddressPage(QWidget):
@@ -400,6 +520,7 @@ if __name__ == "__main__" :
     # fontDB.addApplicationFont("./HSSaemaul-Regular.ttf")
     # app.setFont(QFont('HS새마을체'))
 
+
     #화면 전환용 Widget 설정
     widget = QtWidgets.QStackedWidget()
 
@@ -408,7 +529,7 @@ if __name__ == "__main__" :
     selectFramePage = SelectFramePage()
     costPage = CostPage()
     picturePage1 = PicturePage1()
-    picturePage2 = PicturePage2()
+    #picturePage2 = PicturePage2()
     selectPicturePage = SelectPicturePage()
     backgroundPage = BackgroundPage()
     memoPage = MemoPage()
@@ -430,7 +551,7 @@ if __name__ == "__main__" :
     widget.addWidget(selectFramePage)
     widget.addWidget(costPage)
     widget.addWidget(picturePage1)
-    widget.addWidget(picturePage2)
+    #widget.addWidget(picturePage2)
     widget.addWidget(selectPicturePage)
     widget.addWidget(backgroundPage)
     widget.addWidget(memoPage)
@@ -442,8 +563,8 @@ if __name__ == "__main__" :
     widget.addWidget(finishPage)
 
     #프로그램 화면을 보여주는 코드
-    widget.setFixedHeight(600)
-    widget.setFixedWidth(1024)
+    widget.setFixedHeight(796)
+    widget.setFixedWidth(1152)
     widget.show()
 
     #프로그램을 이벤트루프로 진입시키는(프로그램을 작동시키는) 코드
