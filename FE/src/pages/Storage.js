@@ -5,8 +5,8 @@ import MyButton from "../components/MyButton";
 import React, { useState } from "react";
 import { useNavigate, Routes, Route } from "react-router-dom";
 // /
-import StorageList from "./storage/StorageList";
-import StorageId from "./storage/StorageId";
+import StorageList from "../components/storage/StorageList";
+import StorageId from "../components/storage/StorageId";
 // list
 
 // /:card-no

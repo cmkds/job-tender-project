@@ -1,6 +1,6 @@
 import { useParams, Routes, Route, useNavigate } from "react-router-dom";
 import { useContext } from "react";
-import { StorageStateContext } from "../Storage";
+import { StorageStateContext } from "../../pages/Storage";
 import StorageDownload from "./StorageDownload";
 import StorageShare from "./StorageShare";
 
