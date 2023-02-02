@@ -18,13 +18,17 @@ const dummyData = [
   },
 ];
 
+console.log(dummyData);
+
 const CommentList = () => {
-  <div>
-    {dummyData.map((it) => (
-      <CommentItem key={it.id} {...it} />
-    ))}
-  </div>;
-  return;
+  return (
+    <div>
+      <p>asas</p>
+      {dummyData.map((it) => (
+        <CommentItem key={it.id} {...it} />
+      ))}
+    </div>
+  );
 };
 
 export default CommentList;

@@ -59,6 +59,8 @@ const api3 = [
       userId: 1, //유저 아이디
       post_image:
         "https://i.postimg.cc/wjsCsRCD/Kakao-Talk-20230131-090510363.jpg", //포스트 이미지
+
+      content: "피드 게시물이다.",
       likes: [1, 2, 3, 4, 5],
       comments: {
         data: [
@@ -77,6 +79,7 @@ const api3 = [
       userId: 1, //유저 아이디
       post_image:
         "https://i.postimg.cc/wjsCsRCD/Kakao-Talk-20230131-090510363.jpg", //포스트 이미지
+      content: "I'm GD.",
       likes: [1, 2, 3, 4, 5],
       comments: {
         data: [{ commentId: 6, userId: 1, content: "Im G-Dragon" }],

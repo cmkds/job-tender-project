@@ -5,6 +5,7 @@ const CommentItem = ({ id, userId, userProfileImg, content }) => {
       <span>{userId}</span>
       <br />
       <span>{content}</span>
+      <p>aaaaaa</p>
 
       {/* 여기서 만약 댓글이 내 댓글 이라면 삭제 버튼 들어가야함. */}
       {/* if 로그인id === id . 삭제버튼 보여짐. */}

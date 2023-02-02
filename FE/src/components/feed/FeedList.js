@@ -3,10 +3,10 @@ import FeedItem from "./FeedItem";
 import { FeedStateContext } from "../../pages/Feed";
 
 const FeedList = () => {
-  const FeedList = useContext(FeedStateContext)[0];
+  const feed = useContext(FeedStateContext)[0];
 
   const feedList = [];
-  const makeFeedList = FeedList.map((it) =>
+  const makeFeedList = feed.map((it) =>
     it.feeds.map((that) => feedList.push({ id: that }))
   );
 

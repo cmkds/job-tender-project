@@ -30,7 +30,7 @@ const FeedItem = (feedId) => {
         {/* array는 [인덱스] 객체는 .key이름 */}
         <img src={check[0].context.post_image} />
         {/* 댓글 넣기 요건 네비게이트로 감.*/}
-
+        <p>{check[0].context.content}</p>
         <button>좋아요 버튼</button>
         <button onClick={() => navigate(`/comment/${check[0].id}`)}>
           댓글 보기
