@@ -1,11 +1,13 @@
 package com.springboot.pjt1.service.impl;
 
 import com.springboot.pjt1.data.dao.FeedDAO;
+import com.springboot.pjt1.data.dao.MachineLocationDAO;
 import com.springboot.pjt1.data.dao.MemberDAO;
 import com.springboot.pjt1.data.dto.ConnectDTO;
 import com.springboot.pjt1.data.dto.FeedDTO;
 import com.springboot.pjt1.data.entity.Connect;
 import com.springboot.pjt1.data.entity.Feed;
+import com.springboot.pjt1.data.entity.MachineLocation;
 import com.springboot.pjt1.data.entity.Member;
 import com.springboot.pjt1.service.FeedService;
 import org.springframework.stereotype.Service;
@@ -14,10 +16,12 @@ import org.springframework.stereotype.Service;
 public class FeedServiceImpl implements FeedService {
     private final FeedDAO feedDAO;
     private final MemberDAO memberDAO;
+    private final MachineLocationDAO machineLocationDAO;
 
-    public FeedServiceImpl(FeedDAO feedDAO, MemberDAO memberDAO) {
+    public FeedServiceImpl(FeedDAO feedDAO, MemberDAO memberDAO, MachineLocationDAO machineLocationDAO) {
         this.feedDAO = feedDAO;
         this.memberDAO = memberDAO;
+        this.machineLocationDAO = machineLocationDAO;
     }
     @Override
     public FeedDTO getFeed(long feedSeq) {
@@ -49,6 +53,9 @@ public class FeedServiceImpl implements FeedService {
         Member mem = memberDAO.SelectMemberById(feedDTO.getMemberSeq());
         feed.setMember(mem);
 
+        MachineLocation mac_loc = machineLocationDAO.SelectMachineLocationById(feedDTO.getMachineLocationSeq());
+        feed.setMachineLocation(mac_loc);
+
         Feed savedFeed = feedDAO.InsertFeed(feed);
         FeedDTO rFeedDTO = new FeedDTO();
 
@@ -59,6 +66,7 @@ public class FeedServiceImpl implements FeedService {
         rFeedDTO.setCreateTime(savedFeed.getCreateTime());
         rFeedDTO.setHeart(savedFeed.getHeart());
         rFeedDTO.setMemberSeq(savedFeed.getMember().getMemberSeq());
+        rFeedDTO.setMachineLocationSeq(savedFeed.getMachineLocation().getMachineLocationSeq());
 
         return rFeedDTO;
     }
@@ -75,6 +83,7 @@ public class FeedServiceImpl implements FeedService {
         rFeedDTO.setCreateTime(updatedFeed.getCreateTime());
         rFeedDTO.setHeart(updatedFeed.getHeart());
         rFeedDTO.setMemberSeq(updatedFeed.getMember().getMemberSeq());
+        rFeedDTO.setMachineLocationSeq(updatedFeed.getMachineLocation().getMachineLocationSeq());
 
         return rFeedDTO;
     }

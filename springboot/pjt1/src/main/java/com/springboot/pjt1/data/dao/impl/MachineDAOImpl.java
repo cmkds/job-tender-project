@@ -32,16 +32,19 @@ public class MachineDAOImpl implements MachineDAO {
     }
 
     @Override
-    public Machine UpdateMachineById(long machineSeq) throws Exception{
+    public Machine UpdateMachineById(long machineSeq, String name, String address, String photo) throws Exception{
         Optional<Machine> selectedMachine = machineRepository.findById(machineSeq);
         Machine updatedMachine;
 
         if(selectedMachine.isPresent()){
-            Machine Machine = selectedMachine.get();
+            Machine machine = selectedMachine.get();
 
-            Machine.setRecentTime(new Date());
+            machine.setName(name);
+            machine.setAddress(address);
+            machine.setPhoto(photo);
+            machine.setRecentTime(new Date());
 
-            updatedMachine = machineRepository.save(Machine);
+            updatedMachine = machineRepository.save(machine);
         }
 
         else

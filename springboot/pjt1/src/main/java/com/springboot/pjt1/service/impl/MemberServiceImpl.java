@@ -3,6 +3,7 @@ package com.springboot.pjt1.service.impl;
 import com.springboot.pjt1.data.dao.MemberDAO;
 import com.springboot.pjt1.data.dto.MemberDTO;
 import com.springboot.pjt1.data.dto.MemberDTO;
+import com.springboot.pjt1.data.dto.custom.MemberInitDTO;
 import com.springboot.pjt1.data.entity.Member;
 import com.springboot.pjt1.service.MemberService;
 import org.springframework.stereotype.Service;
@@ -118,9 +119,34 @@ public class MemberServiceImpl implements MemberService {
         return rMemberDTO;
     }
 
+    public MemberDTO updateMember(long memberSeq, MemberInitDTO memberInitDTO) throws Exception {
+
+        Member updatedMember = memberDAO.UpdateMemberById(memberSeq, memberInitDTO);
+        MemberDTO rMemberDTO = new MemberDTO();
+
+        rMemberDTO.setMemberProfile(updatedMember.getMemberProfile());
+        rMemberDTO.setMemberState(updatedMember.getMemberState());
+        rMemberDTO.setMemberSeq(updatedMember.getMemberSeq());
+        rMemberDTO.setCreateTime(updatedMember.getCreateTime());
+        rMemberDTO.setAddrSpec(updatedMember.getAddrSpec());
+        rMemberDTO.setAddrBase(updatedMember.getAddrBase());
+        rMemberDTO.setNickname(updatedMember.getNickname());
+        rMemberDTO.setIsAdmin(updatedMember.getIsAdmin());
+        rMemberDTO.setEmail(updatedMember.getEmail());
+        rMemberDTO.setModifyTime(updatedMember.getModifyTime());
+        rMemberDTO.setName(updatedMember.getName());
+
+        return rMemberDTO;
+    }
+
     @Override
     public void deleteMember(long memberSeq) throws Exception {
         memberDAO.DeleteMemberById(memberSeq);
+    }
+
+    @Override
+    public boolean findNickname(String nickname) {
+        return memberDAO.findByNickname(nickname);
     }
 
 

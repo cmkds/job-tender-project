@@ -14,6 +14,13 @@ public class Machine {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long machineSeq;
+
+    @Column(nullable = false)
+    private String name;
+    @Column(nullable = false)
+    private String address;
+    @Column
+    private String photo;
     @Temporal(TemporalType.TIMESTAMP)
     @Column(nullable = false)
     private Date recentTime;

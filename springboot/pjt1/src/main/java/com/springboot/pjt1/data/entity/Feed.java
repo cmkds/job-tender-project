@@ -29,13 +29,19 @@ public class Feed {
     private Date modifyTime;
 
     // mapping
-
-    // member
     @ManyToOne
     @JoinColumn(name = "memberSeq")
     private Member member;
 
     public void setMember(Member member){
         this.member = member;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "machineLocationSeq")
+    private MachineLocation machineLocation;
+
+    public void setMachineLocation(MachineLocation machineLocation){
+        this.machineLocation = machineLocation;
     }
 }

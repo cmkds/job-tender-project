@@ -1,6 +1,7 @@
 package com.springboot.pjt1.data.dao.impl;
 
 import com.springboot.pjt1.data.dao.MemberDAO;
+import com.springboot.pjt1.data.dto.custom.MemberInitDTO;
 import com.springboot.pjt1.data.entity.Member;
 import com.springboot.pjt1.data.entity.Member;
 import com.springboot.pjt1.data.repository.MemberRepository;
@@ -63,6 +64,28 @@ public class MemberDAOImpl implements MemberDAO {
     }
 
     @Override
+    public Member UpdateMemberById(long memberSeq, MemberInitDTO memberInitDTO) throws Exception {
+        // get data using ID
+        Optional<Member> selectedMember = memberRepository.findById(memberSeq);
+        Member updatedMember;
+
+        if(selectedMember.isPresent()){
+            Member member = selectedMember.get();
+
+            member.setNickname(memberInitDTO.getNickname());
+            member.setMemberProfile(memberInitDTO.getMemberProfile());
+            member.setMemberState(memberInitDTO.getMemberState());
+
+            updatedMember = memberRepository.save(member);
+        }
+
+        else
+            throw new Exception();
+
+        return updatedMember;
+    }
+
+    @Override
     public void DeleteMemberById(long memberSeq) throws Exception {
         Optional<Member> selectedMember = memberRepository.findById(memberSeq);
 
@@ -73,5 +96,12 @@ public class MemberDAOImpl implements MemberDAO {
 
         else
             throw new Exception();
+    }
+
+    @Override
+    public boolean findByNickname(String nickname) {
+        Optional<Boolean> selectedMember = memberRepository.findByNickname(nickname);
+
+        return selectedMember.isPresent();
     }
 }

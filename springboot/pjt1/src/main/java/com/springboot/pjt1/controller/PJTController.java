@@ -1,6 +1,7 @@
 package com.springboot.pjt1.controller;
 
 import com.springboot.pjt1.data.dto.*;
+import com.springboot.pjt1.data.dto.custom.MemberInitDTO;
 import com.springboot.pjt1.data.entity.Comment;
 import com.springboot.pjt1.data.entity.Member;
 import com.springboot.pjt1.service.*;
@@ -121,10 +122,15 @@ public class PJTController {
     }
 
     //
-    @GetMapping("/account")
-    public ResponseEntity<Boolean> findNickName(@RequestParam String nickname) {
-        boolean result = memberService.IsNicknameExist(nickname);
+    @GetMapping("/account/{nickname}")
+    public ResponseEntity<Boolean> findNickname(@PathVariable String nickname) {
+        return ResponseEntity.status(HttpStatus.OK).body(memberService.findNickname(nickname));
+    }
 
-        return ResponseEntity.status(HttpStatus.OK).body(result);
+    @PutMapping("/account/{id}")
+    public ResponseEntity<MemberDTO> updateMemberInit(@RequestBody MemberInitDTO memberInitDTO, @PathVariable long id) throws  Exception{
+        MemberDTO rmemberDTO = memberService.updateMember(id, memberInitDTO);
+
+        return ResponseEntity.status(HttpStatus.OK).body(rmemberDTO);
     }
 }

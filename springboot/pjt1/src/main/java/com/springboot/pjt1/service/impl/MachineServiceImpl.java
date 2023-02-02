@@ -55,8 +55,8 @@ public class MachineServiceImpl implements MachineService {
     }
 
     @Override
-    public MachineDTO updateMachine(long machineSeq) throws Exception {
-        Machine updatedMachine = machineDAO.UpdateMachineById(machineSeq);
+    public MachineDTO updateMachine(long machineSeq, String name, String address, String photo) throws Exception {
+        Machine updatedMachine = machineDAO.UpdateMachineById(machineSeq, name, address, photo);
         MachineDTO rMachineDTO = new MachineDTO();
 
         rMachineDTO.setMachineSeq(updatedMachine.getMachineSeq());
@@ -71,4 +71,5 @@ public class MachineServiceImpl implements MachineService {
     public void deleteMachine(long machineSeq) throws Exception {
         machineDAO.DeleteMachineById(machineSeq);
     }
+
 }
