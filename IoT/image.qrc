@@ -1,0 +1,20 @@
+<RCC>
+  <qresource prefix="image">
+    <file>check.png</file>
+    <file>logo.png</file>
+    <file>logo_image.png</file>
+    <file>logo_image_circle.png</file>
+    <file>logo_sample.PNG</file>
+    <file>logo_sample2.PNG</file>
+    <file>logo_text.png</file>
+    <file>minus.png</file>
+    <file>next_button.png</file>
+    <file>pen.png</file>
+    <file>plus.png</file>
+    <file>return.png</file>
+    <file>start_button.png</file>
+    <file>template1.png</file>
+    <file>template2.png</file>
+    <file>background.png</file>
+  </qresource>
+</RCC>
