@@ -1,12 +1,37 @@
 // 프로필 사진 이름
 // 댓글 유저의 아이디만 프롭스로 받아서 해당 정보를 가져온다.
+import Avatar from '@material-ui/core/Avatar';
+import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: 'flex',
+    alignItems: 'center',
+    padding: '2%',
+  },
+  small: {
+    width: theme.spacing(3),
+    height: theme.spacing(3),
+  },
+  large: {
+    width: theme.spacing(7),
+    height: theme.spacing(7),
+  },
+}));
 
 // 유저아이디로 해당 유저의 정보를 통신해서 가져옴
 const Profile = (userId) => {
+  const classes = useStyles();
+
   return (
-    <div>
-      <img src="http://dummyimage.com/87x56.png/ff4444/ffffff" alt="" />
-      <span> userId</span>
+    <div className={classes.root}>
+      <Avatar 
+        src="http://dummyimage.com/87x56.png/ff4444/ffffff"
+        className={classes.large}
+      >
+      </Avatar>
+      <div className={classes.root}> userId</div>
     </div>
   );
 };
