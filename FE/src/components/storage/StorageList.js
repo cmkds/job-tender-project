@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { StorageStateContext } from "../Storage";
+import { StorageStateContext } from "../../pages/Storage";
 import StorageItem from "./StorageItem";
 
 const StorageList = () => {

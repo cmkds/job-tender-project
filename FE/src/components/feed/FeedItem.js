@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { FeedStateContext } from "../../pages/Feed";
 import Profile from "../Profile";
+
 const FeedItem = (feedId) => {
   const followersData = useContext(FeedStateContext)[0];
   const feedsData = useContext(FeedStateContext)[1];
