@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 @Component
@@ -31,6 +32,13 @@ public class CommentDAOImpl implements CommentDAO{
         Comment SelectedComment = commentRepository.getById(commentSeq);
 
         return SelectedComment;
+    }
+
+    @Override
+    public List<Comment> SelectCommentByFeedSeq(long feedSeq) {
+        List<Comment> selectedComment = commentRepository.findAllByFeedSeq(feedSeq);
+        
+        return selectedComment;
     }
 
     @Override

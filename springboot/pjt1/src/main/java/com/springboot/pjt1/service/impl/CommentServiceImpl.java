@@ -12,6 +12,9 @@ import com.springboot.pjt1.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class CommentServiceImpl implements CommentService {
     private final CommentDAO commentDAO;
@@ -37,6 +40,27 @@ public class CommentServiceImpl implements CommentService {
 
         return commentDTO;
     }
+
+    @Override
+    public List<CommentDTO> getCommentByFeedSeq(long feedSeq) {
+        List<CommentDTO> commentDTOs = new ArrayList<>();
+        List<Comment> comments = commentDAO.SelectCommentByFeedSeq(feedSeq);
+
+        for (int i = 0; i < comments.size(); i++){
+            CommentDTO commentDTO = new CommentDTO();
+
+            commentDTO.setCommentSeq(comments.get(i).getCommentSeq());
+            commentDTO.setContent(comments.get(i).getContent());
+            commentDTO.setMemberSeq(comments.get(i).getMember().getMemberSeq());
+            commentDTO.setCreateTime(comments.get(i).getCreateTime());
+            commentDTO.setModifyTime(comments.get(i).getModifyTime());
+
+            commentDTOs.add(commentDTO);
+        }
+
+        return commentDTOs;
+    }
+
     @Override
     public CommentDTO insertComment(CommentDTO commentDTO) throws Exception {
         // insert Entity

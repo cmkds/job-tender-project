@@ -195,10 +195,31 @@ public class PJTController {
             return ResponseEntity.status(HttpStatus.OK).body(true);
     }
 
-    @GetMapping()
+    @GetMapping("/abcdefg")
     public ResponseEntity<List<FeedDTO>> getFollowerFeed(long memberSeq){
         List<FeedDTO> feedDtos = feedService.getFollowerFeed(memberSeq);
 
         return ResponseEntity.status(HttpStatus.OK).body(feedDtos);
+    }
+
+    @GetMapping("/comment/{feedSeq}")
+    public ResponseEntity<List<CommentDTO>> getCommentByFeed(@PathVariable long feedSeq){
+        List<CommentDTO> commentDTOs = commentService.getCommentByFeedSeq(feedSeq);
+        return ResponseEntity.status(HttpStatus.OK).body(commentDTOs);
+    }
+
+    @PostMapping("/comment")
+    public ResponseEntity<List<Comment>> getComment(CommentDTO commentDTO){
+        return ResponseEntity.status(HttpStatus.OK).body();
+    }
+
+    @PutMapping("/comment/{feedSeq}")
+    public ResponseEntity<List<Comment>> getComment(@PathVariable long feedSeq, CommentDTO commentDTO){
+        return ResponseEntity.status(HttpStatus.OK).body();
+    }
+
+    @DeleteMapping("/comment/{feedSeq}")
+    public ResponseEntity<List<Comment>> getComment(@PathVariable long feedSeq){
+        return ResponseEntity.status(HttpStatus.OK).body();
     }
 }
