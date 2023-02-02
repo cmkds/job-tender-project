@@ -23,15 +23,20 @@ const FeedItem = (feedId) => {
   if (check.length) {
     return (
       <div>
+        <p>{check[0].id}번 째 피드</p>
         {/* 유저 아이디 넣기 */}
         <Profile />
         {/* array는 [인덱스] 객체는 .key이름 */}
         <img src={check[0].context.post_image} />
-        <p>{check[0].id}번 째 피드</p>
         {/* 댓글 넣기 요건 네비게이트로 감.*/}
+
+        <button>좋아요 버튼</button>
         <button onClick={() => navigate(`/comment/${check[0].id}`)}>
           댓글 보기
         </button>
+        <span>{check[0].context.likes.length}개의 좋아요 </span>
+        <span>{check[0].context.comments.data.length}개의 댓글</span>
+        <hr />
       </div>
     );
   }
