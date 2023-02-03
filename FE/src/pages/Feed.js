@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import { useNavigate } from "react-router-dom";
 //
 import FeedList from "../components/feed/FeedList";
 // api 1
@@ -93,16 +93,39 @@ const api3 = [
 
 const Feed = () => {
   const [followersData, setFollowersData] = useState(api2);
-  // console.log(followersData);
+  console.log(followersData.length);
   const [feedsData, setFeedsData] = useState(api3);
   // console.log(feedsData);
-
+  const navigate = useNavigate();
   return (
     <div>
       <h2>Feed Page</h2>
 
       <FeedStateContext.Provider value={[followersData, feedsData]}>
-        <FeedList />
+        {/* 여기 수정 봐야됨 */}
+        {followersData.length !== 0 ? (
+          <FeedList />
+        ) : (
+          <div>
+            <p>새로운 엽서가 없습니다.</p>
+            <p>엽서를 올리거나 지역별 인기 엽서를 확인하세요.</p>
+            <br />
+            <span
+              onClick={() => {
+                navigate("/storage");
+              }}
+            >
+              엽서 올리기
+            </span>
+            <span
+              onClick={() => {
+                navigate("/main");
+              }}
+            >
+              지역별 인기엽서 확인하기
+            </span>
+          </div>
+        )}
       </FeedStateContext.Provider>
     </div>
   );
