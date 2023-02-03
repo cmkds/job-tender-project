@@ -24,6 +24,10 @@ const RouteTest = () => {
       {/* 테스트용 comment/1 */}
       <Link to={"/comment/1"}>comment</Link>
       <br />
+      <Link to={"/sign-up"}>sign-up</Link>
+      <br />
+      <Link to={"/api-test"}>api-test</Link>
+      <br />
       <textarea name="" id="" cols="30" rows="10"></textarea>
     </>
   );

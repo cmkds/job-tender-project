@@ -18,9 +18,8 @@ const dummyData = [
   },
 ];
 
-console.log(dummyData);
-
 const CommentList = () => {
+  console.log(dummyData);
   return (
     <div>
       <p>asas</p>

@@ -1,15 +1,20 @@
 import CommentList from "../components/comment/CommentList";
 
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
+
+import NavBar from "../components/NavBar";
+import MyButton from "../components/MyButton";
 
 const Comment = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   return (
     <div>
-      Comment
-      <p>댓글 상단바 컴포넌트 들어감</p>
+      <NavBar
+        navText={"댓글"}
+        leftChild={<MyButton text={"<"} onClick={() => navigate(-1)} />}
+      />
       <p>댓글달기 들어감</p>
-      <p>댓글 리스트 보여줌</p>
       <CommentList />
     </div>
   );
