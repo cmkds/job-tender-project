@@ -54,10 +54,10 @@ const FeedItem = (feedId) => {
         {/* 좋아요, 댓글 버튼 */}
           <Stack direction="row" spacing={1} style={{paddingLeft:"2%", paddingBottom:"1%"}}>
             { likeCheck === true ? 
-              <IconButton onClick={() => {console.log('click 1 !!!'); setLikeCheck(!likeCheck)}} >
+              <IconButton onClick={() => {setLikeCheck(!likeCheck)}} >
                 <FavoriteBorderOutlinedIcon />
               </IconButton> :
-              <IconButton color="primary" onClick={() => {console.log('click 2 !!!'); setLikeCheck(!likeCheck)}} >
+              <IconButton color="primary" onClick={() => {setLikeCheck(!likeCheck)}} >
                 <FavoriteIcon sx={{color:'red'}} />
               </IconButton>
             }
