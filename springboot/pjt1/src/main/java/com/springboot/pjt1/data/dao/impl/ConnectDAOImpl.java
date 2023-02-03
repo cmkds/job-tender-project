@@ -34,6 +34,13 @@ public class ConnectDAOImpl implements ConnectDAO {
     }
 
     @Override
+    public boolean SelectConnectByMemberIds(long srcMemberSeq, long dstMemberSeq) {
+        boolean selectedConnect = connectRepository.existsByFollowerByFollowing(srcMemberSeq, dstMemberSeq);
+
+        return selectedConnect;
+    }
+
+    @Override
     public void DeleteConnectById(long connectSeq) throws Exception {
         Optional<Connect> selectedConnect = connectRepository.findById(connectSeq);
 

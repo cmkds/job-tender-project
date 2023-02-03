@@ -10,7 +10,7 @@ import java.util.Optional;
 
 @Repository
 public interface CommentRepository extends JpaRepository<Comment, Long> {
-    List<Comment> findAllByFeedSeq(long feedSeq);
-
+    List<Comment> findAllByFeed(long feedSeq);
+    Comment findByFeed(long feedSeq);
 }
 

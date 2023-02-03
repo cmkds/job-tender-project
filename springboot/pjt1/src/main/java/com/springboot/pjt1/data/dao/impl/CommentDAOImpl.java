@@ -36,9 +36,17 @@ public class CommentDAOImpl implements CommentDAO{
 
     @Override
     public List<Comment> SelectCommentByFeedSeq(long feedSeq) {
-        List<Comment> selectedComment = commentRepository.findAllByFeedSeq(feedSeq);
+        List<Comment> selectedComment = commentRepository.findAllByFeed(feedSeq);
         
         return selectedComment;
+    }
+
+    @Override
+    public long SelectCommentSeqByFeedSeq(long feedSeq) {
+//        long commentSeq = commentRepository.findByFeed(feedSeq).getCommentSeq();
+//
+//        return commentSeq;
+        return 0;
     }
 
     @Override

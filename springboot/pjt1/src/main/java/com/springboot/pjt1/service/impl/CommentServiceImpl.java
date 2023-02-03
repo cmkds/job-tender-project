@@ -62,6 +62,11 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
+    public long getCommentSeqByFeedSeq(long feedSeq) {
+        return commentDAO.SelectCommentSeqByFeedSeq(feedSeq);
+    }
+
+    @Override
     public CommentDTO insertComment(CommentDTO commentDTO) throws Exception {
         // insert Entity
         Comment comment = new Comment();

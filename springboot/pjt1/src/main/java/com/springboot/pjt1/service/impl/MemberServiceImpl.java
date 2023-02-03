@@ -4,6 +4,7 @@ import com.springboot.pjt1.data.dao.MemberDAO;
 import com.springboot.pjt1.data.dto.MemberDTO;
 import com.springboot.pjt1.data.dto.MemberDTO;
 import com.springboot.pjt1.data.dto.custom.MemberInitDTO;
+import com.springboot.pjt1.data.dto.custom.MemberSearchInfoDTO;
 import com.springboot.pjt1.data.entity.Member;
 import com.springboot.pjt1.service.MemberService;
 import org.springframework.stereotype.Service;
@@ -62,6 +63,29 @@ public class MemberServiceImpl implements MemberService {
         }
 
         return memberDTOs;
+    }
+
+    @Override
+    public List<MemberSearchInfoDTO> getMemberSearchInfo(String nickname) {
+        List<Member> members = memberDAO.SelectMemberAll();
+        List<MemberSearchInfoDTO> memberSearchInfoDTOs = new ArrayList<>();
+
+        for (int i = 0; i < members.size(); i++) {
+            MemberSearchInfoDTO memberSearchInfoDTO = new MemberSearchInfoDTO();
+
+            memberSearchInfoDTO.setMemberProfile(members.get(i).getMemberProfile());
+            memberSearchInfoDTO.setMemberSeq(members.get(i).getMemberSeq());
+            memberSearchInfoDTO.setNickname(members.get(i).getNickname());
+
+            memberSearchInfoDTOs.add(memberSearchInfoDTO);
+        }
+
+        return memberSearchInfoDTOs;
+    }
+
+    @Override
+    public List<MemberSearchInfoDTO> getMemberSearchFollowingInfo(long memberSeq) {
+        return null;
     }
 
     @Override

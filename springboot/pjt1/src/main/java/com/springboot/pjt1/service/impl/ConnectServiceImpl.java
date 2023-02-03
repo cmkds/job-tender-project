@@ -35,6 +35,20 @@ public class ConnectServiceImpl implements ConnectService {
     }
 
     @Override
+    public boolean getIsFollow(long srcMemberSeq, long dstMemberSeq) {
+        boolean isFollow = connectDAO.SelectConnectByMemberIds(srcMemberSeq, dstMemberSeq);
+
+        return isFollow;
+    }
+
+    @Override
+    public long getConnectSeq(long srcMemberSeq, long dstMemberSeq) {
+        long connectSeq = connectDAO.SelectConnectSeqByMemberIds(srcMemberSeq, dstMemberSeq);
+
+        return connectSeq;
+    }
+
+    @Override
     public ConnectDTO insertConnect(ConnectDTO connectDTO) throws Exception {
         Connect connect = new Connect();
 

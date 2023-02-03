@@ -2,6 +2,7 @@ package com.springboot.pjt1.controller;
 
 import com.springboot.pjt1.data.dto.*;
 import com.springboot.pjt1.data.dto.custom.MemberInitDTO;
+import com.springboot.pjt1.data.dto.custom.MemberSearchInfoDTO;
 import com.springboot.pjt1.data.entity.Comment;
 import com.springboot.pjt1.data.entity.Member;
 import com.springboot.pjt1.service.*;
@@ -65,62 +66,6 @@ public class PJTController {
 
         return ResponseEntity.status(HttpStatus.OK).body(rMemberDto);
     }
-
-    @PostMapping("/store")
-    public ResponseEntity<StoreDTO> createStore(@RequestBody StoreDTO storeDTO) throws Exception{
-        StoreDTO rStoreDto = storeService.insertStore(storeDTO);
-
-        return ResponseEntity.status(HttpStatus.OK).body(rStoreDto);
-    }
-    @PostMapping("/feed")
-    public ResponseEntity<FeedDTO> createFeed(@RequestBody FeedDTO feedDTO) throws Exception{
-        FeedDTO rFeedDto = feedService.insertFeed(feedDTO);
-
-        return ResponseEntity.status(HttpStatus.OK).body(rFeedDto);
-    }
-
-    @PostMapping("/comment")
-    public ResponseEntity<CommentDTO> createComment(@RequestBody CommentDTO commentDTO) throws Exception{
-        CommentDTO rCommentDto = commentService.insertComment(commentDTO);
-
-        return ResponseEntity.status(HttpStatus.OK).body(rCommentDto);
-    }
-
-    @PostMapping("/mac-loc")
-    public ResponseEntity<MachineLocationDTO> createMachineLocation(@RequestBody MachineLocationDTO machineLocationDTO) throws Exception{
-        MachineLocationDTO rMachineLocationDto = machineLocationService.insertMachineLocation(machineLocationDTO);
-
-        return ResponseEntity.status(HttpStatus.OK).body(rMachineLocationDto);
-    }
-
-    @PostMapping("/mac")
-    public ResponseEntity<MachineDTO> createMachine(@RequestBody MachineDTO machineDTO) throws Exception{
-        MachineDTO rMachineDto = machineService.insertMachine(machineDTO);
-
-        return ResponseEntity.status(HttpStatus.OK).body(rMachineDto);
-    }
-
-    @PostMapping("/notice")
-    public ResponseEntity<NoticeDTO> createNotice(@RequestBody NoticeDTO noticeDTO) throws Exception{
-        NoticeDTO rNoticeDto = noticeService.insertNotice(noticeDTO);
-
-        return ResponseEntity.status(HttpStatus.OK).body(rNoticeDto);
-    }
-
-    @PostMapping("/connect")
-    public ResponseEntity<ConnectDTO> createConnect(@RequestBody ConnectDTO connectDTO) throws Exception{
-        ConnectDTO rConnectDto = connectService.insertConnect(connectDTO);
-
-        return ResponseEntity.status(HttpStatus.OK).body(rConnectDto);
-    }
-
-    @PostMapping("/mac-data")
-    public ResponseEntity<MachineDataDTO> createMachineData(@RequestBody MachineDataDTO machineDataDTO) throws Exception{
-        MachineDataDTO rMachineDataDto = machineDataService.insertMachineData(machineDataDTO);
-
-        return ResponseEntity.status(HttpStatus.OK).body(rMachineDataDto);
-    }
-
     //
     @GetMapping("/account/{nickname}")
     public ResponseEntity<Boolean> findNickname(@PathVariable String nickname) {
@@ -209,17 +154,66 @@ public class PJTController {
     }
 
     @PostMapping("/comment")
-    public ResponseEntity<List<Comment>> getComment(CommentDTO commentDTO){
-        return ResponseEntity.status(HttpStatus.OK).body();
+    public ResponseEntity<CommentDTO> insertComment(CommentDTO commentDTO) throws Exception {
+        CommentDTO rCommentDTO = commentService.insertComment(commentDTO);
+
+        return ResponseEntity.status(HttpStatus.OK).body(rCommentDTO);
     }
 
-    @PutMapping("/comment/{feedSeq}")
-    public ResponseEntity<List<Comment>> getComment(@PathVariable long feedSeq, CommentDTO commentDTO){
-        return ResponseEntity.status(HttpStatus.OK).body();
+    @PutMapping("/comment/{commentSeq}")
+    public ResponseEntity<CommentDTO> putComment(@PathVariable long commentSeq, String context) throws Exception {
+        CommentDTO rCommentDTO = commentService.updateComment(commentSeq, context);
+
+        return ResponseEntity.status(HttpStatus.OK).body(rCommentDTO);
+    }
+    @DeleteMapping("/comment/{commentSeq}")
+    public ResponseEntity<Void> deleteComment(@PathVariable long commentSeq) throws Exception{
+        commentService.deleteComment(commentSeq);
+
+        return new ResponseEntity<Void>(HttpStatus.OK);
     }
 
-    @DeleteMapping("/comment/{feedSeq}")
-    public ResponseEntity<List<Comment>> getComment(@PathVariable long feedSeq){
-        return ResponseEntity.status(HttpStatus.OK).body();
+    @GetMapping("/search/{nickname}")
+    public ResponseEntity<List<MemberSearchInfoDTO>> getMemberSearchInfo(@PathVariable String nickname){
+        List<MemberSearchInfoDTO> rMemberSearchInfoDTOs = memberService.getMemberSearchInfo(nickname);
+
+        return ResponseEntity.status(HttpStatus.OK).body(rMemberSearchInfoDTOs);
     }
+
+    @GetMapping("/search/follower/{nickname}") // not enough
+    public ResponseEntity<List<MemberSearchInfoDTO>> getFollowerMemberSearchInfo(@PathVariable long memberSeq, @PathVariable String nickname){
+
+        List<MemberSearchInfoDTO> rMemberSearchInfoDTOs = memberService.getMemberSearchInfo(nickname);
+
+        return ResponseEntity.status(HttpStatus.OK).body(rMemberSearchInfoDTOs);
+    }
+    @GetMapping("/search/following/{nickname}") // not enough
+    public ResponseEntity<List<MemberSearchInfoDTO>> getFollowingMemberSearchInfo(@PathVariable long memberSeq, @PathVariable String nickname){
+        List<MemberSearchInfoDTO> rMemberSearchInfoDTOs = memberService.getMemberSearchInfo(nickname);
+
+        return ResponseEntity.status(HttpStatus.OK).body(rMemberSearchInfoDTOs);
+    }
+
+    @GetMapping("/profile/{srcMemberSeq}/{dstMemberSeq}")
+    public ResponseEntity<Boolean> getIsFollow(@PathVariable long srcMemberSeq, @PathVariable long dstMemberSeq){
+        Boolean IsFollow = connectService.getIsFollow(srcMemberSeq, dstMemberSeq);
+
+        return ResponseEntity.status(HttpStatus.OK).body(IsFollow);
+    }
+
+    @PostMapping("/profile/follow")
+    public ResponseEntity<ConnectDTO> insertConnect(ConnectDTO connectDTO) throws Exception {
+        ConnectDTO rConnectDTO = connectService.insertConnect(connectDTO);
+
+        return ResponseEntity.status(HttpStatus.OK).body(rConnectDTO);
+    }
+
+    @DeleteMapping("/profile/follow/{srcMemberSeq}/{dstMemberSeq}")
+    public ResponseEntity<Void> delectConnect(@PathVariable long srcMemberSeq, @PathVariable long dstMemberSeq) throws Exception{
+        long connecSeq = connectService.getConnectSeq(srcMemberSeq, dstMemberSeq);
+        connectService.deleteConnect(connecSeq);
+
+        return new ResponseEntity<Void>(HttpStatus.OK);
+    }
+
 }

@@ -5,4 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ConnectRepository extends JpaRepository<Connect, Long> {
     //Optional<Comment> findByCommentSeq(long commentSeq);
+    Boolean existsByFollowerByFollowing(long srcMemberSeq, long dstMemberSeq);
 }
