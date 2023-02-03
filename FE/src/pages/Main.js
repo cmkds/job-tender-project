@@ -11,6 +11,8 @@ import MainAllHot from "./main/MainAllHot";
 import MainAllNew from "./main/MainAllNew";
 import MainLocationHot from "./main/MainLocationHot";
 import MainLocationNew from "./main/MainLocationNew";
+import MainNavBar from "../components/main/MainNavBar";
+import NewHotButton from "../components/main/NewHotButton";
 // 리스트를 받아와서 지역별 보여주기는 상세 컴포넌트에서
 // api 1
 // 피드 최신 100개 가져오기 나중에 페이지 크기에 따라 수치 조정
@@ -85,7 +87,10 @@ const Main = () => {
   };
   return (
     <div>
+      <MainNavBar></MainNavBar>
+      <NewHotButton></NewHotButton>
       <h2>main</h2>
+      
       <MainStateContext.Provider value={apiFeedData}>
         <MainDispatchContext.Provider value={onChangeApi}>
           <Routes>
