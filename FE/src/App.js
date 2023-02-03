@@ -17,7 +17,9 @@ import Feed from "./pages/Feed";
 import Storage from "./pages/Storage";
 import User from "./pages/User";
 import Comment from "./pages/Comment";
+import SignUp from "./pages/SignUp";
 import BottomBar from "./components/BottomBar";
+import Test from "./api/Teest";
 
 function App() {
   return (
@@ -38,8 +40,10 @@ function App() {
             <Route path="/logbox" element={<LogBox />}></Route>
             <Route path="/feed/:id" element={<Feed />}></Route>
             <Route path="/storage/*" element={<Storage />}></Route>
-            <Route path="/:user" element={<User />}></Route>
-            <Route path="/Comment/:feedId" element={<Comment />}></Route>
+            <Route path="/user/*" element={<User />}></Route>
+            <Route path="/comment/:feedId" element={<Comment />}></Route>
+            <Route path="/sign-up" element={<SignUp />}></Route>
+            <Route path="/api-test" element={<Test />}></Route>
           </Routes>
           <BottomBar />
         </div>

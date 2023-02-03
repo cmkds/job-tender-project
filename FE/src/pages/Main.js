@@ -30,9 +30,11 @@ const dummyData = [
       post_image:
         "https://i.postimg.cc/wjsCsRCD/Kakao-Talk-20230131-090510363.jpg", //포스트 이미지
       content: "hot 게시물이다",
-      likes: [1, 2, 3, 4, 5],
+      likes: [1, 2, 3, 4, 5], //좋아요 누른 유저의 pk
       comments: {
+        //피드에 달린 댓글 들
         data: [
+          //피드에 달린 댓글들 리스트
           { commentId: 1, userId: 1, content: "Im GD" },
           { commentId: 2, userId: 1, content: "Im Hot" },
           { commentId: 3, userId: 1, content: "Im Cool" },
@@ -73,7 +75,7 @@ export const MainDispatchContext = React.createContext();
 
 const Main = () => {
   const [apiFeedData, dispatch] = useReducer(reducer, dummyData);
-
+  console.log(dummyData);
   //EDIT
   const onChangeApi = (api) => {
     dispatch({
