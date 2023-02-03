@@ -16,20 +16,9 @@ public class Connect {
     @Column(nullable = false)
     private Date createTime;
 
-    // mapping
-    @ManyToOne
-    @JoinColumn(name = "followerSeq")
-    private Member follower;
+    @Column(nullable = false)
+    private long follower;
 
-    public void setFollower(Member follower){
-        this.follower = follower;
-    }
-
-    @ManyToOne
-    @JoinColumn(name = "followingSeq")
-    private Member following;
-
-    public void setFollowing(Member following){
-        this.following = following;
-    }
+    @Column(nullable = false)
+    private long following;
 }

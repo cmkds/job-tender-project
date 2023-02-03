@@ -2,6 +2,7 @@ package com.springboot.pjt1.data.dto;
 
 import lombok.Data;
 
+import javax.persistence.*;
 import java.util.Date;
 
 @Data
@@ -10,6 +11,6 @@ public class CommentDTO {
     private String content;
     private Date modifyTime;
     private Date createTime;
-    private long feedSeq; //
-    private long memberSeq; //
+    private long FeedSeq;
+    private long MemberSeq;
 }

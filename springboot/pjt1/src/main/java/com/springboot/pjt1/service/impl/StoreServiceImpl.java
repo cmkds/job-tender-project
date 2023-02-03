@@ -9,6 +9,8 @@ import com.springboot.pjt1.data.entity.Store;
 import com.springboot.pjt1.service.StoreService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class StoreServiceImpl implements StoreService {
     private final StoreDAO storeDAO;
@@ -32,7 +34,6 @@ public class StoreServiceImpl implements StoreService {
         storeDTO.setVoice(store.getVoice());
         storeDTO.setCreateTime(store.getCreateTime());
         storeDTO.setRecentTime(store.getRecentTime());
-        storeDTO.setMemberSeq(store.getMember().getMemberSeq());
 
         return storeDTO;
     }
@@ -49,10 +50,6 @@ public class StoreServiceImpl implements StoreService {
         store.setCreateTime(storeDTO.getCreateTime());
         store.setRecentTime(storeDTO.getRecentTime());
 
-        // FK 연결
-        Member mem = memberDAO.SelectMemberById(storeDTO.getMemberSeq());
-        store.setMember(mem);
-
         Store savedStore = storeDAO.InsertStore(store);
         StoreDTO rStoreDTO = new StoreDTO();
 
@@ -63,7 +60,6 @@ public class StoreServiceImpl implements StoreService {
         rStoreDTO.setVoice(savedStore.getVoice());
         rStoreDTO.setCreateTime(savedStore.getCreateTime());
         rStoreDTO.setRecentTime(savedStore.getRecentTime());
-        rStoreDTO.setMemberSeq(savedStore.getMember().getMemberSeq());
 
         return rStoreDTO;
     }
@@ -81,7 +77,6 @@ public class StoreServiceImpl implements StoreService {
         rStoreDTO.setVoice(updatedStore.getVoice());
         rStoreDTO.setCreateTime(updatedStore.getCreateTime());
         rStoreDTO.setRecentTime(updatedStore.getRecentTime());
-        rStoreDTO.setMemberSeq(updatedStore.getMember().getMemberSeq());
 
         return rStoreDTO;
     }
@@ -89,5 +84,10 @@ public class StoreServiceImpl implements StoreService {
     @Override
     public void deleteStore(long storeSeq) throws Exception {
         storeDAO.DeleteStoreById(storeSeq);
+    }
+
+    @Override
+    public List<StoreDTO> getStoreByMemberSeq(long memberSeq) {
+        return storeDAO.SelectStoreByMemberSeq(memberSeq);
     }
 }

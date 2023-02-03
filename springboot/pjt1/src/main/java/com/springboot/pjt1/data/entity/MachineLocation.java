@@ -16,8 +16,4 @@ public class MachineLocation {
     String city;
     @Column(nullable = false)
     String name;
-
-    // mapping
-
-
 }

@@ -21,33 +21,20 @@ public class CommentDAOImpl implements CommentDAO{
 
     @Override
     public Comment insertComment(Comment comment) throws Exception {
-
-        Comment savedComment = commentRepository.save(comment);
-
-        return savedComment;
+        return commentRepository.save(comment);
     }
 
     @Override
     public Comment SelectCommentById(Long commentSeq) {
-        Comment SelectedComment = commentRepository.getById(commentSeq);
-
-        return SelectedComment;
+        return commentRepository.getById(commentSeq);
     }
 
     @Override
     public List<Comment> SelectCommentByFeedSeq(long feedSeq) {
-        List<Comment> selectedComment = commentRepository.findAllByFeed(feedSeq);
-        
-        return selectedComment;
+        return commentRepository.findAllByFeedSeq(feedSeq);
     }
 
-    @Override
-    public long SelectCommentSeqByFeedSeq(long feedSeq) {
-//        long commentSeq = commentRepository.findByFeed(feedSeq).getCommentSeq();
-//
-//        return commentSeq;
-        return 0;
-    }
+
 
     @Override
     public Comment updateCommentById(Long commentSeq, String content) throws Exception {

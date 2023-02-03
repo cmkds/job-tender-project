@@ -5,6 +5,7 @@ import com.springboot.pjt1.data.dao.MachineLocationDAO;
 import com.springboot.pjt1.data.dao.MemberDAO;
 import com.springboot.pjt1.data.dto.ConnectDTO;
 import com.springboot.pjt1.data.dto.FeedDTO;
+import com.springboot.pjt1.data.dto.StoreDTO;
 import com.springboot.pjt1.data.entity.Connect;
 import com.springboot.pjt1.data.entity.Feed;
 import com.springboot.pjt1.data.entity.MachineLocation;
@@ -13,6 +14,7 @@ import com.springboot.pjt1.service.FeedService;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -37,7 +39,6 @@ public class FeedServiceImpl implements FeedService {
         feedDTO.setCreateTime(feed.getCreateTime());
         feedDTO.setCreateTime(feed.getCreateTime());
         feedDTO.setHeart(feed.getHeart());
-        feedDTO.setMemberSeq(feed.getMember().getMemberSeq());
 
         return feedDTO;
     }
@@ -56,7 +57,6 @@ public class FeedServiceImpl implements FeedService {
             feedDTO.setCreateTime(feeds.get(i).getCreateTime());
             feedDTO.setCreateTime(feeds.get(i).getCreateTime());
             feedDTO.setHeart(feeds.get(i).getHeart());
-            feedDTO.setMemberSeq(feeds.get(i).getMember().getMemberSeq());
 
             feedDTOs.add(feedDTO);
         }
@@ -78,7 +78,6 @@ public class FeedServiceImpl implements FeedService {
             feedDTO.setCreateTime(feeds.get(i).getCreateTime());
             feedDTO.setCreateTime(feeds.get(i).getCreateTime());
             feedDTO.setHeart(feeds.get(i).getHeart());
-            feedDTO.setMemberSeq(feeds.get(i).getMember().getMemberSeq());
 
             feedDTOs.add(feedDTO);
         }
@@ -100,7 +99,6 @@ public class FeedServiceImpl implements FeedService {
             feedDTO.setCreateTime(feeds.get(i).getCreateTime());
             feedDTO.setCreateTime(feeds.get(i).getCreateTime());
             feedDTO.setHeart(feeds.get(i).getHeart());
-            feedDTO.setMemberSeq(feeds.get(i).getMember().getMemberSeq());
 
             feedDTOs.add(feedDTO);
         }
@@ -121,7 +119,6 @@ public class FeedServiceImpl implements FeedService {
             feedDTO.setCreateTime(feeds.get(i).getCreateTime());
             feedDTO.setCreateTime(feeds.get(i).getCreateTime());
             feedDTO.setHeart(feeds.get(i).getHeart());
-            feedDTO.setMemberSeq(feeds.get(i).getMember().getMemberSeq());
 
             feedDTOs.add(feedDTO);
         }
@@ -142,7 +139,26 @@ public class FeedServiceImpl implements FeedService {
             feedDTO.setCreateTime(feeds.get(i).getCreateTime());
             feedDTO.setCreateTime(feeds.get(i).getCreateTime());
             feedDTO.setHeart(feeds.get(i).getHeart());
-            feedDTO.setMemberSeq(feeds.get(i).getMember().getMemberSeq());
+
+            feedDTOs.add(feedDTO);
+        }
+        return feedDTOs;
+    }
+
+    @Override
+    public List<FeedDTO> getFollowingFeed(List<Long> memberSeqs) {
+        List<Feed> feeds = feedDAO.SelectFeedAllOrderByHeartByCity(city);
+        List<FeedDTO> feedDTOs = new ArrayList<>();
+
+        for (int i = 0; i < feeds.size(); i++){
+            FeedDTO feedDTO = new FeedDTO();
+
+            feedDTO.setFeedSeq(feeds.get(i).getFeedSeq());
+            feedDTO.setContent(feeds.get(i).getContent());
+            feedDTO.setPost(feeds.get(i).getPost());
+            feedDTO.setCreateTime(feeds.get(i).getCreateTime());
+            feedDTO.setCreateTime(feeds.get(i).getCreateTime());
+            feedDTO.setHeart(feeds.get(i).getHeart());
 
             feedDTOs.add(feedDTO);
         }
@@ -160,12 +176,6 @@ public class FeedServiceImpl implements FeedService {
         feed.setCreateTime(feedDTO.getCreateTime());
         feed.setHeart(feedDTO.getHeart());
 
-        Member mem = memberDAO.SelectMemberById(feedDTO.getMemberSeq());
-        feed.setMember(mem);
-
-        MachineLocation mac_loc = machineLocationDAO.SelectMachineLocationById(feedDTO.getMachineLocationSeq());
-        feed.setMachineLocation(mac_loc);
-
         Feed savedFeed = feedDAO.InsertFeed(feed);
         FeedDTO rFeedDTO = new FeedDTO();
 
@@ -175,8 +185,6 @@ public class FeedServiceImpl implements FeedService {
         rFeedDTO.setCreateTime(savedFeed.getCreateTime());
         rFeedDTO.setCreateTime(savedFeed.getCreateTime());
         rFeedDTO.setHeart(savedFeed.getHeart());
-        rFeedDTO.setMemberSeq(savedFeed.getMember().getMemberSeq());
-        rFeedDTO.setMachineLocationSeq(savedFeed.getMachineLocation().getMachineLocationSeq());
 
         return rFeedDTO;
     }
@@ -192,8 +200,6 @@ public class FeedServiceImpl implements FeedService {
         rFeedDTO.setCreateTime(updatedFeed.getCreateTime());
         rFeedDTO.setCreateTime(updatedFeed.getCreateTime());
         rFeedDTO.setHeart(updatedFeed.getHeart());
-        rFeedDTO.setMemberSeq(updatedFeed.getMember().getMemberSeq());
-        rFeedDTO.setMachineLocationSeq(updatedFeed.getMachineLocation().getMachineLocationSeq());
 
         return rFeedDTO;
     }
@@ -217,11 +223,27 @@ public class FeedServiceImpl implements FeedService {
             feedDTO.setCreateTime(feeds.get(i).getCreateTime());
             feedDTO.setCreateTime(feeds.get(i).getCreateTime());
             feedDTO.setHeart(feeds.get(i).getHeart());
-            feedDTO.setMemberSeq(feeds.get(i).getMember().getMemberSeq());
 
             feedDTOs.add(feedDTO);
         }
 
         return feedDTOs;
     }
+
+    @Override
+    public FeedDTO StoreToFeed(StoreDTO storeDTO, String content) {
+        FeedDTO feedDTO = new FeedDTO();
+
+        feedDTO.setMachineLocationSeq(storeDTO.getMachineLocationSeq());
+        feedDTO.setMemberSeq(storeDTO.getMemberSeq());
+        feedDTO.setModifyTime(new Date());
+        feedDTO.setPost(storeDTO.getPost());
+        feedDTO.setHeart(0);
+        feedDTO.setCreateTime(new Date());
+        feedDTO.setContent(content);
+
+        return feedDTO;
+    }
+
+
 }

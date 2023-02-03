@@ -35,7 +35,7 @@ public class HeartDAOImpl implements HeartDAO{
 
     @Override
     public Heart SelectHeartByFeedAndMember(long feedSeq, long memberSeq) {
-        Optional<Heart> selectedHeart = heartRepository.findByFeedAndMember(feedSeq, memberSeq);
+        Optional<Heart> selectedHeart = heartRepository.findByFeedSeqAndMemberSeq(feedSeq, memberSeq);
 
         return selectedHeart.isPresent() ? selectedHeart.get() : null;
     }

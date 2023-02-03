@@ -24,13 +24,6 @@ public class MachineData {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(nullable = false)
     private Date createTime;
-
-    // mapping
-    @ManyToOne
-    @JoinColumn(name = "machineSeq")
-    private Machine machine;
-
-    public void setMachine(Machine machine){
-        this.machine = machine;
-    }
+    @Column(nullable = false)
+    private long MachineSeq;
 }

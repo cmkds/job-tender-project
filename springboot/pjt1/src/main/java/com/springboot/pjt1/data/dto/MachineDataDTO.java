@@ -2,6 +2,9 @@ package com.springboot.pjt1.data.dto;
 
 import lombok.Data;
 
+import javax.persistence.Column;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import java.util.Date;
 
 @Data
@@ -12,5 +15,5 @@ public class MachineDataDTO {
     private String video;
     private String voice;
     private Date createTime;
-    private long machineSeq;
+    private long MachineSeq;
 }

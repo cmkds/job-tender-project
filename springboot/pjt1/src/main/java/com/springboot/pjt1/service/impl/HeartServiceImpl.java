@@ -30,8 +30,6 @@ public class HeartServiceImpl implements HeartService {
 
         heartDTO.setHeartSeq(heart.getHeartSeq());
         heartDTO.setCreateTime(heart.getCreateTime());
-        heartDTO.setMemberSeq(heart.getMember().getMemberSeq());
-        heartDTO.setFeedSeq(heart.getFeed().getFeedSeq());
 
         return heartDTO;
     }
@@ -47,8 +45,6 @@ public class HeartServiceImpl implements HeartService {
 
         heartDTO.setHeartSeq(heart.getHeartSeq());
         heartDTO.setCreateTime(heart.getCreateTime());
-        heartDTO.setMemberSeq(heart.getMember().getMemberSeq());
-        heartDTO.setFeedSeq(heart.getFeed().getFeedSeq());
 
         return heartDTO;
     }
@@ -59,8 +55,6 @@ public class HeartServiceImpl implements HeartService {
 
         heartDTO.setHeartSeq(heart.getHeartSeq());
         heartDTO.setCreateTime(heart.getCreateTime());
-        heartDTO.setMemberSeq(heart.getMember().getMemberSeq());
-        heartDTO.setFeedSeq(heart.getFeed().getFeedSeq());
 
         return heartDTO;
     }
@@ -71,20 +65,11 @@ public class HeartServiceImpl implements HeartService {
         heart.setHeartSeq(heartDTO.getHeartSeq());
         heart.setCreateTime(heartDTO.getCreateTime());
 
-        // insert FK
-        Feed feed = feedDAO.SelectFeedById(heartDTO.getFeedSeq());
-        heart.setFeed(feed);
-
-        Member member = memberDAO.SelectMemberById(heartDTO.getMemberSeq());
-        heart.setMember(member);
-
         Heart savedHeart = heartDAO.insertHeart(heart);
         HeartDTO rHeartDTO = new HeartDTO();
 
         rHeartDTO.setHeartSeq(savedHeart.getHeartSeq());
         rHeartDTO.setCreateTime(savedHeart.getCreateTime());
-        rHeartDTO.setMemberSeq(savedHeart.getMember().getMemberSeq());
-        rHeartDTO.setFeedSeq(savedHeart.getFeed().getFeedSeq());
 
         return rHeartDTO;
     }

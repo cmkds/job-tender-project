@@ -25,13 +25,6 @@ public class Notice {
     private Date modifyTime;
     @Column
     private int hit;
-
-    // mapping
-    @ManyToOne
-    @JoinColumn(name = "memberSeq")
-    private Member member;
-
-    public void setMember(Member member){
-        this.member = member;
-    }
+    @Column(nullable = false)
+    private long memberSeq;
 }

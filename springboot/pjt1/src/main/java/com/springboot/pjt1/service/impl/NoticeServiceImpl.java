@@ -29,7 +29,6 @@ public class NoticeServiceImpl implements NoticeService {
         noticeDTO.setCreateTime(notice.getCreateTime());
         noticeDTO.setCreateSeq(notice.getCreateSeq());
         noticeDTO.setModifyTime(notice.getModifyTime());
-        noticeDTO.setMemberSeq(notice.getMember().getMemberSeq());
 
         return noticeDTO;
     }
@@ -45,9 +44,6 @@ public class NoticeServiceImpl implements NoticeService {
         notice.setCreateSeq(noticeDTO.getCreateSeq());
         notice.setModifyTime(noticeDTO.getModifyTime());
 
-        Member mem = memberDAO.SelectMemberById(noticeDTO.getMemberSeq());
-        notice.setMember(mem);
-
         Notice savedNotice = noticeDAO.InsertNotice(notice);
         NoticeDTO rNoticeDTO = new NoticeDTO();
 
@@ -57,7 +53,6 @@ public class NoticeServiceImpl implements NoticeService {
         rNoticeDTO.setCreateTime(savedNotice.getCreateTime());
         rNoticeDTO.setCreateSeq(savedNotice.getCreateSeq());
         rNoticeDTO.setModifyTime(savedNotice.getModifyTime());
-        rNoticeDTO.setMemberSeq(savedNotice.getMember().getMemberSeq());
 
         return rNoticeDTO;
     }
@@ -73,7 +68,6 @@ public class NoticeServiceImpl implements NoticeService {
         rNoticeDTO.setCreateTime(updatedNotice.getCreateTime());
         rNoticeDTO.setCreateSeq(updatedNotice.getCreateSeq());
         rNoticeDTO.setModifyTime(updatedNotice.getModifyTime());
-        rNoticeDTO.setMemberSeq(updatedNotice.getMember().getMemberSeq());
 
         return rNoticeDTO;
     }

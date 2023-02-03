@@ -13,5 +13,5 @@ public interface FeedRepository extends JpaRepository<Feed, Long> {
     List<Feed> findAllByOrderByCreateTimeAsc();
     //List<Feed> findAllByMachineLocationSeqByOrderByHeartAsc(String machineLocationSeq);
     //List<Feed> findAllByMachineLocationSeqByOrderByCreateTimeAsc(String machineLocationSeq);
-    List<Feed> findByMember(long memberSeq);
+    List<Feed> findByMemberSeq(long memberSeq);
 }

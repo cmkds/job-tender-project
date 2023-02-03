@@ -27,14 +27,8 @@ public class Store {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(nullable = false)
     private Date recentTime;
-
-    // mapping
-    @ManyToOne
-    @JoinColumn(name = "memberSeq")
-    private Member member;
-
-    public void setMember(Member member){
-        this.member = member;
-    }
-
+    @Column(nullable = false)
+    private long memberSeq;
+    @Column(nullable = false)
+    private long machineLocationSeq;
 }

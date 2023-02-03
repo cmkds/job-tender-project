@@ -22,51 +22,37 @@ public class FeedDAOImpl implements FeedDAO {
     
     @Override
     public Feed InsertFeed(Feed feed) throws Exception {
-        Feed savedFeed = feedRepository.save(feed);
-
-        return savedFeed;
+        return feedRepository.save(feed);
     }
 
     @Override
     public Feed SelectFeedById(long feedSeq) {
-        Feed selectedFeed = feedRepository.getById(feedSeq);
-
-        return selectedFeed;
+        return feedRepository.getById(feedSeq);
     }
 
     @Override
     public List<Feed> SelectFeedAll() {
-        List<Feed> selectedFeeds = feedRepository.findAll();
-
-        return selectedFeeds;
+        return feedRepository.findAll();
     }
 
     @Override
     public List<Feed> SelectFeedAllOrderByHeart() {
-        List<Feed> selectedFeeds = feedRepository.findAllByOrderByHeartAsc();
-
-        return selectedFeeds;
+        return feedRepository.findAllByOrderByHeartAsc();
     }
 
     @Override
     public List<Feed> SelectFeedAllOrderByCreateTime() {
-        List<Feed> selectedFeeds = feedRepository.findAllByOrderByCreateTimeAsc();//
-
-        return selectedFeeds;
+        return feedRepository.findAllByOrderByCreateTimeAsc();
     }
 
     @Override
     public List<Feed> SelectFeedAllOrderByHeartByCity(String city) {
-        List<Feed> selectedFeeds = feedRepository.findAllByOrderByHeartAsc();//
-
-        return selectedFeeds;
+        return feedRepository.findAllByOrderByHeartAsc();
     }
 
     @Override
     public List<Feed> SelectFeedAllOrderByCreateTimeByCity(String city) {
-        List<Feed> selectedFeeds = feedRepository.findAllByOrderByCreateTimeAsc();//
-
-        return selectedFeeds;
+        return feedRepository.findAllByOrderByCreateTimeAsc();
     }
 
     @Override
@@ -108,7 +94,7 @@ public class FeedDAOImpl implements FeedDAO {
 
     @Override
     public List<Feed> SelectFollowerFeed(long memberSeq) {
-        List<Feed> feeds = feedRepository.findByMember(memberSeq);
+        List<Feed> feeds = feedRepository.findByMemberSeq(memberSeq);
 
         return feeds;
     }

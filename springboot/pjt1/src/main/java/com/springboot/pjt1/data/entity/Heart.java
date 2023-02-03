@@ -17,20 +17,9 @@ public class Heart {
     @Column(nullable = false)
     private Date createTime;
 
-    // mapping
-    @ManyToOne
-    @JoinColumn(name = "memberSeq")
-    private Member member;
+    @Column(nullable = false)
+    private long memberSeq;
 
-    public void setMember(Member member){
-        this.member = member;
-    }
-
-    @ManyToOne
-    @JoinColumn(name = "feedSeq")
-    private Feed feed;
-
-    public void setFeed(Feed feed){
-        this.feed = feed;
-    }
+    @Column(nullable = false)
+    private long feedSeq;
 }

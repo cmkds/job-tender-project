@@ -140,9 +140,10 @@ public class PJTController {
             return ResponseEntity.status(HttpStatus.OK).body(true);
     }
 
-    @GetMapping("/abcdefg")
-    public ResponseEntity<List<FeedDTO>> getFollowerFeed(long memberSeq){
-        List<FeedDTO> feedDtos = feedService.getFollowerFeed(memberSeq);
+    @GetMapping("/social/{memberSeq}")
+    public ResponseEntity<List<FeedDTO>> getFollowingFeed(long memberSeq){
+        List<Long> memberSeqs = connectService.getFollowings(memberSeq);
+        List<FeedDTO> feedDtos = feedService.getFollowingFeed(memberSeqs);
 
         return ResponseEntity.status(HttpStatus.OK).body(feedDtos);
     }
@@ -216,4 +217,54 @@ public class PJTController {
         return new ResponseEntity<Void>(HttpStatus.OK);
     }
 
+    @GetMapping("/profile/{memberSeq}")
+    public ResponseEntity<MemberDTO> getProfile(@PathVariable long memberSeq){
+        MemberDTO rMemberDTO = memberService.getMember(memberSeq);
+
+        return ResponseEntity.status(HttpStatus.OK).body(rMemberDTO);
+    }
+
+    @GetMapping("/mypage")
+    public ResponseEntity<List<StoreDTO>> getStoreByMemberSeq(long memberSeq){
+        List<StoreDTO> rStoreDTO = storeService.getStoreByMemberSeq(memberSeq);
+
+        return ResponseEntity.status(HttpStatus.OK).body(rStoreDTO);
+    }
+
+    @PostMapping("/mypage")
+    public ResponseEntity<FeedDTO> createFeed(long storeSeq, String context) throws Exception{
+        StoreDTO storeDTO = storeService.getStore(storeSeq);
+
+        FeedDTO feedDTO = feedService.StoreToFeed(storeDTO, context);
+        FeedDTO rfeedDTO = feedService.insertFeed(feedDTO);
+
+        return ResponseEntity.status(HttpStatus.OK).body(rfeedDTO);
+    }
+
+    @GetMapping("/mypage/photo/{feedSeq}")
+    public ResponseEntity<String> getPhoto(long memberSeq){
+        String url = storeService.getStore(memberSeq).getPhoto();
+
+        return ResponseEntity.status(HttpStatus.OK).body(url);
+    }
+    @GetMapping("/mypage/video/{feedSeq}")
+    public ResponseEntity<String> getVideo(long memberSeq){
+        String url = storeService.getStore(memberSeq).getVideo();
+
+        return ResponseEntity.status(HttpStatus.OK).body(url);
+    }
+    @GetMapping("/mypage/post/{feedSeq}")
+    public ResponseEntity<String> getPost(long memberSeq){
+        String url = storeService.getStore(memberSeq).getPost();
+
+        return ResponseEntity.status(HttpStatus.OK).body(url);
+    }
+
+    @DeleteMapping("/mypage")
+    public ResponseEntity<Void> deleteExistMember(long memberSeq) throws Exception{
+
+        memberService.deleteMember(memberSeq);
+
+        return new ResponseEntity<Void>(HttpStatus.OK);
+    }
 }

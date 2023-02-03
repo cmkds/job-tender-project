@@ -10,6 +10,8 @@ import com.springboot.pjt1.service.ConnectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ConnectServiceImpl implements ConnectService {
     private final ConnectDAO connectDAO;
@@ -28,8 +30,6 @@ public class ConnectServiceImpl implements ConnectService {
 
         connectDTO.setConnectSeq(connect.getConnectSeq());
         connectDTO.setCreateTime(connect.getCreateTime());
-        connectDTO.setFollowing(connect.getFollowing().getMemberSeq());
-        connectDTO.setFollower(connect.getFollower().getMemberSeq());
 
         return connectDTO;
     }
@@ -43,7 +43,7 @@ public class ConnectServiceImpl implements ConnectService {
 
     @Override
     public long getConnectSeq(long srcMemberSeq, long dstMemberSeq) {
-        long connectSeq = connectDAO.SelectConnectSeqByMemberIds(srcMemberSeq, dstMemberSeq);
+        long connectSeq = connectDAO.SelectConnectSeqByMemberId(srcMemberSeq, dstMemberSeq);
 
         return connectSeq;
     }
@@ -55,20 +55,11 @@ public class ConnectServiceImpl implements ConnectService {
         connect.setConnectSeq(connectDTO.getConnectSeq());
         connect.setCreateTime(connectDTO.getCreateTime());
 
-        // insert FK
-        Member mem1 = memberDAO.SelectMemberById(connectDTO.getFollower());
-        connect.setFollower(mem1);
-
-        Member mem2 = memberDAO.SelectMemberById(connectDTO.getFollowing());
-        connect.setFollowing(mem2);
-
         Connect savedConnect = connectDAO.InsertConnect(connect);
         ConnectDTO rConnectDTO = new ConnectDTO();
 
         rConnectDTO.setConnectSeq(savedConnect.getConnectSeq());
         rConnectDTO.setCreateTime(savedConnect.getCreateTime());
-        rConnectDTO.setFollower(savedConnect.getFollower().getMemberSeq());
-        rConnectDTO.setFollowing(savedConnect.getFollowing().getMemberSeq());
 
         return rConnectDTO;
     }
@@ -76,5 +67,10 @@ public class ConnectServiceImpl implements ConnectService {
     @Override
     public void deleteConnect(long connectSeq) throws Exception {
         connectDAO.DeleteConnectById(connectSeq);
+    }
+
+    @Override
+    public List<Long> getFollowings(long memberSeq) {
+        return connectDAO.SelectFollowingByMemberSeq(memberSeq);
     }
 }

@@ -38,6 +38,4 @@ public class Member {
     private Date modifyTime;
     @Column(nullable = false)
     private String isAdmin;
-
-    // mapping
 }

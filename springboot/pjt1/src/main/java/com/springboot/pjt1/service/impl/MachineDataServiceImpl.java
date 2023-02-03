@@ -32,7 +32,6 @@ public class MachineDataServiceImpl implements MachineDataService {
         machineDataDTO.setPost(machineData.getPost());
         machineDataDTO.setVoice(machineData.getVoice());
         machineDataDTO.setPhoto(machineData.getPhoto());
-        machineDataDTO.setMachineSeq(machineData.getMachine().getMachineSeq());
 
         return machineDataDTO;
     }
@@ -49,9 +48,6 @@ public class MachineDataServiceImpl implements MachineDataService {
         machineData.setVoice(machineDataDTO.getVoice());
         machineData.setPhoto(machineDataDTO.getPhoto());
 
-        Machine mac = machineDAO.SelectMachineById(machineDataDTO.getMachineSeq());
-        machineData.setMachine(mac);
-
         MachineData savedMachineData = machineDataDAO.InsertMachineData(machineData);
         MachineDataDTO rMachineDataDTO = new MachineDataDTO();
 
@@ -62,7 +58,6 @@ public class MachineDataServiceImpl implements MachineDataService {
         rMachineDataDTO.setPost(savedMachineData.getPost());
         rMachineDataDTO.setVoice(savedMachineData.getVoice());
         rMachineDataDTO.setPhoto(savedMachineData.getPhoto());
-        rMachineDataDTO.setMachineSeq(savedMachineData.getMachine().getMachineSeq());
 
         return rMachineDataDTO;
     }

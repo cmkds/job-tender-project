@@ -27,12 +27,6 @@ public class Machine {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(nullable = false)
     private Date createTime;
-
-    @OneToOne
-    @JoinColumn(name = "MACHINE_LOCATION_SEQ")
-    private MachineLocation machineLocation;
-
-    public void setMachineLocation(MachineLocation machineLocation){
-        this.machineLocation = machineLocation;
-    }
+    @Column(nullable = false)
+    private long machineLocationSeq;
 }

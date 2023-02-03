@@ -26,7 +26,6 @@ public class MachineServiceImpl implements MachineService {
         machineDTO.setMachineSeq(machine.getMachineSeq());
         machineDTO.setCreateTime(machine.getCreateTime());
         machineDTO.setRecentTime(machine.getRecentTime());
-        machineDTO.setMachineLocationSeq(machine.getMachineLocation().getMachineLocationSeq());
 
         return machineDTO;
     }
@@ -39,17 +38,12 @@ public class MachineServiceImpl implements MachineService {
         machine.setCreateTime(machineDTO.getCreateTime());
         machine.setRecentTime(machineDTO.getRecentTime());
 
-        MachineLocation loc_mac = machineLocationDAO.SelectMachineLocationById(machineDTO.getMachineLocationSeq());
-        machine.setMachineLocation(loc_mac);
-
         Machine savedMachine = machineDAO.InsertMachine(machine);
         MachineDTO rMachineDTO = new MachineDTO();
 
         rMachineDTO.setMachineSeq(savedMachine.getMachineSeq());
         rMachineDTO.setCreateTime(savedMachine.getCreateTime());
-        rMachineDTO.setMachineLocationSeq(savedMachine.getMachineLocation().getMachineLocationSeq());
         rMachineDTO.setRecentTime(savedMachine.getRecentTime());
-        rMachineDTO.setMachineLocationSeq(savedMachine.getMachineLocation().getMachineLocationSeq());
 
         return rMachineDTO;
     }
@@ -61,7 +55,6 @@ public class MachineServiceImpl implements MachineService {
 
         rMachineDTO.setMachineSeq(updatedMachine.getMachineSeq());
         rMachineDTO.setCreateTime(updatedMachine.getCreateTime());
-        rMachineDTO.setMachineLocationSeq(updatedMachine.getMachineLocation().getMachineLocationSeq());
         rMachineDTO.setRecentTime(updatedMachine.getRecentTime());
 
         return rMachineDTO;

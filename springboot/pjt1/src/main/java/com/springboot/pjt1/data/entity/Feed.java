@@ -27,21 +27,8 @@ public class Feed {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(nullable = false)
     private Date modifyTime;
-
-    // mapping
-    @ManyToOne
-    @JoinColumn(name = "memberSeq")
-    private Member member;
-
-    public void setMember(Member member){
-        this.member = member;
-    }
-
-    @ManyToOne
-    @JoinColumn(name = "machineLocationSeq")
-    private MachineLocation machineLocation;
-
-    public void setMachineLocation(MachineLocation machineLocation){
-        this.machineLocation = machineLocation;
-    }
+    @Column(nullable = false)
+    private long memberSeq;
+    @Column(nullable = false)
+    private long machineLocationSeq;
 }

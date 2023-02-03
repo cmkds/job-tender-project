@@ -34,7 +34,6 @@ public class CommentServiceImpl implements CommentService {
 
         commentDTO.setCommentSeq(comment.getCommentSeq());
         commentDTO.setContent(comment.getContent());
-        commentDTO.setMemberSeq(comment.getMember().getMemberSeq());
         commentDTO.setCreateTime(comment.getCreateTime());
         commentDTO.setModifyTime(comment.getModifyTime());
 
@@ -51,7 +50,6 @@ public class CommentServiceImpl implements CommentService {
 
             commentDTO.setCommentSeq(comments.get(i).getCommentSeq());
             commentDTO.setContent(comments.get(i).getContent());
-            commentDTO.setMemberSeq(comments.get(i).getMember().getMemberSeq());
             commentDTO.setCreateTime(comments.get(i).getCreateTime());
             commentDTO.setModifyTime(comments.get(i).getModifyTime());
 
@@ -61,10 +59,7 @@ public class CommentServiceImpl implements CommentService {
         return commentDTOs;
     }
 
-    @Override
-    public long getCommentSeqByFeedSeq(long feedSeq) {
-        return commentDAO.SelectCommentSeqByFeedSeq(feedSeq);
-    }
+
 
     @Override
     public CommentDTO insertComment(CommentDTO commentDTO) throws Exception {
@@ -75,13 +70,6 @@ public class CommentServiceImpl implements CommentService {
         comment.setContent(commentDTO.getContent());
         comment.setCreateTime(commentDTO.getCreateTime());
         comment.setModifyTime(commentDTO.getModifyTime());
-
-        // insert FK
-        Feed feed = feedDAO.SelectFeedById(commentDTO.getFeedSeq());
-        comment.setFeed(feed);
-
-        Member member = memberDAO.SelectMemberById(commentDTO.getMemberSeq());
-        comment.setMember(member);
 
         // insert
         Comment savedComment = commentDAO.insertComment(comment);
@@ -106,7 +94,6 @@ public class CommentServiceImpl implements CommentService {
         rCommentDTO.setContent(updatedComment.getContent());
         rCommentDTO.setCreateTime(updatedComment.getCreateTime());
         rCommentDTO.setModifyTime(updatedComment.getModifyTime());
-        rCommentDTO.setMemberSeq(updatedComment.getMember().getMemberSeq());
 
         return rCommentDTO;
     }

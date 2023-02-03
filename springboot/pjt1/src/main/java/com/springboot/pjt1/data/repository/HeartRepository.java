@@ -9,6 +9,6 @@ import java.util.Optional;
 
 @Repository
 public interface HeartRepository extends JpaRepository<Heart, Long> {
-    Optional<Heart> findByFeedAndMember(long feedSeq, long memberSeq);
+    Optional<Heart> findByFeedSeqAndMemberSeq(long feedSeq, long memberSeq);
 }
 
