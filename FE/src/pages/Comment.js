@@ -4,6 +4,7 @@ import { useParams, useNavigate } from "react-router-dom";
 
 import NavBar from "../components/NavBar";
 import MyButton from "../components/MyButton";
+import CommentWrite from "../components/comment/CommentWrite";
 
 const Comment = () => {
   const { id } = useParams();
@@ -14,7 +15,7 @@ const Comment = () => {
         navText={"댓글"}
         leftChild={<MyButton text={"<"} onClick={() => navigate(-1)} />}
       />
-      <p>댓글달기 들어감</p>
+      <CommentWrite />
       <CommentList />
     </div>
   );
