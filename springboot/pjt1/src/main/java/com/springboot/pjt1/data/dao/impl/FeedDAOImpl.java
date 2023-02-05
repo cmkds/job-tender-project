@@ -98,4 +98,9 @@ public class FeedDAOImpl implements FeedDAO {
 
         return feeds;
     }
+
+    @Override
+    public List<Feed> SelectFeedByMemberSeqs(List<Long> memberSeqs) {
+        return feedRepository.findByMemberSeqs(memberSeqs);
+    }
 }

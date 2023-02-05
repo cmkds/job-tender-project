@@ -147,7 +147,7 @@ public class FeedServiceImpl implements FeedService {
 
     @Override
     public List<FeedDTO> getFollowingFeed(List<Long> memberSeqs) {
-        List<Feed> feeds = feedDAO.SelectFeedAllOrderByHeartByCity(city);
+        List<Feed> feeds = feedDAO.SelectFeedByMemberSeqs(memberSeqs);
         List<FeedDTO> feedDTOs = new ArrayList<>();
 
         for (int i = 0; i < feeds.size(); i++){

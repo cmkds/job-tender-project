@@ -106,4 +106,11 @@ public class MemberDAOImpl implements MemberDAO {
 
         return selectedMember.isPresent();
     }
+
+    @Override
+    public List<Member> InsertMembers(List<Member> members) {
+        List<Member> savedMembers = memberRepository.saveAll(members);
+
+        return savedMembers;
+    }
 }

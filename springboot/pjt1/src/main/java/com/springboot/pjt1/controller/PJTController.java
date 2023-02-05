@@ -60,16 +60,30 @@ public class PJTController {
         return ResponseEntity.status(HttpStatus.OK).body(memberDTOs);
     }
 
-    @PostMapping("/member")
+
+    //
+    @GetMapping("/account")
+    public ResponseEntity<Boolean> findNickname(@RequestParam String nickname) {
+        return ResponseEntity.status(HttpStatus.OK).body(memberService.findNickname(nickname));
+    }
+
+    @GetMapping("/account/{memberSeq}")
+    public ResponseEntity<MemberDTO> getMemberByMemberSeq(@PathVariable long memberSeq) {
+        return ResponseEntity.status(HttpStatus.OK).body(memberService.getMember(memberSeq));
+    }
+
+    @PostMapping("/account")
     public ResponseEntity<MemberDTO> createMember(@RequestBody MemberDTO memberDto) throws Exception {
         MemberDTO rMemberDto = memberService.insertMember(memberDto);
 
         return ResponseEntity.status(HttpStatus.OK).body(rMemberDto);
     }
-    //
-    @GetMapping("/account/{nickname}")
-    public ResponseEntity<Boolean> findNickname(@PathVariable String nickname) {
-        return ResponseEntity.status(HttpStatus.OK).body(memberService.findNickname(nickname));
+
+    @PostMapping("/accounts")
+    public ResponseEntity<List<MemberDTO>> createMembers(@RequestBody List<MemberDTO> memberDtos) throws Exception {
+        List<MemberDTO> rMemberDtos = memberService.insertMembers(memberDtos);
+
+        return ResponseEntity.status(HttpStatus.OK).body(rMemberDtos);
     }
 
     @PutMapping("/account/{memberSeq}")
@@ -78,7 +92,7 @@ public class PJTController {
 
         return ResponseEntity.status(HttpStatus.OK).body(rmemberDTO);
     }
-
+    // --- finish ---
     @DeleteMapping("/account/{memberSeq}")
     public ResponseEntity<Void> deleteMember(@PathVariable long memberSeq) throws Exception{
         memberService.deleteMember(memberSeq);
@@ -266,5 +280,12 @@ public class PJTController {
         memberService.deleteMember(memberSeq);
 
         return new ResponseEntity<Void>(HttpStatus.OK);
+    }
+
+    @PutMapping("/mypage/{memberSeq}")
+    public ResponseEntity<MemberDTO> updateMemberProfile(@RequestBody MemberInitDTO memberInitDTO, @PathVariable long memberSeq) throws  Exception{
+        MemberDTO rmemberDTO = memberService.updateMember(memberSeq, memberInitDTO);
+
+        return ResponseEntity.status(HttpStatus.OK).body(rmemberDTO);
     }
 }

@@ -13,6 +13,7 @@ public interface MemberService {
     List<MemberSearchInfoDTO> getMemberSearchInfo(String nickname);
     List<MemberSearchInfoDTO> getMemberSearchFollowingInfo(long memberSeq);
     MemberDTO insertMember(MemberDTO memberDTO)throws Exception;
+    List<MemberDTO> insertMembers(List<MemberDTO> memberDTO) throws Exception;
     MemberDTO updateMember(long memberSeq, String nickname, String addr_base, String addr_spec,
                            String member_profile, String member_state, String is_admin) throws Exception;
     MemberDTO updateMember(long memberSeq, MemberInitDTO memberInitDTO) throws Exception;

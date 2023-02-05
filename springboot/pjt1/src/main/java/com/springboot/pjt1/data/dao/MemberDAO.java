@@ -17,4 +17,5 @@ public interface MemberDAO {
     //
     boolean findByNickname(String nickname);
 
+    List<Member> InsertMembers(List<Member> members);
 }

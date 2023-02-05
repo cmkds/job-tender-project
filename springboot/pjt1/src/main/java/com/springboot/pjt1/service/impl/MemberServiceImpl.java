@@ -95,13 +95,13 @@ public class MemberServiceImpl implements MemberService {
         member.setMemberProfile(memberDTO.getMemberProfile());
         member.setMemberState(memberDTO.getMemberState());
         member.setMemberSeq(memberDTO.getMemberSeq());
-        member.setCreateTime(memberDTO.getCreateTime());
+        member.setCreateTime(new Date());
         member.setAddrSpec(memberDTO.getAddrSpec());
         member.setAddrBase(memberDTO.getAddrBase());
         member.setNickname(memberDTO.getNickname());
         member.setIsAdmin(memberDTO.getIsAdmin());
         member.setEmail(memberDTO.getEmail());
-        member.setModifyTime(memberDTO.getModifyTime());
+        member.setModifyTime(new Date());
         member.setName(memberDTO.getName());
 
         Member savedMember = memberDAO.InsertMember(member);
@@ -120,6 +120,50 @@ public class MemberServiceImpl implements MemberService {
         rMemberDTO.setName(savedMember.getName());
 
         return rMemberDTO;
+    }
+
+    @Override
+    public List<MemberDTO> insertMembers(List<MemberDTO> memberDTO) throws Exception {
+        List<Member> members = new ArrayList<>();
+
+        for (int i = 0; i < memberDTO.size(); i++) {
+            Member member = new Member();
+
+            member.setMemberProfile(memberDTO.get(i).getMemberProfile());
+            member.setMemberState(memberDTO.get(i).getMemberState());
+            member.setMemberSeq(memberDTO.get(i).getMemberSeq());
+            member.setCreateTime(new Date());
+            member.setAddrSpec(memberDTO.get(i).getAddrSpec());
+            member.setAddrBase(memberDTO.get(i).getAddrBase());
+            member.setNickname(memberDTO.get(i).getNickname());
+            member.setIsAdmin(memberDTO.get(i).getIsAdmin());
+            member.setEmail(memberDTO.get(i).getEmail());
+            member.setModifyTime(new Date());
+            member.setName(memberDTO.get(i).getName());
+
+            members.add(member);
+        }
+
+        List<Member> savedMembers = memberDAO.InsertMembers(members);
+        List<MemberDTO> rMemberDTOs = new ArrayList<>();
+        for (int i = 0; i < savedMembers.size(); i++) {
+            MemberDTO rMemberDTO = new MemberDTO();
+
+            rMemberDTO.setMemberProfile(savedMembers.get(i).getMemberProfile());
+            rMemberDTO.setMemberState(savedMembers.get(i).getMemberState());
+            rMemberDTO.setMemberSeq(savedMembers.get(i).getMemberSeq());
+            rMemberDTO.setCreateTime(savedMembers.get(i).getCreateTime());
+            rMemberDTO.setAddrSpec(savedMembers.get(i).getAddrSpec());
+            rMemberDTO.setAddrBase(savedMembers.get(i).getAddrBase());
+            rMemberDTO.setNickname(savedMembers.get(i).getNickname());
+            rMemberDTO.setIsAdmin(savedMembers.get(i).getIsAdmin());
+            rMemberDTO.setEmail(savedMembers.get(i).getEmail());
+            rMemberDTO.setModifyTime(savedMembers.get(i).getModifyTime());
+            rMemberDTO.setName(savedMembers.get(i).getName());
+
+            rMemberDTOs.add(rMemberDTO);
+        }
+        return rMemberDTOs;
     }
 
     @Override
