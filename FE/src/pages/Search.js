@@ -25,7 +25,7 @@ const Search = () => {
     // console.log(users);
   }, []);
 
-  // console.log(users.length);
+  console.log(users.map((it) => it.id));
   // console.log(copy.length);
 
   const handleInputChange = (e) => {
@@ -64,9 +64,9 @@ const Search = () => {
         ) : parseInt(users.length) === 0 ? (
           <p>해당하는 유저가 없습니다.</p>
         ) : (
-          <UserList key={users.idx} item={users} />
+          <UserList key={users.filter((it) => it.id)} item={users} />
         )}
-
+        {/* users.map((it) => it.id) */}
         {/* {parseInt(copy.length) === parseInt(users.length) || (
           <UserList key={users.idx} item={users} />
         )} */}
