@@ -14,6 +14,12 @@ import FeedList from "../components/feed/FeedList";
 //@@@일단 더미데이터로
 // 2번 더미 데이터 데이터 만들기
 
+//  1. 로그인한 사람의 팔로워 목록 가져옴
+//  2. 해당아이디 하나하나 피드 데이터 가져옴
+//  3. 피드데이터
+//
+//
+
 export const FeedStateContext = React.createContext();
 
 const api2 = [

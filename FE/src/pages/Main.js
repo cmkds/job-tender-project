@@ -6,7 +6,7 @@
 //new hot location 쿼리로 보내야함
 // 없을시 디폴트 값은 전국, 핫
 import React, { useEffect, useReducer, useRef, useState } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import MainAllHot from "./main/MainAllHot";
 import MainAllNew from "./main/MainAllNew";
 import MainLocationHot from "./main/MainLocationHot";
@@ -75,7 +75,10 @@ export const MainDispatchContext = React.createContext();
 
 const Main = () => {
   const [apiFeedData, dispatch] = useReducer(reducer, dummyData);
-  console.log(dummyData);
+
+  //navigate
+  const navigate = useNavigate();
+
   //EDIT
   const onChangeApi = (api) => {
     dispatch({
@@ -87,10 +90,13 @@ const Main = () => {
   };
   return (
     <div>
+      {/* 돋보기 버튼  이거 상단바 왼쪽에 위치 해야함.*/}
+      <button onClick={() => navigate("/search")}> 유저 검색 </button>
+
       <MainNavBar></MainNavBar>
       <NewHotButton></NewHotButton>
       <h2>main</h2>
-      
+
       <MainStateContext.Provider value={apiFeedData}>
         <MainDispatchContext.Provider value={onChangeApi}>
           <Routes>

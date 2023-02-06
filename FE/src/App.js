@@ -20,6 +20,7 @@ import Comment from "./pages/Comment";
 import SignUp from "./pages/SignUp";
 import BottomBar from "./components/BottomBar";
 import Test from "./api/Teest";
+import Search from "./pages/Search";
 
 function App() {
   return (
@@ -44,6 +45,7 @@ function App() {
             <Route path="/comment/:feedId" element={<Comment />}></Route>
             <Route path="/sign-up" element={<SignUp />}></Route>
             <Route path="/api-test" element={<Test />}></Route>
+            <Route path="/search" element={<Search />}></Route>
           </Routes>
           <BottomBar />
         </div>
