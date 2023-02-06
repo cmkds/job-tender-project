@@ -99,19 +99,20 @@ const Main = () => {
 
       <MainNavBar></MainNavBar>
       <NewHotButton></NewHotButton>
-      <h2>main</h2>
-
-      <MainStateContext.Provider value={apiFeedData}>
-        <MainDispatchContext.Provider value={onChangeApi}>
-          <Routes>
-            <Route path="/" element={<MainAllHot />} />
-            <Route path="/all/hot" element={<MainAllHot />} />
-            <Route path="/all/new" element={<MainAllNew />} />
-            <Route path="/:locationId/hot" element={<MainLocationHot />} />
-            <Route path="/:locationId/new" element={<MainLocationNew />} />
-          </Routes>
-        </MainDispatchContext.Provider>
-      </MainStateContext.Provider>
+      {/* <h2>main</h2> */}
+      <div>
+        <MainStateContext.Provider value={apiFeedData}>
+          <MainDispatchContext.Provider value={onChangeApi}>
+            <Routes>
+              <Route path="/" element={<MainAllHot />} />
+              <Route path="/all/hot" element={<MainAllHot />} />
+              <Route path="/all/new" element={<MainAllNew />} />
+              <Route path="/:locationId/hot" element={<MainLocationHot />} />
+              <Route path="/:locationId/new" element={<MainLocationNew />} />
+            </Routes>
+          </MainDispatchContext.Provider>
+        </MainStateContext.Provider>
+      </div>
     </div>
   );
 };

@@ -2,7 +2,6 @@ import { useContext } from "react";
 import { StorageStateContext } from "../../pages/Storage";
 import * as React from 'react';
 import ImageList from '@mui/material/ImageList';
-import ImageListItemBar from '@mui/material/ImageListItemBar';
 import ImageListItem from '@mui/material/ImageListItem';
 import { useNavigate } from "react-router-dom";
 
@@ -16,13 +15,13 @@ const StorageList = () => {
           <ImageListItem key={it.id} {...it}>
             <img
               src={`${it.photo_url}`}
-              // srcSet={`${it.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
+              // srcSet={`${it.photo_url}?w=248&fit=crop&auto=format&dpr=2 2x`}
               alt={it.id}
               loading="lazy"
               onClick={() => navigate(`/storage/${it.id}`)}
             />
             <div style={{display: "flex", backgroundColor:"#C1BCBC", color:"white", height: "100%", padding: "3% 5% 3%", justifyContent: "space-between", fontFamily: "GangwonEduAll"}}>
-              <div>
+              <div> 
                 {it.location}
               </div>
               <div>

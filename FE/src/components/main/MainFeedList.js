@@ -6,8 +6,7 @@ const MainFeedList = () => {
   const mainFeedList = useContext(MainStateContext);
   console.log(mainFeedList);
   return (
-    <div>
-      <p>메인 피드 리스트다</p>
+    <div style={{ paddingTop: "28vw" }}>
       {mainFeedList.map((it) => (
         <MainFeedItem key={it.id} {...it} />
       ))}

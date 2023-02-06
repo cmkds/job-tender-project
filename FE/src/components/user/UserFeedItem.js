@@ -1,10 +1,7 @@
 const UserFeedItem = ({ id, post_image }) => {
   return (
-    <div>
-      <p>유저피드아이템 {id}</p>
-      <div>
-        <img src={post_image} alt="" />
-      </div>
+    <div className="post_wrapper">
+      <img className="post_wrapper" src={post_image} />
     </div>
   );
 };
