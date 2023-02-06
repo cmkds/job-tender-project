@@ -3,6 +3,7 @@ import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserStateContext } from "../User";
 import UserFeedList from "../../components/user/UserFeedList";
+import TopBar from "../../components/TopBar";
 
 // 게시물 리스트를 보여줄 페이지.
 // 해당 유저의 아이디와 로그인한 아이디가 같다면
@@ -20,6 +21,7 @@ const UserMain = () => {
   console.log(userData);
   return (
     <div>
+      <TopBar />
       게시물 리스트 페이지
       <br />
       <div>

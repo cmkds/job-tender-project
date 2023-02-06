@@ -47,7 +47,7 @@ const userApiDummy = [
 const User = () => {
   return (
     <div>
-      <h2>User Page</h2>
+      {/* <h2>User Page</h2> */}
       <UserStateContext.Provider value={[userApiDummy]}>
         <Routes>
           <Route path="/:user" element={<UserMain />} />

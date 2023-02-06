@@ -7,6 +7,8 @@
 // 없을시 디폴트 값은 전국, 핫
 import React, { useEffect, useReducer, useRef, useState } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
+
+import TopBar from "../components/TopBar";
 import MainAllHot from "./main/MainAllHot";
 import MainAllNew from "./main/MainAllNew";
 import MainLocationHot from "./main/MainLocationHot";
@@ -90,6 +92,8 @@ const Main = () => {
   };
   return (
     <div>
+      <TopBar />
+
       {/* 돋보기 버튼  이거 상단바 왼쪽에 위치 해야함.*/}
       <button onClick={() => navigate("/search")}> 유저 검색 </button>
 

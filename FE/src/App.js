@@ -1,8 +1,8 @@
 import "./App.css";
-import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 //컴포넌트 import
-import MyButton from "./components/MyButton";
+// import MyButton from "./components/MyButton";
 import TopBar from "./components/TopBar";
 import RouteTest from "./components/RouteTest";
 
@@ -27,11 +27,11 @@ function App() {
     <div>
       <BrowserRouter>
         <div className="App">
-          <TopBar
+          {/* <TopBar
             // className="topbar"
             head_btn_center={"중단 홈"}
             head_btn_right={"우측 로그인 버튼"}
-          />
+          /> */}
           <Routes>
             <Route path="/" element={<Home />}></Route>
             <Route path="/menu" element={<Menu />}></Route>

@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 //
+import TopBar from "../components/TopBar";
+
 import FeedList from "../components/feed/FeedList";
 // api 1
 // 로그인한 사람의 팔로워 목록을 겟요청으로 받고
@@ -105,6 +107,7 @@ const Feed = () => {
   const navigate = useNavigate();
   return (
     <div>
+      <TopBar />
       <h2>Feed Page</h2>
 
       <FeedStateContext.Provider value={[followersData, feedsData]}>
