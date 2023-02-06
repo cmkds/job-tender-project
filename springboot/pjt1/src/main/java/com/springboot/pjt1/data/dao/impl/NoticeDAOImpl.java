@@ -1,13 +1,16 @@
 package com.springboot.pjt1.data.dao.impl;
 
 import com.springboot.pjt1.data.dao.NoticeDAO;
+import com.springboot.pjt1.data.entity.Member;
 import com.springboot.pjt1.data.entity.Notice;
 import com.springboot.pjt1.data.entity.Notice;
 import com.springboot.pjt1.data.repository.NoticeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 @Component
 public class NoticeDAOImpl implements NoticeDAO {
@@ -63,5 +66,13 @@ public class NoticeDAOImpl implements NoticeDAO {
 
         else
             throw new Exception();
+    }
+
+    @Override
+    public void DeleteNoticeByMemberSeq(long memberSeq) {
+        List<Notice> notices = noticeRepository.findAllByMemberSeq(memberSeq);
+
+        for(Notice notice : notices)
+            noticeRepository.delete(notice);
     }
 }

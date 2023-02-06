@@ -59,6 +59,24 @@ public class CommentServiceImpl implements CommentService {
         return commentDTOs;
     }
 
+    @Override
+    public List<CommentDTO> getCommentByMemberSeq(long memberSeq) {
+        List<CommentDTO> commentDTOs = new ArrayList<>();
+        List<Comment> comments = commentDAO.SelectCommentByMemberSeq(memberSeq);
+
+        for (int i = 0; i < comments.size(); i++){
+            CommentDTO commentDTO = new CommentDTO();
+
+            commentDTO.setCommentSeq(comments.get(i).getCommentSeq());
+            commentDTO.setContent(comments.get(i).getContent());
+            commentDTO.setCreateTime(comments.get(i).getCreateTime());
+            commentDTO.setModifyTime(comments.get(i).getModifyTime());
+
+            commentDTOs.add(commentDTO);
+        }
+
+        return commentDTOs;
+    }
 
 
     @Override
@@ -100,5 +118,10 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public void deleteComment(long commentSeq) throws Exception {
         commentDAO.deleteCommentById(commentSeq);
+    }
+
+    @Override
+    public void deleteCommentByMemberSeq(long memberSeq) {
+        commentDAO.deleteCommentByMemberSeq(memberSeq);
     }
 }

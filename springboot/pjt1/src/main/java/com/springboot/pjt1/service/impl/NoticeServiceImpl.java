@@ -6,6 +6,7 @@ import com.springboot.pjt1.data.dto.NoticeDTO;
 import com.springboot.pjt1.data.dto.NoticeDTO;
 import com.springboot.pjt1.data.entity.Member;
 import com.springboot.pjt1.data.entity.Notice;
+import com.springboot.pjt1.service.MemberService;
 import com.springboot.pjt1.service.NoticeService;
 import org.springframework.stereotype.Service;
 
@@ -76,4 +77,11 @@ public class NoticeServiceImpl implements NoticeService {
     public void deleteNotice(long noticeSeq) throws Exception {
         noticeDAO.DeleteNoticeById(noticeSeq);
     }
+
+    @Override
+    public void deleteNoticeByMemberSeq(long memberSeq) {
+        noticeDAO.DeleteNoticeByMemberSeq(memberSeq);
+    }
+
+
 }

@@ -2,6 +2,7 @@ package com.springboot.pjt1.data.dao.impl;
 
 import com.springboot.pjt1.data.dao.MemberDAO;
 import com.springboot.pjt1.data.dto.custom.MemberInitDTO;
+import com.springboot.pjt1.data.entity.Feed;
 import com.springboot.pjt1.data.entity.Member;
 import com.springboot.pjt1.data.entity.Member;
 import com.springboot.pjt1.data.repository.MemberRepository;
@@ -113,4 +114,10 @@ public class MemberDAOImpl implements MemberDAO {
 
         return savedMembers;
     }
+
+    @Override
+    public boolean findMemberByEmailReturnBool(String email) {
+        return memberRepository.findByEmail(email);
+    }
+
 }

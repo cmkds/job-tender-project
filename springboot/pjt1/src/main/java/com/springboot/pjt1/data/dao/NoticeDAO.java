@@ -7,4 +7,5 @@ public interface NoticeDAO {
     Notice SelectNoticeById(long noticeSeq);
     Notice UpdateNoticeById(long noticeSeq, String content) throws Exception;
     void DeleteNoticeById(long noticeSeq) throws Exception;
+    void DeleteNoticeByMemberSeq(long memberSeq);
 }

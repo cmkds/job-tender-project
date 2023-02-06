@@ -1,12 +1,14 @@
 package com.springboot.pjt1.data.dao.impl;
 
 import com.springboot.pjt1.data.dao.HeartDAO;
+import com.springboot.pjt1.data.dto.HeartDTO;
 import com.springboot.pjt1.data.entity.Heart;
 import com.springboot.pjt1.data.repository.HeartRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 @Component
@@ -51,6 +53,19 @@ public class HeartDAOImpl implements HeartDAO{
         
         else
             throw new Exception();
+    }
+
+    @Override
+    public void deleteHeartByMemberSeq(long memberSeq) {
+        List<Heart> hearts = heartRepository.findAllByMemberSeq(memberSeq);
+
+        for(Heart heart: hearts)
+            heartRepository.delete(heart);
+    }
+
+    @Override
+    public HeartDTO SelectHeartByFeed(long feedSeq) {
+        return heartRepository.findAllByFeedSeq(feedSeq);
     }
     // jpa 영접
 

@@ -78,4 +78,14 @@ public class HeartServiceImpl implements HeartService {
     public void deleteHeart(long heartSeq) throws Exception {
         heartDAO.deleteHeartById(heartSeq);
     }
+
+    @Override
+    public void deleteHeartByMemberSeq(long memberSeq) {
+        heartDAO.deleteHeartByMemberSeq(memberSeq);
+    }
+
+    @Override
+    public HeartDTO getHeartByFeed(long feedSeq) {
+        return heartDAO.SelectHeartByFeed(feedSeq);
+    }
 }

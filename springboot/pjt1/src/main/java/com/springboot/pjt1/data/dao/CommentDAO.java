@@ -10,5 +10,7 @@ public interface CommentDAO {
     List<Comment> SelectCommentByFeedSeq(long feedSeq);
     Comment updateCommentById(Long commentSeq, String content) throws Exception;
     void deleteCommentById(Long commentSeq) throws Exception;
+    List<Comment> deleteCommentByMemberSeq(long memberSeq);
 
+    List<Comment> SelectCommentByMemberSeq(long memberSeq);
 }

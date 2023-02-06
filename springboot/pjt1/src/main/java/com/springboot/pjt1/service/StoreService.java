@@ -13,4 +13,6 @@ public interface StoreService {
     void deleteStore(long storeSeq)throws Exception;
 
     List<StoreDTO> getStoreByMemberSeq(long memberSeq);
+
+    void deleteStoreByMemberSeq(long memberSeq);
 }

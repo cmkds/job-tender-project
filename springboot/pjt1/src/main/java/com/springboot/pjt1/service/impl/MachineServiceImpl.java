@@ -3,11 +3,12 @@ package com.springboot.pjt1.service.impl;
 import com.springboot.pjt1.data.dao.MachineDAO;
 import com.springboot.pjt1.data.dao.MachineLocationDAO;
 import com.springboot.pjt1.data.dto.MachineDTO;
-import com.springboot.pjt1.data.dto.MachineDTO;
+import com.springboot.pjt1.data.dto.custom.MachineInputDTO;
 import com.springboot.pjt1.data.entity.Machine;
-import com.springboot.pjt1.data.entity.MachineLocation;
 import com.springboot.pjt1.service.MachineService;
 import org.springframework.stereotype.Service;
+
+import java.util.Date;
 
 @Service
 public class MachineServiceImpl implements MachineService {
@@ -31,12 +32,17 @@ public class MachineServiceImpl implements MachineService {
     }
 
     @Override
-    public MachineDTO insertMachine(MachineDTO machineDTO) throws Exception {
+    public MachineDTO insertMachine(MachineInputDTO machineInputDTO) throws Exception {
         Machine machine = new Machine();
 
-        machine.setMachineSeq(machineDTO.getMachineSeq());
-        machine.setCreateTime(machineDTO.getCreateTime());
-        machine.setRecentTime(machineDTO.getRecentTime());
+        machine.setMachineSeq(machineInputDTO.getMachineSeq());
+        machine.setCreateTime(new Date());
+        machine.setRecentTime(new Date());
+
+        machine.setPhoto(machineInputDTO.getPhoto());
+        machine.setAddress(machineInputDTO.getAddress());
+        machine.setMachineLocationSeq(machineInputDTO.getMachineLocationSeq());
+        machine.setName(machineInputDTO.getName());
 
         Machine savedMachine = machineDAO.InsertMachine(machine);
         MachineDTO rMachineDTO = new MachineDTO();
@@ -44,6 +50,11 @@ public class MachineServiceImpl implements MachineService {
         rMachineDTO.setMachineSeq(savedMachine.getMachineSeq());
         rMachineDTO.setCreateTime(savedMachine.getCreateTime());
         rMachineDTO.setRecentTime(savedMachine.getRecentTime());
+
+        rMachineDTO.setPhoto(savedMachine.getPhoto());
+        rMachineDTO.setAddress(savedMachine.getAddress());
+        rMachineDTO.setMachineLocationSeq(savedMachine.getMachineLocationSeq());
+        rMachineDTO.setName(savedMachine.getName());
 
         return rMachineDTO;
     }

@@ -7,4 +7,7 @@ public interface HeartService {
     HeartDTO getHeartByFeedAndMember(long feedSeq, long memberSeq);
     HeartDTO insertHeart(HeartDTO heartDTO) throws Exception;
     void deleteHeart(long heartSeq)throws Exception;
+    void deleteHeartByMemberSeq(long memberSeq);
+
+    HeartDTO getHeartByFeed(long feedSeq);
 }

@@ -8,6 +8,7 @@ import com.springboot.pjt1.data.repository.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.net.ConnectException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -65,5 +66,29 @@ public class ConnectDAOImpl implements ConnectDAO {
 
         else
             throw new Exception();
+    }
+
+    @Override
+    public void DeleteFollowByMemberSeq(long memberSeq) {
+        List<Connect> connects = connectRepository.findAllByFollower(memberSeq);
+        for(Connect connect : connects)
+            connectRepository.delete(connect);
+
+        connects = connectRepository.findAllByFollowing(memberSeq);
+        for (Connect connect: connects)
+            connectRepository.delete(connect);
+
+    }
+
+    @Override
+    public List<Long> SelectFollowerByMemberSeq(long memberSeq) {
+        List<Connect> members = connectRepository.findByFollowing(memberSeq);
+        List<Long> memberSeqs = new ArrayList<>();
+
+        for (int i = 0; i < members.size(); i++){
+            memberSeqs.add(members.get(i).getFollowing());
+        }
+
+        return memberSeqs;
     }
 }

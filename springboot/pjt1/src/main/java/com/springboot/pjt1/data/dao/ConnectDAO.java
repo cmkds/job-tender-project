@@ -11,4 +11,6 @@ public interface ConnectDAO {
     List<Long> SelectFollowingByMemberSeq(long memberSeq);
     long SelectConnectSeqByMemberId(long srcMemberSeq, long dstMemberSeq);
     void DeleteConnectById(long connectSeq) throws Exception ;
+    void DeleteFollowByMemberSeq(long memberSeq);
+    List<Long> SelectFollowerByMemberSeq(long memberSeq);
 }

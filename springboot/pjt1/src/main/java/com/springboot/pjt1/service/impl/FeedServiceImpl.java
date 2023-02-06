@@ -6,6 +6,7 @@ import com.springboot.pjt1.data.dao.MemberDAO;
 import com.springboot.pjt1.data.dto.ConnectDTO;
 import com.springboot.pjt1.data.dto.FeedDTO;
 import com.springboot.pjt1.data.dto.StoreDTO;
+import com.springboot.pjt1.data.dto.custom.FeedInputDTO;
 import com.springboot.pjt1.data.entity.Connect;
 import com.springboot.pjt1.data.entity.Feed;
 import com.springboot.pjt1.data.entity.MachineLocation;
@@ -106,8 +107,8 @@ public class FeedServiceImpl implements FeedService {
     }
 
     @Override
-    public List<FeedDTO> getFeedAllOrderByHeartByCity(String city) {
-        List<Feed> feeds = feedDAO.SelectFeedAllOrderByHeartByCity(city);
+    public List<FeedDTO> getFeedAllOrderByHeartByMachineLocationSeq(long machineLocationSeq){
+        List<Feed> feeds = feedDAO.SelectFeedAllOrderByHeartByCity(machineLocationSeq);
         List<FeedDTO> feedDTOs = new ArrayList<>();
 
         for (int i = 0; i < feeds.size(); i++){
@@ -126,8 +127,8 @@ public class FeedServiceImpl implements FeedService {
     }
 
     @Override
-    public List<FeedDTO> getFeedAllOrderByCreateTimeByCity(String city) {
-        List<Feed> feeds = feedDAO.SelectFeedAllOrderByCreateTimeByCity(city);
+    public List<FeedDTO> getFeedAllOrderByCreateTimeByMachineLocationSeq(long machineLocationSeq) {
+        List<Feed> feeds = feedDAO.SelectFeedAllOrderByCreateTimeByCity(machineLocationSeq);
         List<FeedDTO> feedDTOs = new ArrayList<>();
 
         for (int i = 0; i < feeds.size(); i++){
@@ -143,6 +144,19 @@ public class FeedServiceImpl implements FeedService {
             feedDTOs.add(feedDTO);
         }
         return feedDTOs;
+    }
+
+    @Override
+    public FeedInputDTO ConvertToInputDTO(FeedDTO feedDTO) {
+        FeedInputDTO feedInputDTO = new FeedInputDTO();
+
+        feedInputDTO.setContent(feedDTO.getContent());
+        feedInputDTO.setFeedSeq(feedDTO.getFeedSeq());
+        feedInputDTO.setMemberSeq(feedInputDTO.getMemberSeq());
+        feedInputDTO.setPost(feedInputDTO.getPost());
+        feedInputDTO.setMachineLocationSeq(feedInputDTO.getMachineLocationSeq());
+
+        return feedInputDTO;
     }
 
     @Override
@@ -165,16 +179,18 @@ public class FeedServiceImpl implements FeedService {
         return feedDTOs;
     }
 
+
+
     @Override
-    public FeedDTO insertFeed(FeedDTO feedDTO) throws Exception {
+    public FeedDTO insertFeed(FeedInputDTO feedInputDTO) throws Exception {
         Feed feed = new Feed();
 
-        feed.setFeedSeq(feedDTO.getFeedSeq());
-        feed.setContent(feedDTO.getContent());
-        feed.setPost(feedDTO.getPost());
-        feed.setCreateTime(feedDTO.getCreateTime());
-        feed.setCreateTime(feedDTO.getCreateTime());
-        feed.setHeart(feedDTO.getHeart());
+        feed.setFeedSeq(feedInputDTO.getFeedSeq());
+        feed.setContent(feedInputDTO.getContent());
+        feed.setPost(feedInputDTO.getPost());
+        feed.setCreateTime(new Date());
+        feed.setModifyTime(new Date());
+        feed.setHeart(0);
 
         Feed savedFeed = feedDAO.InsertFeed(feed);
         FeedDTO rFeedDTO = new FeedDTO();
@@ -244,6 +260,13 @@ public class FeedServiceImpl implements FeedService {
 
         return feedDTO;
     }
+
+    @Override
+    public void deleteFeedByMemberSeq(long memberSeq) {
+        feedDAO.DeleteFeedByMemberSeq(memberSeq);
+    }
+
+
 
 
 }

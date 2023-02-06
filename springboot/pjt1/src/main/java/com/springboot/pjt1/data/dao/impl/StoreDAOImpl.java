@@ -100,4 +100,12 @@ public class StoreDAOImpl implements StoreDAO {
 
         return storeDTOs;
     }
+
+    @Override
+    public void DeleteStoreByMemberSeq(long memberSeq) {
+        List<Store> stores = storeRepository.findByMemberSeq(memberSeq);
+
+        for(Store store : stores)
+            storeRepository.delete(store);
+    }
 }

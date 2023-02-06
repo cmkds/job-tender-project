@@ -64,4 +64,9 @@ public class MachineLocationDAOImpl implements MachineLocationDAO {
         else
             throw new Exception();
     }
+
+    @Override
+    public boolean IsExistByMachineLocationSeq(long machineLocationSeq) {
+        return machineLocationRepository.existsById(machineLocationSeq);
+    }
 }

@@ -2,6 +2,7 @@ package com.springboot.pjt1.service.impl;
 
 import com.springboot.pjt1.data.dao.MachineLocationDAO;
 import com.springboot.pjt1.data.dto.MachineLocationDTO;
+import com.springboot.pjt1.data.dto.custom.MachineLocationInputDTO;
 import com.springboot.pjt1.data.entity.MachineLocation;
 import com.springboot.pjt1.service.MachineLocationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,12 +29,17 @@ public class MachineLocationServiceImpl implements MachineLocationService {
     }
 
     @Override
-    public MachineLocationDTO insertMachineLocation(MachineLocationDTO machineLocationDTO) throws Exception {
+    public boolean IsExistByMachineLocationSeq(long machineLocationSeq) {
+        return machineLocationDAO.IsExistByMachineLocationSeq(machineLocationSeq);
+    }
+
+    @Override
+    public MachineLocationDTO insertMachineLocation(MachineLocationInputDTO machineLocationInputDTO) throws Exception {
         MachineLocation MachineLocation = new MachineLocation();
 
-        MachineLocation.setMachineLocationSeq(machineLocationDTO.getMachineLocationSeq());
-        MachineLocation.setCity(machineLocationDTO.getCity());
-        MachineLocation.setName(machineLocationDTO.getName());
+        MachineLocation.setMachineLocationSeq(machineLocationInputDTO.getMachineLocationSeq());
+        MachineLocation.setCity(machineLocationInputDTO.getCity());
+        MachineLocation.setName(machineLocationInputDTO.getName());
 
         MachineLocation savedMachineLocation = machineLocationDAO.InsertMachineLocation(MachineLocation);
         MachineLocationDTO rMachineLocationDTO = new MachineLocationDTO();

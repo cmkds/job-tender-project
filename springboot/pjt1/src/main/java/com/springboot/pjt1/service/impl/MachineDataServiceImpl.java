@@ -4,12 +4,15 @@ import com.springboot.pjt1.data.dao.MachineDAO;
 import com.springboot.pjt1.data.dao.MachineDataDAO;
 import com.springboot.pjt1.data.dto.MachineDTO;
 import com.springboot.pjt1.data.dto.MachineDataDTO;
+import com.springboot.pjt1.data.dto.custom.MachineDataInputDTO;
 import com.springboot.pjt1.data.entity.Machine;
 import com.springboot.pjt1.data.entity.MachineData;
 import com.springboot.pjt1.data.entity.Member;
 import com.springboot.pjt1.service.MachineDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Date;
 
 @Service
 public class MachineDataServiceImpl implements MachineDataService {
@@ -37,16 +40,16 @@ public class MachineDataServiceImpl implements MachineDataService {
     }
 
     @Override
-    public MachineDataDTO insertMachineData(MachineDataDTO machineDataDTO) throws Exception {
+    public MachineDataDTO insertMachineData(MachineDataInputDTO machineDataInputDTO) throws Exception {
         MachineData machineData = new MachineData();
 
-        machineData.setMachineDataSeq(machineDataDTO.getMachineDataSeq());
-        machineData.setMachineDataSeq(machineDataDTO.getMachineDataSeq());
-        machineData.setCreateTime(machineDataDTO.getCreateTime());
-        machineData.setVideo(machineDataDTO.getVideo());
-        machineData.setPost(machineDataDTO.getPost());
-        machineData.setVoice(machineDataDTO.getVoice());
-        machineData.setPhoto(machineDataDTO.getPhoto());
+        machineData.setMachineDataSeq(machineDataInputDTO.getMachineDataSeq());
+        machineData.setMachineDataSeq(machineDataInputDTO.getMachineDataSeq());
+        machineData.setCreateTime(new Date());
+        machineData.setVideo(machineDataInputDTO.getVideo());
+        machineData.setPost(machineDataInputDTO.getPost());
+        machineData.setVoice(machineDataInputDTO.getVoice());
+        machineData.setPhoto(machineDataInputDTO.getPhoto());
 
         MachineData savedMachineData = machineDataDAO.InsertMachineData(machineData);
         MachineDataDTO rMachineDataDTO = new MachineDataDTO();
@@ -61,8 +64,6 @@ public class MachineDataServiceImpl implements MachineDataService {
 
         return rMachineDataDTO;
     }
-
-
 
     @Override
     public void deleteMachineData(long machineDataSeq) throws Exception {

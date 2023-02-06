@@ -90,4 +90,9 @@ public class StoreServiceImpl implements StoreService {
     public List<StoreDTO> getStoreByMemberSeq(long memberSeq) {
         return storeDAO.SelectStoreByMemberSeq(memberSeq);
     }
+
+    @Override
+    public void deleteStoreByMemberSeq(long memberSeq) {
+        storeDAO.DeleteStoreByMemberSeq(memberSeq);
+    }
 }

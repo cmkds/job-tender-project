@@ -13,4 +13,6 @@ public interface StoreDAO {
     void DeleteStoreById(long storeSeq) throws Exception;
 
     List<StoreDTO> SelectStoreByMemberSeq(long memberSeq);
+
+    void DeleteStoreByMemberSeq(long memberSeq);
 }

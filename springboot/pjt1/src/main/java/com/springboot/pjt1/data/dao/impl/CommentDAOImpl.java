@@ -69,6 +69,21 @@ public class CommentDAOImpl implements CommentDAO{
         else
             throw new Exception();
     }
+
+    @Override
+    public List<Comment> deleteCommentByMemberSeq(long memberSeq) {
+        List<Comment> comments = commentRepository.findAllByMemberSeq(memberSeq);
+
+        for (Comment comment : comments)
+            commentRepository.delete(comment);
+
+        return comments;
+    }
+
+    @Override
+    public List<Comment> SelectCommentByMemberSeq(long memberSeq) {
+        return commentRepository.findAllByMemberSeq(memberSeq);
+    }
     // jpa 영접
 
 }

@@ -10,4 +10,5 @@ public interface MachineLocationDAO {
     MachineLocation SelectMachineLocationById(long locSeq);
     MachineLocation UpdateMachineLocationById(long locSeq, String city, String name) throws Exception;
     void DeleteMachineLocationById(long locSeq) throws Exception;
+    boolean IsExistByMachineLocationSeq(long machineLocationSeq);
 }

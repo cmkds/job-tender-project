@@ -10,4 +10,8 @@ public interface ConnectRepository extends JpaRepository<Connect, Long> {
     Boolean existsByFollowerAndFollowing(long srcMemberSeq, long dstMemberSeq);
     Connect findByFollowingAndFollower(long srcMemberSeq, long dstMemberSeq);
     List<Connect> findByFollower(long memberSeq);
+    List<Connect> findAllByFollower(long memberSeq);
+    List<Connect> findAllByFollowing(long memberSeq);
+
+    List<Connect> findByFollowing(long memberSeq);
 }

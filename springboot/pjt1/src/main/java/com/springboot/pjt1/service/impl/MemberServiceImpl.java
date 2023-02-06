@@ -217,5 +217,22 @@ public class MemberServiceImpl implements MemberService {
         return memberDAO.findByNickname(nickname);
     }
 
+    @Override
+    public MemberSearchInfoDTO getMemberSearchInfoByMemberSeq(Long list) {
+        Member member = memberDAO.SelectMemberById(list);
+        MemberSearchInfoDTO memberSearchInfoDTO = new MemberSearchInfoDTO();
+
+        memberSearchInfoDTO.setNickname(member.getNickname());
+        memberSearchInfoDTO.setMemberSeq(member.getMemberSeq());
+        memberSearchInfoDTO.setMemberProfile(member.getMemberProfile());
+
+        return memberSearchInfoDTO;
+    }
+
+    @Override
+    public boolean findMemberByEmailReturnBool(String email) {
+        return memberDAO.findMemberByEmailReturnBool(email);
+    }
+
 
 }

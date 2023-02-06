@@ -13,5 +13,6 @@ public interface ConnectService {
     ConnectDTO insertConnect(ConnectDTO connectDTO)throws Exception;
     void deleteConnect(long connectSeq)throws Exception;
     List<Long> getFollowings(long memberSeq);
-
+    List<Long> getFollowers(long memberSeq);
+    void deleteConnectByMemberSeq(long memberSeq);
 }

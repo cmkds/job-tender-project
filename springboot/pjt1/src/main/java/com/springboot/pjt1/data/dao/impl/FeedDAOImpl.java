@@ -46,12 +46,14 @@ public class FeedDAOImpl implements FeedDAO {
     }
 
     @Override
-    public List<Feed> SelectFeedAllOrderByHeartByCity(String city) {
+    public List<Feed> SelectFeedAllOrderByHeartByCity(long MachineLocationSeq) {
+        //return feedRepository.findAllByMachineLocationSeqByOrderByHeartAsc(MachineLocationSeq);
         return feedRepository.findAllByOrderByHeartAsc();
     }
 
     @Override
-    public List<Feed> SelectFeedAllOrderByCreateTimeByCity(String city) {
+    public List<Feed> SelectFeedAllOrderByCreateTimeByCity(long MachineLocationSeq) {
+        //return feedRepository.findAllByMachineLocationSeqByOrderByCreateTimeAsc(MachineLocationSeq);
         return feedRepository.findAllByOrderByCreateTimeAsc();
     }
 
@@ -102,5 +104,13 @@ public class FeedDAOImpl implements FeedDAO {
     @Override
     public List<Feed> SelectFeedByMemberSeqs(List<Long> memberSeqs) {
         return feedRepository.findByMemberSeqs(memberSeqs);
+    }
+
+    @Override
+    public void DeleteFeedByMemberSeq(long memberSeq) {
+        List<Feed> feeds = feedRepository.findAllByMemberSeq(memberSeq);
+
+        for(Feed feed:feeds)
+            feedRepository.delete(feed);
     }
 }

@@ -73,4 +73,14 @@ public class ConnectServiceImpl implements ConnectService {
     public List<Long> getFollowings(long memberSeq) {
         return connectDAO.SelectFollowingByMemberSeq(memberSeq);
     }
+
+    @Override
+    public List<Long> getFollowers(long memberSeq) {
+        return connectDAO.SelectFollowerByMemberSeq(memberSeq);
+    }
+
+    @Override
+    public void deleteConnectByMemberSeq(long memberSeq) {
+        connectDAO.DeleteFollowByMemberSeq(memberSeq);
+    }
 }

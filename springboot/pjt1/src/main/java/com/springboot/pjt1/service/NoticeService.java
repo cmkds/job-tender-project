@@ -8,4 +8,5 @@ public interface NoticeService {
     NoticeDTO insertNotice(NoticeDTO noticeDTO)throws Exception;
     NoticeDTO updateNotice(long noticeSeq, String content)throws Exception;
     void deleteNotice(long noticeSeq)throws Exception;
+    void deleteNoticeByMemberSeq(long memberSeq);
 }

@@ -20,4 +20,7 @@ public interface MemberService {
     void deleteMember(long memberSeq)throws Exception;
     //
     boolean findNickname(String nickname);
+
+    MemberSearchInfoDTO getMemberSearchInfoByMemberSeq(Long list);
+    boolean findMemberByEmailReturnBool(String email);
 }
