@@ -61,7 +61,7 @@ const Map = () => {
   }
   const navigate = useNavigate();
   const [select, setSelect] = useState(null);
-  const [selectNo, setSelectNo] = useState(null);
+  const [selectNo, setSelectNo] = useState(0);
   const positions = [
     {
       no: "0",

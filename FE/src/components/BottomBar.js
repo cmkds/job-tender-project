@@ -38,7 +38,7 @@ export default function FixedBottomNavigation() {
         >
           <BottomNavigationAction
             onClick={() => {
-              navigate("/feed");
+              navigate("/feed/:id");
             }}
             icon={<MailOutlineIcon />}
           />

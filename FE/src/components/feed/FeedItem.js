@@ -1,4 +1,3 @@
-import { width } from "@material-ui/system";
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FeedStateContext } from "../../pages/Feed";

@@ -21,6 +21,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "20px",
     color: "#bac3d5",
     fontFamily: "GangwonEduAll",
+    zIndex: "tooltip !important",
   },
   activeTab: {
     fontSize: "30px",
@@ -41,84 +42,91 @@ const MainNavBar = () => {
   };
 
   return (
-    <Box sx={{ maxWidth: "100vw", bgcolor: "background.paper" }}>
-      <Tabs
-        TabIndicatorProps={{
-          style: { background: "#d75b51" },
-        }} // indicator color
-        classes={{ indicator: classes.customStyleOnTab }}
-        value={value}
-        onChange={handleChange}
-        variant="scrollable"
+    <div style={{ paddingTop: "10vw", position: "fixed", zIndex: "1" }}>
+      <Box
+        sx={{
+          maxWidth: "100vw",
+          bgcolor: "white",
+        }}
       >
-        <Tab
-          label={
-            <span
-              className={
-                value === 0 ? classes.activeTab : classes.customStyleOnTab
-              }
-            >
-              전국
-            </span>
-          }
-        />
-        <Tab
-          label={
-            <span
-              className={
-                value === 1 ? classes.activeTab : classes.customStyleOnTab
-              }
-            >
-              서울
-            </span>
-          }
-        />
-        <Tab
-          label={
-            <span
-              className={
-                value === 2 ? classes.activeTab : classes.customStyleOnTab
-              }
-            >
-              강릉
-            </span>
-          }
-        />
-        <Tab
-          label={
-            <span
-              className={
-                value === 3 ? classes.activeTab : classes.customStyleOnTab
-              }
-            >
-              경주
-            </span>
-          }
-        />
-        <Tab
-          label={
-            <span
-              className={
-                value === 4 ? classes.activeTab : classes.customStyleOnTab
-              }
-            >
-              전주
-            </span>
-          }
-        />
-        <Tab
-          label={
-            <span
-              className={
-                value === 5 ? classes.activeTab : classes.customStyleOnTab
-              }
-            >
-              부산
-            </span>
-          }
-        />
-      </Tabs>
-    </Box>
+        <Tabs
+          TabIndicatorProps={{
+            style: { background: "#d75b51" },
+          }} // indicator color
+          classes={{ indicator: classes.customStyleOnTab }}
+          value={value}
+          onChange={handleChange}
+          variant="scrollable"
+        >
+          <Tab
+            label={
+              <span
+                className={
+                  value === 0 ? classes.activeTab : classes.customStyleOnTab
+                }
+              >
+                전국
+              </span>
+            }
+          />
+          <Tab
+            label={
+              <span
+                className={
+                  value === 1 ? classes.activeTab : classes.customStyleOnTab
+                }
+              >
+                서울
+              </span>
+            }
+          />
+          <Tab
+            label={
+              <span
+                className={
+                  value === 2 ? classes.activeTab : classes.customStyleOnTab
+                }
+              >
+                강릉
+              </span>
+            }
+          />
+          <Tab
+            label={
+              <span
+                className={
+                  value === 3 ? classes.activeTab : classes.customStyleOnTab
+                }
+              >
+                경주
+              </span>
+            }
+          />
+          <Tab
+            label={
+              <span
+                className={
+                  value === 4 ? classes.activeTab : classes.customStyleOnTab
+                }
+              >
+                전주
+              </span>
+            }
+          />
+          <Tab
+            label={
+              <span
+                className={
+                  value === 5 ? classes.activeTab : classes.customStyleOnTab
+                }
+              >
+                부산
+              </span>
+            }
+          />
+        </Tabs>
+      </Box>
+    </div>
   );
 };
 
