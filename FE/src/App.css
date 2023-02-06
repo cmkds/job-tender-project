@@ -27,7 +27,9 @@ body {
 }
 
 .post_wrapper img {
-  align-items: center;
+  margin: auto;
+  max-width: 100%;
+  max-height: 60%;
 }
 
 @media (min-width: 650px) {
@@ -37,6 +39,9 @@ body {
   .BottomBar {
     width: 640px;
   }
+  .post_wrapper {
+    width: 640px;
+  }
 }
 
 @media (max-width: 650px) {
@@ -44,6 +49,9 @@ body {
     width: 100vw;
   }
   .BottomBar {
+    width: 100vw;
+  }
+  .post_wrapper {
     width: 100vw;
   }
 }
@@ -240,10 +248,33 @@ topbar {
 /* 뉴/핫 버튼 */
 .switch-position {
 position: fixed;
-width: 40px;
-height: 40px;
-right: 10vw;
-top: 80vh;
+/* width: 40%;
+height: 40%; */
+right: 7%;
+top: 82%;
 
 filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+}
+
+.blue_title {
+  padding-top: 5%;
+  margin-left: 5%;
+
+  font-family: 'GangwonEduAll';
+  line-height: 17px;
+
+  color: #000AFF;
+}
+
+.logbox_text {
+  margin-left: 5%;
+
+  font-family: 'GangwonEduAll';
+}
+
+.location_img {
+  display: flex;
+  margin: auto;
+  width: 95%;
+  height: 60%;
 }

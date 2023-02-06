@@ -1,5 +1,6 @@
 //회원가입 정보등록 페이지
 // 닉네임, 상태메세지, 사진 등록
+<<<<<<< HEAD
 import axios from "axios";
 import { useState, useRef, useEffect } from "react";
 
@@ -175,6 +176,15 @@ const SignUp = () => {
           onChange={handleChangeState}
         />
       </div>
+=======
+import TopBar from "../components/TopBar";
+
+const SignUp = () => {
+  return (
+    <div>
+      <TopBar />
+      회원가입 정보등록 페이지
+>>>>>>> 9e8c22eb11b522c339a2a752f19d1c9deb025bfe
     </div>
   );
 };

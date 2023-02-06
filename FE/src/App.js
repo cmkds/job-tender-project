@@ -1,8 +1,8 @@
 import "./App.css";
-import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 //컴포넌트 import
-import MyButton from "./components/MyButton";
+// import MyButton from "./components/MyButton";
 import TopBar from "./components/TopBar";
 import RouteTest from "./components/RouteTest";
 
@@ -20,17 +20,18 @@ import Comment from "./pages/Comment";
 import SignUp from "./pages/SignUp";
 import BottomBar from "./components/BottomBar";
 import Test from "./api/Teest";
+import Search from "./pages/Search";
 
 function App() {
   return (
     <div>
       <BrowserRouter>
         <div className="App">
-          <TopBar
+          {/* <TopBar
             // className="topbar"
             head_btn_center={"중단 홈"}
             head_btn_right={"우측 로그인 버튼"}
-          />
+          /> */}
           <Routes>
             <Route path="/" element={<Home />}></Route>
             <Route path="/menu" element={<Menu />}></Route>
@@ -44,6 +45,7 @@ function App() {
             <Route path="/comment/:feedId" element={<Comment />}></Route>
             <Route path="/sign-up" element={<SignUp />}></Route>
             <Route path="/api-test" element={<Test />}></Route>
+            <Route path="/search" element={<Search />}></Route>
           </Routes>
           <BottomBar />
         </div>

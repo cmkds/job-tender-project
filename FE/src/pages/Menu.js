@@ -4,10 +4,13 @@ import { useNavigate } from "react-router-dom";
 import MenuBar from "../components/MenuBar";
 import MyButton from "../components/MyButton";
 
+import TopBar from "../components/TopBar";
+
 const Menu = () => {
   const navigate = useNavigate();
   return (
     <div>
+      <TopBar />
       <div
         onClick={() => {
           navigate("/storage");
