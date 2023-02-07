@@ -54,6 +54,7 @@ public class MemberDAOImpl implements MemberDAO {
             member.setMemberProfile(member_profile);
             member.setMemberState(member_state);
             member.setIsAdmin(is_admin);
+            member.setModifyTime(new Date());
 
             updatedMember = memberRepository.save(member);
         }
@@ -76,7 +77,6 @@ public class MemberDAOImpl implements MemberDAO {
             member.setNickname(memberInitDTO.getNickname());
             member.setMemberProfile(memberInitDTO.getMemberProfile());
             member.setMemberState(memberInitDTO.getMemberState());
-            member.setCreateTime(new Date());
             member.setModifyTime(new Date());
 
             updatedMember = memberRepository.save(member);

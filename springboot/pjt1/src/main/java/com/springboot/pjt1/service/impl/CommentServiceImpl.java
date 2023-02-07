@@ -47,15 +47,15 @@ public class CommentServiceImpl implements CommentService {
         List<CommentDTO> commentDTOs = new ArrayList<>();
         List<Comment> comments = commentDAO.SelectCommentByFeedSeq(feedSeq);
 
-        for (int i = 0; i < comments.size(); i++){
+        for(Comment comment: comments){
             CommentDTO commentDTO = new CommentDTO();
 
-            commentDTO.setCommentSeq(comments.get(i).getCommentSeq());
-            commentDTO.setContent(comments.get(i).getContent());
-            commentDTO.setCreateTime(comments.get(i).getCreateTime());
-            commentDTO.setModifyTime(comments.get(i).getModifyTime());
-            commentDTO.setFeedSeq(comments.get(i).getFeedSeq());
-            commentDTO.setMemberSeq(comments.get(i).getMemberSeq());
+            commentDTO.setCommentSeq(comment.getCommentSeq());
+            commentDTO.setContent(comment.getContent());
+            commentDTO.setCreateTime(comment.getCreateTime());
+            commentDTO.setModifyTime(comment.getModifyTime());
+            commentDTO.setFeedSeq(comment.getFeedSeq());
+            commentDTO.setMemberSeq(comment.getMemberSeq());
 
             commentDTOs.add(commentDTO);
         }
@@ -68,13 +68,15 @@ public class CommentServiceImpl implements CommentService {
         List<CommentDTO> commentDTOs = new ArrayList<>();
         List<Comment> comments = commentDAO.SelectCommentByMemberSeq(memberSeq);
 
-        for (int i = 0; i < comments.size(); i++){
+        for(Comment comment: comments){
             CommentDTO commentDTO = new CommentDTO();
 
-            commentDTO.setCommentSeq(comments.get(i).getCommentSeq());
-            commentDTO.setContent(comments.get(i).getContent());
-            commentDTO.setCreateTime(comments.get(i).getCreateTime());
-            commentDTO.setModifyTime(comments.get(i).getModifyTime());
+            commentDTO.setCommentSeq(comment.getCommentSeq());
+            commentDTO.setContent(comment.getContent());
+            commentDTO.setCreateTime(comment.getCreateTime());
+            commentDTO.setModifyTime(comment.getModifyTime());
+            commentDTO.setFeedSeq(comment.getFeedSeq());
+            commentDTO.setMemberSeq(comment.getMemberSeq());
 
             commentDTOs.add(commentDTO);
         }

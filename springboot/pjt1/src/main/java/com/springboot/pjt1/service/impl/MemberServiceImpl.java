@@ -44,24 +44,25 @@ public class MemberServiceImpl implements MemberService {
     public List<MemberDTO> getMembers(){
         List<Member> members = memberDAO.SelectMemberAll();
         List<MemberDTO> memberDTOs = new ArrayList<>();
-
-        for (int i = 0; i < members.size(); i++) {
+        for(Member member : members){
             MemberDTO memberDTO = new MemberDTO();
 
-            memberDTO.setMemberProfile(members.get(i).getMemberProfile());
-            memberDTO.setMemberState(members.get(i).getMemberState());
-            memberDTO.setMemberSeq(members.get(i).getMemberSeq());
-            memberDTO.setCreateTime(new Date());
-            memberDTO.setAddrSpec(members.get(i).getAddrSpec());
-            memberDTO.setAddrBase(members.get(i).getAddrBase());
-            memberDTO.setNickname(members.get(i).getNickname());
-            memberDTO.setIsAdmin(members.get(i).getIsAdmin());
-            memberDTO.setEmail(members.get(i).getEmail());
-            memberDTO.setModifyTime(members.get(i).getModifyTime());
-            memberDTO.setName(members.get(i).getName());
+            memberDTO.setMemberProfile(member.getMemberProfile());
+            memberDTO.setMemberState(member.getMemberState());
+            memberDTO.setMemberSeq(member.getMemberSeq());
+            memberDTO.setCreateTime(member.getCreateTime());
+            memberDTO.setAddrSpec(member.getAddrSpec());
+            memberDTO.setAddrBase(member.getAddrBase());
+            memberDTO.setNickname(member.getNickname());
+            memberDTO.setIsAdmin(member.getIsAdmin());
+            memberDTO.setEmail(member.getEmail());
+            memberDTO.setModifyTime(member.getModifyTime());
+            memberDTO.setName(member.getName());
 
             memberDTOs.add(memberDTO);
         }
+
+
 
         return memberDTOs;
     }
@@ -71,12 +72,14 @@ public class MemberServiceImpl implements MemberService {
         List<Member> members = memberDAO.SelectMemberAll();
         List<MemberSearchInfoDTO> memberSearchInfoDTOs = new ArrayList<>();
 
-        for (int i = 0; i < members.size(); i++) {
+
+
+        for (Member member: members){
             MemberSearchInfoDTO memberSearchInfoDTO = new MemberSearchInfoDTO();
 
-            memberSearchInfoDTO.setMemberProfile(members.get(i).getMemberProfile());
-            memberSearchInfoDTO.setMemberSeq(members.get(i).getMemberSeq());
-            memberSearchInfoDTO.setNickname(members.get(i).getNickname());
+            memberSearchInfoDTO.setMemberProfile(member.getMemberProfile());
+            memberSearchInfoDTO.setMemberSeq(member.getMemberSeq());
+            memberSearchInfoDTO.setNickname(member.getNickname());
 
             memberSearchInfoDTOs.add(memberSearchInfoDTO);
         }
@@ -147,20 +150,20 @@ public class MemberServiceImpl implements MemberService {
 
         List<Member> savedMembers = memberDAO.InsertMembers(members);
         List<MemberDTO> rMemberDTOs = new ArrayList<>();
-        for (int i = 0; i < savedMembers.size(); i++) {
+        for (Member savedMember : savedMembers) {
             MemberDTO rMemberDTO = new MemberDTO();
 
-            rMemberDTO.setMemberProfile(savedMembers.get(i).getMemberProfile());
-            rMemberDTO.setMemberState(savedMembers.get(i).getMemberState());
-            rMemberDTO.setMemberSeq(savedMembers.get(i).getMemberSeq());
-            rMemberDTO.setCreateTime(savedMembers.get(i).getCreateTime());
-            rMemberDTO.setAddrSpec(savedMembers.get(i).getAddrSpec());
-            rMemberDTO.setAddrBase(savedMembers.get(i).getAddrBase());
-            rMemberDTO.setNickname(savedMembers.get(i).getNickname());
-            rMemberDTO.setIsAdmin(savedMembers.get(i).getIsAdmin());
-            rMemberDTO.setEmail(savedMembers.get(i).getEmail());
-            rMemberDTO.setModifyTime(savedMembers.get(i).getModifyTime());
-            rMemberDTO.setName(savedMembers.get(i).getName());
+            rMemberDTO.setMemberProfile(savedMember.getMemberProfile());
+            rMemberDTO.setMemberState(savedMember.getMemberState());
+            rMemberDTO.setMemberSeq(savedMember.getMemberSeq());
+            rMemberDTO.setCreateTime(savedMember.getCreateTime());
+            rMemberDTO.setAddrSpec(savedMember.getAddrSpec());
+            rMemberDTO.setAddrBase(savedMember.getAddrBase());
+            rMemberDTO.setNickname(savedMember.getNickname());
+            rMemberDTO.setIsAdmin(savedMember.getIsAdmin());
+            rMemberDTO.setEmail(savedMember.getEmail());
+            rMemberDTO.setModifyTime(savedMember.getModifyTime());
+            rMemberDTO.setName(savedMember.getName());
 
             rMemberDTOs.add(rMemberDTO);
         }

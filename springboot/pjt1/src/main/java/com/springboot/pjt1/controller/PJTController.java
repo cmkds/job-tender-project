@@ -4,15 +4,16 @@ import com.springboot.pjt1.data.dto.*;
 import com.springboot.pjt1.data.dto.custom.*;
 import com.springboot.pjt1.service.*;
 import io.swagger.annotations.ApiOperation;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.List;
-
 
 @RestController
 @RequestMapping("/api")
@@ -27,12 +28,12 @@ public class PJTController {
     private final NoticeService noticeService;
     private final StoreService storeService;
     private final HeartService heartService;
-
+    private final S3Service s3Service;
 
     @Autowired
     public PJTController(CommentService commentService, ConnectService connectService, FeedService feedService, MachineDataService machineDataService,
                          MachineLocationService machineLocationService, MachineService machineService, MemberService memberService,
-                         NoticeService noticeService, StoreService storeService, HeartService heartService) {
+                         NoticeService noticeService, StoreService storeService, HeartService heartService, S3Service s3Service) {
         this.commentService = commentService;
         this.connectService = connectService;
         this.feedService = feedService;
@@ -43,8 +44,14 @@ public class PJTController {
         this.noticeService = noticeService;
         this.storeService = storeService;
         this.heartService = heartService;
+        this.s3Service = s3Service;
     }
 
+    @PostMapping("send-data")
+    public void uploadFile(@RequestParam MultipartFile multipartFile)
+            throws Exception {
+        s3Service.saveUploadFile(multipartFile);
+    }
     @ApiOperation(
             value = "nickname 존재 여부 판단"
             , notes = "nickname 존재 여부 판단. Boolean으로 반환")
