@@ -1,7 +1,8 @@
 // 프로필 사진 이름
 // 댓글 유저의 아이디만 프롭스로 받아서 해당 정보를 가져온다.
 import Avatar from "@material-ui/core/Avatar";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
@@ -23,14 +24,21 @@ const useStyles = makeStyles((theme) => ({
 
 // 유저아이디로 해당 유저의 정보를 통신해서 가져옴
 const Profile = (userId) => {
+  // 유저아이디로 유저데이터 가져오기
+  const [userData, setUserData] = useState({});
+
+  // console.log(userId);
+  useEffect(() => {
+    axios.get(`/api/account/${userId}`).then(function (response) {
+      console.log(response.data);
+    });
+  });
+
   const classes = useStyles();
 
   return (
     <div className={classes.root}>
-      <Avatar
-        src="http://dummyimage.com/87x56.png/ff4444/ffffff"
-        className={classes.large}
-      ></Avatar>
+      {/* <Avatar src={response.data} className={classes.large}></Avatar> */}
       <div className={classes.root}> userId</div>
     </div>
   );

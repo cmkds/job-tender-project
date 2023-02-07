@@ -15,6 +15,7 @@ const CommentWrite = () => {
       return;
     }
     // @@@ API 통신 보내기.
+
     alert("댓글 작성 완료");
 
     setState("");

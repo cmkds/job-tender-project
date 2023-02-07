@@ -4,9 +4,10 @@ import FeedItem from "./FeedItem";
 
 const FeedList = (feedsData) => {
   // const feed = useContext(FeedStateContext)[0];
-  const a = feedsData.feedsData;
+  const feedList = feedsData.feedsData;
+  // console.log(feedList);
 
-  console.log(a);
+  // console.log(a);
   // const feedList = [];
   // const makeFeedList = feed.map((it) =>
   //   it.feeds.map((that) => feedList.push({ id: that }))
@@ -24,8 +25,8 @@ const FeedList = (feedsData) => {
   // console.log(feedArr);
   return (
     <div>
-      {a.map((it) => (
-        <FeedItem key={it.id} {...it} />
+      {feedList.map((it) => (
+        <FeedItem key={it.feedSeq} {...it} />
       ))}
     </div>
   );

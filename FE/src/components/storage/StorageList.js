@@ -1,16 +1,16 @@
 import { useContext } from "react";
 import { StorageStateContext } from "../../pages/Storage";
-import * as React from 'react';
-import ImageList from '@mui/material/ImageList';
-import ImageListItem from '@mui/material/ImageListItem';
+import * as React from "react";
+import ImageList from "@mui/material/ImageList";
+import ImageListItem from "@mui/material/ImageListItem";
 import { useNavigate } from "react-router-dom";
 
 const StorageList = () => {
   const storageList = useContext(StorageStateContext);
   const navigate = useNavigate();
   return (
-    <div style={{ width: "100%", height: "100%"}}>
-      <ImageList >
+    <div style={{ width: "100%", height: "100%" }}>
+      <ImageList>
         {storageList.map((it) => (
           <ImageListItem key={it.id} {...it}>
             <img
@@ -20,18 +20,23 @@ const StorageList = () => {
               loading="lazy"
               onClick={() => navigate(`/storage/${it.id}`)}
             />
-            <div style={{display: "flex", backgroundColor:"#C1BCBC", color:"white", height: "100%", padding: "3% 5% 3%", justifyContent: "space-between", fontFamily: "GangwonEduAll"}}>
-              <div> 
-                {it.location}
-              </div>
-              <div>
-                {it.date}
-              </div>
+            <div
+              style={{
+                display: "flex",
+                backgroundColor: "#C1BCBC",
+                color: "white",
+                height: "100%",
+                padding: "3% 5% 3%",
+                justifyContent: "space-between",
+                fontFamily: "GangwonEduAll",
+              }}
+            >
+              <div>{it.location}</div>
+              <div>{it.date}</div>
             </div>
-          
           </ImageListItem>
         ))}
-      </ImageList>  
+      </ImageList>
     </div>
   );
 };
