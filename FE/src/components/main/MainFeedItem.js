@@ -1,7 +1,6 @@
 import Profile from "../Profile";
 import { useNavigate } from "react-router-dom";
-import * as React from "react";
-import Stack from "@mui/material/Stack";
+import { useState } from "react";
 import IconButton from "@mui/material/IconButton";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import FavoriteIcon from "@mui/icons-material/Favorite";
@@ -9,7 +8,7 @@ import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
 
 const MainFeedItem = (feedId) => {
   const navigate = useNavigate();
-
+  const [like, setLike] = useState(false);
   return (
     <div>
       {/* <p>{feed.id}번 째 피드</p> */}
@@ -20,13 +19,30 @@ const MainFeedItem = (feedId) => {
         <img className="post_wrapper" src={feedId.context.post_image} />
       </div>
       {/* 댓글 넣기 요건 네비게이트로 감.*/}
-      <p>{feedId.context.content}</p>
-      <FavoriteBorderOutlinedIcon>좋아요 버튼</FavoriteBorderOutlinedIcon>
-      <ChatBubbleOutlineIcon onClick={() => navigate(`/comment/${feedId.id}`)}>
-        댓글 보기
-      </ChatBubbleOutlineIcon>
-      <span>{feedId.context.likes.length}개의 좋아요 </span>
-      <span>{feedId.context.comments.data.length}개의 댓글</span>
+      <p className="logbox_text">{feedId.context.content}</p>
+      <IconButton
+        sx={{ paddingLeft: "5%" }}
+        onClick={() => {
+          setLike(!like);
+        }}
+      >
+        {like ? (
+          <FavoriteIcon sx={{ color: "red" }} />
+        ) : (
+          <FavoriteBorderOutlinedIcon />
+        )}
+      </IconButton>
+      <IconButton>
+        <ChatBubbleOutlineIcon
+          onClick={() => navigate(`/comment/${feedId.id}`)}
+        />
+      </IconButton>
+      <span className="logbox_text">
+        ·좋아요 {feedId.context.likes.length}개
+      </span>
+      <span className="logbox_text">
+        ·댓글 {feedId.context.comments.data.length}개
+      </span>
       <hr />
     </div>
   );

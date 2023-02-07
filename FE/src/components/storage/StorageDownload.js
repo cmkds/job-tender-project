@@ -12,17 +12,16 @@ const StorageDownload = () => {
   const { id } = useParams();
   return (
     <div>
-      <Box sx={{ "& > :not(style)": { m: 1 } }}>
-        <Fab>
-          <PhotoIcon />
-        </Fab>
-        <Fab>
-          <VideocamIcon />
-        </Fab>
-        <Fab>
-          <IosShareIcon />
-        </Fab>
-      </Box>
+      <div style={{ height: "30px" }}></div>
+      <Fab>
+        <PhotoIcon />
+      </Fab>
+      <Fab>
+        <VideocamIcon />
+      </Fab>
+      <Fab>
+        <IosShareIcon />
+      </Fab>
     </div>
   );
 };

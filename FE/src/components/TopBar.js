@@ -10,7 +10,7 @@ export default function ButtonAppBar() {
   `;
 
   return (
-    <MyAppBar sx={{ marginBottom: "18vw" }}>
+    <MyAppBar>
       <img
         className="logoTop"
         src={process.env.PUBLIC_URL + `/assets/logo2.png`}

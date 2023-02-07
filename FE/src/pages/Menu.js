@@ -12,6 +12,11 @@ const Menu = () => {
     <div>
       <TopBar />
       <div
+        style={{
+          height: "65px",
+        }}
+      ></div>
+      <div
         onClick={() => {
           navigate("/storage");
         }}

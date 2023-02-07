@@ -7,7 +7,7 @@ import { useNavigate, Routes, Route } from "react-router-dom";
 // /
 import StorageList from "../components/storage/StorageList";
 import StorageId from "../components/storage/StorageId";
-import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 // list
 
 // /:card-no
@@ -18,8 +18,8 @@ export const StorageStateContext = React.createContext();
 const dummyData = [
   {
     id: 1,
-    date: '2022-12-03',
-    location: '강릉',
+    date: "2022-12-03",
+    location: "강릉",
     photo_url:
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTmMPQb8IJeXeHn_Fxj8HN19mDbRKEFCmCjwQ&usqp=CAU",
     video_url: "https://img.lovepik.com/element/40170/8604.png_860.png",
@@ -27,8 +27,8 @@ const dummyData = [
   },
   {
     id: 2,
-    date: '2022-12-04',
-    location: '서울',
+    date: "2022-12-04",
+    location: "서울",
     photo_url:
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTmMPQb8IJeXeHn_Fxj8HN19mDbRKEFCmCjwQ&usqp=CAU",
     video_url: "https://img.lovepik.com/element/40170/8604.png_860.png",
@@ -36,8 +36,8 @@ const dummyData = [
   },
   {
     id: 3,
-    date: '2022-12-05',
-    location: '부산',
+    date: "2022-12-05",
+    location: "부산",
     photo_url:
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTmMPQb8IJeXeHn_Fxj8HN19mDbRKEFCmCjwQ&usqp=CAU",
     video_url: "https://img.lovepik.com/element/40170/8604.png_860.png",
@@ -45,8 +45,8 @@ const dummyData = [
   },
   {
     id: 4,
-    date: '2022-12-06',
-    location: '전주',
+    date: "2022-12-06",
+    location: "전주",
     photo_url:
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTmMPQb8IJeXeHn_Fxj8HN19mDbRKEFCmCjwQ&usqp=CAU",
     video_url: "https://img.lovepik.com/element/40170/8604.png_860.png",
@@ -54,8 +54,8 @@ const dummyData = [
   },
   {
     id: 5,
-    date: '2022-12-07',
-    location: '경주',
+    date: "2022-12-07",
+    location: "경주",
     photo_url:
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTmMPQb8IJeXeHn_Fxj8HN19mDbRKEFCmCjwQ&usqp=CAU",
     video_url: "https://img.lovepik.com/element/40170/8604.png_860.png",
@@ -82,15 +82,15 @@ const Storage = () => {
       <StorageStateContext.Provider value={storageData}>
         <NavBar
           navText={"보관함"}
-          leftChild={<ArrowBackIosNewIcon text={"<"} onClick={() => navigate(-1)} />}
-          // rightChild={
-
-          // }
+          leftChild={<ArrowBackIosNewIcon onClick={() => navigate(-1)} />}
         />
-        <Routes>
-          <Route path="/" element={<StorageList />} />
-          <Route path="/:id/*" element={<StorageId />} />
-        </Routes>
+
+        <div style={{ paddingTop: "75px" }}>
+          <Routes>
+            <Route path="/" element={<StorageList />} />
+            <Route path="/:id/*" element={<StorageId />} />
+          </Routes>
+        </div>
       </StorageStateContext.Provider>
     </div>
   );

@@ -1,4 +1,5 @@
 import CommentList from "../components/comment/CommentList";
+import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 
 import { useParams, useNavigate } from "react-router-dom";
 
@@ -13,7 +14,7 @@ const Comment = () => {
     <div>
       <NavBar
         navText={"댓글"}
-        leftChild={<MyButton text={"<"} onClick={() => navigate(-1)} />}
+        leftChild={<ArrowBackIosNewIcon onClick={() => navigate(-1)} />}
       />
       <CommentWrite />
       <CommentList />
