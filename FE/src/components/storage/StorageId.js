@@ -21,22 +21,24 @@ const StorageId = () => {
 
   return (
     <div>
-      <h2 style={{display: "flex", height: "100%", paddingLeft: "5%", fontFamily: "GangwonEduAll"}}>
-        <div>
-          {targetStorageItem["date"]}
-        </div>
-        <div style={{paddingLeft:'5%'}}>
-          {targetStorageItem["location"]}
-        </div>
+      <h2
+        style={{
+          display: "flex",
+          height: "100%",
+          paddingLeft: "5%",
+          fontFamily: "GangwonEduAll",
+        }}
+      >
+        <div>{targetStorageItem["date"]}</div>
+        <div style={{ paddingLeft: "5%" }}>{targetStorageItem["location"]}</div>
       </h2>
       <div>
         <img
           // style={"width: 10%;"}
           src={`${targetStorageItem["photo_url"]}`}
           alt="사진이 없습니다."
-          style={{width: "100%"}}
+          style={{ width: "100%" }}
         />
-        
       </div>
 
       <div>

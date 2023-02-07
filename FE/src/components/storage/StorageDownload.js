@@ -20,7 +20,7 @@ const StorageDownload = () => {
           <VideocamIcon />
         </Fab>
         <Fab>
-          <IosShareIcon />
+          <IosShareIcon onClick={() => navigate(`/storage/${id}/share`)} />
         </Fab>
       </Box>
     </div>
