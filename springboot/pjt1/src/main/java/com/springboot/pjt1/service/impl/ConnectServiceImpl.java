@@ -3,6 +3,7 @@ package com.springboot.pjt1.service.impl;
 import com.springboot.pjt1.data.dao.ConnectDAO;
 import com.springboot.pjt1.data.dao.MemberDAO;
 import com.springboot.pjt1.data.dto.ConnectDTO;
+import com.springboot.pjt1.data.dto.custom.ConnectInputDTO;
 import com.springboot.pjt1.data.entity.Connect;
 import com.springboot.pjt1.data.entity.Feed;
 import com.springboot.pjt1.data.entity.Member;
@@ -10,6 +11,7 @@ import com.springboot.pjt1.service.ConnectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -49,11 +51,13 @@ public class ConnectServiceImpl implements ConnectService {
     }
 
     @Override
-    public ConnectDTO insertConnect(ConnectDTO connectDTO) throws Exception {
+    public ConnectDTO insertConnect(ConnectInputDTO connectInputDTO) throws Exception {
         Connect connect = new Connect();
 
-        connect.setConnectSeq(connectDTO.getConnectSeq());
-        connect.setCreateTime(connectDTO.getCreateTime());
+        connect.setConnectSeq(connectInputDTO.getConnectSeq());
+        connect.setCreateTime(new Date());
+        connect.setFollower(connectInputDTO.getFollower());
+        connect.setFollowing(connectInputDTO.getFollowing());
 
         Connect savedConnect = connectDAO.InsertConnect(connect);
         ConnectDTO rConnectDTO = new ConnectDTO();

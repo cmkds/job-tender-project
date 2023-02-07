@@ -4,6 +4,7 @@ import com.springboot.pjt1.data.dao.MemberDAO;
 import com.springboot.pjt1.data.dto.MemberDTO;
 import com.springboot.pjt1.data.dto.MemberDTO;
 import com.springboot.pjt1.data.dto.custom.MemberInitDTO;
+import com.springboot.pjt1.data.dto.custom.MemberInputDTO;
 import com.springboot.pjt1.data.dto.custom.MemberSearchInfoDTO;
 import com.springboot.pjt1.data.entity.Member;
 import com.springboot.pjt1.service.MemberService;
@@ -89,20 +90,20 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public MemberDTO insertMember(MemberDTO memberDTO) throws Exception {
+    public MemberDTO insertMember(MemberInputDTO memberInputDTO) throws Exception {
         Member member = new Member();
 
-        member.setMemberProfile(memberDTO.getMemberProfile());
-        member.setMemberState(memberDTO.getMemberState());
-        member.setMemberSeq(memberDTO.getMemberSeq());
+        member.setMemberProfile(memberInputDTO.getMemberProfile());
+        member.setMemberState(memberInputDTO.getMemberState());
+        member.setMemberSeq(memberInputDTO.getMemberSeq());
         member.setCreateTime(new Date());
-        member.setAddrSpec(memberDTO.getAddrSpec());
-        member.setAddrBase(memberDTO.getAddrBase());
-        member.setNickname(memberDTO.getNickname());
-        member.setIsAdmin(memberDTO.getIsAdmin());
-        member.setEmail(memberDTO.getEmail());
+        member.setAddrSpec(memberInputDTO.getAddrSpec());
+        member.setAddrBase(memberInputDTO.getAddrBase());
+        member.setNickname(memberInputDTO.getNickname());
+        member.setIsAdmin(memberInputDTO.getIsAdmin());
+        member.setEmail(memberInputDTO.getEmail());
         member.setModifyTime(new Date());
-        member.setName(memberDTO.getName());
+        member.setName(memberInputDTO.getName());
 
         Member savedMember = memberDAO.InsertMember(member);
         MemberDTO rMemberDTO = new MemberDTO();
@@ -123,23 +124,23 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public List<MemberDTO> insertMembers(List<MemberDTO> memberDTO) throws Exception {
+    public List<MemberDTO> insertMembers(List<MemberInputDTO> memberInputDTO) throws Exception {
         List<Member> members = new ArrayList<>();
 
-        for (int i = 0; i < memberDTO.size(); i++) {
+        for (int i = 0; i < memberInputDTO.size(); i++) {
             Member member = new Member();
 
-            member.setMemberProfile(memberDTO.get(i).getMemberProfile());
-            member.setMemberState(memberDTO.get(i).getMemberState());
-            member.setMemberSeq(memberDTO.get(i).getMemberSeq());
+            member.setMemberProfile(memberInputDTO.get(i).getMemberProfile());
+            member.setMemberState(memberInputDTO.get(i).getMemberState());
+            member.setMemberSeq(memberInputDTO.get(i).getMemberSeq());
             member.setCreateTime(new Date());
-            member.setAddrSpec(memberDTO.get(i).getAddrSpec());
-            member.setAddrBase(memberDTO.get(i).getAddrBase());
-            member.setNickname(memberDTO.get(i).getNickname());
-            member.setIsAdmin(memberDTO.get(i).getIsAdmin());
-            member.setEmail(memberDTO.get(i).getEmail());
+            member.setAddrSpec(memberInputDTO.get(i).getAddrSpec());
+            member.setAddrBase(memberInputDTO.get(i).getAddrBase());
+            member.setNickname(memberInputDTO.get(i).getNickname());
+            member.setIsAdmin(memberInputDTO.get(i).getIsAdmin());
+            member.setEmail(memberInputDTO.get(i).getEmail());
             member.setModifyTime(new Date());
-            member.setName(memberDTO.get(i).getName());
+            member.setName(memberInputDTO.get(i).getName());
 
             members.add(member);
         }

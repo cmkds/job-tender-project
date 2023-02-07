@@ -13,6 +13,6 @@ import java.util.Optional;
 public interface HeartRepository extends JpaRepository<Heart, Long> {
     Optional<Heart> findByFeedSeqAndMemberSeq(long feedSeq, long memberSeq);
     List<Heart> findAllByMemberSeq(long memberSeq);
-    HeartDTO findAllByFeedSeq(long feedSeq);
+    List<Heart> findAllByFeedSeq(long feedSeq);
 }
 

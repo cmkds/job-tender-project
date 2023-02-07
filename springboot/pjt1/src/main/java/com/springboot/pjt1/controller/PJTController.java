@@ -13,6 +13,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.ArrayList;
 import java.util.List;
 
+
 @RestController
 @RequestMapping("/api")
 public class PJTController {
@@ -47,16 +48,16 @@ public class PJTController {
     @ApiOperation(
             value = "nickname 존재 여부 판단"
             , notes = "nickname 존재 여부 판단. Boolean으로 반환")
-    @GetMapping("/account/{nickname}")
-    public ResponseEntity<Boolean> findNickname(String nickname) {
+    @GetMapping("/account/nickname/{nickname}")
+    public ResponseEntity<Boolean> findNickname(@PathVariable("nickname") String nickname) {
         return ResponseEntity.status(HttpStatus.OK).body(memberService.findNickname(nickname));
     }
 
     @ApiOperation(
-            value = "email 존재 여부 판단"
+            value = "email 존재 여부 판단. 작동 오류"
             , notes = "email 존재 여부 판단. Boolean으로 반환")
-    @GetMapping("/account/{email}")
-    public ResponseEntity<Boolean> findMemberByEmail(String email) {
+    @GetMapping("/account/email/{email}")
+    public ResponseEntity<Boolean> findMemberByEmail(@PathVariable("email") String email) {
         return ResponseEntity.status(HttpStatus.OK).body(memberService.findMemberByEmailReturnBool(email));
     }
 
@@ -64,7 +65,7 @@ public class PJTController {
             value = "member 정보 조회"
             , notes = "memberSeq로 member 정보 조회")
     @GetMapping("/account/{memberSeq}")
-    public ResponseEntity<MemberDTO> getMemberByMemberSeq(@PathVariable long memberSeq) {
+    public ResponseEntity<MemberDTO> getMemberByMemberSeq(@PathVariable("memberSeq") long memberSeq) {
         return ResponseEntity.status(HttpStatus.OK).body(memberService.getMember(memberSeq));
     }
 
@@ -72,14 +73,8 @@ public class PJTController {
             value = "member 생성"
             , notes = "기본 데이터로 member 생성")
     @PostMapping("/account")
-    public ResponseEntity<MemberDTO> createMember(@RequestBody MemberDTO memberDto) throws Exception {
-//        if (memberService.findNickname(memberDto.getNickname()))
-//            throw new Exception();
-//
-//        if (memberService.findMemberByEmailReturnBool(memberDto.getEmail()))
-//            throw new Exception();
-
-        MemberDTO rMemberDto = memberService.insertMember(memberDto);
+    public ResponseEntity<MemberDTO> createMember(@RequestBody MemberInputDTO memberInputDTO) throws Exception {
+        MemberDTO rMemberDto = memberService.insertMember(memberInputDTO);
 
         return ResponseEntity.status(HttpStatus.OK).body(rMemberDto);
     }
@@ -87,8 +82,8 @@ public class PJTController {
             value = "여러 member 생성"
             , notes = "기본 데이터로 여러 member 생성")
     @PostMapping("/accounts")
-    public ResponseEntity<List<MemberDTO>> createMembers(@RequestBody List<MemberDTO> memberDtos) throws Exception {
-        List<MemberDTO> rMemberDtos = memberService.insertMembers(memberDtos);
+    public ResponseEntity<List<MemberDTO>> createMembers(@RequestBody List<MemberInputDTO> memberInputDtos) throws Exception {
+        List<MemberDTO> rMemberDtos = memberService.insertMembers(memberInputDtos);
 
         return ResponseEntity.status(HttpStatus.OK).body(rMemberDtos);
     }
@@ -124,8 +119,6 @@ public class PJTController {
             , notes = "feed 생성")
     @PostMapping("/main")
     public ResponseEntity<FeedDTO> createHotFeeds(@RequestBody FeedInputDTO feedInputDTO) throws Exception{
-
-
         FeedDTO rfeedDTO = feedService.insertFeed(feedInputDTO);
         return ResponseEntity.status(HttpStatus.OK).body(rfeedDTO);
     }
@@ -149,19 +142,19 @@ public class PJTController {
     }
 
     @ApiOperation(
-            value = "city 별로 hot feed 조회"
+            value = "city 별로 hot feed 조회. 아직 작동 x"
             , notes = "feed를 좋아요 순서로 조회")
-    @GetMapping("/main/hot/{city}")
-    public ResponseEntity<List<FeedDTO>> getHotFeedByCity(@PathVariable long MachineLocationSeq){
+    @GetMapping("/main/hot/{MachineLocationSeq}")
+    public ResponseEntity<List<FeedDTO>> getHotFeedByCity(@PathVariable("MachineLocationSeq") long MachineLocationSeq){
         List<FeedDTO> feedDTOList = feedService.getFeedAllOrderByHeartByMachineLocationSeq(MachineLocationSeq);
         return ResponseEntity.status(HttpStatus.OK).body(feedDTOList);
     }
 
     @ApiOperation(
-            value = "city 별로 new feed 조회"
+            value = "city 별로 new feed 조회. 아직 작동 x"
             , notes = "feed를 최신 순서로 조회")
-    @GetMapping("/main/new/{city}")
-    public ResponseEntity<List<FeedDTO>> getNewFeedByCity(@PathVariable long MachineLocationSeq){
+    @GetMapping("/main/new/{MachineLocationSeq}")
+    public ResponseEntity<List<FeedDTO>> getNewFeedByCity(@PathVariable("MachineLocationSeq") long MachineLocationSeq){
         List<FeedDTO> feedDTOList = feedService.getFeedAllOrderByCreateTimeByMachineLocationSeq(MachineLocationSeq);
         return ResponseEntity.status(HttpStatus.OK).body(feedDTOList);
     }
@@ -170,8 +163,8 @@ public class PJTController {
             value = "heart 생성"
             , notes = "어떤 member가 어떤 feed에 좋아요를 눌렀는지 생성")
     @PostMapping("/heart")
-    public ResponseEntity<HeartDTO> createHeart(@RequestBody HeartDTO heartDTO) throws Exception{
-        HeartDTO rHeartDTO = heartService.insertHeart(heartDTO);
+    public ResponseEntity<HeartDTO> createHeart(@RequestBody HeartInputDTO heartInputDTO) throws Exception{
+        HeartDTO rHeartDTO = heartService.insertHeart(heartInputDTO);
 
         return ResponseEntity.status(HttpStatus.OK).body(rHeartDTO);
     }
@@ -205,7 +198,7 @@ public class PJTController {
             value = "heart 존재여부 조회"
             , notes = "heart를 feedSeq와 memberSeq를 이용하여 존재 여부 조회. boolean으로 반환")
     @GetMapping("/heart/{feedSeq}/{memberSeq}")
-    public ResponseEntity<Boolean> getHeart(@PathVariable long feedSeq, @PathVariable long memberSeq){
+    public ResponseEntity<Boolean> getHeart(@PathVariable("feedSeq") long feedSeq, @PathVariable("memberSeq") long memberSeq){
         HeartDTO heartDTO = heartService.getHeartByFeedAndMember(feedSeq, memberSeq);
 
         if (heartDTO == null)
@@ -219,7 +212,7 @@ public class PJTController {
             value = "팔로잉 조회"
             , notes = "memberSeq의 모든 팔로잉의 모든 피드 데이터 조회")
     @GetMapping("/social/{memberSeq}")
-    public ResponseEntity<List<FeedDTO>> getFollowingFeed(long memberSeq){
+    public ResponseEntity<List<FeedDTO>> getFollowingFeed(@PathVariable("memberSeq")  long memberSeq){
         List<Long> memberSeqs = connectService.getFollowings(memberSeq);
         List<FeedDTO> feedDtos = feedService.getFollowingFeed(memberSeqs);
 
@@ -230,7 +223,7 @@ public class PJTController {
             value = "comment 조회"
             , notes = "feedSeq를 기반으로 모든 comment 조회")
     @GetMapping("/comment/{feedSeq}")
-    public ResponseEntity<List<CommentDTO>> getCommentByFeed(@PathVariable long feedSeq){
+    public ResponseEntity<List<CommentDTO>> getCommentByFeed(@PathVariable("feedSeq")  long feedSeq){
         List<CommentDTO> commentDTOs = commentService.getCommentByFeedSeq(feedSeq);
         return ResponseEntity.status(HttpStatus.OK).body(commentDTOs);
     }
@@ -239,8 +232,8 @@ public class PJTController {
             value = "comment 생성"
             , notes = "comment 생성")
     @PostMapping("/comment")
-    public ResponseEntity<CommentDTO> insertComment(CommentDTO commentDTO) throws Exception {
-        CommentDTO rCommentDTO = commentService.insertComment(commentDTO);
+    public ResponseEntity<CommentDTO> insertComment(CommentInputDTO commentInputDTO) throws Exception {
+        CommentDTO rCommentDTO = commentService.insertComment(commentInputDTO);
 
         return ResponseEntity.status(HttpStatus.OK).body(rCommentDTO);
     }
@@ -268,7 +261,7 @@ public class PJTController {
             value = "왜만들었지"
             , notes = "왜 만들었지 이거 ㅎㅎㅎ")
     @GetMapping("/search/{nickname}")
-    public ResponseEntity<List<MemberSearchInfoDTO>> getMemberSearchInfo(@PathVariable String nickname){
+    public ResponseEntity<List<MemberSearchInfoDTO>> getMemberSearchInfo(@PathVariable("nickname") String nickname){
         List<MemberSearchInfoDTO> rMemberSearchInfoDTOs = memberService.getMemberSearchInfo(nickname);
 
         return ResponseEntity.status(HttpStatus.OK).body(rMemberSearchInfoDTOs);
@@ -278,7 +271,7 @@ public class PJTController {
             value = "follower 조회"
             , notes = "nickname 기반으로 follower 기본 정보 조회")
     @GetMapping("/search/follower/{memberSeq}") // not enough
-    public ResponseEntity<List<MemberSearchInfoDTO>> getFollowerMemberSearchInfoByMemberSeq(@PathVariable long memberSeq){
+    public ResponseEntity<List<MemberSearchInfoDTO>> getFollowerMemberSearchInfoByMemberSeq(@PathVariable("memberSeq") long memberSeq){
         List<Long> lists = connectService.getFollowings(memberSeq);
         List<MemberSearchInfoDTO> rMemberSearchInfoDTOs = new ArrayList<>();
 
@@ -291,10 +284,10 @@ public class PJTController {
     }
 
     @ApiOperation(
-            value = "follower 조회"
+            value = "following 조회"
             , notes = "memberSeq 기반으로 follower 기본 정보 조회")
     @GetMapping("/search/following/{memberSeq}") // not enough
-    public ResponseEntity<List<MemberSearchInfoDTO>> getFollowingMemberSearchInfoByMemberSeq(@PathVariable long memberSeq){
+    public ResponseEntity<List<MemberSearchInfoDTO>> getFollowingMemberSearchInfoByMemberSeq(@PathVariable("memberSeq") long memberSeq){
         List<Long> lists = connectService.getFollowings(memberSeq);
         List<MemberSearchInfoDTO> rMemberSearchInfoDTOs = new ArrayList<>();
 
@@ -310,7 +303,7 @@ public class PJTController {
             value = "팔로우 여부 조회"
             , notes = "시작 맴버와 도착 맴버를 입력하여 관계 확인. boolean 반환")
     @GetMapping("/profile/{srcMemberSeq}/{dstMemberSeq}")
-    public ResponseEntity<Boolean> getIsFollow(@PathVariable long srcMemberSeq, @PathVariable long dstMemberSeq){
+    public ResponseEntity<Boolean> getIsFollow(@PathVariable("srcMemberSeq") long srcMemberSeq, @PathVariable("dstMemberSeq") long dstMemberSeq){
         Boolean IsFollow = connectService.getIsFollow(srcMemberSeq, dstMemberSeq);
 
         return ResponseEntity.status(HttpStatus.OK).body(IsFollow);
@@ -320,8 +313,8 @@ public class PJTController {
             value = "connect 생성"
             , notes = "connect 생성")
     @PostMapping("/profile/follow")
-    public ResponseEntity<ConnectDTO> insertConnect(ConnectDTO connectDTO) throws Exception {
-        ConnectDTO rConnectDTO = connectService.insertConnect(connectDTO);
+    public ResponseEntity<ConnectDTO> insertConnect(ConnectInputDTO connectInputDTO) throws Exception {
+        ConnectDTO rConnectDTO = connectService.insertConnect(connectInputDTO);
 
         return ResponseEntity.status(HttpStatus.OK).body(rConnectDTO);
     }
@@ -337,19 +330,22 @@ public class PJTController {
     }
 
     @GetMapping("/profile/{memberSeq}")
-    public ResponseEntity<MemberDTO> getProfile(@PathVariable long memberSeq){
+    public ResponseEntity<MemberDTO> getProfile(@PathVariable("memberSeq") long memberSeq){
         MemberDTO rMemberDTO = memberService.getMember(memberSeq);
 
         return ResponseEntity.status(HttpStatus.OK).body(rMemberDTO);
     }
 
     @GetMapping("/mypage")
-    public ResponseEntity<List<StoreDTO>> getStoreByMemberSeq(long memberSeq){
+    public ResponseEntity<List<StoreDTO>> getStoreByMemberSeq(@PathVariable("memberSeq") long memberSeq){
         List<StoreDTO> rStoreDTO = storeService.getStoreByMemberSeq(memberSeq);
 
         return ResponseEntity.status(HttpStatus.OK).body(rStoreDTO);
     }
 
+    @ApiOperation(
+            value = "StoreSeq와 context를 입력으로 feed 데이터 생성"
+            , notes = "StoreSeq, context를 입력하여 feed 데이터 생성")
     @PostMapping("/mypage")
     public ResponseEntity<FeedDTO> createFeed(long storeSeq, String context) throws Exception{
         StoreDTO storeDTO = storeService.getStore(storeSeq);
@@ -362,14 +358,24 @@ public class PJTController {
         return ResponseEntity.status(HttpStatus.OK).body(rfeedDTO);
     }
 
+    @ApiOperation(
+            value = "단독 feed 생성"
+            , notes = "단독 feed 생성. 일반적으로 사용 x")
+    @PostMapping("/mypage2")
+    public ResponseEntity<FeedDTO> createFeed2(FeedInputDTO feedInputDTO) throws Exception{
+        FeedDTO rFeedDTO = feedService.insertFeed(feedInputDTO);
+
+        return ResponseEntity.status(HttpStatus.OK).body(rFeedDTO);
+    }
+
     @GetMapping("/mypage/photo/{feedSeq}")
-    public ResponseEntity<String> getPhoto(long memberSeq){
+    public ResponseEntity<String> getPhoto(@PathVariable("feedSeq") long memberSeq){
         String url = storeService.getStore(memberSeq).getPhoto();
 
         return ResponseEntity.status(HttpStatus.OK).body(url);
     }
     @GetMapping("/mypage/video/{feedSeq}")
-    public ResponseEntity<String> getVideo(long memberSeq){
+    public ResponseEntity<String> getVideo(@PathVariable("feedSeq") long memberSeq){
         String url = storeService.getStore(memberSeq).getVideo();
 
         return ResponseEntity.status(HttpStatus.OK).body(url);
@@ -424,8 +430,8 @@ public class PJTController {
         return ResponseEntity.status(HttpStatus.OK).body(rMachineDataDTO);
     }
 
-    @GetMapping("/feed/heart")
-    public ResponseEntity<HeartDTO> getHeartByFeedSeq(@PathVariable long feedSeq) {
-        return ResponseEntity.status(HttpStatus.OK).body(heartService.getHeartByFeed(feedSeq));
+    @GetMapping("/feed/heart/{feedSeq}")
+    public ResponseEntity<List<HeartDTO>> getHeartByFeedSeq(@PathVariable("feedSeq") long feedSeq) {
+        return ResponseEntity.status(HttpStatus.OK).body(heartService.getHeartsByFeed(feedSeq));
     }
 }

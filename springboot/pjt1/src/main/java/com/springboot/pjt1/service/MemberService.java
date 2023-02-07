@@ -2,6 +2,7 @@ package com.springboot.pjt1.service;
 
 import com.springboot.pjt1.data.dto.MemberDTO;
 import com.springboot.pjt1.data.dto.custom.MemberInitDTO;
+import com.springboot.pjt1.data.dto.custom.MemberInputDTO;
 import com.springboot.pjt1.data.dto.custom.MemberSearchInfoDTO;
 import org.springframework.stereotype.Service;
 
@@ -12,8 +13,8 @@ public interface MemberService {
     List<MemberDTO> getMembers();
     List<MemberSearchInfoDTO> getMemberSearchInfo(String nickname);
     List<MemberSearchInfoDTO> getMemberSearchFollowingInfo(long memberSeq);
-    MemberDTO insertMember(MemberDTO memberDTO)throws Exception;
-    List<MemberDTO> insertMembers(List<MemberDTO> memberDTO) throws Exception;
+    MemberDTO insertMember(MemberInputDTO memberInputDTO)throws Exception;
+    List<MemberDTO> insertMembers(List<MemberInputDTO> memberInputDTO) throws Exception;
     MemberDTO updateMember(long memberSeq, String nickname, String addr_base, String addr_spec,
                            String member_profile, String member_state, String is_admin) throws Exception;
     MemberDTO updateMember(long memberSeq, MemberInitDTO memberInitDTO) throws Exception;

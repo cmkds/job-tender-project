@@ -5,6 +5,7 @@ import com.springboot.pjt1.data.dao.FeedDAO;
 import com.springboot.pjt1.data.dao.MemberDAO;
 import com.springboot.pjt1.data.dto.CommentDTO;
 import com.springboot.pjt1.data.dto.FeedDTO;
+import com.springboot.pjt1.data.dto.custom.CommentInputDTO;
 import com.springboot.pjt1.data.entity.Comment;
 import com.springboot.pjt1.data.entity.Feed;
 import com.springboot.pjt1.data.entity.Member;
@@ -13,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -52,6 +54,8 @@ public class CommentServiceImpl implements CommentService {
             commentDTO.setContent(comments.get(i).getContent());
             commentDTO.setCreateTime(comments.get(i).getCreateTime());
             commentDTO.setModifyTime(comments.get(i).getModifyTime());
+            commentDTO.setFeedSeq(comments.get(i).getFeedSeq());
+            commentDTO.setMemberSeq(comments.get(i).getMemberSeq());
 
             commentDTOs.add(commentDTO);
         }
@@ -80,14 +84,16 @@ public class CommentServiceImpl implements CommentService {
 
 
     @Override
-    public CommentDTO insertComment(CommentDTO commentDTO) throws Exception {
+    public CommentDTO insertComment(CommentInputDTO commentInputDTO) throws Exception {
         // insert Entity
         Comment comment = new Comment();
 
-        comment.setCommentSeq(commentDTO.getCommentSeq());
-        comment.setContent(commentDTO.getContent());
-        comment.setCreateTime(commentDTO.getCreateTime());
-        comment.setModifyTime(commentDTO.getModifyTime());
+        comment.setCommentSeq(commentInputDTO.getCommentSeq());
+        comment.setContent(commentInputDTO.getContent());
+        comment.setCreateTime(new Date());
+        comment.setModifyTime(new Date());
+        comment.setFeedSeq(comment.getFeedSeq());
+        comment.setMemberSeq(comment.getMemberSeq());
 
         // insert
         Comment savedComment = commentDAO.insertComment(comment);
@@ -99,7 +105,8 @@ public class CommentServiceImpl implements CommentService {
         rCommentDTO.setContent(savedComment.getContent());
         rCommentDTO.setCreateTime(savedComment.getCreateTime());
         rCommentDTO.setModifyTime(savedComment.getModifyTime());
-        rCommentDTO.setMemberSeq(commentDTO.getMemberSeq());
+        rCommentDTO.setMemberSeq(savedComment.getMemberSeq());
+        rCommentDTO.setFeedSeq(savedComment.getFeedSeq());
 
         return rCommentDTO;
     }
