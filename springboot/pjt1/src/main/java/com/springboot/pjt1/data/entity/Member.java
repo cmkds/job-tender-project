@@ -1,5 +1,6 @@
 package com.springboot.pjt1.data.entity;
 
+import com.springboot.pjt1.data.dto.Role;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -38,4 +39,7 @@ public class Member {
     private Date modifyTime;
     @Column(nullable = false)
     private String isAdmin;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private Role role;
 }

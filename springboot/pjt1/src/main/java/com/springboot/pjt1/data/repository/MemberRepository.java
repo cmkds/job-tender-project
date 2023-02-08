@@ -10,5 +10,5 @@ import java.util.Optional;
 public interface MemberRepository extends JpaRepository<Member, Long> {
     //Optional<Comment> findByCommentSeq(long commentSeq);
     Optional<Boolean> findByNickname(String nickname);
-    boolean findByEmail(String email);
+    Member findByEmail(String email);
 }
