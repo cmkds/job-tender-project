@@ -35,11 +35,11 @@ const CommentList = () => {
   // console.log(paramFeed);
   useEffect(() => {
     axios.get(`/api/comment/${paramFeed}`).then(function (response) {
-      // console.log(response.data);
+      console.log(response.data);
       setCommentData(response.data);
     });
   }, []);
-  console.log(commentData.map((it) => it));
+  // console.log(commentData.map((it) => it));
   // console.log(commentData.map((comments) => comments[0].commentSeq));
   // commentData.map((it) => console.log(it.filter((that) => that.commentSeq)));
 

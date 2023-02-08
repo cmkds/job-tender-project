@@ -11,14 +11,20 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
 
 const FeedItem = (feed) => {
+  //로그인 유저 정보
+  const loginUser = 1;
+
+  //좋아요 여부 체크
+  const [likeCheck, setLikeCheck] = useState(false);
+
   // console.log(feed);
   // 좋아요 받아와 야함
   useEffect(() => {
-    axios.get(`/api/comment/${feed.feedSeq}`).then(function (response) {
-      // console.log(response.data);
-      setComments(response.data);
+    axios.get(`/api/feed/heart/${feed.feedSeq}`).then(function (response) {
+      // console.log(response.data.length);
+      setLikes(response.data.length);
     });
-  }, []);
+  }, [likeCheck]);
 
   // 댓글 받아와야함.
 
@@ -29,31 +35,55 @@ const FeedItem = (feed) => {
     });
   }, []);
 
-  // 로그인한 유저의 좋아요 여부 가져 와야함.
-
+  // 로그인한 유저의 좋아요 상태 가져오기
   // 유저 아이디 파라미터로 써야함. 아직 없어서 주석처리 해 둠.
-  // useEffect(() => {
-  //   axios.get(`/api/heart/${feed.feedSeq/{memberSeq}}`).then(function (response) {
-  //     console.log(response.data);
+  // console.log(feed.feedSeq);
+  // console.log(loginUser);
 
-  //     setLikeCheck(response.data);
-  //   });
-  // }, []);
+  useEffect(() => {
+    axios
+      .get(`/api/heart/${feed.feedSeq}/${loginUser}`)
+      .then(function (response) {
+        console.log(response.data);
+        setLikeCheck(response.data);
+      });
+  }, []);
 
   /////////////////////////
   // 좋아요 눌렀을 대 처리 좋아요 되있으면 취소 보내고 안되있으면 생성 보냄.
 
+  const heartButton = () => {
+    // console.log(likes);
+    if (likeCheck) {
+      // 좋아요가 되어있으므로 취소 요청을 보낸다.
+      axios
+        .delete(`/api/heart/${feed.feedSeq}/${loginUser}`)
+        .then(function (response) {
+          // console.log(response);
+          setLikeCheck(!likeCheck);
+        });
+    } else {
+      setLikeCheck(!likeCheck);
+      axios
+        .post(`/api/heart`, {
+          feedSeq: feed.feedSeq,
+          memberSeq: loginUser,
+        })
+        .then(function (response) {
+          console.log(response);
+        });
+    }
+  };
+
   const navigate = useNavigate();
 
-  //좋아요 여부 체크
-  const [likeCheck, setLikeCheck] = useState(false);
-
   // 게시물의 좋아요 개수
-  const [likes, setLikes] = useState(10);
+  const [likes, setLikes] = useState(0);
 
   //댓글 수 확인
   const [comments, setComments] = useState([]);
 
+  console.log(likeCheck);
   return (
     <div>
       <p>{feed.feedSeq}번 째 피드</p>
@@ -73,10 +103,10 @@ const FeedItem = (feed) => {
         spacing={1}
         style={{ paddingLeft: "2%", paddingBottom: "1%" }}
       >
-        {likeCheck === true ? (
+        {likeCheck === false ? (
           <IconButton
             onClick={() => {
-              setLikeCheck(!likeCheck);
+              heartButton();
             }}
           >
             <FavoriteBorderOutlinedIcon />
@@ -85,7 +115,7 @@ const FeedItem = (feed) => {
           <IconButton
             color="primary"
             onClick={() => {
-              setLikeCheck(!likeCheck);
+              heartButton();
             }}
           >
             <FavoriteIcon sx={{ color: "red" }} />
@@ -97,8 +127,7 @@ const FeedItem = (feed) => {
         </IconButton>
 
         <div style={{ display: "flex", alignItems: "center" }}>
-          {/* · 좋아요 {check[0].context.likes.length}개 ·{" "} */}
-          {comments.length}개의 댓글
+          · 좋아요 {likes}개 · {comments.length}개의 댓글
         </div>
       </Stack>
       <hr />
