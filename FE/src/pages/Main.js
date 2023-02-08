@@ -94,9 +94,6 @@ const Main = () => {
     <div>
       <TopBar />
 
-      {/* 돋보기 버튼  이거 상단바 왼쪽에 위치 해야함.*/}
-      <button onClick={() => navigate("/search")}> 유저 검색 </button>
-
       {/* <MainNavBar></MainNavBar>
       <NewHotButton></NewHotButton> */}
       {/* <h2>main</h2> */}

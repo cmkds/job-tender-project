@@ -24,7 +24,7 @@ const FeedList = (feedsData) => {
   // console.log(feedList);
   // console.log(feedArr);
   return (
-    <div>
+    <div style={{ paddingTop: "70px" }}>
       {feedList.map((it) => (
         <FeedItem key={it.feedSeq} {...it} />
       ))}

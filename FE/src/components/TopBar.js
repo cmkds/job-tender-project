@@ -16,6 +16,7 @@ export default function ButtonAppBar() {
   const MyAppBar = styled(AppBar)`
     background-color: #ffb9b9;
     height: 70px;
+    z-index: 1200;
   `;
 
   return (

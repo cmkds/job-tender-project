@@ -6,15 +6,15 @@ export default function FloatingActionButtons() {
   const [category, setCategory] = useState("hot");
   const navigate = useNavigate();
   const params = useParams();
-  console.log();
+  console.log(params);
 
   const clickButton = () => {
     if (category === "new") {
       setCategory("hot");
-      navigate("main/new");
+      navigate("/main/new/0");
     } else {
       setCategory("new");
-      navigate("main/hot");
+      navigate("/main/hot/0");
     }
   };
 
