@@ -47,10 +47,14 @@ public class PJTController {
         this.s3Service = s3Service;
     }
 
-    @PostMapping("send-data")
-    public void uploadFile(@RequestParam MultipartFile multipartFile)
-            throws Exception {
+    @PostMapping("/send-data")
+    public void uploadFile(@RequestParam MultipartFile multipartFile) throws Exception {
         s3Service.saveUploadFile(multipartFile);
+    }
+
+    @PostMapping("/data")
+    public ResponseEntity<StoreDTO> sendFile(@RequestBody StoreInputDTO storeInputDTO) throws Exception {
+        return ResponseEntity.status(HttpStatus.OK).body(storeService.insertStore(storeInputDTO));
     }
     @ApiOperation(
             value = "nickname 존재 여부 판단"
@@ -209,7 +213,7 @@ public class PJTController {
         HeartDTO heartDTO = heartService.getHeartByFeedAndMember(feedSeq, memberSeq);
 
         if (heartDTO == null)
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(false);
+            return ResponseEntity.status(HttpStatus.OK).body(false);
 
         else
             return ResponseEntity.status(HttpStatus.OK).body(true);
@@ -418,14 +422,7 @@ public class PJTController {
 
     @PostMapping("/machine")
     public  ResponseEntity<MachineDTO> createMachine(@RequestBody MachineInputDTO machineInputDTO) throws Exception{
-
-        if (!machineLocationService.IsExistByMachineLocationSeq(machineInputDTO.getMachineLocationSeq())) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Item Not Found");
-            //return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-        }
-
         MachineDTO rMachineDTO = machineService.insertMachine(machineInputDTO);
-        System.out.println(machineLocationService.getMachineLocation(rMachineDTO.getMachineLocationSeq()));
 
         return ResponseEntity.status(HttpStatus.OK).body(rMachineDTO);
     }
@@ -433,6 +430,13 @@ public class PJTController {
     @PostMapping("/machine/data")
     public  ResponseEntity<MachineDataDTO> createMachineData(@RequestBody MachineDataInputDTO machineDataInputDTO) throws Exception{
         MachineDataDTO rMachineDataDTO = machineDataService.insertMachineData(machineDataInputDTO);
+
+        return ResponseEntity.status(HttpStatus.OK).body(rMachineDataDTO);
+    }
+
+    @GetMapping("machine/data/{machineDataSeq}")
+    public ResponseEntity<MachineDataDTO> selectMachineData(@PathVariable("machineDataSeq") long machineDataSeq){
+        MachineDataDTO rMachineDataDTO = machineDataService.getMachineData(machineDataSeq);
 
         return ResponseEntity.status(HttpStatus.OK).body(rMachineDataDTO);
     }

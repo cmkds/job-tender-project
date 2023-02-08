@@ -64,7 +64,6 @@ public class FeedServiceImpl implements FeedService {
             feedDTOs.add(feedDTO);
         }
 
-
         return feedDTOs;
     }
 

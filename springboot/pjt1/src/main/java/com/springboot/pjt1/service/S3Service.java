@@ -27,15 +27,12 @@ public class S3Service {
         objectMetadata.setContentType(multipartFile.getContentType());
         objectMetadata.setContentLength(multipartFile.getSize());
 
-        System.out.println("Origin : " + multipartFile.getOriginalFilename());
-        System.out.println("Origin2 : " + multipartFile.getInputStream());
-        System.out.println("objectMetadata : " + multipartFile.getContentType());
-
         String originalFilename = multipartFile.getOriginalFilename();
         int index = originalFilename.lastIndexOf(".");
         String ext = originalFilename.substring(index + 1);
 
-        String storeFileName = UUID.randomUUID() + "." + ext;
+        //String storeFileName = UUID.randomUUID() + "." + ext;
+        String storeFileName = originalFilename;
         String key = "test/" + storeFileName;
 
         try (InputStream inputStream = multipartFile.getInputStream()) {

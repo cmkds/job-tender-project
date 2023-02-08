@@ -4,11 +4,13 @@ import com.springboot.pjt1.data.dao.MemberDAO;
 import com.springboot.pjt1.data.dao.StoreDAO;
 import com.springboot.pjt1.data.dto.StoreDTO;
 import com.springboot.pjt1.data.dto.StoreDTO;
+import com.springboot.pjt1.data.dto.custom.StoreInputDTO;
 import com.springboot.pjt1.data.entity.Member;
 import com.springboot.pjt1.data.entity.Store;
 import com.springboot.pjt1.service.StoreService;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -49,6 +51,32 @@ public class StoreServiceImpl implements StoreService {
         store.setVoice(storeDTO.getVoice());
         store.setCreateTime(storeDTO.getCreateTime());
         store.setRecentTime(storeDTO.getRecentTime());
+
+        Store savedStore = storeDAO.InsertStore(store);
+        StoreDTO rStoreDTO = new StoreDTO();
+
+        rStoreDTO.setStoreSeq(savedStore.getStoreSeq());
+        rStoreDTO.setPost(savedStore.getPost());
+        rStoreDTO.setPhoto(savedStore.getPhoto());
+        rStoreDTO.setVideo(savedStore.getVideo());
+        rStoreDTO.setVoice(savedStore.getVoice());
+        rStoreDTO.setCreateTime(savedStore.getCreateTime());
+        rStoreDTO.setRecentTime(savedStore.getRecentTime());
+
+        return rStoreDTO;
+    }
+
+    @Override
+    public StoreDTO insertStore(StoreInputDTO storeInputDTO) throws Exception {
+        Store store = new Store();
+
+        store.setStoreSeq(storeInputDTO.getStoreSeq());
+        store.setPost(storeInputDTO.getPost());
+        store.setPhoto(storeInputDTO.getPhoto());
+        store.setVideo(storeInputDTO.getVideo());
+        //store.setVoice(storeInputDTO.getVoice());
+        store.setCreateTime(new Date());
+        store.setRecentTime(new Date());
 
         Store savedStore = storeDAO.InsertStore(store);
         StoreDTO rStoreDTO = new StoreDTO();

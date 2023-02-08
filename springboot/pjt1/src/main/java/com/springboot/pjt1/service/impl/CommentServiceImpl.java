@@ -94,8 +94,8 @@ public class CommentServiceImpl implements CommentService {
         comment.setContent(commentInputDTO.getContent());
         comment.setCreateTime(new Date());
         comment.setModifyTime(new Date());
-        comment.setFeedSeq(comment.getFeedSeq());
-        comment.setMemberSeq(comment.getMemberSeq());
+        comment.setFeedSeq(commentInputDTO.getFeedSeq());
+        comment.setMemberSeq(commentInputDTO.getMemberSeq());
 
         // insert
         Comment savedComment = commentDAO.insertComment(comment);
