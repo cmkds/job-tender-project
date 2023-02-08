@@ -12,6 +12,7 @@ body {
   min-height: 100vh;
   /* html body가 기본적으로 가지고 있는 margin 제거 */
   margin: 0px;
+  font-family: "GangwonEduAll", sans-serif;
 }
 
 .post_wrapper {

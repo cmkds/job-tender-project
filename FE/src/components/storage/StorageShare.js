@@ -3,15 +3,17 @@
 import TextField from "@mui/material/TextField";
 import { makeStyles } from "@material-ui/core/styles";
 import React, { useState } from "react";
+import Button from "@mui/material/Button";
+import SendIcon from "@mui/icons-material/Send";
 
 const useStyles = makeStyles((theme) => ({
   textField: {
-    width: 400,
+    width: 370,
   },
   characterCount: {
     marginTop: theme.spacing(1),
     color: "gray",
-    marginLeft: "70%",
+    marginLeft: "78%",
   },
 }));
 
@@ -23,16 +25,17 @@ const StorageShare = () => {
       <div style={{ paddingTop: "5%", paddingLeft: "5%", fontSize: 24 }}>
         내용
       </div>
-      <TextField
-        id="outlined-multiline-flexible"
-        value={value}
-        onChange={(event) => setValue(event.target.value)}
-        multiline
-        rows={8}
-        maxRows={8}
-        className={classes.textField}
-        placeholder="내용을 입력하세요"
-      />
+      <div style={{ display: "flex", margin: "3%" }}>
+        <TextField
+          id="outlined-multiline-flexible"
+          value={value}
+          onChange={(event) => setValue(event.target.value)}
+          multiline
+          rows={6}
+          className={classes.textField}
+          placeholder="내용을 입력하세요"
+        />
+      </div>
       <div className={classes.characterCount}>{value.length} / 1,000</div>
       {/* <textarea
         name=""
@@ -41,8 +44,19 @@ const StorageShare = () => {
         rows="10"
         placeholder="할 말을 입력하세요"
       ></textarea> */}
-      <div>
-        <button>올리기</button>
+      <div style={{ marginTop: "5%" }}>
+        <Button
+          style={{
+            display: "flex",
+            margin: "auto",
+            width: "90%",
+            height: "60px",
+            backgroundColor: "#FFB9B9",
+          }}
+          variant="contained"
+        >
+          <SendIcon />
+        </Button>
       </div>
     </div>
   );
