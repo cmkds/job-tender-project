@@ -27,19 +27,21 @@ const Profile = (userId) => {
   // 유저아이디로 유저데이터 가져오기
   const [userData, setUserData] = useState({});
 
-  // console.log(userId);
+  console.log(userId);
   useEffect(() => {
-    axios.get(`/api/account/${userId}`).then(function (response) {
+    axios.get(`/api/account/${userId.id}`).then(function (response) {
       console.log(response.data);
+      setUserData(response.data);
     });
-  });
+  }, []);
+  // 이미지 파일 가져오는 api 따로 있음.
 
   const classes = useStyles();
 
   return (
     <div className={classes.root}>
-      {/* <Avatar src={response.data} className={classes.large}></Avatar> */}
-      <div className={classes.root}> userId</div>
+      {/* <Avatar src={} className={classes.large}></Avatar> */}
+      <div className={classes.root}> {userData.name}</div>
     </div>
   );
 };
