@@ -47,7 +47,7 @@ function App() {
             <Route path="/menu" element={<Menu />}></Route>
             <Route path="/map" element={<Map />}></Route>
             <Route path="/menual" element={<Menual />}></Route>
-            <Route path="/main" element={<Main />}></Route>
+            <Route path="/main/*" element={<Main />}></Route>
             <Route path="/logbox" element={<LogBox />}></Route>
             <Route path="/feed/:id" element={<Feed />}></Route>
             <Route path="/storage/*" element={<Storage />}></Route>

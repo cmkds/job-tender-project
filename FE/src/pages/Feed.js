@@ -22,7 +22,7 @@ import FeedList from "../components/feed/FeedList";
 //
 //
 
-export const FeedStateContext = React.createContext();
+// export const FeedStateContext = React.createContext();
 
 const Feed = () => {
   const [feedsData, setFeedsData] = useState([]);
@@ -44,32 +44,32 @@ const Feed = () => {
       <TopBar />
       <h2>Feed Page</h2>
 
-      <FeedStateContext.Provider value={feedsData}>
-        {/* 여기 수정 봐야됨 */}
-        {feedsData.length !== 0 ? (
-          <FeedList feedsData={feedsData} />
-        ) : (
-          <div>
-            <p>새로운 엽서가 없습니다.</p>
-            <p>엽서를 올리거나 지역별 인기 엽서를 확인하세요.</p>
-            <br />
-            <span
-              onClick={() => {
-                navigate("/storage");
-              }}
-            >
-              엽서 올리기
-            </span>
-            <span
-              onClick={() => {
-                navigate("/main");
-              }}
-            >
-              지역별 인기엽서 확인하기
-            </span>
-          </div>
-        )}
-      </FeedStateContext.Provider>
+      {/* <FeedStateContext.Provider value={feedsData}> */}
+      {/* 여기 수정 봐야됨 */}
+      {feedsData.length !== 0 ? (
+        <FeedList feedsData={feedsData} />
+      ) : (
+        <div>
+          <p>새로운 엽서가 없습니다.</p>
+          <p>엽서를 올리거나 지역별 인기 엽서를 확인하세요.</p>
+          <br />
+          <span
+            onClick={() => {
+              navigate("/storage");
+            }}
+          >
+            엽서 올리기
+          </span>
+          <span
+            onClick={() => {
+              navigate("/main");
+            }}
+          >
+            지역별 인기엽서 확인하기
+          </span>
+        </div>
+      )}
+      {/* </FeedStateContext.Provider> */}
     </div>
   );
 };

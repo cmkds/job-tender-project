@@ -46,11 +46,11 @@ const CommentList = () => {
   return (
     <div>
       <Profile></Profile>
-      {/* {commentData.map((it) => (
+      {commentData.map((it) => (
         // <CommentItem {...it} />
 
         <CommentItem key={it.commentSeq} {...it} />
-      ))} */}
+      ))}
     </div>
   );
 };
