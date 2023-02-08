@@ -1,5 +1,7 @@
 package com.springboot.pjt1.service;
 
+import com.springboot.pjt1.data.dto.Role;
+import com.springboot.pjt1.data.entity.Member;
 import com.springboot.pjt1.data.repository.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -14,6 +16,7 @@ import org.springframework.stereotype.Service;
 import javax.servlet.http.HttpSession;
 import java.util.Collections;
 import java.util.Map;
+import java.util.Optional;
 
 @Service
 public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequest, OAuth2User> {
@@ -36,16 +39,32 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
         if(registrationId.equals("naver")){
             Map<String, Object> hash = (Map<String, Object>) response.get("response");
             email = (String)hash.get("email");
-        }
-
-        else if (registrationId.equals("google")) {
+        } else if (registrationId.equals("google")) {
             email = (String)response.get("email");
+        } else{
+            throw new OAuth2AuthenticationException("Not allowed certification");
         }
 
+        Member member;
+        Optional<Member> optionalMember = memberRepository.findByEmail(email);
+
+        // 기존 가입자
+        if(optionalMember.isPresent()){
+            member = optionalMember.get();
+        }
+        // 신규 가입자
         else{
-
+            member = new Member();
+            member.setEmail(email);
+            member.setRole(Role.ROLE_USER);
+            memberRepository.save(member);
         }
 
-        return null;
+        httpSession.setAttribute("member", member);
+
+        return new DefaultOAuth2User(
+                Collections.singleton(new SimpleGrantedAuthority(member.getRole().toString())),
+                        oAuth2User.getAttributes(),
+                        userNameAttrubuteName);
     }
 }

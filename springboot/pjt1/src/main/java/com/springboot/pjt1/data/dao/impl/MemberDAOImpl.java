@@ -117,11 +117,7 @@ public class MemberDAOImpl implements MemberDAO {
 
     @Override
     public boolean findMemberByEmailReturnBool(String email) {
-        if (memberRepository.findByEmail(email) == null)
-            return false;
-
-        else
-            return true;
+        return memberRepository.findByEmail(email).isPresent();
     }
 
 }
