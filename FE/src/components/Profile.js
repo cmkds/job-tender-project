@@ -27,10 +27,10 @@ const Profile = (userId) => {
   // 유저아이디로 유저데이터 가져오기
   const [userData, setUserData] = useState({});
 
-  console.log(userId);
+  // console.log(userId);
   useEffect(() => {
     axios.get(`/api/account/${userId.id}`).then(function (response) {
-      console.log(response.data);
+      // console.log(response.data);
       setUserData(response.data);
     });
   }, []);

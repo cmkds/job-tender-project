@@ -44,7 +44,7 @@ const FeedItem = (feed) => {
     axios
       .get(`/api/heart/${feed.feedSeq}/${loginUser}`)
       .then(function (response) {
-        console.log(response.data);
+        // console.log(response.data);
         setLikeCheck(response.data);
       });
   }, []);
@@ -70,7 +70,7 @@ const FeedItem = (feed) => {
           memberSeq: loginUser,
         })
         .then(function (response) {
-          console.log(response);
+          // console.log(response);
         });
     }
   };
@@ -83,7 +83,7 @@ const FeedItem = (feed) => {
   //댓글 수 확인
   const [comments, setComments] = useState([]);
 
-  console.log(likeCheck);
+  // console.log(likeCheck);
   return (
     <div>
       <p>{feed.feedSeq}번 째 피드</p>

@@ -1,4 +1,6 @@
 import * as React from "react";
+import { useNavigate, useParams } from "react-router-dom";
+
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
@@ -37,8 +39,12 @@ const useStyles = makeStyles((theme) => ({
 const MainNavBar = () => {
   const [value, setValue] = React.useState(0);
   const classes = useStyles();
+  const navigate = useNavigate();
+  const params = useParams();
   const handleChange = (event, newValue) => {
     setValue(newValue);
+    // console.log(newValue);
+    // console.log(params.value);
   };
 
   return (

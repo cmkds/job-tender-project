@@ -7,7 +7,7 @@ const MainAllNew = () => {
 
   useEffect(() => {
     axios.get(`/api/main/new`).then(function (response) {
-      console.log(response.data);
+      // console.log(response.data);
       setFeedsData(response.data);
     });
   }, []);

@@ -97,21 +97,21 @@ const Main = () => {
       {/* 돋보기 버튼  이거 상단바 왼쪽에 위치 해야함.*/}
       <button onClick={() => navigate("/search")}> 유저 검색 </button>
 
-      <MainNavBar></MainNavBar>
-      <NewHotButton></NewHotButton>
+      {/* <MainNavBar></MainNavBar>
+      <NewHotButton></NewHotButton> */}
       {/* <h2>main</h2> */}
       <div>
-        <MainStateContext.Provider value={apiFeedData}>
-          <MainDispatchContext.Provider value={onChangeApi}>
-            <Routes>
-              <Route path="/" element={<MainAllHot />} />
-              <Route path="/all/hot" element={<MainAllHot />} />
-              <Route path="/all/new" element={<MainAllNew />} />
-              <Route path="/:locationId/hot" element={<MainLocationHot />} />
-              <Route path="/:locationId/new" element={<MainLocationNew />} />
-            </Routes>
-          </MainDispatchContext.Provider>
-        </MainStateContext.Provider>
+        {/* <MainStateContext.Provider value={apiFeedData}>
+          <MainDispatchContext.Provider value={onChangeApi}> */}
+        <Routes>
+          {/* <Route path="/" element={<MainAllHot />} /> */}
+          <Route path="/:state/0" element={<MainAllHot />} />
+          <Route path="/:state/0" element={<MainAllNew />} />
+          <Route path="/:state/:locationId" element={<MainLocationHot />} />
+          <Route path="/:state/:locationId" element={<MainLocationNew />} />
+        </Routes>
+        {/* </MainDispatchContext.Provider>
+        </MainStateContext.Provider> */}
       </div>
     </div>
   );
