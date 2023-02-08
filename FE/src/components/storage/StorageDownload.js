@@ -1,27 +1,50 @@
 import * as React from "react";
-import Box from "@mui/material/Box";
 import Fab from "@mui/material/Fab";
 import PhotoIcon from "@mui/icons-material/Photo";
 import VideocamIcon from "@mui/icons-material/Videocam";
 import IosShareIcon from "@mui/icons-material/IosShare";
-
+import IconButton from "@material-ui/core/IconButton";
 import { useParams, useNavigate } from "react-router-dom";
+import { makeStyles } from "@material-ui/core/styles";
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: "flex",
+    justifyContent: "center",
+  },
+  buttonContainer: {
+    display: "flex",
+    justifyContent: "space-evenly",
+    width: "100%",
+    paddingTop: "10%",
+  },
+  largeIcon: {
+    fontSize: "4rem !important",
+    color: "#FF9999",
+  },
+}));
 
 const StorageDownload = () => {
+  const classes = useStyles();
+
   const navigate = useNavigate();
   const { id } = useParams();
   return (
-    <div>
-      <div style={{ height: "30px" }}></div>
-      <Fab>
-        <PhotoIcon />
-      </Fab>
-      <Fab>
-        <VideocamIcon />
-      </Fab>
-      <Fab>
-        <IosShareIcon />
-      </Fab>
+    <div className={classes.root}>
+      <div className={classes.buttonContainer}>
+        <IconButton>
+          <PhotoIcon className={classes.largeIcon} />
+        </IconButton>
+        <IconButton>
+          <VideocamIcon className={classes.largeIcon} />
+        </IconButton>
+        <IconButton
+          className={classes.largeIcon}
+          onClick={() => navigate(`/storage/${id}/share`)}
+        >
+          <IosShareIcon className={classes.largeIcon} />
+        </IconButton>
+      </div>
     </div>
   );
 };

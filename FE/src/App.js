@@ -21,10 +21,20 @@ import SignUp from "./pages/SignUp";
 import BottomBar from "./components/BottomBar";
 import Test from "./api/Teest";
 import Search from "./pages/Search";
+import { makeStyles } from "@material-ui/core/styles";
+
+const useStyles = makeStyles({
+  root: {
+    fontFamily: "GangwonEduAll",
+    fontWeight: "bold",
+  },
+});
 
 function App() {
+  const classes = useStyles();
+
   return (
-    <div>
+    <div className={classes.root}>
       <BrowserRouter>
         <div className="App">
           {/* <TopBar
