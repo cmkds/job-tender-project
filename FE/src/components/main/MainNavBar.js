@@ -43,9 +43,13 @@ const MainNavBar = () => {
   const params = useParams();
   const handleChange = (event, newValue) => {
     setValue(newValue);
-    // console.log(newValue);
+    console.log(newValue);
+    navigate(`/main/${params.state}/${newValue}`);
     // console.log(params.value);
   };
+
+  // console.log("메인네브바");
+  // console.log(params);
 
   return (
     <div style={{ position: "fixed", zIndex: "1" }}>

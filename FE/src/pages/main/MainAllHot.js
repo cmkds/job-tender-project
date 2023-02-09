@@ -8,14 +8,14 @@ import NewHotButton from "../../components/main/NewHotButton";
 const MainAllHot = () => {
   const [feedsData, setFeedsData] = useState([]);
   const params = useParams();
-
   console.log(params);
+  console.log("메인올핫");
   useEffect(() => {
     axios.get(`/api/main/hot`).then(function (response) {
       // console.log(response.data);
       setFeedsData(response.data);
     });
-  }, []);
+  }, [params]);
 
   return (
     <div style={{ paddingTop: "70px" }}>
