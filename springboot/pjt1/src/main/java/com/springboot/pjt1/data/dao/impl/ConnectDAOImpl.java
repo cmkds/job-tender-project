@@ -40,12 +40,11 @@ public class ConnectDAOImpl implements ConnectDAO {
 
     @Override
     public List<Long> SelectFollowingByMemberSeq(long memberSeq) {
-        List<Connect> members = connectRepository.findByFollower(memberSeq);
+        List<Connect> members = connectRepository.findAllByFollower(memberSeq);
         List<Long> memberSeqs = new ArrayList<>();
 
-        for (int i = 0; i < members.size(); i++){
-            memberSeqs.add(members.get(i).getFollower());
-        }
+        for (Connect member:members)
+            memberSeqs.add(member.getFollowing());
 
         return memberSeqs;
     }
@@ -82,12 +81,11 @@ public class ConnectDAOImpl implements ConnectDAO {
 
     @Override
     public List<Long> SelectFollowerByMemberSeq(long memberSeq) {
-        List<Connect> members = connectRepository.findByFollowing(memberSeq);
+        List<Connect> members = connectRepository.findAllByFollowing(memberSeq);
         List<Long> memberSeqs = new ArrayList<>();
 
-        for (int i = 0; i < members.size(); i++){
-            memberSeqs.add(members.get(i).getFollowing());
-        }
+        for (Connect member:members)
+            memberSeqs.add(member.getFollower());
 
         return memberSeqs;
     }

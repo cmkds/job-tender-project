@@ -21,19 +21,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception{
         System.out.println("configure begin");
-        http.httpBasic().disable()
-                .csrf().disable()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
-                .authorizeRequests()
-                .antMatchers("/token/**").permitAll()
-                .anyRequest().authenticated()
-                .and()
-                .addFilterBefore(new JwtAuthFilter(tokenService),
-                        UsernamePasswordAuthenticationFilter.class)
-                .oauth2Login().loginPage("/token/expired")
-                .successHandler(successHandler)
-                .userInfoEndpoint().userService(oAuth2UserService);
+//        http.httpBasic().disable()
+//                .csrf().disable()
+//                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+//                .and()
+//                .authorizeRequests()
+//                .antMatchers("/token/**").permitAll()
+//                .anyRequest().authenticated()
+//                .and()
+//                .addFilterBefore(new JwtAuthFilter(tokenService),
+//                        UsernamePasswordAuthenticationFilter.class)
+//                .oauth2Login().loginPage("/token/expired")
+//                .successHandler(successHandler)
+//                .userInfoEndpoint().userService(oAuth2UserService);
 
 
         http.addFilterBefore(new JwtAuthFilter(tokenService), UsernamePasswordAuthenticationFilter.class);

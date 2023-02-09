@@ -39,7 +39,7 @@ public class Member {
     private Date modifyTime;
     @Column(nullable = false)
     private String isAdmin;
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private Role role;
+    //@Enumerated(EnumType.STRING)
+    //@Column(nullable = false)
+    //private Role role;
 }

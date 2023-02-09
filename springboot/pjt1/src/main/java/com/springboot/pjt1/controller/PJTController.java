@@ -283,14 +283,14 @@ public class PJTController {
 
     @ApiOperation(
             value = "follower 조회"
-            , notes = "nickname 기반으로 follower 기본 정보 조회")
+            , notes = "memberSeq 기반으로 follower 기본 정보 조회")
     @GetMapping("/search/follower/{memberSeq}") // not enough
     public ResponseEntity<List<MemberSearchInfoDTO>> getFollowerMemberSearchInfoByMemberSeq(@PathVariable("memberSeq") long memberSeq){
-        List<Long> lists = connectService.getFollowings(memberSeq);
+        List<Long> followers = connectService.getFollowers(memberSeq);
         List<MemberSearchInfoDTO> rMemberSearchInfoDTOs = new ArrayList<>();
 
-        for(Long list:lists){
-            MemberSearchInfoDTO rMemberSearchInfoDTO = memberService.getMemberSearchInfoByMemberSeq(list);
+        for(Long follower:followers){
+            MemberSearchInfoDTO rMemberSearchInfoDTO = memberService.getMemberSearchInfoByMemberSeq(follower);
             rMemberSearchInfoDTOs.add(rMemberSearchInfoDTO);
         }
 
@@ -302,11 +302,11 @@ public class PJTController {
             , notes = "memberSeq 기반으로 follower 기본 정보 조회")
     @GetMapping("/search/following/{memberSeq}") // not enough
     public ResponseEntity<List<MemberSearchInfoDTO>> getFollowingMemberSearchInfoByMemberSeq(@PathVariable("memberSeq") long memberSeq){
-        List<Long> lists = connectService.getFollowings(memberSeq);
+        List<Long> followings = connectService.getFollowings(memberSeq);
         List<MemberSearchInfoDTO> rMemberSearchInfoDTOs = new ArrayList<>();
 
-        for(Long list:lists){
-            MemberSearchInfoDTO rMemberSearchInfoDTO = memberService.getMemberSearchInfoByMemberSeq(list);
+        for(Long following:followings){
+            MemberSearchInfoDTO rMemberSearchInfoDTO = memberService.getMemberSearchInfoByMemberSeq(following);
             rMemberSearchInfoDTOs.add(rMemberSearchInfoDTO);
         }
 
