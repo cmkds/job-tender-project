@@ -4,6 +4,7 @@ import Avatar from "@material-ui/core/Avatar";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { makeStyles } from "@material-ui/core/styles";
+import { useNavigate } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -24,7 +25,9 @@ const useStyles = makeStyles((theme) => ({
 
 // 유저아이디로 해당 유저의 정보를 통신해서 가져옴
 const Profile = (userId) => {
+  const navigate = useNavigate();
   // 유저아이디로 유저데이터 가져오기
+
   const [userData, setUserData] = useState({});
 
   // console.log(userId);
@@ -35,13 +38,18 @@ const Profile = (userId) => {
     });
   }, []);
   // 이미지 파일 가져오는 api 따로 있음.
-
+  // console.log(userData);
   const classes = useStyles();
 
   return (
-    <div className={classes.root}>
+    <div
+      className={classes.root}
+      onClick={() => {
+        navigate(`/user/${userId.id}`);
+      }}
+    >
       {/* <Avatar src={} className={classes.large}></Avatar> */}
-      <div className={classes.root}> {userData.name}</div>
+      <div className={classes.root}> {userData.nickname}</div>
     </div>
   );
 };
