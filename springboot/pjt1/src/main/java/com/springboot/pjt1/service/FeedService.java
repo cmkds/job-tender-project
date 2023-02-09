@@ -28,4 +28,6 @@ public interface FeedService {
     List<FeedDTO> getFeedAllOrderByCreateTimeByMachineLocationSeq(long machineLocationSeq);
 
     FeedInputDTO ConvertToInputDTO(FeedDTO feedDTO);
+
+    List<FeedDTO> getFeedAllByMemberSeq(long memberSeq);
 }

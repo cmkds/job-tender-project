@@ -1,9 +1,7 @@
 package com.springboot.pjt1.service;
 
-import com.springboot.pjt1.data.dto.Role;
-import com.springboot.pjt1.data.entity.Member;
-import com.springboot.pjt1.data.repository.MemberRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.springboot.pjt1.data.attr.OAuth2Attribute;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
@@ -13,58 +11,30 @@ import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
-import javax.servlet.http.HttpSession;
 import java.util.Collections;
-import java.util.Map;
-import java.util.Optional;
 
+@Slf4j
 @Service
 public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequest, OAuth2User> {
-    @Autowired
-    private MemberRepository memberRepository;
-    @Autowired
-    private HttpSession httpSession;
-
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
-        OAuth2UserService oAuth2UserService = new DefaultOAuth2UserService();
+        System.out.println("CustomOAuth2UserService - loadUser begin");
+        OAuth2UserService<OAuth2UserRequest, OAuth2User> oAuth2UserService = new DefaultOAuth2UserService();
+
         OAuth2User oAuth2User = oAuth2UserService.loadUser(userRequest);
 
         String registrationId = userRequest.getClientRegistration().getRegistrationId();
-        String userNameAttrubuteName = userRequest.getClientRegistration().getProviderDetails().getUserInfoEndpoint().getUserNameAttributeName();
+        String userNameAttributeName = userRequest.getClientRegistration()
+                .getProviderDetails().getUserInfoEndpoint().getUserNameAttributeName();
+        log.info("registrationId = {}", registrationId);
+        log.info("userNameAttributeName = {}", userNameAttributeName);
 
-        String email;
-        Map<String, Object> response = oAuth2User.getAttributes();
+        OAuth2Attribute oAuth2Attribute = OAuth2Attribute.of(registrationId, userNameAttributeName, oAuth2User.getAttributes());
 
-        if(registrationId.equals("naver")){
-            Map<String, Object> hash = (Map<String, Object>) response.get("response");
-            email = (String)hash.get("email");
-        } else if (registrationId.equals("google")) {
-            email = (String)response.get("email");
-        } else{
-            throw new OAuth2AuthenticationException("Not allowed certification");
-        }
-
-        Member member;
-        Optional<Member> optionalMember = memberRepository.findByEmail(email);
-
-        // 기존 가입자
-        if(optionalMember.isPresent()){
-            member = optionalMember.get();
-        }
-        // 신규 가입자
-        else{
-            member = new Member();
-            member.setEmail(email);
-            member.setRole(Role.ROLE_USER);
-            memberRepository.save(member);
-        }
-
-        httpSession.setAttribute("member", member);
-
+        var memberAttribute = oAuth2Attribute.convertToMap();
+        System.out.println("CustomOAuth2UserService - loadUser end");
         return new DefaultOAuth2User(
-                Collections.singleton(new SimpleGrantedAuthority(member.getRole().toString())),
-                        oAuth2User.getAttributes(),
-                        userNameAttrubuteName);
+                Collections.singleton(new SimpleGrantedAuthority("ROLE_USER")),
+                memberAttribute, "email");
     }
 }

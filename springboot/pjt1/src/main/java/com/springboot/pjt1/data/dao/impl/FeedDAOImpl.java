@@ -113,4 +113,9 @@ public class FeedDAOImpl implements FeedDAO {
         for(Feed feed:feeds)
             feedRepository.delete(feed);
     }
+
+    @Override
+    public List<Feed> SelectFeedAllByMemberSeq(long memberSeq) {
+        return feedRepository.findAllByMemberSeq(memberSeq);
+    }
 }

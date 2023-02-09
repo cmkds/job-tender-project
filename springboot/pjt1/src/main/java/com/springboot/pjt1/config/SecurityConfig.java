@@ -1,31 +1,42 @@
 package com.springboot.pjt1.config;
 
+import com.springboot.pjt1.filter.JwtAuthFilter;
+import com.springboot.pjt1.handler.OAuth2SuccessHandler;
 import com.springboot.pjt1.service.CustomOAuth2UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.springboot.pjt1.service.TokenService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-@EnableWebSecurity
-public class SecurityConfig extends WebSecurityConfiguration {
-    @Autowired
-    CustomOAuth2UserService customOAuth2UserService;
+@RequiredArgsConstructor
+@Configuration
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
+    private final CustomOAuth2UserService oAuth2UserService;
+    private final OAuth2SuccessHandler successHandler;
+    private final TokenService tokenService;
 
     @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable()
+    protected void configure(HttpSecurity http) throws Exception{
+        System.out.println("configure begin");
+        http.httpBasic().disable()
+                .csrf().disable()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
                 .authorizeRequests()
-                .anyRequest()	// 모든 요청에 대해서 허용하라.
-                .permitAll()
+                .antMatchers("/token/**").permitAll()
+                .anyRequest().authenticated()
                 .and()
-                .logout()
-                .logoutSuccessUrl("/")	// 로그아웃에 대해서 성공하면 "/"로 이동
-                .and()
-                .oauth2Login()
-                .defaultSuccessUrl("/login-success")
-                .userInfoEndpoint()
-                .userService(customOAuth2UserService);	// oauth2 로그인에 성공하면, 유저 데이터를 가지고 우리가 생성한
-        // customOAuth2UserService에서 처리를 하겠다. 그리고 "/login-success"로 이동하라.
+                .addFilterBefore(new JwtAuthFilter(tokenService),
+                        UsernamePasswordAuthenticationFilter.class)
+                .oauth2Login().loginPage("/token/expired")
+                .successHandler(successHandler)
+                .userInfoEndpoint().userService(oAuth2UserService);
+
+
+        http.addFilterBefore(new JwtAuthFilter(tokenService), UsernamePasswordAuthenticationFilter.class);
+        System.out.println("configure end");
     }
 }

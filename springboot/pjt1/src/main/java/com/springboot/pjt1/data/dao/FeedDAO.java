@@ -18,4 +18,6 @@ public interface FeedDAO {
     List<Feed> SelectFeedByMemberSeqs(List<Long> memberSeqs);
 
     void DeleteFeedByMemberSeq(long memberSeq);
+
+    List<Feed> SelectFeedAllByMemberSeq(long memberSeq);
 }

@@ -4,13 +4,11 @@ import com.springboot.pjt1.data.dto.*;
 import com.springboot.pjt1.data.dto.custom.*;
 import com.springboot.pjt1.service.*;
 import io.swagger.annotations.ApiOperation;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +28,9 @@ public class PJTController {
     private final HeartService heartService;
     private final S3Service s3Service;
 
+    // oauth
+
+
     @Autowired
     public PJTController(CommentService commentService, ConnectService connectService, FeedService feedService, MachineDataService machineDataService,
                          MachineLocationService machineLocationService, MachineService machineService, MemberService memberService,
@@ -46,6 +47,8 @@ public class PJTController {
         this.heartService = heartService;
         this.s3Service = s3Service;
     }
+
+
 
     @PostMapping("/send-data")
     public void uploadFile(@RequestParam MultipartFile multipartFile) throws Exception {
@@ -378,6 +381,15 @@ public class PJTController {
 
         return ResponseEntity.status(HttpStatus.OK).body(rFeedDTO);
     }
+    @ApiOperation(
+            value = "feed 조회"
+            , notes = "memberSeq 기반으로 feed 조회")
+    @GetMapping("/main/{memberSeq}")
+    public  ResponseEntity<List<FeedDTO>> getFeedByMemberSeq(@PathVariable("memberSeq") long memberSeq){
+        List<FeedDTO> rFeedDTOs = feedService.getFeedAllByMemberSeq(memberSeq);
+
+        return ResponseEntity.status(HttpStatus.OK).body(rFeedDTOs);
+    }
 
     @GetMapping("/mypage/photo/{feedSeq}")
     public ResponseEntity<String> getPhoto(@PathVariable("feedSeq") long memberSeq){
@@ -445,4 +457,6 @@ public class PJTController {
     public ResponseEntity<List<HeartDTO>> getHeartByFeedSeq(@PathVariable("feedSeq") long feedSeq) {
         return ResponseEntity.status(HttpStatus.OK).body(heartService.getHeartsByFeed(feedSeq));
     }
+
+    // oauth
 }
