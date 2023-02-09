@@ -12,7 +12,6 @@ const Menual = () => {
         navText={"로그박스 사용방법"}
         leftChild={<ArrowBackIosNewIcon onClick={() => navigate(-1)} />}
       />
-      여기에 사용방법 들어감 ㅋ
     </div>
   );
 };

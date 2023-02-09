@@ -14,6 +14,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(1),
     color: "gray",
     marginLeft: "78%",
+    fontFamily: "GangwonEduAll",
   },
 }));
 
@@ -34,6 +35,9 @@ const StorageShare = () => {
           rows={6}
           className={classes.textField}
           placeholder="내용을 입력하세요"
+          inputProps={{
+            style: { fontFamily: "GangwonEduAll" },
+          }}
         />
       </div>
       <div className={classes.characterCount}>{value.length} / 1,000</div>
