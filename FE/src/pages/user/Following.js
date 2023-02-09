@@ -2,6 +2,7 @@
 
 import { useContext } from "react";
 import { UserStateContext } from "../../pages/User";
+import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 
 import { useNavigate } from "react-router-dom";
 
@@ -17,7 +18,7 @@ const Following = () => {
     <div>
       <NavBar
         navText={"팔로잉"}
-        leftChild={<MyButton text={"<"} onClick={() => navigate(-1)} />}
+        leftChild={<ArrowBackIosNewIcon onClick={() => navigate(-1)} />}
       />
       ;{userData.id}의 팔로잉 페이지다
     </div>

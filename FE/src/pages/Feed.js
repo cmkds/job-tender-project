@@ -42,7 +42,6 @@ const Feed = () => {
   return (
     <div>
       <TopBar />
-      <h2>Feed Page</h2>
 
       {/* <FeedStateContext.Provider value={feedsData}> */}
       {/* 여기 수정 봐야됨 */}

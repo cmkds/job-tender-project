@@ -4,8 +4,6 @@ import * as React from "react";
 import AppBar from "@mui/material/AppBar";
 import styled from "@emotion/styled";
 import PersonSearchIcon from "@mui/icons-material/PersonSearch";
-import Box from "@mui/material/Box";
-import Container from "@mui/material/Container";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import { useNavigate } from "react-router-dom";
@@ -17,27 +15,33 @@ export default function ButtonAppBar() {
     background-color: #ffb9b9;
     height: 70px;
     z-index: 1200;
+    max-width: 640px;
+    right: auto;
+    margin: auto;
   `;
 
   return (
-    <MyAppBar sx={{ justifyItems: "space-between" }}>
-      <Container maxWidth="xl">
-        <Toolbar disableGutters>
-          <Box></Box>
+    <div>
+      <MyAppBar>
+        <Toolbar>
+          {/* <Box></Box> */}
           <img
             className="logoTop"
             src={process.env.PUBLIC_URL + `/assets/logo2.png`}
             alt="logoTop"
-            style={{ marginTop: "5px", height: "60px" }}
+            style={{ height: "60px", marginTop: "5px" }}
           ></img>
-          <IconButton sx={{ position: "fixed", right: "5%" }}>
+          <IconButton
+            sx={{ position: "absolute", right: "5%" }}
+            onClick={() => navigate("/search")}
+          >
             <PersonSearchIcon
-              sx={{ color: "white" }}
-              onClick={() => navigate("/search")}
+              sx={{ color: "white", fontSize: "150%" }}
             ></PersonSearchIcon>
           </IconButton>
         </Toolbar>
-      </Container>
-    </MyAppBar>
+      </MyAppBar>
+      <div style={{ height: "70px" }}></div>
+    </div>
   );
 }

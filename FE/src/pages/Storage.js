@@ -85,12 +85,10 @@ const Storage = () => {
           leftChild={<ArrowBackIosNewIcon onClick={() => navigate(-1)} />}
         />
 
-        <div style={{ paddingTop: "75px" }}>
-          <Routes>
-            <Route path="/" element={<StorageList />} />
-            <Route path="/:id/*" element={<StorageId />} />
-          </Routes>
-        </div>
+        <Routes>
+          <Route path="/" element={<StorageList />} />
+          <Route path="/:id/*" element={<StorageId />} />
+        </Routes>
       </StorageStateContext.Provider>
     </div>
   );

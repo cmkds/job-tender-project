@@ -45,7 +45,7 @@ const MainAll = () => {
   //   });
   // }, []);
   return (
-    <div style={{ paddingTop: "70px" }}>
+    <div>
       <MainNavBar></MainNavBar>
       <NewHotButton></NewHotButton>
       <FeedList feedsData={feedsData} />

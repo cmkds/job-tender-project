@@ -7,7 +7,6 @@ body {
   justify-content: center;
   /* 세로축의 센터 */
   align-items: center;
-  font-family: "Nanum Pen Script";
   /* 현재 웹스크린의 100%를 최소 높이로 갖겠다. */
   min-height: 100vh;
   /* html body가 기본적으로 가지고 있는 margin 제거 */
@@ -88,20 +87,21 @@ header {
 
 .navbar .nav_btn_left {
   /* padding: 3% 1%; */
-  width: 25%;
+  width: 10%;
   margin: auto;
   /* 좌측 고정 */
 }
 .navbar .nav_btn_center {
   /* padding-left: 20%; */
   text-align: center;
+  padding-bottom: 2%;
   margin: auto;
   font-family: GangwonEduAll;
   font-size: 30px;
 }
 .navbar .nav_btn_right {
   padding-right: 5%;
-  width: 25%;
+  width: 10%;
   margin: auto;
 }
 
@@ -222,7 +222,7 @@ header {
   }
 }
 
-topbar {
+/* topbar {
   position: absolute;
   width: 100%;
   height: 101px;
@@ -230,7 +230,7 @@ topbar {
   top: 0px;
   align-items: center;
   background: #ffb9b9;
-}
+} */
 
 .BottomBar {
   min-height: 6vh;

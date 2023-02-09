@@ -16,7 +16,6 @@ const Comment = () => {
         navText={"댓글"}
         leftChild={<ArrowBackIosNewIcon onClick={() => navigate(-1)} />}
       />
-      <div style={{ paddingTop: "76px" }}></div>
       <CommentWrite />
       <CommentList />
     </div>

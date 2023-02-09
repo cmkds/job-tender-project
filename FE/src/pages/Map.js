@@ -145,11 +145,11 @@ const Map = () => {
         leftChild={<ArrowBackIosNewIcon onClick={() => navigate(-1)} />}
       />
 
-      <div
+      {/* <div
         style={{
           height: "75px",
         }}
-      />
+      /> */}
       <div
         id="Map"
         style={{

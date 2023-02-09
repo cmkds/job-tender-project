@@ -49,7 +49,7 @@ const CommentWrite = () => {
         p: "2px 4px",
         display: "flex",
         alignItems: "center",
-        width: 360,
+        width: "100%",
         bgcolor: "#ECECEC",
       }}
     >
