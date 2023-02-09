@@ -2,6 +2,22 @@
 // 닉네임, 상태메세지, 사진 등록
 import axios from "axios";
 import { useState, useRef, useEffect } from "react";
+import TopBar from "../components/TopBar";
+import Box from "@mui/material/Box";
+import Card from "@mui/material/Card";
+import CardActions from "@mui/material/CardActions";
+import CardContent from "@mui/material/CardContent";
+import { Avatar } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
+
+// 유저 프로필 이미지 style code
+const useStyles = makeStyles((theme) => ({
+  profileImage: {
+    width: theme.spacing(15),
+    height: theme.spacing(15),
+    margin: "auto",
+  },
+}));
 
 const SignUp = () => {
   //프로필사진
@@ -14,8 +30,7 @@ const SignUp = () => {
 
   const [state, setState] = useState({
     image_file: "",
-    preview_URL:
-      "https://png.pngtree.com/png-vector/20191115/ourmid/pngtree-beautiful-profile-line-vector-icon-png-image_1990469.jpg",
+    preview_URL: "/assets/unknown.png",
     nickName: "",
     statusMessage: "",
   });
@@ -93,7 +108,7 @@ const SignUp = () => {
   //     nickName: "",
   //   });
   // };
-
+  const classes = useStyles();
   const sendImageToServer = async () => {
     if (state.image_file) {
       const formData = new FormData();
@@ -123,58 +138,70 @@ const SignUp = () => {
 
   return (
     <div>
+      <TopBar></TopBar>
       회원가입 정보등록 페이지
-      <div className="uploader-wrapper">
-        <input
-          type="file"
-          accept="image/*"
-          onChange={saveImage}
-          // 클릭할 때 마다 file input의 value를 초기화 하지 않으면 버그가 발생할 수 있다
-          // 사진 등록을 두개 띄우고 첫번째에 사진을 올리고 지우고 두번째에 같은 사진을 올리면 그 값이 남아있음!
-          onClick={(e) => (e.target.value = null)}
-          ref={(refParam) => (inputRef = refParam)}
-          style={{ display: "none" }}
-        />
-        <div className="img-wrapper">
-          <img src={state.preview_URL} />
-        </div>
+      <Card
+        sx={{
+          maxWidth: "70%",
+          margin: "auto",
+          marginTop: "20%",
+        }}
+      >
+        <div className="uploader-wrapper">
+          <input
+            type="file"
+            accept="image/*"
+            onChange={saveImage}
+            // 클릭할 때 마다 file input의 value를 초기화 하지 않으면 버그가 발생할 수 있다
+            // 사진 등록을 두개 띄우고 첫번째에 사진을 올리고 지우고 두번째에 같은 사진을 올리면 그 값이 남아있음!
+            onClick={(e) => (e.target.value = null)}
+            ref={(refParam) => (inputRef = refParam)}
+            style={{ display: "none" }}
+          />
+          <div className="img-wrapper">
+            <Avatar
+              className={classes.profileImage}
+              src={state.preview_URL}
+            ></Avatar>
+          </div>
 
-        <div className="upload-button">
-          <button
-            type="primary"
-            variant="contained"
-            onClick={() => inputRef.click()}
-          >
-            프로필 이미지 등록
-          </button>
-          <button color="error" variant="contained" onClick={deleteImage}>
-            사진 삭제
-          </button>
-          <button
-            color="success"
-            variant="contained"
-            onClick={sendImageToServer}
-          >
-            등록하기
-          </button>
+          <div className="upload-button">
+            <button
+              type="primary"
+              variant="contained"
+              onClick={() => inputRef.click()}
+            >
+              프로필 이미지 등록
+            </button>
+            <button color="error" variant="contained" onClick={deleteImage}>
+              사진 삭제
+            </button>
+            <button
+              color="success"
+              variant="contained"
+              onClick={sendImageToServer}
+            >
+              등록하기
+            </button>
+          </div>
         </div>
-      </div>
-      <div>
-        <input
-          ref={nickNameInput}
-          name="nickName"
-          value={state.nickName}
-          onChange={handleChangeState}
-        />
-      </div>
-      <div>
-        <textarea
-          ref={statusMessageInput}
-          name="statusMessage"
-          value={state.statueMessage}
-          onChange={handleChangeState}
-        />
-      </div>
+        <div>
+          <input
+            ref={nickNameInput}
+            name="nickName"
+            value={state.nickName}
+            onChange={handleChangeState}
+          />
+        </div>
+        <div>
+          <textarea
+            ref={statusMessageInput}
+            name="statusMessage"
+            value={state.statueMessage}
+            onChange={handleChangeState}
+          />
+        </div>
+      </Card>
     </div>
   );
 };

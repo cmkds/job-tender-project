@@ -70,6 +70,9 @@ const CommentWrite = () => {
           height: "50px",
           paddingLeft: "5%",
         }}
+        inputProps={{
+          style: { fontFamily: "GangwonEduAll" },
+        }}
         placeholder="댓글 달기"
         ref={commentInput}
         name="comment"
