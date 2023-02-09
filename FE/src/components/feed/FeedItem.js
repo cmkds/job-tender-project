@@ -14,6 +14,14 @@ const FeedItem = (feed) => {
   //로그인 유저 정보
   const loginUser = 1;
 
+  const navigate = useNavigate();
+
+  // 게시물의 좋아요 개수
+  const [likes, setLikes] = useState(0);
+
+  //댓글 수 확인
+  const [comments, setComments] = useState([]);
+
   //좋아요 여부 체크
   const [likeCheck, setLikeCheck] = useState(false);
 
@@ -33,7 +41,7 @@ const FeedItem = (feed) => {
       // console.log(response.data);
       setComments(response.data);
     });
-  }, []);
+  }, [comments]);
 
   // 로그인한 유저의 좋아요 상태 가져오기
   // 유저 아이디 파라미터로 써야함. 아직 없어서 주석처리 해 둠.
@@ -53,17 +61,17 @@ const FeedItem = (feed) => {
   // 좋아요 눌렀을 대 처리 좋아요 되있으면 취소 보내고 안되있으면 생성 보냄.
 
   const heartButton = () => {
-    // console.log(likes);
+    console.log(likeCheck);
     if (likeCheck) {
       // 좋아요가 되어있으므로 취소 요청을 보낸다.
       axios
         .delete(`/api/heart/${feed.feedSeq}/${loginUser}`)
         .then(function (response) {
+          setLikeCheck(false);
           // console.log(response);
-          setLikeCheck(!likeCheck);
         });
     } else {
-      setLikeCheck(!likeCheck);
+      setLikeCheck(true);
       axios
         .post(`/api/heart`, {
           feedSeq: feed.feedSeq,
@@ -74,14 +82,6 @@ const FeedItem = (feed) => {
         });
     }
   };
-
-  const navigate = useNavigate();
-
-  // 게시물의 좋아요 개수
-  const [likes, setLikes] = useState(0);
-
-  //댓글 수 확인
-  const [comments, setComments] = useState([]);
 
   // console.log(likeCheck);
   return (
