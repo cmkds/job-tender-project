@@ -1,11 +1,12 @@
 // /user/:id
-import { useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { UserStateContext } from "../User";
 import UserFeedList from "../../components/user/UserFeedList";
 import TopBar from "../../components/TopBar";
 import { makeStyles } from "@material-ui/core/styles";
 import Avatar from "@material-ui/core/Avatar";
+import axios from "axios";
 
 // 게시물 리스트를 보여줄 페이지.
 // 해당 유저의 아이디와 로그인한 아이디가 같다면
@@ -16,6 +17,9 @@ import Avatar from "@material-ui/core/Avatar";
 //다르면
 // 메인 페이지에 팔로우, 팔로잉 버튼 보이고 언팔로우 가능
 // 팔로잉 페이지에   팔로잉 버튼에 본인이 있으면 언팔로우 가능
+
+//
+
 const useStyles = makeStyles((theme) => ({
   root: {
     alignItems: "center",
@@ -28,10 +32,22 @@ const useStyles = makeStyles((theme) => ({
 
 const UserMain = () => {
   const classes = useStyles();
-
   const userData = useContext(UserStateContext)[0][0];
+
+  const params = useParams();
+  const [userProfileData, setUserProfileData] = useState();
+
   const navigate = useNavigate();
+  console.log(params);
   console.log(userData);
+
+  // 유저정보 가져오기
+  useEffect(() => {
+    axios.get(`/api/account/${params.user}`).then(function (response) {
+      console.log(response);
+    });
+  });
+
   return (
     <div>
       <TopBar />

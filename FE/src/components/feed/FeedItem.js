@@ -11,6 +11,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
 
 const FeedItem = (feed) => {
+  // console.log(feed);
   //로그인 유저 정보
   const loginUser = 1;
 
@@ -41,7 +42,7 @@ const FeedItem = (feed) => {
       // console.log(response.data);
       setComments(response.data);
     });
-  }, [comments]);
+  }, []);
 
   // 로그인한 유저의 좋아요 상태 가져오기
   // 유저 아이디 파라미터로 써야함. 아직 없어서 주석처리 해 둠.
