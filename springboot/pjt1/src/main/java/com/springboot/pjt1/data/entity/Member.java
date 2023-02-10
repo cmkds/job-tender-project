@@ -1,6 +1,7 @@
 package com.springboot.pjt1.data.entity;
 
 import com.springboot.pjt1.data.dto.Role;
+import lombok.Builder;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -39,7 +40,29 @@ public class Member {
     private Date modifyTime;
     @Column(nullable = false)
     private String isAdmin;
-    //@Enumerated(EnumType.STRING)
-    //@Column(nullable = false)
-    //private Role role;
+    @Column(name = "provider", nullable = false)
+    private String provider;
+
+    @Builder //생성을 Builder 패턴으로 하기 위해서
+    public Member(String name, String email, String provider, String nickname, String isAdmin) {
+        this.name = name;
+        this.email = email;
+        this.provider = provider;
+        this.nickname = nickname;
+        this.isAdmin = isAdmin;
+        this.createTime = new Date();
+        this.modifyTime = new Date();
+
+    }
+
+    public Member(){
+
+    }
+
+
+    public Member update(String name, String email) {
+        this.name = name;
+        this.email = email;
+        return this;
+    }
 }

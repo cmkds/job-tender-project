@@ -1,5 +1,6 @@
 package com.springboot.pjt1.data.dto;
 
+import lombok.Builder;
 import lombok.Data;
 
 import java.util.Date;
@@ -17,4 +18,5 @@ public class MemberDTO {
     private Date createTime;
     private Date modifyTime;
     private String isAdmin;
+
 }

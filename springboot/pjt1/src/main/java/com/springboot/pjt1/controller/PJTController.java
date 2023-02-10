@@ -7,11 +7,14 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api")
@@ -48,7 +51,15 @@ public class PJTController {
         this.s3Service = s3Service;
     }
 
+    @GetMapping("/loginInfo")
+    public String oauthLoginInfo(Authentication authentication){
+        //oAuth2User.toString() 예시 : Name: [2346930276], Granted Authorities: [[USER]], User Attributes: [{id=2346930276, provider=kakao, name=김준우, email=bababoll@naver.com}]
+        OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
+        //attributes.toString() 예시 : {id=2346930276, provider=kakao, name=김준우, email=bababoll@naver.com}
+        Map<String, Object> attributes = oAuth2User.getAttributes();
 
+        return attributes.toString();
+    }
 
     @PostMapping("/send-data")
     public void uploadFile(@RequestParam MultipartFile multipartFile) throws Exception {
