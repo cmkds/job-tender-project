@@ -14,6 +14,9 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     padding: "2%",
     objectFit: "cover",
+    whiteSpace: "nowrap",
+    overflow: "hidden",
+    textOverflow: "ellipsis",
   },
   small: {
     width: theme.spacing(3),
@@ -43,22 +46,41 @@ const Profile = (userId) => {
   }, []);
 
   return (
-    <div
-      className={classes.root}
-      onClick={() => {
-        navigate(`/user/${userId.id}`);
-      }}
-    >
+    <div className={classes.root}>
       {/* <Avatar src={} className={classes.large}></Avatar> */}
       {/* <div className={classes.root}> {userData.nickname}</div> */}
       <div className={classes.root}>
-        <Avatar>
+        <Avatar
+          onClick={() => {
+            navigate(`/user/${userId.id}`);
+          }}
+        >
           {/* <img src={it.image} alt={"프로필 이미지가 없습니다."}></img> */}
         </Avatar>
-        <div className={classes.root}>
-          <div style={{ display: "flex", flexDirection: "column" }}>
-            <div>{userData.nickname}</div>
-            <div style={{ color: "lightgrey" }}>{userData.memberState}</div>
+      </div>
+      <div className={classes.root}>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            width: "100px",
+          }}
+        >
+          <div
+            style={
+              {
+                // display: "block",
+              }
+            }
+            className={classes.root}
+          >
+            {userData.nickname}
+          </div>
+          <div
+            style={{ color: "lightgrey", display: "block" }}
+            className={classes.root}
+          >
+            {userData.memberState}
           </div>
         </div>
       </div>
