@@ -27,7 +27,6 @@ const useStyles = makeStyles((theme) => ({
 const Profile = (userId) => {
   const navigate = useNavigate();
   // 유저아이디로 유저데이터 가져오기
-
   const [userData, setUserData] = useState({});
 
   // console.log(userId);
@@ -40,7 +39,7 @@ const Profile = (userId) => {
   // 이미지 파일 가져오는 api 따로 있음.
   // console.log(userData);
   const classes = useStyles();
-
+  console.log(userData);
   return (
     <div
       className={classes.root}
@@ -49,7 +48,18 @@ const Profile = (userId) => {
       }}
     >
       {/* <Avatar src={} className={classes.large}></Avatar> */}
-      <div className={classes.root}> {userData.nickname}</div>
+      {/* <div className={classes.root}> {userData.nickname}</div> */}
+      <div className={classes.root}>
+        <Avatar>
+          {/* <img src={it.image} alt={"프로필 이미지가 없습니다."}></img> */}
+        </Avatar>
+        <div className={classes.root}>
+          <div style={{ display: "flex", flexDirection: "column" }}>
+            <div>{userData.nickname}</div>
+            <div style={{ color: "lightgrey" }}>{userData.memberState}</div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

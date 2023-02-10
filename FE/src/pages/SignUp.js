@@ -3,12 +3,12 @@
 import axios from "axios";
 import { useState, useRef, useEffect } from "react";
 import TopBar from "../components/TopBar";
-import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
-import CardContent from "@mui/material/CardContent";
 import { Avatar } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
+import Box from "@mui/material/Box";
 
 // 유저 프로필 이미지 style code
 const useStyles = makeStyles((theme) => ({
@@ -57,8 +57,7 @@ const SignUp = () => {
     setState({
       ...state,
       image_file: "",
-      preview_URL:
-        "https://png.pngtree.com/png-vector/20191115/ourmid/pngtree-beautiful-profile-line-vector-icon-png-image_1990469.jpg",
+      preview_URL: "/assets/unknown.png",
     });
   };
 
@@ -126,8 +125,7 @@ const SignUp = () => {
       alert("서버에 등록이 완료되었습니다!");
       setState({
         image_file: "",
-        preview_URL:
-          "https://png.pngtree.com/png-vector/20191115/ourmid/pngtree-beautiful-profile-line-vector-icon-png-image_1990469.jpg",
+        preview_URL: "/assets/unknown.png",
         nickName: "",
         statusMessage: "",
       });
@@ -162,45 +160,86 @@ const SignUp = () => {
             <Avatar
               className={classes.profileImage}
               src={state.preview_URL}
+              onClick={() => inputRef.click()}
             ></Avatar>
           </div>
 
           <div className="upload-button">
-            <button
-              type="primary"
-              variant="contained"
-              onClick={() => inputRef.click()}
-            >
-              프로필 이미지 등록
-            </button>
             <button color="error" variant="contained" onClick={deleteImage}>
               사진 삭제
             </button>
-            <button
-              color="success"
-              variant="contained"
-              onClick={sendImageToServer}
-            >
-              등록하기
-            </button>
           </div>
         </div>
-        <div>
-          <input
+        <div style={{ paddingTop: "5%", paddingLeft: "5%", fontSize: 24 }}>
+          닉네임
+        </div>
+        <div style={{ display: "flex" }}>
+          <TextField
             ref={nickNameInput}
             name="nickName"
             value={state.nickName}
+            color="error"
             onChange={handleChangeState}
+            placeholder="최대 10 글자"
+            inputProps={{
+              maxLength: 10,
+              style: { fontFamily: "GangwonEduAll" },
+            }}
+            style={{ margin: "auto", display: "flex", width: "90%" }}
           />
         </div>
-        <div>
+        <div style={{ paddingTop: "5%", paddingLeft: "5%", fontSize: 24 }}>
+          상태 메세지
+        </div>
+        <div style={{ display: "flex" }}>
+          <TextField
+            ref={statusMessageInput}
+            name="statusMessage"
+            value={state.statueMessage}
+            onChange={handleChangeState}
+            multiline
+            rows={4}
+            placeholder="최대 20 글자"
+            color="error"
+            inputProps={{
+              maxLength: 20,
+              style: { fontFamily: "GangwonEduAll" },
+            }}
+            style={{ margin: "auto", width: "90%", display: "flex" }}
+          />
+        </div>
+
+        <Button
+          variant="contained"
+          style={{
+            display: "flex",
+            margin: "auto",
+            width: "90%",
+            height: "40px",
+            backgroundColor: "#FFB9B9",
+            marginBottom: "10%",
+            marginTop: "10%",
+          }}
+          onClick={sendImageToServer}
+        >
+          <p style={{ fontSize: "150%", fontFamily: "GangwonEduAll" }}>
+            가입하기
+          </p>
+        </Button>
+
+        {/* <input
+          ref={nickNameInput}
+          name="nickName"
+          value={state.nickName}
+          onChange={handleChangeState}
+          maxLength={10}
+        />
           <textarea
             ref={statusMessageInput}
             name="statusMessage"
             value={state.statueMessage}
             onChange={handleChangeState}
-          />
-        </div>
+          /> */}
       </Card>
     </div>
   );

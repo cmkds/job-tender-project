@@ -7,6 +7,7 @@ import PersonSearchIcon from "@mui/icons-material/PersonSearch";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import { useNavigate } from "react-router-dom";
+import { Avatar } from "@mui/material";
 
 export default function ButtonAppBar() {
   const navigate = useNavigate();
@@ -32,12 +33,20 @@ export default function ButtonAppBar() {
             style={{ height: "60px", marginTop: "5px" }}
           ></img>
           <IconButton
-            sx={{ position: "absolute", right: "5%" }}
+            sx={{ position: "absolute", left: "5%" }}
             onClick={() => navigate("/search")}
           >
             <PersonSearchIcon
               sx={{ color: "white", fontSize: "150%" }}
             ></PersonSearchIcon>
+          </IconButton>
+
+          {/* 유저 프로필 가져오기 해야함 */}
+          <IconButton
+            sx={{ position: "absolute", right: "5%" }}
+            onClick={() => navigate("/user/1")}
+          >
+            <Avatar sx={{ color: "white", fontSize: "150%" }}></Avatar>
           </IconButton>
         </Toolbar>
       </MyAppBar>
