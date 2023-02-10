@@ -1,9 +1,10 @@
-import { useContext, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { FeedStateContext } from "../../pages/Feed";
+
 import axios from "axios";
+
 import Profile from "../Profile";
-import * as React from "react";
+
 import Stack from "@mui/material/Stack";
 import IconButton from "@mui/material/IconButton";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
@@ -11,8 +12,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
 
 const FeedItem = (feed) => {
-  // console.log(feed);
-  //로그인 유저 정보
+  //로그인 유저 정보  이거 나중에 바꿔야함.
   const loginUser = 1;
 
   const navigate = useNavigate();
@@ -20,23 +20,22 @@ const FeedItem = (feed) => {
   // 게시물의 좋아요 개수
   const [likes, setLikes] = useState(0);
 
+  const [likesLen, setLikesLen] = useState(likes);
   //댓글 수 확인
   const [comments, setComments] = useState([]);
-
   //좋아요 여부 체크
   const [likeCheck, setLikeCheck] = useState(false);
 
-  // console.log(feed);
-  // 좋아요 받아와 야함
+  // 좋아요 수 받아오기
   useEffect(() => {
     axios.get(`/api/feed/heart/${feed.feedSeq}`).then(function (response) {
       // console.log(response.data.length);
       setLikes(response.data.length);
     });
   }, [likeCheck]);
+  // console.log(`likes : ${likes}`);
 
-  // 댓글 받아와야함.
-
+  // 댓글 받아오기
   useEffect(() => {
     axios.get(`/api/comment/${feed.feedSeq}`).then(function (response) {
       // console.log(response.data);
@@ -45,46 +44,44 @@ const FeedItem = (feed) => {
   }, []);
 
   // 로그인한 유저의 좋아요 상태 가져오기
-  // 유저 아이디 파라미터로 써야함. 아직 없어서 주석처리 해 둠.
-  // console.log(feed.feedSeq);
-  // console.log(loginUser);
-
   useEffect(() => {
     axios
       .get(`/api/heart/${feed.feedSeq}/${loginUser}`)
       .then(function (response) {
-        // console.log(response.data);
         setLikeCheck(response.data);
       });
   }, []);
 
-  /////////////////////////
-  // 좋아요 눌렀을 대 처리 좋아요 되있으면 취소 보내고 안되있으면 생성 보냄.
+  // 좋아요 눌렀을 때 처리, 좋아요 되있으면 취소 보내고 안되있으면 생성 보냄.
+  useEffect(() => {
+    setLikesLen(likes);
+  }, [likes]);
 
   const heartButton = () => {
-    console.log(likeCheck);
+    // console.log(likeCheck);
     if (likeCheck) {
       // 좋아요가 되어있으므로 취소 요청을 보낸다.
       axios
         .delete(`/api/heart/${feed.feedSeq}/${loginUser}`)
         .then(function (response) {
-          setLikeCheck(false);
-          // console.log(response);
+          console.log(response);
         });
+      setLikeCheck(false);
+      setLikesLen(likesLen - 1);
     } else {
-      setLikeCheck(true);
       axios
         .post(`/api/heart`, {
           feedSeq: feed.feedSeq,
           memberSeq: loginUser,
         })
         .then(function (response) {
-          // console.log(response);
+          console.log(response);
         });
+      setLikesLen(likesLen + 1);
+      setLikeCheck(true);
     }
   };
 
-  // console.log(likeCheck);
   return (
     <div>
       <p>{feed.feedSeq}번 째 피드</p>
@@ -128,7 +125,7 @@ const FeedItem = (feed) => {
         </IconButton>
 
         <div style={{ display: "flex", alignItems: "center" }}>
-          · 좋아요 {likes}개 · {comments.length}개의 댓글
+          · 좋아요 {likesLen}개 · {comments.length}개의 댓글
         </div>
       </Stack>
       <hr />

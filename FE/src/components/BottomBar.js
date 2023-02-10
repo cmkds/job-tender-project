@@ -1,6 +1,7 @@
 // feed, main, menu 버튼 컴포넌트
+import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import * as React from "react";
+
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
 import BottomNavigation from "@mui/material/BottomNavigation";
@@ -11,8 +12,8 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Paper from "@mui/material/Paper";
 
 export default function FixedBottomNavigation() {
-  const [value, setValue] = React.useState(null);
-  const ref = React.useRef(null);
+  const [value, setValue] = useState(null);
+  const ref = useRef(null);
   const navigate = useNavigate();
   return (
     <Box sx={{ pb: 7 }} ref={ref}>

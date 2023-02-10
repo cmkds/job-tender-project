@@ -1,11 +1,11 @@
-import { useParams, Routes, Route, useNavigate } from "react-router-dom";
+import { useParams, Routes, Route } from "react-router-dom";
 import { useContext } from "react";
 import { StorageStateContext } from "../../pages/Storage";
 import StorageDownload from "./StorageDownload";
 import StorageShare from "./StorageShare";
 
 const StorageId = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const storageList = useContext(StorageStateContext);
   // 파일의 id와 해당 id에 소유 id가 다르면
@@ -17,7 +17,7 @@ const StorageId = () => {
     (it) => parseInt(it.id) === parseInt(id)
   );
 
-  console.log(targetStorageItem);
+  // console.log(targetStorageItem);
 
   return (
     <div>

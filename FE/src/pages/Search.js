@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
-import UserList from "../components/search/UserList";
 import { useNavigate } from "react-router-dom";
+
+import axios from "axios";
+
+import UserList from "../components/search/UserList";
+
 import InputAdornment from "@material-ui/core/InputAdornment";
 
 import Paper from "@mui/material/Paper";
@@ -10,31 +13,26 @@ import Divider from "@mui/material/Divider";
 import SearchIcon from "@mui/icons-material/Search";
 
 export default function CustomizedInputBase() {
+  const navigate = useNavigate();
+
   const [users, setUsers] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [copy, setCopy] = useState([]);
-  const navigate = useNavigate();
 
   useEffect(() => {
     const fetch = async () => {
       const { data } = await axios.get(
         "https://jsonplaceholder.typicode.com/users"
       );
-      console.log(data);
       data.map(
         (e) => (e.image = `https://robohash.org/${e.id}?set=set2&size=180x180`)
       ); // 불러온 API 파일에 따로 이미지 src가 없어서, data에 추가 저장함
 
-      console.log(data);
       setUsers(data);
       setCopy(data);
     };
     fetch();
-    // console.log(users);
   }, []);
-
-  console.log(users.map((it) => it.id));
-  // console.log(copy.length);
 
   const handleInputChange = (e) => {
     setSearchTerm(e.target.value);

@@ -26,8 +26,6 @@ const RouteTest = () => {
       <br />
       <Link to={"/sign-up"}>sign-up</Link>
       <br />
-      <Link to={"/api-test"}>api-test</Link>
-      <br />
       <Link to={"/search"}>search</Link>
       <br />
       <textarea name="" id="" cols="30" rows="10"></textarea>

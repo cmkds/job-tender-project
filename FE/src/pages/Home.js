@@ -1,18 +1,21 @@
 // 시작 페이지 로그인 화면 뜸
 // 로그인시 메인 페이지로 가도록 해야함.
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
+import { motion } from "framer-motion";
+
 import styled from "@emotion/styled";
 import Button from "@mui/material/Button";
-import React, { useState } from "react";
-import { motion } from "framer-motion";
-import { useNavigate } from "react-router-dom";
 
 const Home = () => {
   const MyBtn = styled(Button)`
     display: flex;
     margin: auto;
   `;
-  const [clicked, setClicked] = useState(false);
+
   const navigate = useNavigate();
+  const [clicked, setClicked] = useState(false);
 
   const printImg = () => {
     if (clicked) {
@@ -62,4 +65,3 @@ const Home = () => {
 };
 
 export default Home;
-// .

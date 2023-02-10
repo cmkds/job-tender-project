@@ -1,8 +1,10 @@
 // /menual
-import { useNavigate } from "react-router-dom";
-import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
-import NavBar from "../components/NavBar";
 // 로그 박스 사용밥법 페이지
+import { useNavigate } from "react-router-dom";
+
+import NavBar from "../components/NavBar";
+
+import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 
 const Menual = () => {
   const navigate = useNavigate();
