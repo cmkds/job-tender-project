@@ -11,6 +11,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,11 +52,9 @@ public class PJTController {
         this.s3Service = s3Service;
     }
 
-    @GetMapping("/loginInfo")
+    @GetMapping("/oauth/loginInfo")
     public String oauthLoginInfo(Authentication authentication){
-        //oAuth2User.toString() 예시 : Name: [2346930276], Granted Authorities: [[USER]], User Attributes: [{id=2346930276, provider=kakao, name=김준우, email=bababoll@naver.com}]
         OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
-        //attributes.toString() 예시 : {id=2346930276, provider=kakao, name=김준우, email=bababoll@naver.com}
         Map<String, Object> attributes = oAuth2User.getAttributes();
 
         return attributes.toString();
@@ -70,6 +69,8 @@ public class PJTController {
     public ResponseEntity<StoreDTO> sendFile(@RequestBody StoreInputDTO storeInputDTO) throws Exception {
         return ResponseEntity.status(HttpStatus.OK).body(storeService.insertStore(storeInputDTO));
     }
+
+    // =====================================================================
     @ApiOperation(
             value = "nickname 존재 여부 판단"
             , notes = "nickname 존재 여부 판단. Boolean으로 반환")
@@ -93,6 +94,15 @@ public class PJTController {
     public ResponseEntity<MemberDTO> getMemberByMemberSeq(@PathVariable("memberSeq") long memberSeq) {
         return ResponseEntity.status(HttpStatus.OK).body(memberService.getMember(memberSeq));
     }
+
+    @ApiOperation(value = "member 정보 전체 조회", notes="member 정보 전체 조회")
+    @GetMapping("/accounts")
+    public ResponseEntity<List<MemberDTO>> getMemberAll(){
+        List<MemberDTO> memberDTOs = memberService.getMembers();
+
+        return ResponseEntity.status(HttpStatus.OK).body(memberDTOs);
+    }
+
 
     @ApiOperation(
             value = "member 생성"

@@ -24,7 +24,6 @@ import java.util.Map;
 @Service
 @RequiredArgsConstructor
 public class OAuthService implements OAuth2UserService<OAuth2UserRequest, OAuth2User> {
-
     private final MemberRepository memberRepository;
 
     @Override

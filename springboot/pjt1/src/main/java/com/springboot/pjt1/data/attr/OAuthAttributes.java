@@ -14,7 +14,7 @@ public enum OAuthAttributes {
         memberProfile.setEmail((String) attributes.get("email"));
 
         //
-        memberProfile.setIsAdmin("empty");
+        memberProfile.setIsAdmin("N");
         memberProfile.setNickname("empty");
 
         return memberProfile;
@@ -26,6 +26,9 @@ public enum OAuthAttributes {
         MemberProfile memberProfile = new MemberProfile();
         memberProfile.setName((String) response.get("name"));
         memberProfile.setEmail(((String) response.get("email")));
+
+        memberProfile.setIsAdmin("N");
+        memberProfile.setNickname("empty");
         return memberProfile;
     }),
 
