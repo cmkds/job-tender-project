@@ -1,23 +1,19 @@
-import * as React from "react";
-import Fab from "@mui/material/Fab";
 import { useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+
+import Fab from "@mui/material/Fab";
 export default function FloatingActionButtons() {
-  const [category, setCategory] = useState("hot");
   const navigate = useNavigate();
   const params = useParams();
-  // console.log("뉴핫버튼");
-  // console.log(params);
+
+  const [category, setCategory] = useState("hot");
 
   const clickButton = () => {
-    console.log(category);
     if (category === "new") {
       setCategory("hot");
       navigate(`/main/${category}/${params.locationId}`);
-      console.log("aaaaaaaaaaa");
     } else {
       setCategory("new");
-      console.log("bbbbbbbbbbbbbb");
       navigate(`/main/${category}/${params.locationId}`);
     }
   };

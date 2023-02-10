@@ -1,12 +1,11 @@
 //상단바
+import { useNavigate } from "react-router-dom";
 
-import * as React from "react";
-import AppBar from "@mui/material/AppBar";
 import styled from "@emotion/styled";
+import AppBar from "@mui/material/AppBar";
 import PersonSearchIcon from "@mui/icons-material/PersonSearch";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
-import { useNavigate } from "react-router-dom";
 import { Avatar } from "@mui/material";
 
 export default function ButtonAppBar() {

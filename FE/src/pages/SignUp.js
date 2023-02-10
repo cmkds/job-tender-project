@@ -1,7 +1,10 @@
 //회원가입 정보등록 페이지
 // 닉네임, 상태메세지, 사진 등록
-import axios from "axios";
+
 import { useState, useRef, useEffect } from "react";
+
+import axios from "axios";
+
 import TopBar from "../components/TopBar";
 import Card from "@mui/material/Card";
 import { Avatar } from "@material-ui/core";
@@ -23,6 +26,7 @@ const SignUp = () => {
   //프로필사진
   // 닉네임
   // 상태메세지 정보 필요
+  const classes = useStyles();
 
   //커서 움직이는 용
   const nickNameInput = useRef();
@@ -107,7 +111,6 @@ const SignUp = () => {
   //     nickName: "",
   //   });
   // };
-  const classes = useStyles();
   const sendImageToServer = async () => {
     if (state.image_file) {
       const formData = new FormData();

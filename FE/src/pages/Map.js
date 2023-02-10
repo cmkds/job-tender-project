@@ -3,7 +3,9 @@
 
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+
 import NavBar from "../components/NavBar";
+
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import { Box, Container } from "@mui/system";
 
@@ -165,5 +167,3 @@ const Map = () => {
 };
 
 export default Map;
-
-//.

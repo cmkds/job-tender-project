@@ -1,12 +1,13 @@
 // /storage
 // 기본 스토리지
-import NavBar from "../components/NavBar";
-import MyButton from "../components/MyButton";
 import React, { useState } from "react";
 import { useNavigate, Routes, Route } from "react-router-dom";
-// /
+
+import NavBar from "../components/NavBar";
 import StorageList from "../components/storage/StorageList";
 import StorageId from "../components/storage/StorageId";
+// import MyButton from "../components/MyButton";
+
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 // list
 

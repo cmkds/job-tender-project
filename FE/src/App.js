@@ -19,7 +19,6 @@ import User from "./pages/User";
 import Comment from "./pages/Comment";
 import SignUp from "./pages/SignUp";
 import BottomBar from "./components/BottomBar";
-import Test from "./api/Teest";
 import Search from "./pages/Search";
 import { makeStyles } from "@material-ui/core/styles";
 import { createTheme } from "@material-ui/core/styles";
@@ -65,8 +64,8 @@ function App() {
               <Route path="/user/*" element={<User />}></Route>
               <Route path="/comment/:feedId" element={<Comment />}></Route>
               <Route path="/sign-up" element={<SignUp />}></Route>
-              <Route path="/api-test" element={<Test />}></Route>
               <Route path="/search" element={<Search />}></Route>
+              {/* <Route path="/search" element={<Search />}></Route> */}
             </Routes>
             <BottomBar />
           </div>

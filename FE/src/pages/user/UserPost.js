@@ -1,6 +1,7 @@
 // /:userId/:itemId
-import { useNavigate, useLocation } from "react-router-dom";
 import { useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
+
 import NavBar from "../../components/NavBar";
 import MyButton from "../../components/MyButton";
 import FeedItem from "../../components/feed/FeedItem";
@@ -9,12 +10,9 @@ import FeedItem from "../../components/feed/FeedItem";
 // 여기 어떻게 처리할지 고민.
 const UserPost = () => {
   const location = useLocation();
-  // console.log(location.state);
-  const [feedData, setFeedData] = useState(location.state);
-  // console.log(222222);
-  // console.log(feedData);
-  // console.log(222222);
   const navigate = useNavigate();
+
+  const [feedData, setFeedData] = useState(location.state);
   return (
     <div>
       <NavBar

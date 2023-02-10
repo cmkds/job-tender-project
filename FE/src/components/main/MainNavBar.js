@@ -1,4 +1,4 @@
-import * as React from "react";
+import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 import Tabs from "@mui/material/Tabs";
@@ -37,19 +37,16 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const MainNavBar = () => {
-  const [value, setValue] = React.useState(0);
-  const classes = useStyles();
+  const [value, setValue] = useState(0);
   const navigate = useNavigate();
   const params = useParams();
+
+  const classes = useStyles();
+
   const handleChange = (event, newValue) => {
     setValue(newValue);
-    console.log(newValue);
     navigate(`/main/${params.state}/${newValue}`);
-    // console.log(params.value);
   };
-
-  // console.log("메인네브바");
-  // console.log(params);
 
   return (
     <div style={{ position: "fixed", zIndex: "1" }}>

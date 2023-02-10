@@ -1,12 +1,14 @@
 // /user/:id
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { UserStateContext } from "../User";
+
+import axios from "axios";
+
 import UserFeedList from "../../components/user/UserFeedList";
 import TopBar from "../../components/TopBar";
+
 import { makeStyles } from "@material-ui/core/styles";
 import Avatar from "@material-ui/core/Avatar";
-import axios from "axios";
 
 // 게시물 리스트를 보여줄 페이지.
 // 해당 유저의 아이디와 로그인한 아이디가 같다면
@@ -32,11 +34,10 @@ const useStyles = makeStyles((theme) => ({
 
 const UserMain = () => {
   const classes = useStyles();
-  const userData = useContext(UserStateContext)[0][0];
 
   useEffect(() => {
     axios.get(`/api/account/${params.user}`).then(function (response) {
-      console.log(response.data);
+      // console.log(response.data);
       setUserProfileData(response.data);
     });
   }, []);
@@ -47,15 +48,13 @@ const UserMain = () => {
   const [followingLen, setFollowingLen] = useState(0);
 
   const navigate = useNavigate();
-  console.log(params);
-  // console.log(userData);
 
   // 유저정보 가져오기
 
   // 게시글수 가져오기
   useEffect(() => {
     axios.get(`/api/main/${params.user}`).then(function (response) {
-      console.log(response.data);
+      // console.log(response.data);
       setFeedLen(response.data.length);
     });
   }, []);

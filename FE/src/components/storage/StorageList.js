@@ -1,9 +1,10 @@
 import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
+
 import { StorageStateContext } from "../../pages/Storage";
-import * as React from "react";
+
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
-import { useNavigate } from "react-router-dom";
 
 const StorageList = () => {
   const storageList = useContext(StorageStateContext);

@@ -1,6 +1,10 @@
-import Profile from "../Profile";
-import { useNavigate } from "react-router-dom";
+///안쓰임
+
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
+import Profile from "../Profile";
+
 import IconButton from "@mui/material/IconButton";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import FavoriteIcon from "@mui/icons-material/Favorite";
