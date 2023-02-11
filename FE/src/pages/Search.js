@@ -19,19 +19,27 @@ export default function CustomizedInputBase() {
   const [searchTerm, setSearchTerm] = useState("");
   const [copy, setCopy] = useState([]);
 
-  useEffect(() => {
-    const fetch = async () => {
-      const { data } = await axios.get(
-        "https://jsonplaceholder.typicode.com/users"
-      );
-      data.map(
-        (e) => (e.image = `https://robohash.org/${e.id}?set=set2&size=180x180`)
-      ); // 불러온 API 파일에 따로 이미지 src가 없어서, data에 추가 저장함
+  // useEffect(() => {
+  //   const fetch = async () => {
+  //     const { data } = await axios.get(
+  //       "https://jsonplaceholder.typicode.com/users"
+  //     );
+  //     data.map(
+  //       (e) => (e.image = `https://robohash.org/${e.id}?set=set2&size=180x180`)
+  //     ); // 불러온 API 파일에 따로 이미지 src가 없어서, data에 추가 저장함
 
-      setUsers(data);
-      setCopy(data);
-    };
-    fetch();
+  //     setUsers(data);
+  //     setCopy(data);
+  //   };
+  //   fetch();
+  // }, []);
+
+  useEffect(() => {
+    axios.get(`/api/accounts`).then(function (response) {
+      setUsers(response.data);
+      setCopy(response.data);
+      console.log(response.data);
+    });
   }, []);
 
   const handleInputChange = (e) => {
@@ -41,10 +49,10 @@ export default function CustomizedInputBase() {
   useEffect(() => {
     setUsers(
       copy.filter(
-        (e) =>
-          e.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          e.phone.includes(searchTerm) ||
-          e.email.toLowerCase().includes(searchTerm.toLowerCase())
+        (e) => e.nickname.toLowerCase().includes(searchTerm.toLowerCase())
+        // e.nickname.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        // e.phone.includes(searchTerm) ||
+        // e.email.toLowerCase().includes(searchTerm.toLowerCase())
       )
     );
   }, [searchTerm, copy]);

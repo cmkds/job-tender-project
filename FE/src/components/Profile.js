@@ -1,11 +1,12 @@
 // 프로필 사진 이름
 // 댓글 유저의 아이디만 프롭스로 받아서 해당 정보를 가져온다.
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import axios from "axios";
+
 import Avatar from "@mui/material/Avatar";
 import { makeStyles } from "@material-ui/core/styles";
-import { useNavigate } from "react-router-dom";
 
 // import Avatar from "@material-ui/core/Avatar";
 const useStyles = makeStyles((theme) => ({
