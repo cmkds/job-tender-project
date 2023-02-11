@@ -8,6 +8,7 @@ import NavBar from "../components/NavBar";
 
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import { Box, Container } from "@mui/system";
+import { Tab } from "@mui/material";
 
 const { kakao } = window;
 
@@ -146,12 +147,14 @@ const Map = () => {
         navText={"로그박스 위치"}
         leftChild={<ArrowBackIosNewIcon onClick={() => navigate(-1)} />}
       />
-
       {/* <div
         style={{
           height: "75px",
         }}
       /> */}
+      <Tab>
+        <ArrowBackIosNewIcon></ArrowBackIosNewIcon>
+      </Tab>
       <div
         id="Map"
         style={{
@@ -159,6 +162,7 @@ const Map = () => {
           width: "90%",
           paddingBottom: "90%",
           margin: "auto",
+          marginTop: "10%",
         }}
       ></div>
       <LocationDetail />

@@ -33,6 +33,7 @@ const MainAll = () => {
   return (
     <div>
       <MainNavBar></MainNavBar>
+      <div style={{ paddingTop: "70px" }}></div>
       <NewHotButton></NewHotButton>
       <FeedList feedsData={feedsData} />
     </div>

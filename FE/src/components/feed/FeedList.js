@@ -4,7 +4,7 @@ const FeedList = (feedsData) => {
   const feedList = feedsData.feedsData;
 
   return (
-    <div style={{ paddingTop: "70px" }}>
+    <div>
       {feedList.map((it) => (
         <FeedItem key={it.feedSeq} {...it} />
       ))}
