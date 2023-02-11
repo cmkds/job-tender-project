@@ -8,6 +8,7 @@ import axios from "axios";
 // import { UserStateContext } from "../../pages/User";
 import NavBar from "../../components/NavBar";
 import Profile from "../../components/Profile";
+import UnFollowButton from "../../components/follow/UnFollowButton";
 // import MyButton from "../../components/MyButton";
 
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
@@ -37,7 +38,8 @@ const Following = () => {
       />
       {params.user}의 팔로잉 페이지다
       {followingList.map((it) => (
-        <Profile key={it.memberSeq} id={it.memberSeq} />
+        <UnFollowButton key={it.memberSeq} id={it.memberSeq} />
+        // <Profile key={it.memberSeq} id={it.memberSeq} />
       ))}
     </div>
   );

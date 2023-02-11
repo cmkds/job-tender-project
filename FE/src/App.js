@@ -20,6 +20,7 @@ import Comment from "./pages/Comment";
 import SignUp from "./pages/SignUp";
 import BottomBar from "./components/BottomBar";
 import Search from "./pages/Search";
+
 import { makeStyles } from "@material-ui/core/styles";
 import { createTheme } from "@material-ui/core/styles";
 import { ThemeProvider } from "@material-ui/styles";

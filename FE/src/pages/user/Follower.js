@@ -12,6 +12,7 @@ import Profile from "../../components/Profile";
 // 해당 유저의 팔로워 확인 페이지
 
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
+
 const Follower = () => {
   const navigate = useNavigate();
   const params = useParams();
@@ -35,7 +36,9 @@ const Follower = () => {
       />
       {params.user}의 팔로워 페이지다
       {followerList.map((it) => (
-        <Profile key={it.memberSeq} id={it.memberSeq} />
+        <div>
+          <Profile key={it.memberSeq} id={it.memberSeq} />
+        </div>
       ))}
     </div>
   );

@@ -1,4 +1,5 @@
 // import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 // import { Key } from "@mui/icons-material";
 import { Avatar } from "@mui/material";
@@ -25,6 +26,7 @@ const useStyles = makeStyles((theme) => ({
 
 const UserList = ({ item }) => {
   const classes = useStyles();
+  const navigate = useNavigate();
 
   // const [clicked, setClicked] = useState();
   // const handleCardClick = (id) => {
@@ -36,14 +38,19 @@ const UserList = ({ item }) => {
     <div>
       <p>유저리스트다</p>
       {item.map((it) => (
-        <div className={classes.root}>
+        <div
+          className={classes.root}
+          onClick={() => {
+            navigate(`/user/${it.memberSeq}`);
+          }}
+        >
           <Avatar>
             <img src={it.image} alt={"프로필 이미지가 없습니다."}></img>
           </Avatar>
           <div className={classes.root}>
             <div style={{ display: "flex", flexDirection: "column" }}>
-              <div>{it.name}</div>
-              <div style={{ color: "lightgrey" }}>{it.email}</div>
+              <div>{it.nickname}</div>
+              <div style={{ color: "lightgrey" }}>{it.memberState}</div>
             </div>
           </div>
           {/* <div>{it.name}</div>
