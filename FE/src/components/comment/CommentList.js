@@ -17,7 +17,7 @@ const CommentList = () => {
     axios.get(`/api/comment/${paramFeed}`).then(function (response) {
       setCommentData(response.data);
     });
-  }, [commentData]);
+  }, [commentData.length]);
 
   return (
     <div>

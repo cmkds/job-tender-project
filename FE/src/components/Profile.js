@@ -47,15 +47,16 @@ const Profile = (userId) => {
   }, []);
 
   return (
-    <div className={classes.root}>
+    <div
+      className={classes.root}
+      onClick={() => {
+        navigate(`/user/${userId.id}`);
+      }}
+    >
       {/* <Avatar src={} className={classes.large}></Avatar> */}
       {/* <div className={classes.root}> {userData.nickname}</div> */}
       <div className={classes.root}>
-        <Avatar
-          onClick={() => {
-            navigate(`/user/${userId.id}`);
-          }}
-        >
+        <Avatar>
           {/* <img src={it.image} alt={"프로필 이미지가 없습니다."}></img> */}
         </Avatar>
       </div>
