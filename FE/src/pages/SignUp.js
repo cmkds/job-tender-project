@@ -80,6 +80,7 @@ const SignUp = () => {
     };
   }, []);
 
+  console.log(state);
   //제출 함수
 
   //제출

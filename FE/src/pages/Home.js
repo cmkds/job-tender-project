@@ -9,6 +9,7 @@ import styled from "@emotion/styled";
 import Button from "@mui/material/Button";
 import { Box } from "@mui/material";
 import KeyboardDoubleArrowDownRoundedIcon from "@mui/icons-material/KeyboardDoubleArrowDownRounded";
+import { WidthWideTwoTone } from "@mui/icons-material";
 const style = {
   position: "absolute",
 
@@ -30,6 +31,10 @@ const Home = () => {
   `;
 
   const navigate = useNavigate();
+  const state = 1;
+  const CLIENT_ID = "DJ94WWgE_wFepnxDsIQa";
+  const redirectURI = "https://i8a502.p.ssafy.io/oauth2/code/naver";
+  const naverLogin = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${CLIENT_ID}&redirect_uri=${redirectURI}&state=${state}`;
   // const [clicked, setClicked] = useState(false);
 
   // const printImg = () => {
@@ -127,11 +132,13 @@ const Home = () => {
         }}
         onClick={() => {}}
       >
-        <img
-          src={process.env.PUBLIC_URL + `assets/naverLogin.png`}
-          alt="naver"
-          style={{ width: "100%" }}
-        ></img>
+        <a href={naverLogin}>
+          <img
+            src={process.env.PUBLIC_URL + `assets/naverLogin.png`}
+            alt="naver"
+            style={{ width: "100%" }}
+          ></img>
+        </a>
       </MyBtn>
     </div>
   );
