@@ -161,14 +161,14 @@ const UserMain = () => {
           </div>
         </Grid>
         {/* 팔로우, 팔로잉 중 여기 */}
-        {/* <Grid item xs={3}>
+        <Grid item xs={3}>
           <Button style={{ color: "#6892FF", paddingLeft: "20%" }}>
             팔로우
           </Button>
-        </Grid> */}
-        <Grid item xs={2.5}>
-          <Button disabled>팔로우 중</Button>
         </Grid>
+        {/* <Grid item xs={3}>
+          <Button disabled>팔로우 중</Button>
+        </Grid> */}
       </Grid>
       <hr style={{ marginTop: "5%" }} />
       <UserFeedList />
