@@ -34,12 +34,15 @@ const Follower = () => {
         navText={"팔로워"}
         leftChild={<ArrowBackIosNewIcon onClick={() => navigate(-1)} />}
       />
-      {params.user}의 팔로워 페이지다
-      {followerList.map((it) => (
-        <div>
-          <Profile key={it.memberSeq} id={it.memberSeq} />
-        </div>
-      ))}
+      {followerList.length ? (
+        followerList.map((it) => (
+          <div>
+            <Profile key={it.memberSeq} id={it.memberSeq} />
+          </div>
+        ))
+      ) : (
+        <span> 팔로워가 없습니다.</span>
+      )}
     </div>
   );
 };

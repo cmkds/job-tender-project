@@ -41,25 +41,29 @@ const Following = () => {
         navText={"팔로잉"}
         leftChild={<ArrowBackIosNewIcon onClick={() => navigate(-1)} />}
       />
-      {params.user}의 팔로잉 페이지다
-      {/* 로그인 유저와 해당 페이지의 유저가 같다면은 unFollowButton 컴포넌트,  아니면 그냥 프로필 컴포넌트 */}
-      {loginUser === parseInt(params.user) ? (
-        <span>
-          {followingList.map((it) => (
-            <UnFollowButton
-              key={it.memberSeq}
-              id={it.memberSeq}
-              change={moveChange}
-            />
-          ))}
-        </span>
+      {followingList.length ? (
+        loginUser === parseInt(params.user) ? (
+          <span>
+            {followingList.map((it) => (
+              <UnFollowButton
+                key={it.memberSeq}
+                id={it.memberSeq}
+                change={moveChange}
+              />
+            ))}
+          </span>
+        ) : (
+          <span>
+            {followingList.map((it) => (
+              <Profile key={it.memberSeq} id={it.memberSeq} />
+            ))}
+          </span>
+        )
       ) : (
-        <span>
-          {followingList.map((it) => (
-            <Profile key={it.memberSeq} id={it.memberSeq} />
-          ))}
-        </span>
+        <span>팔로잉 유저가 없습니다.</span>
       )}
+      {/* 로그인 유저와 해당 페이지의 유저가 같다면은 unFollowButton 컴포넌트,  아니면 그냥 프로필 컴포넌트 */}
+
       {/* {followingList.map((it) => (
           <UnFollowButton key={it.memberSeq} id={it.memberSeq} />
           
