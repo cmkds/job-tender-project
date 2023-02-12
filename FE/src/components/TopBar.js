@@ -43,9 +43,12 @@ export default function ButtonAppBar() {
           {/* 유저 프로필 가져오기 해야함 */}
           <IconButton
             sx={{ position: "absolute", right: "5%" }}
+            // navigate 설정 userId로
             onClick={() => navigate("/user/1")}
           >
-            <Avatar sx={{ color: "white", fontSize: "150%" }}></Avatar>
+            <Avatar sx={{ color: "white", fontSize: "150%" }}>
+              {/* 여기에 유저 프로필 이미지가 들어가야함 */}
+            </Avatar>
           </IconButton>
         </Toolbar>
       </MyAppBar>

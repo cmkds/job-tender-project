@@ -28,7 +28,6 @@ const RouteTest = () => {
       <br />
       <Link to={"/search"}>search</Link>
       <br />
-      <textarea name="" id="" cols="30" rows="10"></textarea>
     </>
   );
 };

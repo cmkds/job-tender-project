@@ -29,6 +29,7 @@ const useStyles = makeStyles({
   root: {
     fontFamily: "GangwonEduAll",
     fontWeight: "bold",
+    // backgroundColor: "rgba(255, 250, 230, 0.5)",
   },
 });
 
