@@ -18,49 +18,59 @@ export const StorageStateContext = React.createContext();
 
 const dummyData = [
   {
-    id: 1,
-    date: "2022-12-03",
-    location: "강릉",
-    photo_url:
+    createTime: "2023-02-12T09:15:11.530Z",
+    machineLocationSeq: "1",
+    memberSeq: 1,
+    photo:
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTmMPQb8IJeXeHn_Fxj8HN19mDbRKEFCmCjwQ&usqp=CAU",
-    video_url: "https://img.lovepik.com/element/40170/8604.png_860.png",
-    post_url: "http://img.khan.co.kr/newsmaker/947/20111025_947_60a.jpg",
+    post: "http://img.khan.co.kr/newsmaker/947/20111025_947_60a.jpg",
+    video: "https://img.lovepik.com/element/40170/8604.png_860.png",
+    recentTime: "2023-02-12T09:15:11.530Z",
+    storeSeq: 1,
   },
   {
-    id: 2,
-    date: "2022-12-04",
-    location: "서울",
-    photo_url:
+    createTime: "2023-02-13T09:15:11.530Z",
+    machineLocationSeq: "1",
+    memberSeq: 1,
+    photo:
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTmMPQb8IJeXeHn_Fxj8HN19mDbRKEFCmCjwQ&usqp=CAU",
-    video_url: "https://img.lovepik.com/element/40170/8604.png_860.png",
-    post_url: "http://img.khan.co.kr/newsmaker/947/20111025_947_60a.jpg",
+    post: "http://img.khan.co.kr/newsmaker/947/20111025_947_60a.jpg",
+    video: "https://img.lovepik.com/element/40170/8604.png_860.png",
+    recentTime: "2023-02-13T09:15:11.530Z",
+    storeSeq: 2,
   },
   {
-    id: 3,
-    date: "2022-12-05",
-    location: "부산",
-    photo_url:
+    createTime: "2023-02-13T09:15:11.530Z",
+    machineLocationSeq: "1",
+    memberSeq: 1,
+    photo:
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTmMPQb8IJeXeHn_Fxj8HN19mDbRKEFCmCjwQ&usqp=CAU",
-    video_url: "https://img.lovepik.com/element/40170/8604.png_860.png",
-    post_url: "http://img.khan.co.kr/newsmaker/947/20111025_947_60a.jpg",
+    post: "http://img.khan.co.kr/newsmaker/947/20111025_947_60a.jpg",
+    video: "https://img.lovepik.com/element/40170/8604.png_860.png",
+    recentTime: "2023-02-13T09:15:11.530Z",
+    storeSeq: 3,
   },
   {
-    id: 4,
-    date: "2022-12-06",
-    location: "전주",
-    photo_url:
+    createTime: "2023-02-14T09:15:11.530Z",
+    machineLocationSeq: "1",
+    memberSeq: 1,
+    photo:
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTmMPQb8IJeXeHn_Fxj8HN19mDbRKEFCmCjwQ&usqp=CAU",
-    video_url: "https://img.lovepik.com/element/40170/8604.png_860.png",
-    post_url: "http://img.khan.co.kr/newsmaker/947/20111025_947_60a.jpg",
+    post: "http://img.khan.co.kr/newsmaker/947/20111025_947_60a.jpg",
+    video: "https://img.lovepik.com/element/40170/8604.png_860.png",
+    recentTime: "2023-02-14T09:15:11.530Z",
+    storeSeq: 4,
   },
   {
-    id: 5,
-    date: "2022-12-07",
-    location: "경주",
-    photo_url:
+    createTime: "2023-02-15T09:15:11.530Z",
+    machineLocationSeq: "1",
+    memberSeq: 1,
+    photo:
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTmMPQb8IJeXeHn_Fxj8HN19mDbRKEFCmCjwQ&usqp=CAU",
-    video_url: "https://img.lovepik.com/element/40170/8604.png_860.png",
-    post_url: "http://img.khan.co.kr/newsmaker/947/20111025_947_60a.jpg",
+    post: "http://img.khan.co.kr/newsmaker/947/20111025_947_60a.jpg",
+    video: "https://img.lovepik.com/element/40170/8604.png_860.png",
+    recentTime: "2023-02-15T09:15:11.530Z",
+    storeSeq: 5,
   },
 ];
 
