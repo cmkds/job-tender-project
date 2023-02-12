@@ -66,8 +66,10 @@ const CommentItem = ({
             <Button
               variant="contained"
               style={{ width: "50%", marginTop: "5%" }}
+              color="success"
             >
-              <CheckIcon />
+              {/* <CheckIcon /> */}
+              수정
             </Button>
             {/* 삭제 버튼 */}
             <Button
@@ -75,7 +77,8 @@ const CommentItem = ({
               style={{ width: "50%", marginTop: "5%" }}
               color="error"
             >
-              <ClearIcon />
+              {/* <ClearIcon /> */}
+              삭제
             </Button>
           </Box>
         </Modal>
