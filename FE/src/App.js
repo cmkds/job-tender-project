@@ -20,6 +20,7 @@ import Comment from "./pages/Comment";
 import SignUp from "./pages/SignUp";
 import BottomBar from "./components/BottomBar";
 import Search from "./pages/Search";
+import NaverLogin from "./pages/Naver";
 
 import { makeStyles } from "@material-ui/core/styles";
 import { createTheme } from "@material-ui/core/styles";
@@ -66,6 +67,7 @@ function App() {
               <Route path="/comment/:feedId" element={<Comment />}></Route>
               <Route path="/sign-up" element={<SignUp />}></Route>
               <Route path="/search" element={<Search />}></Route>
+              <Route path="/naver" element={<NaverLogin />}></Route>
               {/* <Route path="/search" element={<Search />}></Route> */}
             </Routes>
             <BottomBar />

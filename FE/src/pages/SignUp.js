@@ -39,6 +39,68 @@ const SignUp = () => {
     statusMessage: "",
   });
 
+  // @@@@@@@
+  // var naver_id_login = new naver_id_login(
+  //   "XxdvqpScfLYk66JOWwTB",
+  //   "http://localhost:3000/sign-up"
+  // );
+  // // 접근 토큰 값 출력
+  // alert(naver_id_login.oauthParams.access_token);
+  // // 네이버 사용자 프로필 조회
+  // naver_id_login.get_naver_userprofile("naverSignInCallback()");
+  // // 네이버 사용자 프로필 조회 이후 프로필 정보를 처리할 callback function
+  // function naverSignInCallback() {
+  //   alert(naver_id_login.getProfileData("email"));
+  //   alert(naver_id_login.getProfileData("nickname"));
+  //   alert(naver_id_login.getProfileData("age"));
+  // }
+
+  // @@@@@@@@
+
+  useEffect(() => {
+    // var naver_id_login = new window.naver_id_login(
+    //   "XxdvqpScfLYk66JOWwTB",
+    //   "http://localhost:3000/sign-up"
+    // );
+    // // 접근 토큰 값 출력
+    // alert(naver_id_login.oauthParams.access_token);
+    // console.log(naver_id_login);
+    // // 네이버 사용자 프로필 조회
+    // naver_id_login.get_naver_userprofile("naverSignInCallback()");
+    // // 네이버 사용자 프로필 조회 이후 프로필 정보를 처리할 callback function
+    // function naverSignInCallback() {
+    //   alert(naver_id_login.getProfileData("email"));
+    //   alert(naver_id_login.getProfileData("nickname"));
+    //   // alert(naver_id_login.getProfileData("age"));
+
+    var naver_id_login = new naver_id_login(
+      "XxdvqpScfLYk66JOWwTB",
+      "http://localhost:3000/sign-up"
+    );
+    // 네이버 사용자 프로필 조회
+    // 접근 토큰 값 출력
+    // 접근 토큰 값 출력
+    console.log("aaaaa");
+    console.log(naver_id_login.oauthParams.access_token);
+    console.log("aaaaa");
+    // "body".append(
+    //   "<h4>접속토큰:" + naver_id_login.oauthParams.access_token + "</h4>"
+    // );
+    // naver_id_login.get_naver_userprofile("naverSignInCallback()");
+    // 네이버 사용자 프로필 조회 이후 프로필 정보를 처리할 callback function
+    function naverSignInCallback() {
+      const email = naver_id_login.getProfileData("email");
+      const name = naver_id_login.getProfileData("name");
+      console.log(email);
+      console.log(name);
+
+      // let body = "body";
+      // body.append("로그인 성공!");
+      // body.append("<h4>이메일:" + email + "</h4>");
+      // body.append("<h4>이름:" + name + "</h4>");
+    }
+  });
+
   let inputRef;
 
   const saveImage = (e) => {
@@ -81,6 +143,7 @@ const SignUp = () => {
   }, []);
 
   console.log(state);
+
   //제출 함수
 
   //제출
@@ -140,6 +203,7 @@ const SignUp = () => {
 
   return (
     <div>
+      {/*  */}
       <TopBar></TopBar>
       회원가입 정보등록 페이지
       <Card
