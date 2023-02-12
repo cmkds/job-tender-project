@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
 import axios from "axios";
@@ -12,19 +12,25 @@ import SendIcon from "@mui/icons-material/Send";
 import InputAdornment from "@material-ui/core/InputAdornment";
 
 import CommentList from "./CommentList";
+import CommentItem from "./CommentItem";
 
 const CommentWrite = () => {
   const [state, setState] = useState("");
   const params = useParams();
   const commentInput = useRef();
 
+  // @@@@@@@@@
+  const [commentData, setCommentData] = useState([]);
+  const paramFeed = useParams().feedId;
+  const [change, setChange] = useState(0);
+
+  const moveChange = () => {
+    setChange(change + 1);
+  };
+  //
   const handleChangeState = (e) => {
     setState(e.target.value);
   };
-
-  // useEffect(()=> {
-
-  // },[])
 
   const handleSubmit = () => {
     if (!state) {
@@ -36,7 +42,7 @@ const CommentWrite = () => {
     const data = {
       content: state,
       feedSeq: params.feedId,
-      memberSeq: 2,
+      memberSeq: 1,
     };
 
     axios
@@ -54,8 +60,16 @@ const CommentWrite = () => {
 
     setState("");
     // 통신후 페이지 리렌더링 하기
-  };
 
+    axios.get(`/api/comment/${paramFeed}`).then(function (response) {
+      setCommentData(response.data);
+    });
+  };
+  useEffect(() => {
+    axios.get(`/api/comment/${paramFeed}`).then(function (response) {
+      setCommentData(response.data);
+    });
+  }, [commentData.length, change]);
   return (
     <div>
       <Paper
@@ -102,7 +116,10 @@ const CommentWrite = () => {
           }
         ></InputBase>
       </Paper>
-      <CommentList />
+      {commentData.map((it) => (
+        <CommentItem key={it.commentSeq} {...it} change={moveChange} />
+      ))}
+      {/* <CommentList /> */}
     </div>
   );
 };

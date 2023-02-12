@@ -1,9 +1,14 @@
+import { useState, useRef } from "react";
+
+import axios from "axios";
+import qs from "qs";
+
 import Profile from "../Profile";
+
 import { Box, TextField } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import Modal from "@mui/material/Modal";
 import Button from "@mui/material/Button";
-import { useState, useRef } from "react";
 import CheckIcon from "@mui/icons-material/Check";
 import ClearIcon from "@mui/icons-material/Clear";
 
@@ -29,6 +34,7 @@ const CommentItem = ({
   modifyTime,
   feedSeq,
   memberSeq,
+  change,
 }) => {
   const [open, setOpen] = useState(false);
 
@@ -50,39 +56,78 @@ const CommentItem = ({
     clearTimeout(timeoutRef.current);
   };
 
+  ////////////////////
+  const [contentState, setContentState] = useState(content);
+  const handleChangeState = (e) => {
+    setContentState(e.target.value);
+    console.log(contentState);
+  };
+
+  // 수정하기
+  const commentUpdate = () => {
+    const data = {
+      context: contentState,
+    };
+    console.log(contentState);
+    axios
+      .put(`/api/comment/${commentSeq}`, qs.stringify(data))
+      .then(function (response) {
+        console.log(response);
+      });
+    // 수정은 완료되는데 돔을 재가동해야함
+    change();
+  };
+
+  // 삭제하기
+  const commentRemove = () => {
+    axios.delete(`/api/comment/${commentSeq}`).then(function (response) {
+      console.log(response);
+    });
+    // 수정은 완료되는데 돔을 재가동해야함
+    change();
+  };
+
+  // @@@@@@@@@@@@@@@@
+  const loginUser = 1;
+
   return (
     <div>
-      <div>
-        <Modal open={open} onClose={handleClose}>
-          {/* 아래 코드가 모달창 코드 */}
-          <Box sx={{ ...style }}>
-            <TextField
-              variant="outlined"
-              defaultValue={content}
-              fullWidth
-              multiline
-            />
-            {/* 수정 버튼 */}
-            <Button
-              variant="contained"
-              style={{ width: "50%", marginTop: "5%" }}
-              color="success"
-            >
-              {/* <CheckIcon /> */}
-              수정
-            </Button>
-            {/* 삭제 버튼 */}
-            <Button
-              variant="contained"
-              style={{ width: "50%", marginTop: "5%" }}
-              color="error"
-            >
-              {/* <ClearIcon /> */}
-              삭제
-            </Button>
-          </Box>
-        </Modal>
-      </div>
+      {/* 로그인 유저 */}
+      {loginUser === memberSeq && (
+        <div>
+          <Modal open={open} onClose={handleClose}>
+            {/* 아래 코드가 모달창 코드 */}
+            <Box sx={{ ...style }}>
+              <TextField
+                variant="outlined"
+                defaultValue={contentState}
+                fullWidth
+                multiline
+                // value={contentState}
+                onChange={handleChangeState}
+              />
+              {/* 수정 버튼 */}
+              <Button
+                variant="contained"
+                style={{ width: "50%", marginTop: "5%" }}
+                onClick={commentUpdate}
+              >
+                <CheckIcon />
+              </Button>
+              {/* 삭제 버튼 */}
+              <Button
+                variant="contained"
+                style={{ width: "50%", marginTop: "5%" }}
+                color="error"
+                onClick={commentRemove}
+              >
+                <ClearIcon />
+              </Button>
+            </Box>
+          </Modal>
+        </div>
+      )}
+
       <Grid container>
         <Grid item xs={5}>
           <div>
