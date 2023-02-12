@@ -46,10 +46,10 @@ const Home = () => {
   };
 
   return (
-    <div className="main">
+    <div className="main" style={{ height: "100vh", paddingTop: "40%" }}>
       <img
         className="logo"
-        src={process.env.PUBLIC_URL + `assets/logo.png`}
+        src={process.env.PUBLIC_URL + `assets/logo2.png`}
         alt="logo"
       ></img>
       <MyBtn className="naver" onClick={() => {}}>

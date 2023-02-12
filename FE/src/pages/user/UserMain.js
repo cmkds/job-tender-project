@@ -10,7 +10,8 @@ import TopBar from "../../components/TopBar";
 
 import { makeStyles } from "@material-ui/core/styles";
 import Avatar from "@material-ui/core/Avatar";
-
+import Grid from "@mui/material/Grid";
+import Button from "@mui/material/Button";
 // 게시물 리스트를 보여줄 페이지.
 // 해당 유저의 아이디와 로그인한 아이디가 같다면
 // 팔로우 팔로잉 버튼 안보임
@@ -28,8 +29,15 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     paddingLeft: "8%",
     paddingTop: "8%",
+  },
+  profile: {
+    margin: "auto",
     width: theme.spacing(13),
     height: theme.spacing(13),
+  },
+  stateMessage: {
+    paddingLeft: "8%",
+    paddingBottom: "3%",
   },
 }));
 
@@ -96,13 +104,12 @@ const UserMain = () => {
       <div
         style={{
           display: "flex",
-          justifyContent: "space-around",
           textAlign: "center",
         }}
       >
         <div style={{ marginLeft: "5%", marginTop: "5%", marginBottom: "5%" }}>
           <Avatar
-            className={classes.root}
+            className={classes.profile}
             src={userProfileData.memberProfile}
           />
           <div
@@ -166,8 +173,25 @@ const UserMain = () => {
           {/* @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ */}
         </div>
       </div>
-      <button onClick={followPost}> 팔로우</button>
-      <hr />
+      <Grid container>
+        <Grid item xs={9}>
+          <div className={classes.stateMessage}>
+            {" "}
+            {userProfileData.memberState}
+          </div>
+        </Grid>
+        {/* 팔로우, 팔로잉 중 여기 */}
+        {/* <Grid item xs={3}>
+          <Button style={{ color: "#6892FF", paddingLeft: "20%" }} onClick={followPost>
+            팔로우
+          </Button>
+        </Grid> */}
+        <Grid item xs={2.5}>
+          <Button disabled>팔로우 중</Button>
+        </Grid>
+      </Grid>
+
+      <hr style={{ marginTop: "5%" }} />
       <UserFeedList />
     </div>
   );
