@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, Fragment } from "react";
 
 import axios from "axios";
 import qs from "qs";
@@ -9,8 +9,6 @@ import { Box, TextField } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import Modal from "@mui/material/Modal";
 import Button from "@mui/material/Button";
-import CheckIcon from "@mui/icons-material/Check";
-import ClearIcon from "@mui/icons-material/Clear";
 
 const style = {
   position: "absolute",
@@ -37,7 +35,45 @@ const CommentItem = ({
   change,
 }) => {
   const [open, setOpen] = useState(false);
+  function ChildModal() {
+    const [open, setOpen] = useState(false);
+    const handleOpen = () => {
+      setOpen(true);
+    };
+    const handleClose = () => {
+      setOpen(false);
+    };
 
+    return (
+      <Fragment>
+        <Button
+          onClick={handleOpen}
+          variant="contained"
+          style={{ width: "50%", marginTop: "5%" }}
+          color="error"
+        >
+          삭제하기
+        </Button>
+        <Modal
+          hideBackdrop
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="child-modal-title"
+          aria-describedby="child-modal-description"
+        >
+          <Box sx={{ ...style }}>
+            <h3 id="child-modal-title">댓글을 삭제하시겠습니까?</h3>
+            <div style={{ marginLeft: "50%" }}>
+              <Button onClick={commentRemove} variant="contained" color="error">
+                삭제하기
+              </Button>
+              <Button onClick={handleClose}>취소</Button>
+            </div>
+          </Box>
+        </Modal>
+      </Fragment>
+    );
+  }
   const handleOpen = () => {
     setOpen(true);
   };
@@ -76,6 +112,7 @@ const CommentItem = ({
       });
     // 수정은 완료되는데 돔을 재가동해야함
     change();
+    setOpen(false);
   };
 
   // 삭제하기
@@ -111,18 +148,13 @@ const CommentItem = ({
                 variant="contained"
                 style={{ width: "50%", marginTop: "5%" }}
                 onClick={commentUpdate}
+                color="success"
               >
-                <CheckIcon />
+                수정하기
               </Button>
               {/* 삭제 버튼 */}
-              <Button
-                variant="contained"
-                style={{ width: "50%", marginTop: "5%" }}
-                color="error"
-                onClick={commentRemove}
-              >
-                <ClearIcon />
-              </Button>
+
+              <ChildModal />
             </Box>
           </Modal>
         </div>
