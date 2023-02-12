@@ -24,4 +24,6 @@ public interface MemberService {
 
     MemberSearchInfoDTO getMemberSearchInfoByMemberSeq(Long list);
     boolean findMemberByEmailReturnBool(String email);
+
+    List<MemberDTO> getMemberAll();
 }

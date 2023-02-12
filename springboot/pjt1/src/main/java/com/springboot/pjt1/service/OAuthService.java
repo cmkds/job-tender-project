@@ -5,6 +5,7 @@ import com.springboot.pjt1.data.dto.custom.MemberProfile;
 import com.springboot.pjt1.data.entity.Member;
 import com.springboot.pjt1.data.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
@@ -21,6 +22,8 @@ import java.util.Map;
 /*
     OAuth2 로그인 성공시 DB에 저장하는 작업
  */
+
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class OAuthService implements OAuth2UserService<OAuth2UserRequest, OAuth2User> {
@@ -46,6 +49,10 @@ public class OAuthService implements OAuth2UserService<OAuth2UserRequest, OAuth2
 
 
         Map<String, Object> customAttribute = customAttribute(attributes, userNameAttributeName, memberProfile, registrationId);
+        log.info("attributes = {}", attributes);
+        log.info("userNameAttributeName = {}", userNameAttributeName);
+        log.info("memberProfile = {}", memberProfile);
+        log.info("registrationId = {}", registrationId);
 
         return new DefaultOAuth2User(
                 Collections.singleton(new SimpleGrantedAuthority("USER")),

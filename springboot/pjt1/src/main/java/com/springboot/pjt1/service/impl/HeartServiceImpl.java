@@ -115,4 +115,22 @@ public class HeartServiceImpl implements HeartService {
 
         return heartDTOs;
     }
+
+    @Override
+    public List<HeartDTO> getHeartAll() {
+        List<HeartDTO> heartDTOs = new ArrayList<>();
+        List<Heart> hearts = heartDAO.SelectHeartAll();
+
+        for(Heart heart : hearts){
+            HeartDTO heartDTO = new HeartDTO();
+            heartDTO.setFeedSeq(heart.getFeedSeq());
+            heartDTO.setMemberSeq(heart.getMemberSeq());
+            heartDTO.setHeartSeq(heart.getHeartSeq());
+            heartDTO.setCreateTime(heart.getCreateTime());
+
+            heartDTOs.add(heartDTO);
+        }
+
+        return heartDTOs;
+    }
 }

@@ -40,6 +40,7 @@ public class FeedServiceImpl implements FeedService {
         feedDTO.setCreateTime(feed.getCreateTime());
         feedDTO.setCreateTime(feed.getCreateTime());
         feedDTO.setHeart(feed.getHeart());
+        feedDTO.setMachineLocationSeq(feed.getMachineLocationSeq());
 
         return feedDTO;
     }

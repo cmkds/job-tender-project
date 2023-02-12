@@ -14,4 +14,6 @@ public interface HeartDAO {
     void deleteHeartByMemberSeq(long memberSeq);
     HeartDTO SelectHeartByFeed(long feedSeq);
     List<Heart> SelectHeartsByFeedSeq(long feedSeq);
+
+    List<Heart> SelectHeartAll();
 }

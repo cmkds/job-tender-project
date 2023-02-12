@@ -13,4 +13,5 @@ public interface HeartService {
     void deleteHeartByMemberSeq(long memberSeq);
     HeartDTO getHeartByFeed(long feedSeq);
     List<HeartDTO> getHeartsByFeed(long feedSeq);
+    List<HeartDTO> getHeartAll();
 }

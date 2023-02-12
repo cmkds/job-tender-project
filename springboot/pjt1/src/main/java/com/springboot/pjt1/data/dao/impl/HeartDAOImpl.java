@@ -72,6 +72,11 @@ public class HeartDAOImpl implements HeartDAO{
     public List<Heart> SelectHeartsByFeedSeq(long feedSeq) {
         return heartRepository.findAllByFeedSeq(feedSeq);
     }
+
+    @Override
+    public List<Heart> SelectHeartAll() {
+        return heartRepository.findAll();
+    }
     // jpa 영접
 
 }

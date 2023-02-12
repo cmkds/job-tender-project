@@ -19,4 +19,14 @@ public class MemberDTO {
     private Date modifyTime;
     private String isAdmin;
 
+    public MemberDTO(){}
+    @Builder
+    public MemberDTO(String email, String name){
+        this.name = name;
+        this.email = email;
+        this.nickname = "empty";
+        this.isAdmin = "Y";
+        this.createTime = new Date();
+        this.modifyTime = new Date();
+    }
 }

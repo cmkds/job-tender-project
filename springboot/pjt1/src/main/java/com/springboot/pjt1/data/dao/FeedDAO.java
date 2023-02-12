@@ -16,8 +16,6 @@ public interface FeedDAO {
     void DeleteFeedById(long feedSeq) throws Exception;
     List<Feed> SelectFollowerFeed(long memberSeq);
     List<Feed> SelectFeedByMemberSeqs(List<Long> memberSeqs);
-
     void DeleteFeedByMemberSeq(long memberSeq);
-
     List<Feed> SelectFeedAllByMemberSeq(long memberSeq);
 }

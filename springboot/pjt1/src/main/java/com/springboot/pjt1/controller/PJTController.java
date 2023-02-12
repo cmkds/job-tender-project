@@ -12,9 +12,7 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @RestController
 @RequestMapping("/api")
@@ -51,6 +49,7 @@ public class PJTController {
         this.s3Service = s3Service;
     }
 
+
     @GetMapping("/loginInfo")
     public String oauthLoginInfo(Authentication authentication){
         //oAuth2User.toString() 예시 : Name: [2346930276], Granted Authorities: [[USER]], User Attributes: [{id=2346930276, provider=kakao, name=김준우, email=bababoll@naver.com}]
@@ -61,15 +60,6 @@ public class PJTController {
         return attributes.toString();
     }
 
-    @PostMapping("/send-data")
-    public void uploadFile(@RequestParam MultipartFile multipartFile) throws Exception {
-        s3Service.saveUploadFile(multipartFile);
-    }
-
-    @PostMapping("/data")
-    public ResponseEntity<StoreDTO> sendFile(@RequestBody StoreInputDTO storeInputDTO) throws Exception {
-        return ResponseEntity.status(HttpStatus.OK).body(storeService.insertStore(storeInputDTO));
-    }
     @ApiOperation(
             value = "nickname 존재 여부 판단"
             , notes = "nickname 존재 여부 판단. Boolean으로 반환")
@@ -92,6 +82,14 @@ public class PJTController {
     @GetMapping("/account/{memberSeq}")
     public ResponseEntity<MemberDTO> getMemberByMemberSeq(@PathVariable("memberSeq") long memberSeq) {
         return ResponseEntity.status(HttpStatus.OK).body(memberService.getMember(memberSeq));
+    }
+
+    @ApiOperation(
+            value = "모든 member 정보 조회"
+            , notes = "모든 member 정보 조회")
+    @GetMapping("/accounts")
+    public ResponseEntity<List<MemberDTO>> getMemberAll() {
+        return ResponseEntity.status(HttpStatus.OK).body(memberService.getMemberAll());
     }
 
     @ApiOperation(
@@ -153,8 +151,26 @@ public class PJTController {
             , notes = "feed를 좋아요 순서로 조회")
     @GetMapping("/main/hot")
     public ResponseEntity<List<FeedDTO>> getHotFeed(){
-        List<FeedDTO> feedDTOList = feedService.getFeedAllOrderByHeart();
-        return ResponseEntity.status(HttpStatus.OK).body(feedDTOList);
+        List<FeedDTO> rfeedDTO = new ArrayList<>();
+        List<HeartDTO> heartDTOs = heartService.getHeartAll();
+        Map<Long, Integer> map = new HashMap<>();
+
+        for(HeartDTO heartDTO:heartDTOs){
+            if(map.containsKey(heartDTO.getFeedSeq()))
+                map.put(heartDTO.getFeedSeq(), map.get(heartDTO.getFeedSeq()) + 1);
+
+            else
+                map.put(heartDTO.getFeedSeq(), 1);
+        }
+
+        List<Map.Entry<Long, Integer>> entryList = new LinkedList<>(map.entrySet());
+        entryList.sort(Map.Entry.comparingByValue(Comparator.reverseOrder()));
+
+        for(Map.Entry<Long, Integer> entry : entryList)
+            rfeedDTO.add(feedService.getFeed(entry.getKey()));
+
+
+        return ResponseEntity.status(HttpStatus.OK).body(rfeedDTO);
     }
 
     @ApiOperation(
@@ -171,8 +187,31 @@ public class PJTController {
             , notes = "feed를 좋아요 순서로 조회")
     @GetMapping("/main/hot/{MachineLocationSeq}")
     public ResponseEntity<List<FeedDTO>> getHotFeedByCity(@PathVariable("MachineLocationSeq") long MachineLocationSeq){
-        List<FeedDTO> feedDTOList = feedService.getFeedAllOrderByHeartByMachineLocationSeq(MachineLocationSeq);
-        return ResponseEntity.status(HttpStatus.OK).body(feedDTOList);
+        List<FeedDTO> rfeedDTO = new ArrayList<>();
+        List<HeartDTO> heartDTOs = heartService.getHeartAll();
+        Map<Long, Integer> map = new HashMap<>();
+
+        for(HeartDTO heartDTO:heartDTOs){
+            if(map.containsKey(heartDTO.getFeedSeq()))
+                map.put(heartDTO.getFeedSeq(), map.get(heartDTO.getFeedSeq()) + 1);
+
+            else
+                map.put(heartDTO.getFeedSeq(), 1);
+        }
+
+        System.out.println(MachineLocationSeq);
+        List<Map.Entry<Long, Integer>> entryList = new LinkedList<>(map.entrySet());
+        entryList.sort(Map.Entry.comparingByValue(Comparator.reverseOrder()));
+
+        for(Map.Entry<Long, Integer> entry : entryList) {
+            FeedDTO feedDTO = feedService.getFeed(entry.getKey());
+            System.out.println(feedDTO.getFeedSeq() + " " + feedDTO.getMachineLocationSeq());
+
+            if (feedDTO.getMachineLocationSeq() == MachineLocationSeq)
+                rfeedDTO.add(feedDTO);
+        }
+
+        return ResponseEntity.status(HttpStatus.OK).body(rfeedDTO);
     }
 
     @ApiOperation(

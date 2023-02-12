@@ -12,12 +12,10 @@ public interface FeedRepository extends JpaRepository<Feed, Long> {
     List<Feed> findAll();
     List<Feed> findAllByOrderByHeartAsc();
     List<Feed> findAllByOrderByCreateTimeAsc();
-    List<Feed> findTop30ByOrderByHeartAsc();
-    List<Feed> findTop30ByOrderByCreateTimeAsc();
-    //List<Feed> findAllByMachineLocationSeqByOrderByHeartAsc(long machineLocationSeq);
-    //List<Feed> findAllByMachineLocationSeqByOrderByCreateTimeAsc(long machineLocationSeq);
     List<Feed> findByMemberSeq(long memberSeq);
     @Query("select fd from Feed fd where fd.feedSeq in :memberSeqs")
     List<Feed> findByMemberSeqs(List<Long> memberSeqs);
     List<Feed> findAllByMemberSeq(long memberSeq);
+    List<Feed> findByMachineLocationSeqOrderByHeart(long machineLocationSeq);
+    List<Feed> findByMachineLocationSeqOrderByCreateTime(long machineLocationSeq);
 }
