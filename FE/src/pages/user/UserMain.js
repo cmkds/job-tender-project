@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 import axios from "axios";
+import qs from "qs";
 
 import UserFeedList from "../../components/user/UserFeedList";
 import TopBar from "../../components/TopBar";
@@ -71,6 +72,23 @@ const UserMain = () => {
       setFollowingLen(response.data.length);
     });
   }, [followingLen]);
+
+  // 해당 유저 팔로우 하기
+  const loginUser = 1;
+  console.log(params);
+
+  const followPost = () => {
+    const data = {
+      follower: loginUser,
+      following: params.user,
+    };
+
+    axios
+      .post(`/api/profile/follow`, qs.stringify(data))
+      .then(function (response) {
+        console.log(response.data);
+      });
+  };
 
   return (
     <div>
@@ -144,8 +162,11 @@ const UserMain = () => {
             {/* 여기수정 */}
             {followingLen}
           </p>
+
+          {/* @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ */}
         </div>
       </div>
+      <button onClick={followPost}> 팔로우</button>
       <hr />
       <UserFeedList />
     </div>
