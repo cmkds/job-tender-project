@@ -26,8 +26,22 @@ const style = {
   pb: 2,
 };
 
-const UnFollowButton = (userId) => {
-  // console.log(userId.id);
+const UnFollowButton = ({ id, change }) => {
+  // console.log(id, change);
+  // 여기에 버튼 누르면 언팔로우 하도록 한다음에
+
+  const loginUser = 1;
+  // 상위 태그
+
+  const unFollow = () => {
+    // 앞에 path가 지울사람 뒤에 path가 행위자
+    axios
+      .delete(`/api/profile/follow/${id}/${loginUser}`)
+      .then(function (response) {
+        console.log(response);
+      });
+    change();
+  };
   const [open, setOpen] = useState(false);
   const [userData, setUserData] = useState({});
 
@@ -39,15 +53,16 @@ const UnFollowButton = (userId) => {
   };
 
   useEffect(() => {
-    axios.get(`/api/account/${userId.id}`).then(function (response) {
+    axios.get(`/api/account/${id}`).then(function (response) {
       setUserData(response.data);
     });
   }, []);
+
   return (
     // <Modal open={open} onClose={handleClose}>
     <Grid container>
       <Grid item xs={9}>
-        <Profile id={userId.id} />
+        <Profile id={id} />
       </Grid>
       <Grid item xs={3}>
         <Button
@@ -66,7 +81,9 @@ const UnFollowButton = (userId) => {
           <Box sx={{ ...style }}>
             <h4>{userData.nickname}님을 언팔로우 하시겠습니까?</h4>
             <div style={{ marginLeft: "55%" }}>
-              <Button color="error">언팔로우</Button>
+              <Button color="error" onClick={unFollow}>
+                언팔로우
+              </Button>
               <Button onClick={handleClose}>취소</Button>
             </div>
           </Box>
