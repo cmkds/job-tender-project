@@ -1,7 +1,5 @@
 // 팔로우 언팔로우 버튼 컴포넌트
 // 팔로잉 페이지에 들어가는 언팔로우 버튼
-import axios from "axios";
-
 import Profile from "../Profile";
 
 import axios from "axios";
@@ -43,22 +41,22 @@ const UnFollowButton = ({ id, change }) => {
         console.log(response);
       });
     change();
-    const [open, setOpen] = useState(false);
-    const [userData, setUserData] = useState({});
-
-    const handleOpen = () => {
-      setOpen(true);
-    };
-    const handleClose = () => {
-      setOpen(false);
-    };
-
-    useEffect(() => {
-      axios.get(`/api/account/${userId.id}`).then(function (response) {
-        setUserData(response.data);
-      });
-    }, []);
   };
+  const [open, setOpen] = useState(false);
+  const [userData, setUserData] = useState({});
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  useEffect(() => {
+    axios.get(`/api/account/${id}`).then(function (response) {
+      setUserData(response.data);
+    });
+  }, []);
 
   return (
     // <Modal open={open} onClose={handleClose}>

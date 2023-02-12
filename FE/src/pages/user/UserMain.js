@@ -44,21 +44,38 @@ const useStyles = makeStyles((theme) => ({
 const UserMain = () => {
   const classes = useStyles();
 
-  useEffect(() => {
-    axios.get(`/api/account/${params.user}`).then(function (response) {
-      // console.log(response.data);
-      setUserProfileData(response.data);
-    });
-  }, []);
   const params = useParams();
   const [userProfileData, setUserProfileData] = useState({});
   const [feedLen, setFeedLen] = useState(0);
   const [followerLen, setFollowerLen] = useState(0);
   const [followingLen, setFollowingLen] = useState(0);
-
   const navigate = useNavigate();
 
+  //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+  const loginUser = 1;
+  const [followCheck, setFollowCheck] = useState(true);
+  const [followButton, setFollowButton] = useState(followCheck);
+  useEffect(() => {
+    axios
+      .get(`/api/profile/${loginUser}/${params.user}`)
+      .then(function (response) {
+        console.log(response);
+        setFollowCheck(response.data);
+      });
+  }, []);
+  useEffect(() => {
+    setFollowButton(followCheck);
+  }, [followCheck]);
+
+  console.log(followCheck);
+  console.log(followButton);
   // 유저정보 가져오기
+  useEffect(() => {
+    axios.get(`/api/account/${params.user}`).then(function (response) {
+      console.log(response.data);
+      setUserProfileData(response.data);
+    });
+  }, [params]);
 
   // 게시글수 가져오기
   useEffect(() => {
@@ -66,24 +83,23 @@ const UserMain = () => {
       // console.log(response.data);
       setFeedLen(response.data.length);
     });
-  }, []);
+  }, [params]);
   // 팔로워 수 가져오기
   useEffect(() => {
     axios.get(`/api/search/follower/${params.user}`).then(function (response) {
       setFollowerLen(response.data.length);
     });
-  }, [followerLen]);
+  }, [followerLen, params]);
 
   // 팔로잉 수 가져오기
   useEffect(() => {
     axios.get(`/api/search/following/${params.user}`).then(function (response) {
       setFollowingLen(response.data.length);
     });
-  }, [followingLen]);
+  }, [followingLen, params]);
 
   // 해당 유저 팔로우 하기
-  const loginUser = 1;
-  console.log(params);
+  // console.log(params);
 
   const followPost = () => {
     const data = {
@@ -96,7 +112,9 @@ const UserMain = () => {
       .then(function (response) {
         console.log(response.data);
       });
+    setFollowButton(true);
   };
+  // setFollowButton(followCheck);
 
   return (
     <div>
@@ -180,15 +198,24 @@ const UserMain = () => {
             {userProfileData.memberState}
           </div>
         </Grid>
-        {/* 팔로우, 팔로잉 중 여기 */}
-        {/* <Grid item xs={3}>
-          <Button style={{ color: "#6892FF", paddingLeft: "20%" }} onClick={followPost>
-            팔로우
-          </Button>
-        </Grid> */}
-        <Grid item xs={2.5}>
-          <Button disabled>팔로우 중</Button>
-        </Grid>
+        {/*로그인한 사람과 해당 페이지 유저가 같으면 팔로우 버튼 표시 안함  */}
+
+        {loginUser === parseInt(params.user) ? (
+          <Grid item xs={3} />
+        ) : followButton ? (
+          <Grid item xs={3}>
+            <Button disabled>팔로우 중</Button>
+          </Grid>
+        ) : (
+          <Grid item xs={3}>
+            <Button
+              style={{ color: "#6892FF", paddingLeft: "20%" }}
+              onClick={followPost}
+            >
+              팔로우
+            </Button>
+          </Grid>
+        )}
       </Grid>
 
       <hr style={{ marginTop: "5%" }} />
@@ -196,5 +223,16 @@ const UserMain = () => {
     </div>
   );
 };
+{
+  /* 팔로우, 팔로잉 중 여기 */
+}
+// <Grid item xs={3}>
+//   <Button style={{ color: "#6892FF", paddingLeft: "20%" }} onClick={followPost>
+//     팔로우
+//   </Button>
+// </Grid>
+// <Grid item xs={3}>
+//   <Button disabled>팔로우 중</Button>
+// </Grid>
 
 export default UserMain;

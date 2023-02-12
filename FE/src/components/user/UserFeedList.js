@@ -15,7 +15,7 @@ const UserFeedList = () => {
     axios.get(`/api/main/${params.user}`).then(function (response) {
       setUserFeedData(response.data);
     });
-  }, []);
+  }, [params]);
 
   const [userFeedData, setUserFeedData] = useState([]);
 
