@@ -11,6 +11,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.*;
 
@@ -49,17 +50,33 @@ public class PJTController {
         this.s3Service = s3Service;
     }
 
+<<<<<<< HEAD
 
     @GetMapping("/loginInfo")
+=======
+    @GetMapping("/oauth/loginInfo")
+>>>>>>> 275ee51ef852f0133df5fd5af430cbdeb986caa2
     public String oauthLoginInfo(Authentication authentication){
-        //oAuth2User.toString() 예시 : Name: [2346930276], Granted Authorities: [[USER]], User Attributes: [{id=2346930276, provider=kakao, name=김준우, email=bababoll@naver.com}]
         OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
-        //attributes.toString() 예시 : {id=2346930276, provider=kakao, name=김준우, email=bababoll@naver.com}
         Map<String, Object> attributes = oAuth2User.getAttributes();
 
         return attributes.toString();
     }
 
+<<<<<<< HEAD
+=======
+    @PostMapping("/send-data")
+    public void uploadFile(@RequestParam MultipartFile multipartFile) throws Exception {
+        s3Service.saveUploadFile(multipartFile);
+    }
+
+    @PostMapping("/data")
+    public ResponseEntity<StoreDTO> sendFile(@RequestBody StoreInputDTO storeInputDTO) throws Exception {
+        return ResponseEntity.status(HttpStatus.OK).body(storeService.insertStore(storeInputDTO));
+    }
+
+    // =====================================================================
+>>>>>>> 275ee51ef852f0133df5fd5af430cbdeb986caa2
     @ApiOperation(
             value = "nickname 존재 여부 판단"
             , notes = "nickname 존재 여부 판단. Boolean으로 반환")
@@ -83,6 +100,15 @@ public class PJTController {
     public ResponseEntity<MemberDTO> getMemberByMemberSeq(@PathVariable("memberSeq") long memberSeq) {
         return ResponseEntity.status(HttpStatus.OK).body(memberService.getMember(memberSeq));
     }
+
+    @ApiOperation(value = "member 정보 전체 조회", notes="member 정보 전체 조회")
+    @GetMapping("/accounts")
+    public ResponseEntity<List<MemberDTO>> getMemberAll(){
+        List<MemberDTO> memberDTOs = memberService.getMembers();
+
+        return ResponseEntity.status(HttpStatus.OK).body(memberDTOs);
+    }
+
 
     @ApiOperation(
             value = "모든 member 정보 조회"
