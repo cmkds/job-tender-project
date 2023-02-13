@@ -89,14 +89,14 @@ const UserMain = () => {
     axios.get(`/api/search/follower/${params.user}`).then(function (response) {
       setFollowerLen(response.data.length);
     });
-  }, [followerLen, params]);
+  }, [followerLen, params, followButton]);
 
   // 팔로잉 수 가져오기
   useEffect(() => {
     axios.get(`/api/search/following/${params.user}`).then(function (response) {
       setFollowingLen(response.data.length);
     });
-  }, [followingLen, params]);
+  }, [followingLen, params, followButton]);
 
   // 해당 유저 팔로우 하기
   // console.log(params);

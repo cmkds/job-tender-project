@@ -64,9 +64,9 @@ const FeedItem = (feed) => {
         .delete(`/api/heart/${feed.feedSeq}/${loginUser}`)
         .then(function (response) {
           console.log(response);
+          setLikeCheck(false);
+          setLikesLen(likesLen - 1);
         });
-      setLikeCheck(false);
-      setLikesLen(likesLen - 1);
     } else {
       axios
         .post(`/api/heart`, {
@@ -75,8 +75,8 @@ const FeedItem = (feed) => {
         })
         .then(function (response) {
           console.log(response);
+          setLikesLen(likesLen + 1);
         });
-      setLikesLen(likesLen + 1);
       setLikeCheck(true);
     }
   };
