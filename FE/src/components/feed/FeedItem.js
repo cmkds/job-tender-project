@@ -38,7 +38,6 @@ const FeedItem = (feed) => {
   // 댓글 받아오기
   useEffect(() => {
     axios.get(`/api/comment/${feed.feedSeq}`).then(function (response) {
-      // console.log(response.data);
       setComments(response.data);
     });
   }, []);
