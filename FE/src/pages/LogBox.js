@@ -54,7 +54,6 @@ import { useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import MobileStepper from "@mui/material/MobileStepper";
 import Paper from "@mui/material/Paper";
-import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
@@ -125,12 +124,12 @@ const images2 = [
     imgPath: "assets/logbox/post.jpg",
   },
 ];
+
 function SwipeableTextMobileStepper() {
   const myRef = useRef(null);
   const theme = useTheme();
   const [activeStep, setActiveStep] = useState(0);
   const maxSteps = images.length;
-  const maxSteps1 = images1.length;
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -196,9 +195,8 @@ function SwipeableTextMobileStepper() {
                 <Box
                   component="img"
                   sx={{
-                    height: "50vh",
+                    height: "60vh",
                     display: "block",
-                    maxWidth: 400,
                     overflow: "hidden",
                     width: "100%",
                     objectFit: "cover",
@@ -210,13 +208,12 @@ function SwipeableTextMobileStepper() {
             </div>
           ))}
         </SwipeableViews>
+
         <Paper
           square
-          elevation={0}
+          elevation={-1}
           sx={{
             display: "flex",
-            alignItems: "center",
-            justifyitem: "center",
             height: "10vh",
             pl: 2,
             bgcolor: "background.default",
@@ -225,10 +222,10 @@ function SwipeableTextMobileStepper() {
         >
           <div
             style={{
-              fontSize: 30,
+              fontSize: 25,
               display: "flex",
               margin: "auto",
-              marginTop: "20%",
+              marginTop: "3%",
               textAlign: "center",
             }}
           >
@@ -248,14 +245,14 @@ function SwipeableTextMobileStepper() {
       </Box>
       <Box sx={{ width: "100vw", height: "100vh" }} ref={myRef}>
         <MobileStepper
-          steps={maxSteps1}
+          steps={maxSteps}
           position="static"
           activeStep={activeStep}
           nextButton={
             <Button
               size="small"
               onClick={handleNext}
-              disabled={activeStep === maxSteps1 - 1}
+              disabled={activeStep === maxSteps - 1}
             >
               {theme.direction === "rtl" ? (
                 <KeyboardArrowLeft />
@@ -290,9 +287,8 @@ function SwipeableTextMobileStepper() {
                 <Box
                   component="img"
                   sx={{
-                    height: "50vh",
+                    height: "60vh",
                     display: "block",
-                    maxWidth: 400,
                     overflow: "hidden",
                     width: "100%",
                     objectFit: "cover",
@@ -319,10 +315,10 @@ function SwipeableTextMobileStepper() {
         >
           <div
             style={{
-              fontSize: 30,
+              fontSize: 25,
               display: "flex",
               margin: "auto",
-              marginTop: "20%",
+              marginTop: "3%",
               textAlign: "center",
             }}
           >
