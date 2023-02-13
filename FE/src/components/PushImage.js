@@ -1,67 +1,102 @@
+import "../App.css";
 import { useState } from "react";
-import styled from "styled-components";
-import axios from "axios";
+import AWS from "aws-sdk";
+import { Row, Col, Button, Input, Alert } from "reactstrap";
 
-const ImgPreview = styled.img`
-  border-style: solid;
-  border-color: black;
-  width: 250px;
-  height: 250px;
-  margin: 30px;
-  position: absolute;
-  left: 41%;
-  right: 50%;
-`;
+const PushImage = () => {
+  const [progress, setProgress] = useState(0);
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [showAlert, setShowAlert] = useState(false);
 
-const UploadImage = styled.input`
-  height: 30px;
-  position: absolute;
-  left: 50%;
-  right: 30%;
-  margin-top: 300px;
-`;
+  const ACCESS_KEY = "AKIA2TBRAOMD4EYNB5MS";
+  const SECRET_ACCESS_KEY = "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";
+  const REGION = "ap-northeast-2";
+  const S3_BUCKET = "codegear-react-file-upload-test-bucket";
 
-const ViewImage = styled.button`
-  height: 30px;
-  position: absolute;
-  left: 50%;
-  right: 35%;
-  margin-top: 350px;
-`;
+  AWS.config.update({
+    accessKeyId: ACCESS_KEY,
+    secretAccessKey: SECRET_ACCESS_KEY,
+  });
 
-export default function PushImage() {
-  const [img, setImg] = useState("");
+  const myBucket = new AWS.S3({
+    params: { Bucket: S3_BUCKET },
+    region: REGION,
+  });
 
-  const formSubmit = (e) => {
-    const img = e.target.files[0];
-    const formData = new FormData();
-    formData.append("file", img);
+  const handleFileInput = (e) => {
+    const file = e.target.files[0];
+    const fileExt = file.name.split(".").pop();
+    if (file.type !== "image/jpeg" || fileExt !== "jpg") {
+      alert("jpg 파일만 Upload 가능합니다.");
+      return;
+    }
+    setProgress(0);
+    setSelectedFile(e.target.files[0]);
+  };
 
-    axios
-      .post("이미지 요청 주소", formData)
-      .then((res) => {
-        setImg(res.data.location);
-        alert("성공");
+  const uploadFile = (file) => {
+    const params = {
+      ACL: "public-read",
+      Body: file,
+      Bucket: S3_BUCKET,
+      Key: "upload/" + file.name,
+      // crossOrigin: "Anonymous",
+    };
+
+    myBucket
+      .putObject(params)
+      .on("httpUploadProgress", (evt) => {
+        setProgress(Math.round((evt.loaded / evt.total) * 100));
+        setShowAlert(true);
+        setTimeout(() => {
+          setShowAlert(false);
+          setSelectedFile(null);
+        }, 3000);
       })
-      .catch((err) => {
-        alert("실패");
+      .send((err) => {
+        if (err) console.log(err);
       });
   };
 
   return (
     <div>
-      <div className="img-preview">
-        <ImgPreview id="img-preview" src={img} />
-        <UploadImage
-          type="file"
-          accept="image/*"
-          id="img"
-          onChange={formSubmit}
-        ></UploadImage>
+      이미지
+      <div className="App">
+        <div className="App-header">
+          <Row>
+            <Col>
+              <h1>File Upload</h1>
+            </Col>
+          </Row>
+        </div>
+        <div className="App-body">
+          <Row>
+            <Col>
+              {showAlert ? (
+                <Alert color="primary">업로드 진행률 : {progress}%</Alert>
+              ) : (
+                <Alert color="primary">파일을 선택해 주세요.</Alert>
+              )}
+            </Col>
+          </Row>
+          <Row>
+            <Col>
+              <Input color="primary" type="file" onChange={handleFileInput} />
+              {selectedFile ? (
+                <Button
+                  color="primary"
+                  onClick={() => uploadFile(selectedFile)}
+                >
+                  {" "}
+                  Upload to S3
+                </Button>
+              ) : null}
+            </Col>
+          </Row>
+        </div>
       </div>
-      <textarea name="" id="" cols="30" rows="10"></textarea>
-      <textarea name="" id="" cols="30" rows="10"></textarea>
-      <textarea name="" id="" cols="30" rows="10"></textarea>
     </div>
   );
-}
+};
+
+export default PushImage;
