@@ -41,6 +41,7 @@ public class FeedServiceImpl implements FeedService {
         feedDTO.setCreateTime(feed.getCreateTime());
         feedDTO.setHeart(feed.getHeart());
         feedDTO.setMachineLocationSeq(feed.getMachineLocationSeq());
+        feedDTO.setMemberSeq(feed.getMemberSeq());
 
         return feedDTO;
     }
@@ -61,6 +62,7 @@ public class FeedServiceImpl implements FeedService {
             feedDTO.setHeart(feed.getHeart());
             feedDTO.setMemberSeq(feed.getMemberSeq());
             feedDTO.setMachineLocationSeq(feed.getMachineLocationSeq());
+            feedDTO.setMemberSeq(feed.getMemberSeq());
 
             feedDTOs.add(feedDTO);
         }
@@ -227,6 +229,7 @@ public class FeedServiceImpl implements FeedService {
         feed.setCreateTime(new Date());
         feed.setModifyTime(new Date());
         feed.setHeart(0);
+        feed.setMemberSeq(feedInputDTO.getMemberSeq());
 
         Feed savedFeed = feedDAO.InsertFeed(feed);
         FeedDTO rFeedDTO = new FeedDTO();
@@ -237,6 +240,7 @@ public class FeedServiceImpl implements FeedService {
         rFeedDTO.setCreateTime(savedFeed.getCreateTime());
         rFeedDTO.setCreateTime(savedFeed.getCreateTime());
         rFeedDTO.setHeart(savedFeed.getHeart());
+        rFeedDTO.setMemberSeq(savedFeed.getMemberSeq());
 
         return rFeedDTO;
     }
@@ -252,7 +256,7 @@ public class FeedServiceImpl implements FeedService {
         rFeedDTO.setCreateTime(updatedFeed.getCreateTime());
         rFeedDTO.setCreateTime(updatedFeed.getCreateTime());
         rFeedDTO.setHeart(updatedFeed.getHeart());
-
+        rFeedDTO.setMemberSeq(updatedFeed.getMemberSeq());
         return rFeedDTO;
     }
 

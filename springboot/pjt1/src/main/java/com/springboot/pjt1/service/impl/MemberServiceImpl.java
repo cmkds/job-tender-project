@@ -264,5 +264,37 @@ public class MemberServiceImpl implements MemberService {
         return rMemberDTO;
     }
 
+    @Override
+    public MemberDTO insertMemberByNaver(MemberInputDTO memberInputDTO) throws Exception{
+        Member member = new Member();
+
+        member.setMemberProfile(memberInputDTO.getMemberProfile());
+        member.setMemberState(memberInputDTO.getMemberState());
+        member.setMemberSeq(memberInputDTO.getMemberSeq());
+        member.setCreateTime(new Date());
+        member.setNickname("empty");
+        member.setIsAdmin(memberInputDTO.getIsAdmin());
+        member.setEmail(memberInputDTO.getEmail());
+        member.setModifyTime(new Date());
+        member.setName(memberInputDTO.getName());
+
+        Member savedMember = memberDAO.InsertMember(member);
+        MemberDTO rMemberDTO = new MemberDTO();
+
+        rMemberDTO.setMemberProfile(savedMember.getMemberProfile());
+        rMemberDTO.setMemberState(savedMember.getMemberState());
+        rMemberDTO.setMemberSeq(savedMember.getMemberSeq());
+        rMemberDTO.setCreateTime(savedMember.getCreateTime());
+        rMemberDTO.setAddrSpec(savedMember.getAddrSpec());
+        rMemberDTO.setAddrBase(savedMember.getAddrBase());
+        rMemberDTO.setNickname(savedMember.getNickname());
+        rMemberDTO.setIsAdmin(savedMember.getIsAdmin());
+        rMemberDTO.setEmail(savedMember.getEmail());
+        rMemberDTO.setModifyTime(savedMember.getModifyTime());
+        rMemberDTO.setName(savedMember.getName());
+
+        return rMemberDTO;
+    }
+
 
 }

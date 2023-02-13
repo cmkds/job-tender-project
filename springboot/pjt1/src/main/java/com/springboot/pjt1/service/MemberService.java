@@ -26,4 +26,6 @@ public interface MemberService {
     boolean findMemberByEmailReturnBool(String email);
 
     List<MemberDTO> getMemberAll();
+
+    MemberDTO insertMemberByNaver(MemberInputDTO memberInputDTO) throws Exception;
 }

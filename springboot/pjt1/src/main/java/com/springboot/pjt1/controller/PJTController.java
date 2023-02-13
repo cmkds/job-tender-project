@@ -4,14 +4,18 @@ import com.springboot.pjt1.data.dto.*;
 import com.springboot.pjt1.data.dto.custom.*;
 import com.springboot.pjt1.service.*;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.models.links.Link;
+import net.bytebuddy.dynamic.scaffold.MethodGraph;
+import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.core.user.OAuth2User;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.*;
 
@@ -50,12 +54,7 @@ public class PJTController {
         this.s3Service = s3Service;
     }
 
-<<<<<<< HEAD
-
     @GetMapping("/loginInfo")
-=======
-    @GetMapping("/oauth/loginInfo")
->>>>>>> 275ee51ef852f0133df5fd5af430cbdeb986caa2
     public String oauthLoginInfo(Authentication authentication){
         OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
         Map<String, Object> attributes = oAuth2User.getAttributes();
@@ -63,8 +62,6 @@ public class PJTController {
         return attributes.toString();
     }
 
-<<<<<<< HEAD
-=======
     @PostMapping("/send-data")
     public void uploadFile(@RequestParam MultipartFile multipartFile) throws Exception {
         s3Service.saveUploadFile(multipartFile);
@@ -74,9 +71,8 @@ public class PJTController {
     public ResponseEntity<StoreDTO> sendFile(@RequestBody StoreInputDTO storeInputDTO) throws Exception {
         return ResponseEntity.status(HttpStatus.OK).body(storeService.insertStore(storeInputDTO));
     }
-
     // =====================================================================
->>>>>>> 275ee51ef852f0133df5fd5af430cbdeb986caa2
+
     @ApiOperation(
             value = "nickname 존재 여부 판단"
             , notes = "nickname 존재 여부 판단. Boolean으로 반환")
@@ -108,16 +104,6 @@ public class PJTController {
 
         return ResponseEntity.status(HttpStatus.OK).body(memberDTOs);
     }
-
-
-    @ApiOperation(
-            value = "모든 member 정보 조회"
-            , notes = "모든 member 정보 조회")
-    @GetMapping("/accounts")
-    public ResponseEntity<List<MemberDTO>> getMemberAll() {
-        return ResponseEntity.status(HttpStatus.OK).body(memberService.getMemberAll());
-    }
-
     @ApiOperation(
             value = "member 생성"
             , notes = "기본 데이터로 member 생성")
@@ -535,4 +521,55 @@ public class PJTController {
     }
 
     // oauth
+    @GetMapping("/account/naver")
+    public String createMemberByNaver(@RequestParam String code, @RequestParam String state) throws Exception{
+        System.out.println("createMemberByNaver");
+        String accessToken = requestAccessToken(generateAuthCodeRequest(code, state)).getBody();
+
+        return requestProfile(generateProfileRequest(accessToken)).getBody();
+    }
+
+    public HttpEntity<MultiValueMap<String, String>> generateAuthCodeRequest(String code, String state){
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
+
+        MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
+
+        params.add("grant_type", "authorization_code");
+        params.add("client_id", "DJ94WWgE_wFepnxDsIQa");
+        params.add("client_secret", "U8bTHcjGRN");
+        params.add("code", code);
+        params.add("state", state);
+
+        return new HttpEntity<>(params, headers);
+    }
+
+    private ResponseEntity<String> requestAccessToken(HttpEntity request){
+        RestTemplate restTemplate = new RestTemplate();
+
+        return restTemplate.exchange(
+                "https://nid.naver.com/oauth2.0/token",
+                HttpMethod.POST,
+                request,
+                String.class
+        );
+    }
+
+    public ResponseEntity<String> requestProfile(HttpEntity request){
+        RestTemplate restTemplate = new RestTemplate();
+
+        return restTemplate.exchange(
+                "https://openapi.naver.com/v1/nid/me",
+                HttpMethod.POST,
+                request,
+                String.class
+        );
+    }
+
+    public HttpEntity<MultiValueMap<String, String>> generateProfileRequest(String accessToken){
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Authorization", "Bearer " + accessToken);
+        headers.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
+        return new HttpEntity<>(headers);
+    }
 }

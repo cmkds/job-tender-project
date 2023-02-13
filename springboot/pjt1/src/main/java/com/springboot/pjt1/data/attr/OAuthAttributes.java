@@ -29,10 +29,7 @@ public enum OAuthAttributes {
 
         memberProfile.setIsAdmin("N");
         memberProfile.setNickname("empty");
-<<<<<<< HEAD
 
-=======
->>>>>>> 275ee51ef852f0133df5fd5af430cbdeb986caa2
         return memberProfile;
     }),
 
