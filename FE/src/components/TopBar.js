@@ -20,12 +20,24 @@ export default function ButtonAppBar() {
     margin: auto;
   `;
 
+  //
+  const loginCheck = false;
+  const topButton = () => {
+    if (loginCheck) {
+      navigate("/main/hot/0");
+    } else {
+      navigate("/");
+    }
+  };
+
   return (
     <div>
       <MyAppBar>
         <Toolbar>
           {/* <Box></Box> */}
+          {/*  */}
           <img
+            onClick={topButton}
             className="logoTop"
             src={process.env.PUBLIC_URL + `/assets/logo2.png`}
             alt="logoTop"
@@ -47,6 +59,8 @@ export default function ButtonAppBar() {
             onClick={() => navigate("/user/1")}
           >
             <Avatar sx={{ color: "white", fontSize: "150%" }}>
+              {loginCheck && <img src="assets/profile.png" alt=""></img>}
+
               {/* 여기에 유저 프로필 이미지가 들어가야함 */}
             </Avatar>
           </IconButton>

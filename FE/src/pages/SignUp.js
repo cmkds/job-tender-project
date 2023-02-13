@@ -6,6 +6,8 @@ import { useState, useRef, useEffect } from "react";
 import axios from "axios";
 
 import TopBar from "../components/TopBar";
+import PushImage from "../components/PushImage";
+
 import Card from "@mui/material/Card";
 import { Avatar } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
@@ -142,6 +144,7 @@ const SignUp = () => {
     <div>
       <TopBar></TopBar>
       회원가입 정보등록 페이지
+      <PushImage />
       <Card
         sx={{
           maxWidth: "70%",
