@@ -53,6 +53,11 @@ export default function ButtonAppBar() {
     setAnchorEl(null);
   };
 
+  const logout = () => {
+    sessionStorage.removeItem("loginUser");
+    navigate(`/`);
+  };
+
   return (
     <div>
       <MyAppBar>
@@ -109,7 +114,7 @@ export default function ButtonAppBar() {
           <PersonIcon sx={{ marginLeft: "3%" }} />
         </MenuItem>
         <MenuItem
-          onClick={handleClose}
+          onClick={logout}
           sx={{ fontFamily: "GangwonEduAll", justifyContent: "end" }}
         >
           로그아웃
