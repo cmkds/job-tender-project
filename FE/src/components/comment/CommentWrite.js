@@ -98,6 +98,7 @@ const CommentWrite = () => {
         <Avatar
           src={profileImg}
           alt={process.env.PUBLIC_URL + `/assets/logo.png`}
+          style={{ margin: "2%" }}
         ></Avatar>
         {/* </IconButton> */}
         {/* 댓글 작성 및 게시 */}

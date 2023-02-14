@@ -138,7 +138,11 @@ const Home = () => {
           <img
             src={process.env.PUBLIC_URL + `assets/naverLogin.png`}
             alt="naver"
-            style={{ width: "100%" }}
+            style={{
+              height: "6vh",
+              display: "flex",
+              objectFit: "cover",
+            }}
           ></img>
         </a>
       </MyBtn>
