@@ -56,7 +56,11 @@ const Profile = (userId) => {
             navigate(`/user/${userId.id}`);
           }}
         >
-          {/* <img src={it.image} alt={"프로필 이미지가 없습니다."}></img> */}
+          <img
+            src={userData.memberProfile}
+            alt={"프로필 이미지가 없습니다."}
+            style={{ width: "100%", height: "100%", objectFit: "cover" }}
+          ></img>
         </Avatar>
       </div>
       <div className={classes.root}>

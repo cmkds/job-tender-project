@@ -14,7 +14,11 @@ import SearchIcon from "@mui/icons-material/Search";
 
 export default function CustomizedInputBase() {
   const navigate = useNavigate();
-
+  useEffect(() => {
+    if (!sessionStorage.getItem("loginUser")) {
+      navigate("/");
+    }
+  });
   const [users, setUsers] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [copy, setCopy] = useState([]);

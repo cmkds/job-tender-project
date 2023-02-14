@@ -124,12 +124,12 @@ const CommentItem = ({
   };
 
   // @@@@@@@@@@@@@@@@
-  const loginUser = 1;
+  const loginUser = sessionStorage.getItem("loginUser");
 
   return (
     <div>
       {/* 로그인 유저 */}
-      {loginUser === memberSeq && (
+      {parseInt(loginUser) === memberSeq && (
         <div>
           <Modal open={open} onClose={handleClose}>
             {/* 아래 코드가 모달창 코드 */}

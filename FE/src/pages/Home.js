@@ -32,9 +32,10 @@ const Home = () => {
 
   const navigate = useNavigate();
   const state = 1;
-  const CLIENT_ID = "DJ94WWgE_wFepnxDsIQa"; // 호성이꺼
+  // const CLIENT_ID = "DJ94WWgE_wFepnxDsIQa"; // 호성이꺼
+  const CLIENT_ID = "1cdhp17WpXR_m9BDcOcE"; // 호성이 새로운거
   // const CLIENT_ID = "XxdvqpScfLYk66JOWwTB"; // 내꺼
-  const redirectURI = "http://localhost:3000/sign-up";
+  const redirectURI = "http://localhost:3000/naver";
   const naverLogin = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${CLIENT_ID}&redirect_uri=${redirectURI}&state=${state}`;
   // const [clicked, setClicked] = useState(false);
 

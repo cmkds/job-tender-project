@@ -1,5 +1,5 @@
 import { useParams, useNavigate } from "react-router-dom";
-
+import { useEffect } from "react";
 import "../App.css";
 import NavBar from "../components/NavBar";
 // import MyButton from "../components/MyButton";
@@ -11,6 +11,13 @@ import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 const Comment = () => {
   // const { id } = useParams();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!sessionStorage.getItem("loginUser")) {
+      navigate("/");
+    }
+  });
+
   return (
     <div>
       <NavBar

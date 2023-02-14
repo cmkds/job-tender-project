@@ -144,7 +144,7 @@ const SignUp = () => {
     <div>
       <TopBar></TopBar>
       회원가입 정보등록 페이지
-      <PushImage />
+      {/* <PushImage /> */}
       <Card
         sx={{
           maxWidth: "70%",

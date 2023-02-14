@@ -13,6 +13,14 @@ import { Tab } from "@mui/material";
 const { kakao } = window;
 
 const Map = () => {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!sessionStorage.getItem("loginUser")) {
+      navigate("/");
+    }
+  });
+
   const locationInfo = [
     {
       name: "서울",
@@ -67,7 +75,7 @@ const Map = () => {
       </Container>
     );
   };
-  const navigate = useNavigate();
+
   const [select, setSelect] = useState(null);
   const [selectNo, setSelectNo] = useState(0);
   const positions = [

@@ -24,9 +24,9 @@ export default function ButtonAppBar() {
     right: auto;
     margin: auto;
   `;
-
+  const loginUser = sessionStorage.getItem("loginUser");
   //
-  const loginCheck = false;
+  const loginCheck = !(sessionStorage.getItem("loginUser") === null);
   const topButton = () => {
     if (loginCheck) {
       navigate("/main/hot/0");
@@ -62,6 +62,19 @@ export default function ButtonAppBar() {
             <PersonSearchIcon
               sx={{ color: "white", fontSize: "150%" }}
             ></PersonSearchIcon>
+          </IconButton>
+
+          {/* 유저 프로필 가져오기 해야함 */}
+          <IconButton
+            sx={{ position: "absolute", right: "5%" }}
+            // navigate 설정 userId로
+            onClick={() => navigate(`/user/${loginUser}`)}
+          >
+            <Avatar sx={{ color: "white", fontSize: "150%" }}>
+              {loginCheck && <img src="assets/profile.png" alt=""></img>}
+
+              {/* 여기에 유저 프로필 이미지가 들어가야함 */}
+            </Avatar>
           </IconButton>
         </Toolbar>
       </MyAppBar>
