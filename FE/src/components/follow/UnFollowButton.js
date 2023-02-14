@@ -30,7 +30,7 @@ const UnFollowButton = ({ id, change }) => {
   // console.log(id, change);
   // 여기에 버튼 누르면 언팔로우 하도록 한다음에
 
-  const loginUser = 1;
+  const loginUser = sessionStorage.getItem("loginUser");
   // 상위 태그
 
   const unFollow = () => {

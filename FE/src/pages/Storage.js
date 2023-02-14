@@ -1,6 +1,6 @@
 // /storage
 // 기본 스토리지
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate, Routes, Route } from "react-router-dom";
 
 import NavBar from "../components/NavBar";
@@ -76,6 +76,11 @@ const dummyData = [
 
 const Storage = () => {
   const navigate = useNavigate();
+  useEffect(() => {
+    if (!sessionStorage.getItem("loginUser")) {
+      navigate("/");
+    }
+  });
   const [storageData, setStorageData] = useState(dummyData);
 
   // console.log(storageData);

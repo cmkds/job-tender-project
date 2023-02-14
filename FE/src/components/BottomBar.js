@@ -15,6 +15,7 @@ export default function FixedBottomNavigation() {
   const [value, setValue] = useState(null);
   const ref = useRef(null);
   const navigate = useNavigate();
+  const loginUser = sessionStorage.getItem("loginUser");
   return (
     <Box sx={{ pb: 7 }} ref={ref}>
       <CssBaseline />
@@ -39,7 +40,7 @@ export default function FixedBottomNavigation() {
         >
           <BottomNavigationAction
             onClick={() => {
-              navigate("/feed/:id");
+              navigate(`/feed/${loginUser}`);
             }}
             icon={<MailOutlineIcon />}
           />

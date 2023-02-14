@@ -52,7 +52,8 @@ const UserMain = () => {
   const navigate = useNavigate();
 
   //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-  const loginUser = 1;
+  const loginUser = sessionStorage.getItem("loginUser");
+  // console.log(loginUser)
   const [followCheck, setFollowCheck] = useState(true);
   const [followButton, setFollowButton] = useState(followCheck);
   useEffect(() => {
@@ -200,7 +201,7 @@ const UserMain = () => {
         </Grid>
         {/*로그인한 사람과 해당 페이지 유저가 같으면 팔로우 버튼 표시 안함  */}
 
-        {loginUser === parseInt(params.user) ? (
+        {loginUser === params.user ? (
           <Grid item xs={3} />
         ) : followButton ? (
           <Grid item xs={3}>

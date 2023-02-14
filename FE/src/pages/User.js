@@ -4,14 +4,22 @@
 // 로그인 유저와 동일 할 시 마이 피드 페이지
 // 아니면 일반 개인 피드 페이지
 import React from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 
 import Follower from "./user/Follower";
 import Following from "./user/Following";
 import UserPost from "./user/UserPost";
 import UserMain from "./user/UserMain";
+import { useEffect } from "react";
 
 const User = () => {
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (!sessionStorage.getItem("loginUser")) {
+      navigate("/");
+    }
+  });
+
   return (
     <div>
       <Routes>

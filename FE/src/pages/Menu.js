@@ -5,9 +5,14 @@ import MenuBar from "../components/MenuBar";
 // import MyButton from "../components/MyButton";
 
 import TopBar from "../components/TopBar";
-
+import { useEffect } from "react";
 const Menu = () => {
   const navigate = useNavigate();
+  useEffect(() => {
+    if (!sessionStorage.getItem("loginUser")) {
+      navigate("/");
+    }
+  });
   return (
     <div>
       <TopBar />

@@ -2,8 +2,8 @@
 // 메인 페이지
 // 없을시 디폴트 값은 전국, 핫
 // import React, { useEffect, useReducer, useRef, useState } from "react";
-import { Routes, Route } from "react-router-dom";
-
+import { Routes, Route, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 import TopBar from "../components/TopBar";
 import MainAll from "./main/MainAll";
 // import MainAllHot from "./main/MainAllHot";
@@ -14,6 +14,12 @@ import MainAll from "./main/MainAll";
 // import NewHotButton from "../components/main/NewHotButton";
 
 const Main = () => {
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (!sessionStorage.getItem("loginUser")) {
+      navigate("/");
+    }
+  });
   return (
     <div>
       <TopBar />

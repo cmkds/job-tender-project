@@ -1,13 +1,19 @@
 // /menual
 // 로그 박스 사용밥법 페이지
 import { useNavigate } from "react-router-dom";
-
+import { useEffect } from "react";
 import NavBar from "../components/NavBar";
 
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 
 const Menual = () => {
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!sessionStorage.getItem("loginUser")) {
+      navigate("/");
+    }
+  });
   return (
     <div>
       <NavBar

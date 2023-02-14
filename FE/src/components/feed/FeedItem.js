@@ -13,7 +13,7 @@ import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
 
 const FeedItem = (feed) => {
   //로그인 유저 정보  이거 나중에 바꿔야함.
-  const loginUser = 1;
+  const loginUser = sessionStorage.getItem("loginUser");
 
   const navigate = useNavigate();
 

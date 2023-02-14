@@ -8,15 +8,22 @@ import FeedList from "../components/feed/FeedList";
 
 const Feed = () => {
   const navigate = useNavigate();
-  const userId = 1;
+
+  useEffect(() => {
+    if (!sessionStorage.getItem("loginUser")) {
+      navigate("/");
+    }
+  });
+
+  const loginUser = sessionStorage.getItem("loginUser");
   const params = {
-    memberSeq: userId,
+    memberSeq: loginUser,
   };
   const [feedsData, setFeedsData] = useState([]);
 
   // 로그인한 유저 아이디
   useEffect(() => {
-    axios.get(`/api/social/${userId}`, { params }).then(function (response) {
+    axios.get(`/api/social/${loginUser}`, { params }).then(function (response) {
       setFeedsData(response.data);
     });
   }, []);

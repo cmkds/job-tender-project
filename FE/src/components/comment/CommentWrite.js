@@ -23,10 +23,18 @@ const CommentWrite = () => {
   const [commentData, setCommentData] = useState([]);
   const paramFeed = useParams().feedId;
   const [change, setChange] = useState(0);
-
+  const loginUser = sessionStorage.getItem("loginUser");
   const moveChange = () => {
     setChange(change + 1);
   };
+  const [profileImg, setProfileImg] = useState("");
+
+  useEffect(() => {
+    axios.get(`/api/account/${loginUser}`).then(function (response) {
+      // console.log(response.data.memberProfile);
+      setProfileImg(response.data.memberProfile);
+    });
+  });
   //
   const handleChangeState = (e) => {
     setState(e.target.value);
@@ -42,7 +50,7 @@ const CommentWrite = () => {
     const data = {
       content: state,
       feedSeq: params.feedId,
-      memberSeq: 1,
+      memberSeq: loginUser,
     };
 
     axios
@@ -83,12 +91,15 @@ const CommentWrite = () => {
         }}
       >
         {/* 로그인한 유저의 이미지 */}
-        <IconButton
-          sx={{ p: "10px", bgcolor: "white", m: 1 }}
+        {/* <IconButton */}
+        {/* sx={{ p: "10px", bgcolor: "white", m: 1 }}
           aria-label="profile"
-        >
-          <Avatar src={process.env.PUBLIC_URL + `/assets/logo.png`}></Avatar>
-        </IconButton>
+        > */}
+        <Avatar
+          src={profileImg}
+          alt={process.env.PUBLIC_URL + `/assets/logo.png`}
+        ></Avatar>
+        {/* </IconButton> */}
         {/* 댓글 작성 및 게시 */}
         <InputBase
           sx={{

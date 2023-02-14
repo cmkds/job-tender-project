@@ -19,7 +19,7 @@ const Following = () => {
   const navigate = useNavigate();
   const params = useParams();
   //@@@@
-  const loginUser = 1;
+  const loginUser = sessionStorage.getItem("loginUser");
   const [change, setChange] = useState(0);
   const moveChange = () => {
     setChange(change + 1);
@@ -42,7 +42,7 @@ const Following = () => {
         leftChild={<ArrowBackIosNewIcon onClick={() => navigate(-1)} />}
       />
       {followingList.length ? (
-        loginUser === parseInt(params.user) ? (
+        loginUser === params.user ? (
           <span>
             {followingList.map((it) => (
               <UnFollowButton
