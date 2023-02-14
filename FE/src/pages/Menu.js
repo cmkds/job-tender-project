@@ -49,6 +49,13 @@ const Menu = () => {
       >
         <MenuBar leftChild={"로그박스 위치"} rightChild={">"} />
       </div>
+      <div
+        onClick={() => {
+          navigate("/edit");
+        }}
+      >
+        <MenuBar leftChild={"회원 정보 수정"} rightChild={">"} />
+      </div>
     </div>
   );
 };
