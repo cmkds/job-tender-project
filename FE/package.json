@@ -59,6 +59,5 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "",
-  "proxy": "https://codegear-react-file-upload-test-bucket.s3"
+  "description": ""
 }

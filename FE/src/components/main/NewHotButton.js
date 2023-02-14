@@ -34,7 +34,7 @@ export default function FloatingActionButtons() {
               fontFamily: "GangwonEduAll",
               fontSize: "30px",
               fontWeight: "600",
-              marginBottom: "10%",
+              marginTop: "10%",
               color: "#201F1F",
             }}
           >
@@ -55,7 +55,7 @@ export default function FloatingActionButtons() {
               fontFamily: "GangwonEduAll",
               fontSize: "30px",
               fontWeight: "600",
-              marginBottom: "10%",
+              marginTop: "10%",
               color: "#201F1F",
             }}
           >

@@ -58,75 +58,43 @@ import Button from "@mui/material/Button";
 import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
 import SwipeableViews from "react-swipeable-views";
-import KeyboardDoubleArrowDownRoundedIcon from "@mui/icons-material/KeyboardDoubleArrowDownRounded";
 
 const images = [
   {
-    label: "logbox는 여행지에서의 소중한 추억을",
+    label: "여행지에서의 행복한 기억을",
     imgPath: "assets/logbox/travel2.jpg",
   },
   {
-    label: "어쩌구 저쩌구",
+    label: "특별하게 간직하는 방법 !",
     imgPath: "assets/logbox/travel3.jpg",
   },
   {
-    label: "우리 팀원 다같이 멘트 짜주기",
+    label: "사진으로만 남기긴 아쉽지 않았나요?",
     imgPath: "assets/logbox/memorize.jpg",
   },
   {
-    label: "약속~~~",
+    label: "나만의 엽서를 만들어 미래로 선물하세요",
     imgPath: "assets/logbox/post.jpg",
   },
-];
-
-const images1 = [
   {
-    label: "logbox는 여행지에서의 소중한 추억을",
-    imgPath: "assets/logbox/custom1.jpg",
+    label: "엽서 프레임을 선택하고, 글과 그림을 추가할 수 있습니다",
+    imgPath: "assets/logbox/custom_collection.jpg",
   },
   {
-    label: "어쩌구 저쩌구",
-    imgPath: "assets/logbox/custom2.jpg",
-  },
-  {
-    label: "우리 팀원 다같이 멘트 짜주기",
-    imgPath: "assets/logbox/custom3.jpg",
-  },
-  {
-    label: "약속~~~",
-    imgPath: "assets/logbox/custom4.jpg",
-  },
-  {
-    label: "꼭이요~~~~",
+    label: "내 엽서를 logbox 웹을 이용하여 다른 사람들과 공유할 수 있습니다",
     imgPath: "assets/logbox/share.jpg",
   },
   {
-    label: "꼭이요~~~~",
+    label: "지역별 인기 게시물을 확인할 수 있습니다",
     imgPath: "assets/logbox/share2.jpg",
   },
-];
-
-const images2 = [
   {
-    label: "logbox는 여행지에서의 소중한 추억을",
-    imgPath: "assets/logbox/travel2.jpg",
-  },
-  {
-    label: "어쩌구 저쩌구",
-    imgPath: "assets/logbox/travel3.jpg",
-  },
-  {
-    label: "우리 팀원 다같이 멘트 짜주기",
-    imgPath: "assets/logbox/photocard.jpg",
-  },
-  {
-    label: "약속~~~",
-    imgPath: "assets/logbox/post.jpg",
+    label: "당신의 소중한 추억을 logbox로 오래 간직하세요",
+    imgPath: "assets/logbox/memorized.jpg",
   },
 ];
 
 function SwipeableTextMobileStepper() {
-  const myRef = useRef(null);
   const theme = useTheme();
   const [activeStep, setActiveStep] = useState(0);
   const maxSteps = images.length;
@@ -143,14 +111,9 @@ function SwipeableTextMobileStepper() {
     setActiveStep(step);
   };
 
-  const scrollToElement = () => {
-    setActiveStep(0);
-    myRef.current.scrollToElement();
-  };
-
   return (
     <div>
-      <Box sx={{ width: "100vw", height: "100vh" }}>
+      <Box sx={{ width: "100vw", height: "100vh", flexGrow: 1 }}>
         <TopBar></TopBar>
         <MobileStepper
           steps={maxSteps}
@@ -190,8 +153,8 @@ function SwipeableTextMobileStepper() {
           enableMouseEvents
         >
           {images.map((step, index) => (
-            <div key={step.label}>
-              {Math.abs(activeStep - index) <= 2 ? (
+            <div key={step.label} style={{ margin: "1%" }}>
+              {activeStep < maxSteps - 1 ? (
                 <Box
                   component="img"
                   sx={{
@@ -200,24 +163,81 @@ function SwipeableTextMobileStepper() {
                     overflow: "hidden",
                     width: "100%",
                     objectFit: "cover",
+                    borderRadius: "10px",
                   }}
                   src={step.imgPath}
                   alt={step.label}
                 />
-              ) : null}
+              ) : (
+                <div>
+                  <Box
+                    component="img"
+                    sx={{
+                      height: "40vh",
+                      display: "block",
+                      overflow: "hidden",
+                      width: "100%",
+                      objectFit: "cover",
+                      borderRadius: "10px",
+                    }}
+                    src={step.imgPath}
+                    alt={step.label}
+                  />
+                  <Box
+                    sx={{
+                      height: "40vh",
+                      marginTop: "10%",
+                      width: "100%",
+                    }}
+                  >
+                    <Box
+                      sx={{
+                        height: "20%",
+                        display: "block",
+                        overflow: "hidden",
+                        width: "80%",
+                        objectFit: "cover",
+                        borderRadius: "10px",
+                      }}
+                    >
+                      <Button
+                        sx={
+                          {
+                            // display: "flex",
+                            // margin: "auto",
+                            // position: "absolute",
+                            // left: "50%",
+                            // top: "85%",
+                            // transform: "translate(-50%, -50%)",
+                            // width: "80%",
+                          }
+                        }
+                        onClick={() => {}}
+                      >
+                        <img
+                          src={process.env.PUBLIC_URL + `assets/naverLogin.png`}
+                          alt="naver"
+                          style={{ width: "80%", objectFit: "fill" }}
+                        ></img>
+                      </Button>
+                    </Box>
+                  </Box>
+                </div>
+              )}
             </div>
           ))}
         </SwipeableViews>
 
         <Paper
           square
-          elevation={-1}
+          elevation={0}
           sx={{
             display: "flex",
             height: "10vh",
             pl: 2,
             bgcolor: "background.default",
             wordBreak: "keep-all",
+            marginTop: "5%",
           }}
         >
           <div
@@ -232,123 +252,6 @@ function SwipeableTextMobileStepper() {
             {images[activeStep].label}
           </div>
         </Paper>
-        {activeStep === 3 ? (
-          <div className="arrow-icon">
-            <i className="fas fa-arrow-right">
-              <KeyboardDoubleArrowDownRoundedIcon
-                sx={{ fontSize: "100px", color: "grey", width: "100vw" }}
-                onClick={scrollToElement}
-              />
-            </i>
-          </div>
-        ) : null}
-      </Box>
-      <Box sx={{ width: "100vw", height: "100vh" }} ref={myRef}>
-        <MobileStepper
-          steps={maxSteps}
-          position="static"
-          activeStep={activeStep}
-          nextButton={
-            <Button
-              size="small"
-              onClick={handleNext}
-              disabled={activeStep === maxSteps - 1}
-            >
-              {theme.direction === "rtl" ? (
-                <KeyboardArrowLeft />
-              ) : (
-                <KeyboardArrowRight />
-              )}
-            </Button>
-          }
-          backButton={
-            <Button
-              size="small"
-              onClick={handleBack}
-              disabled={activeStep === 0}
-            >
-              {theme.direction === "rtl" ? (
-                <KeyboardArrowRight />
-              ) : (
-                <KeyboardArrowLeft />
-              )}
-            </Button>
-          }
-        />
-        <SwipeableViews
-          axis={theme.direction === "rtl" ? "x-reverse" : "x"}
-          index={activeStep}
-          onChangeIndex={handleStepChange}
-          enableMouseEvents
-        >
-          {images1.map((step, index) => (
-            <div key={step.label}>
-              {Math.abs(activeStep - index) <= 2 ? (
-                <Box
-                  component="img"
-                  sx={{
-                    height: "60vh",
-                    display: "block",
-                    overflow: "hidden",
-                    width: "100%",
-                    objectFit: "cover",
-                  }}
-                  src={step.imgPath}
-                  alt={step.label}
-                />
-              ) : null}
-            </div>
-          ))}
-        </SwipeableViews>
-        <Paper
-          square
-          elevation={0}
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            justifyitem: "center",
-            height: "10vh",
-            pl: 2,
-            bgcolor: "background.default",
-            wordBreak: "keep-all",
-          }}
-        >
-          <div
-            style={{
-              fontSize: 25,
-              display: "flex",
-              margin: "auto",
-              marginTop: "3%",
-              textAlign: "center",
-            }}
-          >
-            {images1[activeStep].label}
-          </div>
-        </Paper>
-        {activeStep === 3 ? (
-          <div className="arrow-icon">
-            <i className="fas fa-arrow-right">
-              <KeyboardDoubleArrowDownRoundedIcon
-                sx={{ fontSize: "100px", color: "grey", width: "100vw" }}
-              />
-            </i>
-          </div>
-        ) : null}
-      </Box>
-      <Box sx={{ width: "100vw", height: "100vh" }} ref={myRef}>
-        <Box
-          component="img"
-          sx={{
-            height: "50vh",
-            display: "block",
-            maxWidth: 400,
-            overflow: "hidden",
-            width: "100%",
-            objectFit: "cover",
-          }}
-          src="assets/logbox/memorized.jpg"
-          alt=""
-        />
       </Box>
     </div>
   );
