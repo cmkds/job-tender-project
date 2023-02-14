@@ -21,6 +21,7 @@ import SignUp from "./pages/SignUp";
 import BottomBar from "./components/BottomBar";
 import Search from "./pages/Search";
 import NaverLogin from "./pages/NaverLogin";
+import Edit from "./pages/Edit";
 
 import { makeStyles } from "@material-ui/core/styles";
 import { createTheme } from "@material-ui/core/styles";
@@ -70,6 +71,7 @@ function App() {
               <Route path="/search" element={<Search />}></Route>
               {/* <Route path="/download/*" element={<Download />}></Route> */}
               <Route path="/naver" element={<NaverLogin />}></Route>
+              <Route path="/edit" element={<Edit />}></Route>
               {/* <Route path="/search" element={<Search />}></Route> */}
             </Routes>
             <BottomBar />

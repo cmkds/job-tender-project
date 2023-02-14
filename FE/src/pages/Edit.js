@@ -21,29 +21,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const NaverLogin = () => {
-  const param = new URLSearchParams(window.location.search);
+const Edit = () => {
   const navigate = useNavigate();
-  const CODE = param.get("code");
-  const [userId, setUserId] = useState();
-  useEffect(() => {
-    axios
-      .get(`/api/account/naver?code=${CODE}&state=1`)
-      .then(function (response) {
-        console.log("aaaaaaaaaaaa");
-        console.log(response.data);
-        setUserId(response.data.memberSeq);
-        console.log(response.data.nickname);
-        if (!(response.data.nickname === "empty")) {
-          sessionStorage.setItem("loginUser", response.data.memberSeq);
-
-          navigate(`/main/hot/0`);
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
+  const loginUser = sessionStorage.getItem("loginUser");
 
   //커서 움직이는 용
   const nicknameInput = useRef();
@@ -51,10 +31,23 @@ const NaverLogin = () => {
 
   const [state, setState] = useState({
     memberProfile: "",
-    // preview_URL: "/assets/unknown.png",
     nickname: "",
     memberState: "",
   });
+  useEffect(() => {
+    axios.get(`/api/account/${loginUser}`).then(function (response) {
+      setState({
+        memberProfile: response.data.memberProfile,
+        // memberProfile:
+        //   "https://xsgames.co/randomusers/assets/avatars/pixel/1.jpg",
+        nickname: response.data.nickname,
+        memberState: response.data.nickname,
+      });
+    });
+  }, []);
+
+  // console.log();
+
   // 값 변화 확인용
   const handleChangeState = (e) => {
     setState({
@@ -63,13 +56,13 @@ const NaverLogin = () => {
     });
   };
   // image 파일
-  useEffect(() => {
-    const imageNum = Math.floor(Math.random() * 52 + 1);
-    setState({
-      ...state,
-      memberProfile: `https://xsgames.co/randomusers/assets/avatars/pixel/${imageNum}.jpg`,
-    });
-  }, []);
+  // useEffect(() => {
+  //   const imageNum = Math.floor(Math.random() * 52 + 1);
+  //   setState({
+  //     ...state,
+  //     memberProfile: `https://xsgames.co/randomusers/assets/avatars/pixel/${imageNum}.jpg`,
+  //   });
+  // }, []);
 
   // 받은 파라미터 쿼리 값으로 보내서
   // api 데이터 가져오고
@@ -77,9 +70,8 @@ const NaverLogin = () => {
   // 회원 정보 추가입력 하도록함.
   // sign Up 페이지에서 추가 정보 입력 하도록 함.
   //
-  console.log(state);
 
-  const signUp = () => {
+  const editUp = () => {
     axios
       .get(`/api/account/nickname/${state.nickname}`)
       .then(function (response) {
@@ -87,18 +79,19 @@ const NaverLogin = () => {
           alert("중복된 닉네임 입니다. 다른 닉네임을 입력해 주세요.");
           return;
         } else {
-          axios.put(`/api/account/${userId}`, state).then(function (response) {
-            console.log(response.data);
+          axios
+            .put(`/api/account/${loginUser}`, state)
+            .then(function (response) {
+              console.log(response.data);
 
-            sessionStorage.setItem("loginUser", userId);
-            navigate("/main/hot/0");
-          });
+              navigate("/main/hot/0");
+            });
         }
       });
   };
   return (
     <div>
-      네이버 로그인 완료 화면
+      회원정보 수정 화면
       <Card
         sx={{
           maxWidth: "70%",
@@ -155,10 +148,10 @@ const NaverLogin = () => {
             marginBottom: "10%",
             marginTop: "10%",
           }}
-          onClick={signUp}
+          onClick={editUp}
         >
           <p style={{ fontSize: "150%", fontFamily: "GangwonEduAll" }}>
-            가입하기
+            회원정보 수정하기
           </p>
         </Button>
       </Card>
@@ -166,4 +159,4 @@ const NaverLogin = () => {
   );
 };
 
-export default NaverLogin;
+export default Edit;
