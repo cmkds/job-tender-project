@@ -17,4 +17,5 @@ public interface StoreService {
     List<StoreDTO> getStoreByMemberSeq(long memberSeq);
 
     void deleteStoreByMemberSeq(long memberSeq);
+    StoreDTO getStoreByMachineDataSeq(long machineDataSeq);
 }

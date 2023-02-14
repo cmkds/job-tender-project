@@ -457,21 +457,26 @@ public class PJTController {
         return ResponseEntity.status(HttpStatus.OK).body(rFeedDTOs);
     }
 
-    @GetMapping("/mypage/photo/{feedSeq}")
-    public ResponseEntity<String> getPhoto(@PathVariable("feedSeq") long memberSeq){
-        String url = storeService.getStore(memberSeq).getPhoto();
+
+    //
+    @GetMapping("/mypage/photo/{machineDataSeq}")
+    public ResponseEntity<String> getPhotoByMachineDataSeq(@PathVariable("machineDataSeq") long machineDataSeq){
+        String url = storeService.getStoreByMachineDataSeq(machineDataSeq).getPhoto();
 
         return ResponseEntity.status(HttpStatus.OK).body(url);
     }
-    @GetMapping("/mypage/video/{feedSeq}")
-    public ResponseEntity<String> getVideo(@PathVariable("feedSeq") long memberSeq){
-        String url = storeService.getStore(memberSeq).getVideo();
+
+
+    @GetMapping("/mypage/video/{machineDataSeq}")
+    public ResponseEntity<String> getVideoByMachineDataSeq(@PathVariable("machineDataSeq") long machineDataSeq){
+        String url = storeService.getStoreByMachineDataSeq(machineDataSeq).getVideo();
 
         return ResponseEntity.status(HttpStatus.OK).body(url);
     }
-    @GetMapping("/mypage/post/{feedSeq}")
-    public ResponseEntity<String> getPost(long memberSeq){
-        String url = storeService.getStore(memberSeq).getPost();
+
+    @GetMapping("/mypage/post/{machineDataSeq}")
+    public ResponseEntity<String> getPostByMachineDataSeq(@PathVariable("machineDataSeq")long machineDataSeq){
+        String url = storeService.getStoreByMachineDataSeq(machineDataSeq).getPost();
 
         return ResponseEntity.status(HttpStatus.OK).body(url);
     }
@@ -555,8 +560,10 @@ public class PJTController {
         String name = (String)memberDTO.getResponse().get("name");
 
         // if data exist
-        if (memberService.findMemberByEmailReturnBool(email))
-            return null;
+        if (memberService.findMemberByEmailReturnBool(email)){
+            return ResponseEntity.status(HttpStatus.OK).body(memberService.findMemberByEmail(email));
+        }
+
 
         // add to DB
         MemberInputDTO memberInputDTO = new MemberInputDTO();
@@ -570,53 +577,5 @@ public class PJTController {
         return ResponseEntity.status(HttpStatus.OK).body(rMemberDto);
     }
 
-    public HttpEntity<MultiValueMap<String, String>> generateAuthCodeRequest(String code, String state){
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
 
-        MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
-
-        params.add("grant_type", "authorization_code");
-        params.add("client_id", "1cdhp17WpXR_m9BDcOcE");
-        params.add("client_secret", "z5jEYpcFLE");
-        params.add("code", code);
-        params.add("state", state);
-
-        return new HttpEntity<>(params, headers);
-    }
-
-    private ResponseEntity<String> requestAccessToken(HttpEntity request){
-        RestTemplate restTemplate = new RestTemplate();
-        restTemplate.setRequestFactory(new HttpComponentsClientHttpRequestFactory());
-        restTemplate.setErrorHandler(new OAuthRestTemplateErrorHandler());
-
-
-
-        return restTemplate.exchange(
-                "https://nid.naver.com/oauth2.0/token",
-                HttpMethod.POST,
-                request,
-                String.class
-        );
-    }
-
-    public ResponseEntity<String> requestProfile(HttpEntity request){
-        RestTemplate restTemplate = new RestTemplate();
-        restTemplate.setRequestFactory(new HttpComponentsClientHttpRequestFactory());
-        restTemplate.setErrorHandler(new OAuthRestTemplateErrorHandler());
-
-        return restTemplate.exchange(
-                "https://openapi.naver.com/v1/nid/me",
-                HttpMethod.POST,
-                request,
-                String.class
-        );
-    }
-
-    public HttpEntity<MultiValueMap<String, String>> generateProfileRequest(String accessToken){
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("Authorization", "Bearer " + accessToken);
-        headers.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
-        return new HttpEntity<>(headers);
-    }
 }

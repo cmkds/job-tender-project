@@ -28,4 +28,6 @@ public interface MemberService {
     List<MemberDTO> getMemberAll();
 
     MemberDTO insertMemberByNaver(MemberInputDTO memberInputDTO) throws Exception;
+
+    MemberDTO findMemberByEmail(String email);
 }

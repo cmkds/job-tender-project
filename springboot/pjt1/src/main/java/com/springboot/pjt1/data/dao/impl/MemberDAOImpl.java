@@ -120,4 +120,9 @@ public class MemberDAOImpl implements MemberDAO {
         return memberRepository.findByEmail(email).isPresent();
     }
 
+    @Override
+    public Member SelectMemberByEmail(String email) {
+        return memberRepository.findByEmail(email).get();
+    }
+
 }

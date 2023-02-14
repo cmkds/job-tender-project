@@ -123,4 +123,20 @@ public class StoreServiceImpl implements StoreService {
     public void deleteStoreByMemberSeq(long memberSeq) {
         storeDAO.DeleteStoreByMemberSeq(memberSeq);
     }
+
+    @Override
+    public StoreDTO getStoreByMachineDataSeq(long machineDataSeq) {
+        Store store = storeDAO.SelectStoreByMachineDataSeq(machineDataSeq);
+        StoreDTO storeDTO = new StoreDTO();
+
+        storeDTO.setStoreSeq(store.getStoreSeq());
+        storeDTO.setPost(store.getPost());
+        storeDTO.setPhoto(store.getPhoto());
+        storeDTO.setVideo(store.getVideo());
+        storeDTO.setVoice(store.getVoice());
+        storeDTO.setCreateTime(store.getCreateTime());
+        storeDTO.setRecentTime(store.getRecentTime());
+
+        return storeDTO;
+    }
 }

@@ -20,4 +20,6 @@ public interface MemberDAO {
     List<Member> InsertMembers(List<Member> members);
 
     boolean findMemberByEmailReturnBool(String email);
+
+    Member SelectMemberByEmail(String email);
 }

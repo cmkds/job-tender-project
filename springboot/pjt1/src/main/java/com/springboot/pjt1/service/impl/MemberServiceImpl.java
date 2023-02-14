@@ -296,5 +296,25 @@ public class MemberServiceImpl implements MemberService {
         return rMemberDTO;
     }
 
+    @Override
+    public MemberDTO findMemberByEmail(String email) {
+        Member member = memberDAO.SelectMemberByEmail(email);
+        MemberDTO memberDTO = new MemberDTO();
+
+        memberDTO.setMemberProfile(member.getMemberProfile());
+        memberDTO.setMemberState(member.getMemberState());
+        memberDTO.setMemberSeq(member.getMemberSeq());
+        memberDTO.setCreateTime(member.getCreateTime());
+        memberDTO.setAddrSpec(member.getAddrSpec());
+        memberDTO.setAddrBase(member.getAddrBase());
+        memberDTO.setNickname(member.getNickname());
+        memberDTO.setIsAdmin(member.getIsAdmin());
+        memberDTO.setEmail(member.getEmail());
+        memberDTO.setModifyTime(member.getModifyTime());
+        memberDTO.setName(member.getName());
+
+        return memberDTO;
+    }
+
 
 }
