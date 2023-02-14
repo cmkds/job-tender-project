@@ -1,6 +1,8 @@
 //상단바
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+
+import axios from "axios";
 
 import styled from "@emotion/styled";
 import AppBar from "@mui/material/AppBar";
@@ -34,7 +36,14 @@ export default function ButtonAppBar() {
       navigate("/");
     }
   };
+  const [profileImg, setProfileImg] = useState("");
 
+  useEffect(() => {
+    axios.get(`/api/account/${loginUser}`).then(function (response) {
+      // console.log(response.data.memberProfile);
+      setProfileImg(response.data.memberProfile);
+    });
+  });
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -65,17 +74,6 @@ export default function ButtonAppBar() {
           </IconButton>
 
           {/* 유저 프로필 가져오기 해야함 */}
-          <IconButton
-            sx={{ position: "absolute", right: "5%" }}
-            // navigate 설정 userId로
-            onClick={() => navigate(`/user/${loginUser}`)}
-          >
-            <Avatar sx={{ color: "white", fontSize: "150%" }}>
-              {loginCheck && <img src="assets/profile.png" alt=""></img>}
-
-              {/* 여기에 유저 프로필 이미지가 들어가야함 */}
-            </Avatar>
-          </IconButton>
         </Toolbar>
       </MyAppBar>
       <IconButton
@@ -86,7 +84,13 @@ export default function ButtonAppBar() {
         onClick={handleClick}
         sx={{ position: "fixed", right: "3%", zIndex: "1300", top: "1%" }}
       >
-        <Avatar></Avatar>
+        <Avatar>
+          <img
+            src={profileImg}
+            alt=""
+            style={{ width: "100%", height: "100%", objectFit: "cover" }}
+          ></img>
+        </Avatar>
       </IconButton>
       <Menu
         id="basic-menu"
@@ -98,7 +102,7 @@ export default function ButtonAppBar() {
         }}
       >
         <MenuItem
-          onClick={handleClose}
+          onClick={() => navigate(`/user/${loginUser}`)}
           sx={{ fontFamily: "GangwonEduAll", alignContent: "end" }}
         >
           마이페이지
