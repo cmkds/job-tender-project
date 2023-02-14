@@ -33,7 +33,7 @@ const NaverLogin = () => {
         console.log("aaaaaaaaaaaa");
         console.log(response.data);
         setUserId(response.data.memberSeq);
-        if (response.data.nickname) {
+        if (!(response.data.nickname === null)) {
           sessionStorage.setItem("loginUser", response.data.memberSeq);
 
           navigate(`/main/hot/0`);
