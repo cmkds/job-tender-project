@@ -5,7 +5,6 @@ import { useNavigate, useParams } from "react-router-dom";
 
 import axios from "axios";
 
-// import { UserStateContext } from "../../pages/User";
 import NavBar from "../../components/NavBar";
 import Profile from "../../components/Profile";
 import UnFollowButton from "../../components/follow/UnFollowButton";
@@ -24,8 +23,6 @@ const Following = () => {
   const moveChange = () => {
     setChange(change + 1);
   };
-  console.log(change);
-  // const userData = useContext(UserStateContext)[0][0];
 
   const [followingList, setFollowingList] = useState([]);
   // 팔로잉 가져오기
@@ -34,7 +31,6 @@ const Following = () => {
       setFollowingList(response.data);
     });
   }, [followingList.length, change]);
-  console.log(followingList);
   return (
     <div>
       <NavBar
@@ -62,13 +58,6 @@ const Following = () => {
       ) : (
         <span>팔로잉 유저가 없습니다.</span>
       )}
-      {/* 로그인 유저와 해당 페이지의 유저가 같다면은 unFollowButton 컴포넌트,  아니면 그냥 프로필 컴포넌트 */}
-
-      {/* {followingList.map((it) => (
-          <UnFollowButton key={it.memberSeq} id={it.memberSeq} />
-          
-          ))}
-          <Profile key={it.memberSeq} id={it.memberSeq} /> */}
     </div>
   );
 };

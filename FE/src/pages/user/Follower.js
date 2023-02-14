@@ -4,7 +4,6 @@ import { useNavigate, useParams } from "react-router-dom";
 
 import axios from "axios";
 
-// import { UserStateContext } from "../../pages/User";
 import NavBar from "../../components/NavBar";
 import Profile from "../../components/Profile";
 // import FollowerList from "../../components/follow/FollowerList";
@@ -17,7 +16,6 @@ const Follower = () => {
   const navigate = useNavigate();
   const params = useParams();
 
-  // const userData = useContext(UserStateContext)[0][0];
   const [followerList, setFollowerList] = useState([]);
 
   useEffect(() => {

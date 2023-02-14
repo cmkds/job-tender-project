@@ -89,8 +89,6 @@ const Edit = () => {
           axios
             .put(`/api/account/${loginUser}`, state)
             .then(function (response) {
-              console.log(response.data);
-
               navigate("/main/hot/0");
             });
         }

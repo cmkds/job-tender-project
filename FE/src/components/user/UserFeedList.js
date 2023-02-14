@@ -25,7 +25,6 @@ const UserFeedList = () => {
         {userFeedData.map((it) => (
           <ImageListItem
             key={it.feedSeq}
-            // {...it}
             onClick={() =>
               navigate(`/user/${params.user}/${it.feedSeq}`, {
                 state: { ...it },

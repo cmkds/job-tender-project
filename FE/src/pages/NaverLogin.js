@@ -30,10 +30,7 @@ const NaverLogin = () => {
     axios
       .get(`/api/account/naver?code=${CODE}&state=1`)
       .then(function (response) {
-        console.log("aaaaaaaaaaaa");
-        console.log(response.data);
         setUserId(response.data.memberSeq);
-        console.log(response.data.nickname);
         if (!(response.data.nickname === "empty")) {
           sessionStorage.setItem("loginUser", response.data.memberSeq);
 
@@ -77,7 +74,6 @@ const NaverLogin = () => {
   // 회원 정보 추가입력 하도록함.
   // sign Up 페이지에서 추가 정보 입력 하도록 함.
   //
-  console.log(state);
 
   const signUp = () => {
     axios
@@ -88,8 +84,6 @@ const NaverLogin = () => {
           return;
         } else {
           axios.put(`/api/account/${userId}`, state).then(function (response) {
-            console.log(response.data);
-
             sessionStorage.setItem("loginUser", userId);
             navigate("/main/hot/0");
           });
