@@ -12,7 +12,23 @@ import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
+import Modal from "@mui/material/Modal";
 
+const style = {
+  position: "absolute",
+  fontFamily: "GangwonEduAll",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: "90%",
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: 24,
+  borderRadius: 2,
+  pt: 2,
+  px: 2,
+  pb: 2,
+};
 const useStyles = makeStyles((theme) => ({
   profileImage: {
     width: theme.spacing(15),
@@ -34,6 +50,10 @@ const Edit = () => {
     nickname: "",
     memberState: "",
   });
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
   useEffect(() => {
     axios.get(`/api/account/${loginUser}`).then(function (response) {
       setState({
@@ -55,21 +75,6 @@ const Edit = () => {
       [e.target.name]: e.target.value,
     });
   };
-  // image 파일
-  // useEffect(() => {
-  //   const imageNum = Math.floor(Math.random() * 52 + 1);
-  //   setState({
-  //     ...state,
-  //     memberProfile: `https://xsgames.co/randomusers/assets/avatars/pixel/${imageNum}.jpg`,
-  //   });
-  // }, []);
-
-  // 받은 파라미터 쿼리 값으로 보내서
-  // api 데이터 가져오고
-  // 이 데이터로
-  // 회원 정보 추가입력 하도록함.
-  // sign Up 페이지에서 추가 정보 입력 하도록 함.
-  //
 
   const editUp = () => {
     axios
@@ -88,6 +93,13 @@ const Edit = () => {
             });
         }
       });
+  };
+
+  const deleteUp = () => {
+    axios.delete(`/api/account/${loginUser}`).then(function (response) {
+      alert("탈퇴가 완료되었습니다.");
+      navigate(`/`);
+    });
   };
   return (
     <div>
@@ -154,6 +166,34 @@ const Edit = () => {
             회원정보 수정하기
           </p>
         </Button>
+        <Button
+          variant="text"
+          color="error"
+          sx={{
+            fontFamily: "GangwonEduAll",
+            display: "flex",
+            marginLeft: "70%",
+          }}
+          onClick={handleOpen}
+        >
+          탈퇴하기
+        </Button>
+        <Modal
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box sx={{ ...style }}>
+            <h3 id="child-modal-title">정말 탈퇴하시겠습니까?</h3>
+            <div style={{ marginLeft: "50%" }}>
+              <Button onClick={deleteUp} color="error">
+                탈퇴하기
+              </Button>
+              <Button onClick={handleClose}>취소</Button>
+            </div>
+          </Box>
+        </Modal>
       </Card>
     </div>
   );
