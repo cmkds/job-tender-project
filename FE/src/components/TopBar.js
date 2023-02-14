@@ -57,6 +57,10 @@ export default function ButtonAppBar() {
     sessionStorage.removeItem("loginUser");
     navigate(`/`);
   };
+  const mypage = () => {
+    handleClose();
+    navigate(`/user/${loginUser}`);
+  };
 
   return (
     <div>
@@ -107,7 +111,7 @@ export default function ButtonAppBar() {
         }}
       >
         <MenuItem
-          onClick={() => navigate(`/user/${loginUser}`)}
+          onClick={mypage}
           sx={{ fontFamily: "GangwonEduAll", alignContent: "end" }}
         >
           마이페이지
