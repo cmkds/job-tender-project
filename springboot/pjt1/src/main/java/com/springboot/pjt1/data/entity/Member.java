@@ -40,7 +40,7 @@ public class Member {
     private Date modifyTime;
     @Column(nullable = false)
     private String isAdmin;
-    @Column(name = "provider", nullable = false)
+    @Column(name = "provider")
     private String provider;
 
     @Builder //생성을 Builder 패턴으로 하기 위해서

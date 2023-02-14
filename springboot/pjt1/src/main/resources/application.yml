@@ -26,16 +26,15 @@ spring:
         registration:
           naver:
             #scope: email
-            client-id: DJ94WWgE_wFepnxDsIQa
+            client-id: 1cdhp17WpXR_m9BDcOcE
+            client-secret: z5jEYpcFLE
             client-name: Naver
             #redirect-uri: https://i8a502.p.ssafy.io/oauth2/code/naver
             #redirect-uri: http://localhost:8080/login/oauth2/code/naver
             #redirect-uri: http://localhost:8080/login/oauth2/code/naver
-            #redirect-uri: http://localhost:3000/naver
-            redirect-uri: http://localhost:8080/api/account/naver
-
+            redirect-uri: http://localhost:3000/naver
+            #redirect-uri: http://localhost:8080/api/account/naver
             authorization-grant-type: authorization_code
-            client-secret: U8bTHcjGRN
             scope:
               - name
               - email

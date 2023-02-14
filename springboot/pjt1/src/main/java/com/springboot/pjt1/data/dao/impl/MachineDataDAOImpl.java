@@ -1,6 +1,7 @@
 package com.springboot.pjt1.data.dao.impl;
 
 import com.springboot.pjt1.data.dao.MachineDataDAO;
+import com.springboot.pjt1.data.dto.MachineDataDTO;
 import com.springboot.pjt1.data.entity.Machine;
 import com.springboot.pjt1.data.entity.MachineData;
 import com.springboot.pjt1.data.repository.MachineDataRepository;
@@ -8,6 +9,7 @@ import com.springboot.pjt1.data.repository.MachineRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Optional;
 @Component
 public class MachineDataDAOImpl implements MachineDataDAO {
@@ -42,5 +44,15 @@ public class MachineDataDAOImpl implements MachineDataDAO {
 
         else
             throw new Exception();
+    }
+
+    @Override
+    public MachineData SelectMachineDataSeqRecent() {
+        List<MachineData> MachineData = machineDataRepository.findAllByOrderByCreateTimeDesc();
+
+        if (MachineData.size() == 0)
+            return null;
+
+        return MachineData.get(0);
     }
 }

@@ -8,4 +8,6 @@ public interface MachineDataService {
     MachineDataDTO getMachineData(long machineDataSeq);
     MachineDataDTO insertMachineData(MachineDataInputDTO machineDataInputDTO)throws Exception;
     void deleteMachineData(long machineDataSeq)throws Exception;
+
+    MachineDataDTO getRecentMachineData();
 }

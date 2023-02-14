@@ -2,6 +2,7 @@ package com.springboot.pjt1.controller;
 
 import com.springboot.pjt1.data.dto.*;
 import com.springboot.pjt1.data.dto.custom.*;
+import com.springboot.pjt1.handler.OAuthRestTemplateErrorHandler;
 import com.springboot.pjt1.service.*;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.v3.oas.models.links.Link;
@@ -9,6 +10,7 @@ import net.bytebuddy.dynamic.scaffold.MethodGraph;
 import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.util.LinkedMultiValueMap;
@@ -17,6 +19,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.*;
 
 @RestController
@@ -520,13 +524,50 @@ public class PJTController {
         return ResponseEntity.status(HttpStatus.OK).body(heartService.getHeartsByFeed(feedSeq));
     }
 
+    @GetMapping("/machine/new")
+    public ResponseEntity<Long> getMachineDataSeqRecent(){
+        return ResponseEntity.status(HttpStatus.OK).body(machineDataService.getRecentMachineData().getMachineDataSeq());
+    }
+
     // oauth
     @GetMapping("/account/naver")
-    public String createMemberByNaver(@RequestParam String code, @RequestParam String state) throws Exception{
+    public ResponseEntity<MemberDTO> createMemberByNaver(@RequestParam String code, @RequestParam String state) throws Exception{
         System.out.println("createMemberByNaver");
-        String accessToken = requestAccessToken(generateAuthCodeRequest(code, state)).getBody();
 
-        return requestProfile(generateProfileRequest(accessToken)).getBody();
+        RestTemplate restTemplate = new RestTemplate();
+        restTemplate.setRequestFactory(new HttpComponentsClientHttpRequestFactory());
+        restTemplate.setErrorHandler(new OAuthRestTemplateErrorHandler());
+
+        JSONObject jsonObject = restTemplate.getForObject("https://nid.naver.com/oauth2.0/token?" +
+                "grant_type=authorization_code" +
+                "&client_id=1cdhp17WpXR_m9BDcOcE" +
+                "&client_secret=z5jEYpcFLE" +
+                "&code=" + code +
+                "&state" + state,
+                JSONObject.class);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Authorization", "Bearer " + jsonObject.get("access_token"));
+        HttpEntity<JSONObject> entity = new HttpEntity<JSONObject>(headers);
+
+        MemberDTO memberDTO = restTemplate.postForObject("https://openapi.naver.com/v1/nid/me", entity, MemberDTO.class);
+        String email = (String)memberDTO.getResponse().get("email");
+        String name = (String)memberDTO.getResponse().get("name");
+
+        // if data exist
+        if (memberService.findMemberByEmailReturnBool(email))
+            return null;
+
+        // add to DB
+        MemberInputDTO memberInputDTO = new MemberInputDTO();
+        memberInputDTO.setEmail(email);
+        memberInputDTO.setName(name);
+        memberInputDTO.setIsAdmin("N");
+        memberInputDTO.setNickname("empty");
+
+        MemberDTO rMemberDto = memberService.insertMember(memberInputDTO);
+
+        return ResponseEntity.status(HttpStatus.OK).body(rMemberDto);
     }
 
     public HttpEntity<MultiValueMap<String, String>> generateAuthCodeRequest(String code, String state){
@@ -536,8 +577,8 @@ public class PJTController {
         MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
 
         params.add("grant_type", "authorization_code");
-        params.add("client_id", "DJ94WWgE_wFepnxDsIQa");
-        params.add("client_secret", "U8bTHcjGRN");
+        params.add("client_id", "1cdhp17WpXR_m9BDcOcE");
+        params.add("client_secret", "z5jEYpcFLE");
         params.add("code", code);
         params.add("state", state);
 
@@ -546,6 +587,10 @@ public class PJTController {
 
     private ResponseEntity<String> requestAccessToken(HttpEntity request){
         RestTemplate restTemplate = new RestTemplate();
+        restTemplate.setRequestFactory(new HttpComponentsClientHttpRequestFactory());
+        restTemplate.setErrorHandler(new OAuthRestTemplateErrorHandler());
+
+
 
         return restTemplate.exchange(
                 "https://nid.naver.com/oauth2.0/token",
@@ -557,6 +602,8 @@ public class PJTController {
 
     public ResponseEntity<String> requestProfile(HttpEntity request){
         RestTemplate restTemplate = new RestTemplate();
+        restTemplate.setRequestFactory(new HttpComponentsClientHttpRequestFactory());
+        restTemplate.setErrorHandler(new OAuthRestTemplateErrorHandler());
 
         return restTemplate.exchange(
                 "https://openapi.naver.com/v1/nid/me",

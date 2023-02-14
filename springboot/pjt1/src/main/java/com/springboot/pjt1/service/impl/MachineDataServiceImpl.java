@@ -69,4 +69,20 @@ public class MachineDataServiceImpl implements MachineDataService {
     public void deleteMachineData(long machineDataSeq) throws Exception {
         machineDataDAO.DeleteMachineDataById(machineDataSeq);
     }
+
+    @Override
+    public MachineDataDTO getRecentMachineData() {
+        MachineData machineData = machineDataDAO.SelectMachineDataSeqRecent();
+
+        MachineDataDTO machineDataDTO = new MachineDataDTO();
+
+        machineDataDTO.setMachineDataSeq(machineData.getMachineDataSeq());
+        machineDataDTO.setCreateTime(machineData.getCreateTime());
+        machineDataDTO.setVideo(machineData.getVideo());
+        machineDataDTO.setPost(machineData.getPost());
+        machineDataDTO.setVoice(machineData.getVoice());
+        machineDataDTO.setPhoto(machineData.getPhoto());
+
+        return machineDataDTO;
+    }
 }
