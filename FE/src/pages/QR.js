@@ -155,11 +155,14 @@ const QR = () => {
               <PhotoIcon className={classes.largeIcon} />
             </IconButton>
           </a>
-          <a href={`${s3}${data.video}`} download>
-            <IconButton>
-              <VideocamIcon className={classes.largeIcon} />
-            </IconButton>
-          </a>
+          {data.video ? (
+            <a href={`${s3}${data.video}`} download>
+              <IconButton>
+                <VideocamIcon className={classes.largeIcon} />
+              </IconButton>
+            </a>
+          ) : null}
+
           {/* <IconButton className={classes.largeIcon}>
               <IosShareIcon className={classes.largeIcon} />
             </IconButton> */}

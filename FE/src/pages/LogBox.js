@@ -90,10 +90,23 @@ const images = [
     imgPath: "assets/logbox/share2.jpg",
   },
   {
-    label: "당신의 소중한 추억을 logbox로 오래 간직하세요",
-    imgPath: "assets/logbox/memorized.jpg",
+    label: "당신의 소중한 추억을 로그박스로 오래 간직하세요",
+    imgPath: "assets/logbox/postBox.jpg",
   },
 ];
+
+const style = {
+  position: "absolute",
+
+  top: "70%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: "80%",
+  borderRadius: "8px",
+  boxShadow: 24,
+  px: 0,
+  pb: 5,
+};
 
 function LogBox() {
   const theme = useTheme();
@@ -115,7 +128,7 @@ function LogBox() {
 
   const state = 1;
   const CLIENT_ID = "1cdhp17WpXR_m9BDcOcE"; // 호성이 새로운거
-  const redirectURI = "http://localhost:3000/naver";
+  const redirectURI = "https://i8a502.p.ssafy.io/naver";
   const naverLogin = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${CLIENT_ID}&redirect_uri=${redirectURI}&state=${state}`;
 
   return (
@@ -165,84 +178,45 @@ function LogBox() {
         >
           {images.map((step, index) => (
             <div key={step.label} style={{ margin: "1%" }}>
-              {activeStep < maxSteps - 1 ? (
+              <Box
+                component="img"
+                sx={{
+                  height: "60vh",
+                  display: "block",
+                  overflow: "hidden",
+                  width: "100%",
+                  objectFit: "cover",
+                  borderRadius: "10px",
+                }}
+                src={step.imgPath}
+                alt={step.label}
+              />
+              {/* {activeStep < maxSteps - 1 ? null : (
                 <Box
-                  component="img"
                   sx={{
-                    height: "60vh",
+                    height: "20%",
                     display: "block",
                     overflow: "hidden",
-                    width: "100%",
+                    width: "80%",
                     objectFit: "cover",
                     borderRadius: "10px",
                   }}
-                  src={step.imgPath}
-                  alt={step.label}
-                />
-              ) : (
-                <div>
-                  <Box
-                    component="img"
-                    sx={{
-                      height: "40vh",
-                      display: "block",
-                      overflow: "hidden",
-                      width: "100%",
-                      objectFit: "cover",
-                      borderRadius: "10px",
-                    }}
-                    src={step.imgPath}
-                    alt={step.label}
-                  />
-                  <Box
-                    sx={{
-                      height: "40vh",
-                      marginTop: "10%",
-                      width: "100%",
-                    }}
-                  >
-                    <Box
-                      sx={{
-                        height: "20%",
-                        display: "block",
-                        overflow: "hidden",
-                        width: "80%",
-                        objectFit: "cover",
-                        borderRadius: "10px",
-                      }}
-                    >
-                      <Button
-                        sx={
-                          {
-                            // display: "flex",
-                            // margin: "auto",
-                            // position: "absolute",
-                            // left: "50%",
-                            // top: "85%",
-                            // transform: "translate(-50%, -50%)",
-                            // width: "80%",
-                          }
-                        }
-                        onClick={() => {}}
-                      >
-                        <a href={naverLogin}>
-                          <img
-                            src={
-                              process.env.PUBLIC_URL + `assets/naverLogin.png`
-                            }
-                            alt="naver"
-                            style={{
-                              height: "6vh",
-                              display: "flex",
-                              objectFit: "cover",
-                            }}
-                          ></img>
-                        </a>
-                      </Button>
-                    </Box>
-                  </Box>
-                </div>
-              )}
+                >
+                  <Button>
+                    <a href={naverLogin}>
+                      <img
+                        src={process.env.PUBLIC_URL + `assets/naverLogin.png`}
+                        alt="naver"
+                        style={{
+                          height: "6vh",
+                          display: "flex",
+                          objectFit: "cover",
+                        }}
+                      ></img>
+                    </a>
+                  </Button>
+                </Box>
+              )} */}
             </div>
           ))}
         </SwipeableViews>
@@ -271,6 +245,30 @@ function LogBox() {
             {images[activeStep].label}
           </div>
         </Paper>
+        {activeStep < maxSteps - 1 ? null : (
+          <Button
+            sx={{
+              position: "absolute",
+              left: "50%",
+              top: "92%",
+              transform: "translate(-50%, -50%)",
+              width: "80%",
+            }}
+            onClick={() => {}}
+          >
+            <a href={naverLogin}>
+              <img
+                src={process.env.PUBLIC_URL + `/assets/naverLogin.png`}
+                alt="naver"
+                style={{
+                  height: "6vh",
+                  display: "flex",
+                  objectFit: "cover",
+                }}
+              ></img>
+            </a>
+          </Button>
+        )}
       </Box>
     </div>
   );
