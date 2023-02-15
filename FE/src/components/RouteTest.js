@@ -11,7 +11,7 @@ const RouteTest = () => {
       <br />
       <Link to={"/menual"}>menual</Link>
       <br />
-      <Link to={"/main/hot/0"}>main</Link>
+      <Link to={"/main/new/0"}>main</Link>
       <br />
       <Link to={"/logbox"}>logbox</Link>
       <br />

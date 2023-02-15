@@ -93,14 +93,13 @@ const NaverLogin = () => {
         } else {
           axios.put(`/api/account/${userId}`, state).then(function (response) {
             sessionStorage.setItem("loginUser", userId);
-            navigate("/main/hot/0");
+            navigate("/main/new/0");
           });
         }
       });
   };
   return (
     <div>
-      네이버 로그인 완료 화면
       <Card
         sx={{
           maxWidth: "70%",

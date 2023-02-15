@@ -31,7 +31,7 @@ export default function ButtonAppBar() {
   const loginCheck = !(sessionStorage.getItem("loginUser") === null);
   const topButton = () => {
     if (loginCheck) {
-      navigate("/main/hot/0");
+      navigate("/main/new/0");
     } else {
       navigate("/");
     }

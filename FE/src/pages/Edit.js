@@ -96,7 +96,7 @@ const Edit = () => {
             axios
               .put(`/api/account/${loginUser}`, state)
               .then(function (response) {
-                navigate("/main/hot/0");
+                navigate("/main/new/0");
               });
           }
         });
