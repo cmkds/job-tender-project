@@ -67,10 +67,7 @@ const QR = () => {
   const navigate = useNavigate();
   const classes = useStyles();
   const loginUser = sessionStorage.getItem("loginUser");
-<<<<<<< HEAD
 
-=======
->>>>>>> 463fd677d3457406bad86340b4031e6a4e78ad37
   const params = useParams();
   const s3 = "https://team-a502-bucket.s3.ap-northeast-2.amazonaws.com/";
   const [machineLocation, setMachineLocation] = useState(0);
