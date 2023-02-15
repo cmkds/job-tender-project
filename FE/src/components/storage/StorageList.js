@@ -8,18 +8,28 @@ import ImageListItem from "@mui/material/ImageListItem";
 
 const StorageList = () => {
   const storageList = useContext(StorageStateContext);
+  // console.log(storageList);
   const navigate = useNavigate();
+  const s3 = "https://team-a502-bucket.s3.ap-northeast-2.amazonaws.com/";
+  // const [storageList, setStorageList] = useState([])
+
+  // useEffect(() => {
+  //   axios.get(`/api/mypage/post-new/${loginUser}`).then(function (response) {
+  //     setStorageData(response.data);
+  //   });
+  // }, []);
+
   return (
     <div style={{ width: "100%", height: "100%" }}>
       <ImageList>
         {storageList.map((it) => (
-          <ImageListItem key={it.id} {...it}>
+          <ImageListItem key={it.storeSeq} {...it}>
             <img
-              src={`${it.photo_url}`}
+              src={`${s3}${it.photo}`}
               // srcSet={`${it.photo_url}?w=248&fit=crop&auto=format&dpr=2 2x`}
               alt={it.id}
               loading="lazy"
-              onClick={() => navigate(`/storage/${it.id}`)}
+              onClick={() => navigate(`/storage/${it.storeSeq}`)}
             />
             <div
               style={{
@@ -32,8 +42,8 @@ const StorageList = () => {
                 fontFamily: "GangwonEduAll",
               }}
             >
-              <div>{it.location}</div>
-              <div>{it.date}</div>
+              {/* <div>{it.location}</div> */}
+              <div>{it.machineDataCreateTime}</div>
             </div>
           </ImageListItem>
         ))}

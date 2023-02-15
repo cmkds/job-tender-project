@@ -3,6 +3,8 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, Routes, Route } from "react-router-dom";
 
+import axios from "axios";
+
 import BottomBar from "../components/BottomBar";
 import NavBar from "../components/NavBar";
 import StorageList from "../components/storage/StorageList";
@@ -77,12 +79,22 @@ const dummyData = [
 
 const Storage = () => {
   const navigate = useNavigate();
+  const loginUser = sessionStorage.getItem("loginUser");
+
   useEffect(() => {
     if (!sessionStorage.getItem("loginUser")) {
       navigate("/");
     }
   });
-  const [storageData, setStorageData] = useState(dummyData);
+  useEffect(() => {
+    console.log("aaaaa");
+    axios.get(`/api/mypage/post-new/${loginUser}`).then(function (response) {
+      setStorageData(response.data);
+      console.log(response.data);
+    });
+  }, []);
+
+  const [storageData, setStorageData] = useState([]);
 
   // console.log(storageData);
   // useEffect로 로그인을 안했다면 로그인 페이지로 복귀하도록함.
