@@ -51,7 +51,7 @@ const QR = () => {
 
   const navigate = useNavigate();
   const classes = useStyles();
-
+  const loginUser = sessionStorage.getItem("loginUser");
   const params = useParams();
   const s3 = "https://team-a502-bucket.s3.ap-northeast-2.amazonaws.com/";
   const [machineLocation, setMachineLocation] = useState(0);
@@ -64,7 +64,6 @@ const QR = () => {
     video: "",
     voice: "",
   });
-
   useEffect(() => {
     axios
       .get(`/api/machine/data/${params.machineDataSeq}`)
@@ -72,6 +71,7 @@ const QR = () => {
         axios(`/api/machine/loc/${params.machineDataSeq}`).then(function (
           response
         ) {
+          console.log(`asdasdasd${response.data}`);
           setMachineLocation(response.data);
         });
         setData({
@@ -86,27 +86,25 @@ const QR = () => {
       });
   }, []);
 
-  // const download = (e) => {
-  //   console.log(e.target.href);
-  //   fetch(e.target.href, {
-  //     method: "GET",
-  //     headers: {},
-  //   })
-  //     .then((response) => {
-  //       response.arrayBuffer().then(function (buffer) {
-  //         const url = window.URL.createObjectURL(new Blob([buffer]));
-  //         const link = document.createElement("a");
-  //         link.href = url;
-  //         link.setAttribute("download", "image.png"); //or any other extension
-  //         document.body.appendChild(link);
-  //         link.click();
-  //       });
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // };
-  // console.log(state);
+  const save = () => {
+    console.log("ioadjaoeiwfjoieajf");
+    if (loginUser) {
+      console.log(loginUser);
+      const postData = {
+        ...data,
+        memberSeq: parseInt(loginUser),
+        machineLocationSeq: machineLocation,
+      };
+      console.log(postData);
+      axios.post(`/api/store`, postData).then(function (response) {
+        console.log(response.data);
+      });
+      navigate(`/main/hot/0`);
+    } else {
+      alert("로그인 해주세요");
+    }
+  };
+
   const state = 1;
   const CLIENT_ID = "1cdhp17WpXR_m9BDcOcE"; // 호성이 새로운거
   const redirectURI = `http://localhost:3000/download/${params.machineDataSeq}`;
@@ -174,6 +172,8 @@ const QR = () => {
           }}
         ></img>
       </a>
+
+      <button onClick={save}>내 저장소에 저장하고 로그 박스로 이동</button>
       {/* </MyBtn> */}
     </div>
   );
