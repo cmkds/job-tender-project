@@ -171,7 +171,7 @@ const Map = () => {
           width: "90%",
           paddingBottom: "90%",
           margin: "auto",
-          marginTop: "10%",
+          // marginTop: "1-%",
         }}
       ></div>
       <LocationDetail />

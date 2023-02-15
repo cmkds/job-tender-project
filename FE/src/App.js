@@ -23,6 +23,7 @@ import Search from "./pages/Search";
 import NaverLogin from "./pages/NaverLogin";
 import Edit from "./pages/Edit";
 import QR from "./pages/QR";
+import NotFoundPage from "./pages/NotFound";
 
 import { makeStyles } from "@material-ui/core/styles";
 import { createTheme } from "@material-ui/core/styles";
@@ -71,6 +72,7 @@ function App() {
               <Route path="/edit" element={<Edit />}></Route>
               <Route path="/download/:machineDataSeq" element={<QR />}></Route>
               {/* <Route path="/search" element={<Search />}></Route> */}
+              <Route path="/*" element={<NotFoundPage />} />
             </Routes>
           </div>
           <RouteTest />
