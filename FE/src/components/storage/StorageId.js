@@ -1,21 +1,36 @@
 import { useParams, Routes, Route } from "react-router-dom";
-import { useContext } from "react";
-import { StorageStateContext } from "../../pages/Storage";
+import { useEffect, useState } from "react";
+
+import axios from "axios";
+
 import StorageDownload from "./StorageDownload";
 import StorageShare from "./StorageShare";
 
 const StorageId = () => {
   // const navigate = useNavigate();
 
-  const storageList = useContext(StorageStateContext);
   // 파일의 id와 해당 id에 소유 id가 다르면
   // 홈으로 돌려보냄.
-  const { id } = useParams();
+  const loginUser = sessionStorage.getItem("loginUser");
+  const s3 = "https://team-a502-bucket.s3.ap-northeast-2.amazonaws.com/";
+  const params = useParams();
+  const [storage, setStorage] = useState({});
+
+  useEffect(() => {
+    axios
+      .get(`/api/mypage/post-new/store/${params.id}`)
+      .then(function (response) {
+        console.log(response.data);
+        setStorage(response.data);
+      });
+  }, []);
+
+  // console.log(storage);
 
   //개별 포스트 추출
-  const targetStorageItem = storageList.find(
-    (it) => parseInt(it.id) === parseInt(id)
-  );
+  // const targetStorageItem = storageList.find(
+  //   (it) => parseInt(it.id) === parseInt(id)
+  // );
 
   return (
     <div>
@@ -27,13 +42,13 @@ const StorageId = () => {
           fontFamily: "GangwonEduAll",
         }}
       >
-        <div>{targetStorageItem["date"]}</div>
-        <div style={{ paddingLeft: "5%" }}>{targetStorageItem["location"]}</div>
+        <div>{storage.machineDataCreateTime}</div>
+        <div style={{ paddingLeft: "5%" }}>{storage.machineLocationSeq}</div>
       </h2>
       <div>
         <img
           // style={"width: 10%;"}
-          src={`${targetStorageItem["photo_url"]}`}
+          src={`${s3}${storage.post}`}
           alt="사진이 없습니다."
           style={{ width: "100%" }}
         />

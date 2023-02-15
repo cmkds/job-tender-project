@@ -29,20 +29,22 @@ const StorageDownload = () => {
   const navigate = useNavigate();
   const classes = useStyles();
 
-  const { id } = useParams();
-
+  const params = useParams();
+  const s3 = "https://team-a502-bucket.s3.ap-northeast-2.amazonaws.com/";
   return (
     <div className={classes.root}>
       <div className={classes.buttonContainer}>
-        <IconButton>
-          <PhotoIcon className={classes.largeIcon} />
-        </IconButton>
+        <a href={`${s3}${data.photo}`} download>
+          <IconButton>
+            <PhotoIcon className={classes.largeIcon} />
+          </IconButton>
+        </a>
         <IconButton>
           <VideocamIcon className={classes.largeIcon} />
         </IconButton>
         <IconButton
           className={classes.largeIcon}
-          onClick={() => navigate(`/storage/${id}/share`)}
+          onClick={() => navigate(`/storage/${params.id}}/share`)}
         >
           <IosShareIcon className={classes.largeIcon} />
         </IconButton>

@@ -17,65 +17,6 @@ import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 // /:card-no
 
 // storage내부의 데이터 Context
-export const StorageStateContext = React.createContext();
-
-const dummyData = [
-  {
-    createTime: "2023-02-12T09:15:11.530Z",
-    machineLocationSeq: "1",
-    memberSeq: 1,
-    photo:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTmMPQb8IJeXeHn_Fxj8HN19mDbRKEFCmCjwQ&usqp=CAU",
-    post: "http://img.khan.co.kr/newsmaker/947/20111025_947_60a.jpg",
-    video: "https://img.lovepik.com/element/40170/8604.png_860.png",
-    recentTime: "2023-02-12T09:15:11.530Z",
-    storeSeq: 1,
-  },
-  {
-    createTime: "2023-02-13T09:15:11.530Z",
-    machineLocationSeq: "1",
-    memberSeq: 1,
-    photo:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTmMPQb8IJeXeHn_Fxj8HN19mDbRKEFCmCjwQ&usqp=CAU",
-    post: "http://img.khan.co.kr/newsmaker/947/20111025_947_60a.jpg",
-    video: "https://img.lovepik.com/element/40170/8604.png_860.png",
-    recentTime: "2023-02-13T09:15:11.530Z",
-    storeSeq: 2,
-  },
-  {
-    createTime: "2023-02-13T09:15:11.530Z",
-    machineLocationSeq: "1",
-    memberSeq: 1,
-    photo:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTmMPQb8IJeXeHn_Fxj8HN19mDbRKEFCmCjwQ&usqp=CAU",
-    post: "http://img.khan.co.kr/newsmaker/947/20111025_947_60a.jpg",
-    video: "https://img.lovepik.com/element/40170/8604.png_860.png",
-    recentTime: "2023-02-13T09:15:11.530Z",
-    storeSeq: 3,
-  },
-  {
-    createTime: "2023-02-14T09:15:11.530Z",
-    machineLocationSeq: "1",
-    memberSeq: 1,
-    photo:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTmMPQb8IJeXeHn_Fxj8HN19mDbRKEFCmCjwQ&usqp=CAU",
-    post: "http://img.khan.co.kr/newsmaker/947/20111025_947_60a.jpg",
-    video: "https://img.lovepik.com/element/40170/8604.png_860.png",
-    recentTime: "2023-02-14T09:15:11.530Z",
-    storeSeq: 4,
-  },
-  {
-    createTime: "2023-02-15T09:15:11.530Z",
-    machineLocationSeq: "1",
-    memberSeq: 1,
-    photo:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTmMPQb8IJeXeHn_Fxj8HN19mDbRKEFCmCjwQ&usqp=CAU",
-    post: "http://img.khan.co.kr/newsmaker/947/20111025_947_60a.jpg",
-    video: "https://img.lovepik.com/element/40170/8604.png_860.png",
-    recentTime: "2023-02-15T09:15:11.530Z",
-    storeSeq: 5,
-  },
-];
 
 const Storage = () => {
   const navigate = useNavigate();
@@ -86,15 +27,15 @@ const Storage = () => {
       navigate("/");
     }
   });
-  useEffect(() => {
-    console.log("aaaaa");
-    axios.get(`/api/mypage/post-new/${loginUser}`).then(function (response) {
-      setStorageData(response.data);
-      console.log(response.data);
-    });
-  }, []);
+  // useEffect(() => {
+  //   console.log("aaaaa");
+  //   axios.get(`/api/mypage/post-new/${loginUser}`).then(function (response) {
+  //     setStorageData(response.data);
+  //     console.log(response.data);
+  //   });
+  // }, []);
 
-  const [storageData, setStorageData] = useState([]);
+  // const [storageData, setStorageData] = useState([]);
 
   // console.log(storageData);
   // useEffect로 로그인을 안했다면 로그인 페이지로 복귀하도록함.
@@ -108,17 +49,15 @@ const Storage = () => {
   //StorageId에서 context에 없는 id를 호출한다면 돌아오도록 할 수 있음.
   return (
     <div>
-      <StorageStateContext.Provider value={storageData}>
-        <NavBar
-          navText={"보관함"}
-          leftChild={<ArrowBackIosNewIcon onClick={() => navigate(-1)} />}
-        />
+      <NavBar
+        navText={"보관함"}
+        leftChild={<ArrowBackIosNewIcon onClick={() => navigate(-1)} />}
+      />
 
-        <Routes>
-          <Route path="/" element={<StorageList />} />
-          <Route path="/:id/*" element={<StorageId />} />
-        </Routes>
-      </StorageStateContext.Provider>
+      <Routes>
+        <Route path="/" element={<StorageList />} />
+        <Route path="/:id/*" element={<StorageId />} />
+      </Routes>
       <BottomBar />
     </div>
   );
