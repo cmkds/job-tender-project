@@ -93,7 +93,6 @@ const NaverLogin = () => {
   };
   return (
     <div>
-      네이버 로그인 완료 화면
       <Card
         sx={{
           maxWidth: "70%",
