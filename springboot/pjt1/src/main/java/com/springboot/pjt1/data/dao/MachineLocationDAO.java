@@ -1,5 +1,6 @@
 package com.springboot.pjt1.data.dao;
 
+import com.springboot.pjt1.data.dto.MachineLocationDTO;
 import com.springboot.pjt1.data.entity.Machine;
 import com.springboot.pjt1.data.entity.MachineLocation;
 
@@ -11,4 +12,6 @@ public interface MachineLocationDAO {
     MachineLocation UpdateMachineLocationById(long locSeq, String city, String name) throws Exception;
     void DeleteMachineLocationById(long locSeq) throws Exception;
     boolean IsExistByMachineLocationSeq(long machineLocationSeq);
+
+    MachineLocationDTO SelectMachineLocationByMachineDataSeq(long machineDataSeq);
 }

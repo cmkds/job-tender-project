@@ -8,5 +8,5 @@ import java.util.Optional;
 
 public interface StoreRepository extends JpaRepository<Store, Long> {
     List<Store> findByMemberSeq(long memberSeq);
-    Store findByMachineDataSeq(long machineDataSeq);
+    //Store findByMachineDataSeq(long machineDataSeq);
 }

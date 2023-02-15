@@ -35,6 +35,7 @@ public class MachineDataServiceImpl implements MachineDataService {
         machineDataDTO.setPost(machineData.getPost());
         machineDataDTO.setVoice(machineData.getVoice());
         machineDataDTO.setPhoto(machineData.getPhoto());
+        machineDataDTO.setMachineSeq(machineData.getMachineSeq());
 
         return machineDataDTO;
     }

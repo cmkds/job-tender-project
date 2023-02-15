@@ -67,4 +67,9 @@ public class MachineLocationServiceImpl implements MachineLocationService {
     public void deleteMachineLocation(long machineLocationSeq) throws Exception {
         machineLocationDAO.DeleteMachineLocationById(machineLocationSeq);
     }
+
+    @Override
+    public MachineLocationDTO getMachineLocationByMachineDataSeq(long machineDataSeq) {
+        return machineLocationDAO.SelectMachineLocationByMachineDataSeq(machineDataSeq);
+    }
 }

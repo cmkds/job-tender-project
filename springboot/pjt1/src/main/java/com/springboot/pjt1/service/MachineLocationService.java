@@ -11,4 +11,5 @@ public interface MachineLocationService {
     MachineLocationDTO insertMachineLocation(MachineLocationInputDTO machineLocationinputDTO)throws Exception;
     MachineLocationDTO updateMachineLocation(long machineLocationSeq, String city, String name)throws Exception;
     void deleteMachineLocation(long machineLocationSeq)throws Exception;
+    MachineLocationDTO getMachineLocationByMachineDataSeq(long machineDataSeq);
 }

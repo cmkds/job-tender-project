@@ -1,6 +1,7 @@
 package com.springboot.pjt1.data.dao.impl;
 
 import com.springboot.pjt1.data.dao.MachineLocationDAO;
+import com.springboot.pjt1.data.dto.MachineLocationDTO;
 import com.springboot.pjt1.data.entity.MachineLocation;
 import com.springboot.pjt1.data.entity.MachineLocation;
 import com.springboot.pjt1.data.repository.MachineLocationRepository;
@@ -68,5 +69,10 @@ public class MachineLocationDAOImpl implements MachineLocationDAO {
     @Override
     public boolean IsExistByMachineLocationSeq(long machineLocationSeq) {
         return machineLocationRepository.existsById(machineLocationSeq);
+    }
+
+    @Override
+    public MachineLocationDTO SelectMachineLocationByMachineDataSeq(long machineDataSeq) {
+        return null;
     }
 }

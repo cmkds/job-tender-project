@@ -15,6 +15,4 @@ public interface StoreDAO {
     List<StoreDTO> SelectStoreByMemberSeq(long memberSeq);
 
     void DeleteStoreByMemberSeq(long memberSeq);
-
-    Store SelectStoreByMachineDataSeq(long machineDataSeq);
 }

@@ -74,7 +74,7 @@ public class StoreServiceImpl implements StoreService {
         store.setPost(storeInputDTO.getPost());
         store.setPhoto(storeInputDTO.getPhoto());
         store.setVideo(storeInputDTO.getVideo());
-        //store.setVoice(storeInputDTO.getVoice());
+        store.setMachineDataCreateTime(storeInputDTO.getMachineDataCreateTime());
         store.setCreateTime(new Date());
         store.setRecentTime(new Date());
 
@@ -88,6 +88,7 @@ public class StoreServiceImpl implements StoreService {
         rStoreDTO.setVoice(savedStore.getVoice());
         rStoreDTO.setCreateTime(savedStore.getCreateTime());
         rStoreDTO.setRecentTime(savedStore.getRecentTime());
+        rStoreDTO.setMachineDataCreateTime(savedStore.getMachineDataCreateTime());
 
         return rStoreDTO;
     }
@@ -124,19 +125,5 @@ public class StoreServiceImpl implements StoreService {
         storeDAO.DeleteStoreByMemberSeq(memberSeq);
     }
 
-    @Override
-    public StoreDTO getStoreByMachineDataSeq(long machineDataSeq) {
-        Store store = storeDAO.SelectStoreByMachineDataSeq(machineDataSeq);
-        StoreDTO storeDTO = new StoreDTO();
 
-        storeDTO.setStoreSeq(store.getStoreSeq());
-        storeDTO.setPost(store.getPost());
-        storeDTO.setPhoto(store.getPhoto());
-        storeDTO.setVideo(store.getVideo());
-        storeDTO.setVoice(store.getVoice());
-        storeDTO.setCreateTime(store.getCreateTime());
-        storeDTO.setRecentTime(store.getRecentTime());
-
-        return storeDTO;
-    }
 }

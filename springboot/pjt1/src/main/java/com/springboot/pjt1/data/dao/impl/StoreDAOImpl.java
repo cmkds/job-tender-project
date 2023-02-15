@@ -109,8 +109,5 @@ public class StoreDAOImpl implements StoreDAO {
             storeRepository.delete(store);
     }
 
-    @Override
-    public Store SelectStoreByMachineDataSeq(long machineDataSeq) {
-        return storeRepository.findByMachineDataSeq(machineDataSeq);
-    }
+
 }

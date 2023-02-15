@@ -457,28 +457,15 @@ public class PJTController {
         return ResponseEntity.status(HttpStatus.OK).body(rFeedDTOs);
     }
 
+    @ApiOperation(
+            value = "machineDataSeq 기반 machineLocationSeq 조회"
+            , notes = "machineDataSeq 기반 machineLocationSeq 조회")
+    @GetMapping("/machine/loc/{machineDataSeq}")
+    public ResponseEntity<Long> getMachineLocationByMachineDataSeq(@PathVariable("machineDataSeq") long machineDataSeq){
+        long machineSeq = machineDataService.getMachineData(machineDataSeq).getMachineSeq();
+        long machineLocationSeq = machineService.getMachine(machineSeq).getMachineLocationSeq();
 
-    //
-    @GetMapping("/mypage/photo/{machineDataSeq}")
-    public ResponseEntity<String> getPhotoByMachineDataSeq(@PathVariable("machineDataSeq") long machineDataSeq){
-        String url = storeService.getStoreByMachineDataSeq(machineDataSeq).getPhoto();
-
-        return ResponseEntity.status(HttpStatus.OK).body(url);
-    }
-
-
-    @GetMapping("/mypage/video/{machineDataSeq}")
-    public ResponseEntity<String> getVideoByMachineDataSeq(@PathVariable("machineDataSeq") long machineDataSeq){
-        String url = storeService.getStoreByMachineDataSeq(machineDataSeq).getVideo();
-
-        return ResponseEntity.status(HttpStatus.OK).body(url);
-    }
-
-    @GetMapping("/mypage/post/{machineDataSeq}")
-    public ResponseEntity<String> getPostByMachineDataSeq(@PathVariable("machineDataSeq")long machineDataSeq){
-        String url = storeService.getStoreByMachineDataSeq(machineDataSeq).getPost();
-
-        return ResponseEntity.status(HttpStatus.OK).body(url);
+        return ResponseEntity.status(HttpStatus.OK).body(machineLocationSeq);
     }
 
     @DeleteMapping("/mypage")
@@ -517,6 +504,9 @@ public class PJTController {
         return ResponseEntity.status(HttpStatus.OK).body(rMachineDataDTO);
     }
 
+    @ApiOperation(
+            value = "machineData 조회"
+            , notes = "machineDataSeq 기반 machineData 조회")
     @GetMapping("machine/data/{machineDataSeq}")
     public ResponseEntity<MachineDataDTO> selectMachineData(@PathVariable("machineDataSeq") long machineDataSeq){
         MachineDataDTO rMachineDataDTO = machineDataService.getMachineData(machineDataSeq);
@@ -532,6 +522,16 @@ public class PJTController {
     @GetMapping("/machine/new")
     public ResponseEntity<Long> getMachineDataSeqRecent(){
         return ResponseEntity.status(HttpStatus.OK).body(machineDataService.getRecentMachineData().getMachineDataSeq());
+    }
+
+    @ApiOperation(
+            value = "store 생성"
+            , notes = "store 생성")
+    @PostMapping("/store")
+    public ResponseEntity<StoreDTO> createStore(@RequestBody StoreInputDTO storeInputDTO) throws Exception{
+        StoreDTO rStoreDTO = storeService.insertStore(storeInputDTO);
+
+        return ResponseEntity.status(HttpStatus.OK).body(rStoreDTO);
     }
 
     // oauth
@@ -560,10 +560,8 @@ public class PJTController {
         String name = (String)memberDTO.getResponse().get("name");
 
         // if data exist
-        if (memberService.findMemberByEmailReturnBool(email)){
+        if (memberService.findMemberByEmailReturnBool(email))
             return ResponseEntity.status(HttpStatus.OK).body(memberService.findMemberByEmail(email));
-        }
-
 
         // add to DB
         MemberInputDTO memberInputDTO = new MemberInputDTO();

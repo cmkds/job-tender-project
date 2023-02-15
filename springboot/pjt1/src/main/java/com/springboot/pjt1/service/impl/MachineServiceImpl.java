@@ -27,6 +27,10 @@ public class MachineServiceImpl implements MachineService {
         machineDTO.setMachineSeq(machine.getMachineSeq());
         machineDTO.setCreateTime(machine.getCreateTime());
         machineDTO.setRecentTime(machine.getRecentTime());
+        machineDTO.setMachineLocationSeq(machine.getMachineLocationSeq());
+        machineDTO.setName(machine.getName());
+        machineDTO.setAddress(machine.getAddress());
+        machineDTO.setPhoto(machine.getPhoto());
 
         return machineDTO;
     }
@@ -74,6 +78,11 @@ public class MachineServiceImpl implements MachineService {
     @Override
     public void deleteMachine(long machineSeq) throws Exception {
         machineDAO.DeleteMachineById(machineSeq);
+    }
+
+    @Override
+    public MachineDTO getMachineByMachineSeq(long machineSeq) {
+        return null;
     }
 
 }

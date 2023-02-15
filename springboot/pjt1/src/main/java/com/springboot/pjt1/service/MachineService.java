@@ -8,4 +8,6 @@ public interface MachineService {
     MachineDTO insertMachine(MachineInputDTO machineInputDTO)throws Exception;
     MachineDTO updateMachine(long machineSeq, String name, String address, String photo)throws Exception;
     void deleteMachine(long machineSeq)throws Exception;
+
+    MachineDTO getMachineByMachineSeq(long machineSeq);
 }
