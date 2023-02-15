@@ -105,7 +105,7 @@ export default function CustomizedInputBase() {
         </div>
       </Paper>
       {parseInt(copy.length) === parseInt(users.length) ? (
-        <p>유저 닉네임을 검색하세요</p>
+        <p style={{marginLeft:'5%'}}>유저 닉네임을 검색하세요</p>
       ) : parseInt(users.length) === 0 ? (
         <p>해당하는 유저가 없습니다.</p>
       ) : (

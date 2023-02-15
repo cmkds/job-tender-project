@@ -11,6 +11,7 @@ import axios from "axios";
 const useStyles = makeStyles((theme) => ({
   textField: {
     width: 370,
+    borderBlockColor: 'red'
   },
   characterCount: {
     marginTop: theme.spacing(1),

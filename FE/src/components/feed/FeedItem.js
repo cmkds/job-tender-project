@@ -10,7 +10,7 @@ import IconButton from "@mui/material/IconButton";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
-
+import { Box } from "@mui/material";
 const FeedItem = (feed) => {
   const loginUser = sessionStorage.getItem("loginUser");
 
@@ -78,17 +78,17 @@ const FeedItem = (feed) => {
 
   return (
     <div>
-      <p>{feed.feedSeq}번 째 피드</p>
       {/* 유저 아이디 넣기 */}
       <Profile id={feed.memberSeq} />
       {/* array는 [인덱스] 객체는 .key이름 */}
       <div className="post_wrapper">
-        <div>
-          <img src={`${s3}${feed.post}`} alt={feed.post} />
-        </div>
+        
+        <img src={`${s3}${feed.post}`} alt={feed.post} />
+        <Box sx={{position:'absolute', top:'70%', left:'5%', wordBreak:'break-all', width:'90%', height:'30%'}}>
+        {feed.content}
+        </Box>
       </div>
       {/* 게시글 여기에 출력 */}
-      <div>{feed.content}</div>
       {/* 좋아요, 댓글 버튼 */}
       <Stack
         direction="row"
