@@ -5,6 +5,8 @@
 import { Routes, Route, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import TopBar from "../components/TopBar";
+import BottomBar from "../components/BottomBar";
+
 import MainAll from "./main/MainAll";
 // import MainAllHot from "./main/MainAllHot";
 // import MainAllNew from "./main/MainAllNew";
@@ -34,6 +36,7 @@ const Main = () => {
           <Route path="/new/:locationId" element={<MainLocationNew />} /> */}
         </Routes>
       </div>
+      <BottomBar />
     </div>
   );
 };

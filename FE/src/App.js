@@ -19,7 +19,6 @@ import Storage from "./pages/Storage";
 import User from "./pages/User";
 import Comment from "./pages/Comment";
 import SignUp from "./pages/SignUp";
-import BottomBar from "./components/BottomBar";
 import Search from "./pages/Search";
 import NaverLogin from "./pages/NaverLogin";
 import Edit from "./pages/Edit";
@@ -71,7 +70,6 @@ function App() {
               <Route path="/edit" element={<Edit />}></Route>
               {/* <Route path="/search" element={<Search />}></Route> */}
             </Routes>
-            <BottomBar />
           </div>
           <RouteTest />
         </BrowserRouter>

@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, Routes, Route } from "react-router-dom";
 
+import BottomBar from "../components/BottomBar";
 import NavBar from "../components/NavBar";
 import StorageList from "../components/storage/StorageList";
 import StorageId from "../components/storage/StorageId";
@@ -106,6 +107,7 @@ const Storage = () => {
           <Route path="/:id/*" element={<StorageId />} />
         </Routes>
       </StorageStateContext.Provider>
+      <BottomBar />
     </div>
   );
 };

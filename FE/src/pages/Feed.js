@@ -5,6 +5,7 @@ import axios from "axios";
 
 import TopBar from "../components/TopBar";
 import FeedList from "../components/feed/FeedList";
+import BottomBar from "../components/BottomBar";
 
 const Feed = () => {
   const navigate = useNavigate();
@@ -55,6 +56,7 @@ const Feed = () => {
           </span>
         </div>
       )}
+      <BottomBar />
     </div>
   );
 };

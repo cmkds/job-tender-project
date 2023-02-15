@@ -200,20 +200,7 @@ function SwipeableTextMobileStepper() {
                         borderRadius: "10px",
                       }}
                     >
-                      <Button
-                        sx={
-                          {
-                            // display: "flex",
-                            // margin: "auto",
-                            // position: "absolute",
-                            // left: "50%",
-                            // top: "85%",
-                            // transform: "translate(-50%, -50%)",
-                            // width: "80%",
-                          }
-                        }
-                        onClick={() => {}}
-                      >
+                      <Button onClick={() => {}}>
                         <img
                           src={process.env.PUBLIC_URL + `assets/naverLogin.png`}
                           alt="naver"

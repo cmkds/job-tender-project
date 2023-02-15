@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 import MenuBar from "../components/MenuBar";
 // import MyButton from "../components/MyButton";
-
+import BottomBar from "../components/BottomBar";
 import TopBar from "../components/TopBar";
 import { useEffect } from "react";
 const Menu = () => {
@@ -56,6 +56,7 @@ const Menu = () => {
       >
         <MenuBar leftChild={"회원 정보 수정"} rightChild={">"} />
       </div>
+      <BottomBar />
     </div>
   );
 };
