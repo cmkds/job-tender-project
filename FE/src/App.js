@@ -75,7 +75,7 @@ function App() {
               <Route path="/*" element={<NotFoundPage />} />
             </Routes>
           </div>
-          <RouteTest />
+          {/* <RouteTest /> */}
         </BrowserRouter>
       </div>
     </ThemeProvider>

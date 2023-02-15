@@ -59,6 +59,8 @@ export default function CustomizedInputBase() {
       )
     );
   }, [searchTerm, copy]);
+  console.log(users);
+
   return (
     <div>
       <Paper
@@ -109,7 +111,7 @@ export default function CustomizedInputBase() {
       ) : parseInt(users.length) === 0 ? (
         <p>해당하는 유저가 없습니다.</p>
       ) : (
-        <UserList key={users.filter((it) => it.id)} item={users} />
+        <UserList key={users.filter((it) => it.memberSeq)} item={users} />
       )}
       <BottomBar />
     </div>

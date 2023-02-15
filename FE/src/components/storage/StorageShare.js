@@ -1,6 +1,7 @@
 // /storage/:card-no/share
 // 엽서 게시물 작성해서 피드에 공유하는 페이지.
 import React, { useState, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 
 import TextField from "@mui/material/TextField";
 import { makeStyles } from "@material-ui/core/styles";
@@ -24,6 +25,7 @@ const StorageShare = (store) => {
   const classes = useStyles();
   const [value, setValue] = useState("");
   const messageInput = useRef();
+  const navigate = useNavigate();
   console.log(store);
 
   // const handleChangeState = (e) => {
@@ -44,6 +46,7 @@ const StorageShare = (store) => {
     console.log(data);
     axios.post(`/api/main`, data).then(function (response) {
       console.log(response);
+      navigate(-1);
     });
 
     // 성공시 State 다 지우고 메인페이지로 이동

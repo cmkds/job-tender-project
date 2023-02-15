@@ -64,7 +64,10 @@ const Map = () => {
             boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
           }}
         >
-          <h2 className="blue_title">
+          <h2
+            className="blue_title"
+            // onClick={navigate(`/main/new/${selectNo}`)}
+          >
             {`로그박스 ${locationInfo[selectNo].name}`}
           </h2>
           <h4 className="logbox_text">{locationInfo[selectNo].address}</h4>

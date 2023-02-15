@@ -111,7 +111,7 @@ const Edit = () => {
   };
   return (
     <div>
-      회원정보 수정 화면
+      {/* 회원정보 수정 화면 */}
       <Card
         sx={{
           maxWidth: "70%",
