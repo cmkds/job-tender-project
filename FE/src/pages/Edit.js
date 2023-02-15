@@ -5,6 +5,7 @@ import axios from "axios";
 
 import TopBar from "../components/TopBar";
 import PushImage from "../components/PushImage";
+import BottomBar from "../components/BottomBar";
 
 import Card from "@mui/material/Card";
 import { Avatar } from "@material-ui/core";
@@ -202,6 +203,7 @@ const Edit = () => {
           </Box>
         </Modal>
       </Card>
+      <BottomBar />
     </div>
   );
 };

@@ -5,6 +5,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 // import MyButton from "./components/MyButton";
 // import TopBar from "./components/TopBar";
 import RouteTest from "./components/RouteTest";
+import ScrollToTop from "./components/ScrollToTop";
 
 //페이지 import
 import Home from "./pages/Home";
@@ -18,7 +19,6 @@ import Storage from "./pages/Storage";
 import User from "./pages/User";
 import Comment from "./pages/Comment";
 import SignUp from "./pages/SignUp";
-import BottomBar from "./components/BottomBar";
 import Search from "./pages/Search";
 import NaverLogin from "./pages/NaverLogin";
 import Edit from "./pages/Edit";
@@ -51,6 +51,7 @@ function App() {
     <ThemeProvider theme={theme}>
       <div className={classes.root}>
         <BrowserRouter>
+          <ScrollToTop />
           <div className="App">
             <Routes>
               <Route path="/" element={<Home />}></Route>
@@ -71,7 +72,6 @@ function App() {
               <Route path="/download/:machineDataSeq" element={<QR />}></Route>
               {/* <Route path="/search" element={<Search />}></Route> */}
             </Routes>
-            <BottomBar />
           </div>
           <RouteTest />
         </BrowserRouter>

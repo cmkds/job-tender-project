@@ -5,12 +5,13 @@
 // 아니면 일반 개인 피드 페이지
 import React from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
+import BottomBar from "../components/BottomBar";
 import Follower from "./user/Follower";
 import Following from "./user/Following";
 import UserPost from "./user/UserPost";
 import UserMain from "./user/UserMain";
-import { useEffect } from "react";
 
 const User = () => {
   const navigate = useNavigate();
@@ -28,6 +29,7 @@ const User = () => {
         <Route path="/:user/following" element={<Following />} />
         <Route path="/:user/follower" element={<Follower />} />
       </Routes>
+      <BottomBar />
     </div>
   );
 };

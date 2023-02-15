@@ -5,6 +5,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import NavBar from "../components/NavBar";
+import BottomBar from "../components/BottomBar";
 
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import { Box, Container } from "@mui/system";
@@ -174,6 +175,7 @@ const Map = () => {
         }}
       ></div>
       <LocationDetail />
+      <BottomBar />
     </div>
   );
 };

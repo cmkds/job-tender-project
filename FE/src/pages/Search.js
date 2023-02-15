@@ -4,9 +4,9 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 import UserList from "../components/search/UserList";
+import BottomBar from "../components/BottomBar";
 
 import InputAdornment from "@material-ui/core/InputAdornment";
-
 import Paper from "@mui/material/Paper";
 import InputBase from "@mui/material/InputBase";
 import Divider from "@mui/material/Divider";
@@ -111,6 +111,7 @@ export default function CustomizedInputBase() {
       ) : (
         <UserList key={users.filter((it) => it.id)} item={users} />
       )}
+      <BottomBar />
     </div>
   );
 }

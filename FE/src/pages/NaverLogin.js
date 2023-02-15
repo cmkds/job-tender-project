@@ -5,6 +5,7 @@ import axios from "axios";
 
 import TopBar from "../components/TopBar";
 import PushImage from "../components/PushImage";
+import BottomBar from "../components/BottomBar";
 
 import Card from "@mui/material/Card";
 import { Avatar } from "@material-ui/core";
@@ -156,6 +157,7 @@ const NaverLogin = () => {
           </p>
         </Button>
       </Card>
+      <BottomBar />
     </div>
   );
 };
