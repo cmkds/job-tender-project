@@ -5,6 +5,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 // import MyButton from "./components/MyButton";
 // import TopBar from "./components/TopBar";
 import RouteTest from "./components/RouteTest";
+import ScrollToTop from "./components/ScrollToTop";
 
 //페이지 import
 import Home from "./pages/Home";
@@ -50,6 +51,7 @@ function App() {
     <ThemeProvider theme={theme}>
       <div className={classes.root}>
         <BrowserRouter>
+          <ScrollToTop />
           <div className="App">
             {/* <TopBar
             // className="topbar"

@@ -36,7 +36,6 @@ const UserList = ({ item }) => {
 
   return (
     <div>
-      <p>유저리스트다</p>
       {item.map((it) => (
         <div
           className={classes.root}
@@ -45,7 +44,11 @@ const UserList = ({ item }) => {
           }}
         >
           <Avatar>
-            <img src={it.image} alt={"프로필 이미지가 없습니다."}></img>
+            <img
+              style={{ width: "100%", height: "100%", objectFit: "cover" }}
+              src={it.memberProfile}
+              alt={"프로필 이미지가 없습니다."}
+            ></img>
           </Avatar>
           <div className={classes.root}>
             <div style={{ display: "flex", flexDirection: "column" }}>
