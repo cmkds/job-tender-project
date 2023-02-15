@@ -52,16 +52,15 @@ const StorageList = () => {
             <div
               style={{
                 display: "flex",
-                backgroundColor: "#C1BCBC",
+                backgroundColor: "rgba(0, 0, 0, 0.4)",
                 color: "white",
                 height: "100%",
-                padding: "3% 5% 3%",
                 justifyContent: "space-between",
                 fontFamily: "GangwonEduAll",
               }}
             >
               {/* <div>{it.location}</div> */}
-              <div>
+              <div style={{display:'flex', margin:'auto', marginTop:'2%'}}>
                 {"<"}
                 {it.machineDataCreateTime}
                 {">"} {location(it.machineLocationSeq)}

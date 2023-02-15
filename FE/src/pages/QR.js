@@ -183,11 +183,13 @@ const QR = () => {
             sx={{
               display: "flex",
               width: "80%",
-              height: "5vh",
+              height: "13vh",
               margin: "auto",
               padding: 0,
+              wordBreak:'keep-all',
+              backgroundColor:'#ffb9b9'  
             }}
-            color="error"
+            
             onClick={save}
           >
             <div
@@ -196,7 +198,7 @@ const QR = () => {
                 fontSize: "25px",
               }}
             >
-              내 저장소에 저장하고 로그 박스로 이동
+              내 저장소에 저장하고 로그박스로 이동
             </div>
           </Button>
           {/* <a href={naverLogin}>

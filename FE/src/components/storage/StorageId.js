@@ -48,19 +48,21 @@ const StorageId = () => {
 
   return (
     <div>
-      <h2
+      <div
         style={{
           display: "flex",
           height: "100%",
           paddingLeft: "5%",
           fontFamily: "GangwonEduAll",
+          fontSize: "25px",
+          marginTop:"21%"
         }}
       >
         <div>{data.machineDataCreateTime}</div>
         <div style={{ paddingLeft: "5%" }}>
-          {location(data.machineLocationSeq)}
+          [{location(data.machineLocationSeq)}]
         </div>
-      </h2>
+      </div>
       <div>
         <a href={`${s3}${data.post}`} download>
           <img

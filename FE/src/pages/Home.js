@@ -46,6 +46,7 @@ const Home = () => {
         ></img>
         <Box sx={{ ...style }}>
           <div className="arrow-icon">
+            <div style={{fontSize:'40px', textAlign:'center'}}> click !</div>
             <i className="fas fa-arrow-right">
               <KeyboardDoubleArrowDownRoundedIcon
                 sx={{ fontSize: "100px", color: "grey", width: "80vw" }}
