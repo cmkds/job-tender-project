@@ -1,11 +1,12 @@
 // /storage/:card-no/share
 // 엽서 게시물 작성해서 피드에 공유하는 페이지.
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 
 import TextField from "@mui/material/TextField";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@mui/material/Button";
 import SendIcon from "@mui/icons-material/Send";
+import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
   textField: {
@@ -19,13 +20,43 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const StorageShare = () => {
+const StorageShare = (store) => {
   const classes = useStyles();
   const [value, setValue] = useState("");
+  const messageInput = useRef();
+  console.log(store);
+
+  // const handleChangeState = (e) => {
+  //   setValue({
+  //     ...value,
+  //     [e.target.name]: e.target.value,
+  //   });
+  // };
+
+  const handleSubmit = () => {
+    // API 요청 보내기
+    const data = {
+      content: value,
+      machineLocationSeq: store.data.machineLocationSeq,
+      memberSeq: store.data.memberSeq,
+      post: store.data.post,
+    };
+    console.log(data);
+    axios.post(`/api/main`, data).then(function (response) {
+      console.log(response);
+    });
+
+    // 성공시 State 다 지우고 메인페이지로 이동
+
+    setValue("");
+
+    alert("피드가 생성되었습니다.");
+  };
+
   return (
     <div>
       <div style={{ paddingTop: "5%", paddingLeft: "5%", fontSize: 24 }}>
-        내용
+        피드에 엽서 공유하기
       </div>
       <div style={{ display: "flex", margin: "3%" }}>
         <TextField
@@ -42,13 +73,7 @@ const StorageShare = () => {
         />
       </div>
       <div className={classes.characterCount}>{value.length} / 1,000</div>
-      {/* <textarea
-        name=""
-        id=""
-        cols="30"
-        rows="10"
-        placeholder="할 말을 입력하세요"
-      ></textarea> */}
+
       <div style={{ marginTop: "5%" }}>
         <Button
           style={{
@@ -59,6 +84,7 @@ const StorageShare = () => {
             backgroundColor: "#FFB9B9",
           }}
           variant="contained"
+          onClick={handleSubmit}
         >
           <SendIcon />
         </Button>
@@ -68,36 +94,3 @@ const StorageShare = () => {
 };
 
 export default StorageShare;
-
-// import React, { useState } from "react";
-// import { makeStyles } from "@material-ui/core/styles";
-// import TextField from "@material-ui/core/TextField";
-
-// const useStyles = makeStyles((theme) => ({
-//   textField: {
-//     width: 400,
-//   },
-//   characterCount: {
-//     marginTop: theme.spacing(1),
-//     color: "gray",
-//     marginLeft: "70%",
-//   },
-// }));
-
-// export default function CharacterCountTextField() {
-//   const classes = useStyles();
-//   const [value, setValue] = useState("");
-
-//   return (
-//     <div>
-//       <TextField
-//         className={classes.textField}
-//         label="내용"
-//         variant="outlined"
-//         value={value}
-//         onChange={(event) => setValue(event.target.value)}
-//       />
-//       <div className={classes.characterCount}>{value.length} / 1,000</div>
-//     </div>
-//   );
-// }
