@@ -9,7 +9,7 @@ import ImageListItem from "@mui/material/ImageListItem";
 const UserFeedList = () => {
   const params = useParams();
   const navigate = useNavigate();
-
+  const s3 = "https://team-a502-bucket.s3.ap-northeast-2.amazonaws.com/";
   // 유저 피드 가져오기
   useEffect(() => {
     axios.get(`/api/main/${params.user}`).then(function (response) {
@@ -31,7 +31,11 @@ const UserFeedList = () => {
               })
             }
           >
-            <img className="post_wrapper" src={it.post} alt={it.post} />
+            <img
+              className="post_wrapper"
+              src={`${s3}${it.post}`}
+              alt={it.post}
+            />
           </ImageListItem>
         ))}
       </ImageList>

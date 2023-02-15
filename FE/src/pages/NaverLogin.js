@@ -93,7 +93,7 @@ const NaverLogin = () => {
         } else {
           axios.put(`/api/account/${userId}`, state).then(function (response) {
             sessionStorage.setItem("loginUser", userId);
-            navigate("/main/hot/0");
+            navigate("/main/new/0");
           });
         }
       });

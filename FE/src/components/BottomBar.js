@@ -46,7 +46,7 @@ export default function FixedBottomNavigation() {
           />
           <BottomNavigationAction
             onClick={() => {
-              navigate("/main/hot/0");
+              navigate("/main/new/0");
             }}
             icon={<HomeIcon />}
           />
