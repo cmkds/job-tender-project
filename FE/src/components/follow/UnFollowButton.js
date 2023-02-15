@@ -1,10 +1,10 @@
 // 팔로우 언팔로우 버튼 컴포넌트
 // 팔로잉 페이지에 들어가는 언팔로우 버튼
-import Profile from "../Profile";
+import { useState, useEffect } from "react";
 
 import axios from "axios";
 
-import { useState, useEffect } from "react";
+import Profile from "../Profile";
 
 import Grid from "@mui/material/Grid";
 import { Button } from "@mui/material";
@@ -27,9 +27,6 @@ const style = {
 };
 
 const UnFollowButton = ({ id, change }) => {
-  // console.log(id, change);
-  // 여기에 버튼 누르면 언팔로우 하도록 한다음에
-
   const loginUser = sessionStorage.getItem("loginUser");
   // 상위 태그
 
@@ -37,9 +34,7 @@ const UnFollowButton = ({ id, change }) => {
     // 앞에 path가 지울사람 뒤에 path가 행위자
     axios
       .delete(`/api/profile/follow/${id}/${loginUser}`)
-      .then(function (response) {
-        console.log(response);
-      });
+      .then(function (response) {});
     change();
   };
   const [open, setOpen] = useState(false);

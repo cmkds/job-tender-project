@@ -9,7 +9,6 @@ import CommentList from "../components/comment/CommentList";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 
 const Comment = () => {
-  // const { id } = useParams();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -25,7 +24,6 @@ const Comment = () => {
         leftChild={<ArrowBackIosNewIcon onClick={() => navigate(-1)} />}
       />
       <CommentWrite />
-      {/* <CommentList /> */}
     </div>
   );
 };

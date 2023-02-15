@@ -15,16 +15,12 @@ const MainAll = () => {
   useEffect(() => {
     if (params.locationId === "0") {
       axios.get(`/api/main/${params.state}`).then(function (response) {
-        console.log("올로보냈다");
-        console.log(response);
         setFeedsData(response.data);
       });
     } else {
       axios
         .get(`/api/main/${params.state}/${params.locationId}`)
         .then(function (response) {
-          console.log("로케이션으로 보냈다");
-          console.log(response);
           setFeedsData(response.data);
         });
     }

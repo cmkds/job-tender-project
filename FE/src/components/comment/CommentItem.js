@@ -4,6 +4,7 @@ import axios from "axios";
 import qs from "qs";
 
 import Profile from "../Profile";
+
 import { Box, TextField } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import Modal from "@mui/material/Modal";
@@ -95,7 +96,6 @@ const CommentItem = ({
   const [contentState, setContentState] = useState(content);
   const handleChangeState = (e) => {
     setContentState(e.target.value);
-    console.log(contentState);
   };
 
   // 수정하기
@@ -103,12 +103,9 @@ const CommentItem = ({
     const data = {
       context: contentState,
     };
-    console.log(contentState);
     axios
       .put(`/api/comment/${commentSeq}`, qs.stringify(data))
-      .then(function (response) {
-        console.log(response);
-      });
+      .then(function (response) {});
     // 수정은 완료되는데 돔을 재가동해야함
     change();
     setOpen(false);
@@ -116,9 +113,7 @@ const CommentItem = ({
 
   // 삭제하기
   const commentRemove = () => {
-    axios.delete(`/api/comment/${commentSeq}`).then(function (response) {
-      console.log(response);
-    });
+    axios.delete(`/api/comment/${commentSeq}`).then(function (response) {});
     // 수정은 완료되는데 돔을 재가동해야함
     change();
   };
@@ -184,14 +179,6 @@ const CommentItem = ({
           </Box>
         </Grid>
       </Grid>
-
-      {/* <div>{memberSeq} 번 회원</div> */}
-      {/* <img src={apiUser.userProfileImg} alt="" /> */}
-      {/* <br /> */}
-
-      {/* 여기서 만약 댓글이 내 댓글 이라면 삭제 버튼 들어가야함. */}
-      {/* if 로그인id === id . 삭제버튼 보여짐. */}
-      {/*  */}
     </div>
   );
 };

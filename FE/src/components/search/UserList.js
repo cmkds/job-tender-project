@@ -28,12 +28,6 @@ const UserList = ({ item }) => {
   const classes = useStyles();
   const navigate = useNavigate();
 
-  // const [clicked, setClicked] = useState();
-  // const handleCardClick = (id) => {
-  //   setClicked(item.find((el) => el.id === id));
-  // };
-  console.log(item);
-
   return (
     <div>
       {item.map((it) => (

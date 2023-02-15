@@ -53,11 +53,6 @@ function App() {
         <BrowserRouter>
           <ScrollToTop />
           <div className="App">
-            {/* <TopBar
-            // className="topbar"
-            head_btn_center={"중단 홈"}
-            head_btn_right={"우측 로그인 버튼"}
-          /> */}
             <Routes>
               <Route path="/" element={<Home />}></Route>
               <Route path="/menu" element={<Menu />}></Route>

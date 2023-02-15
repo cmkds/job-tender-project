@@ -31,7 +31,6 @@ const CommentWrite = () => {
 
   useEffect(() => {
     axios.get(`/api/account/${loginUser}`).then(function (response) {
-      // console.log(response.data.memberProfile);
       setProfileImg(response.data.memberProfile);
     });
   });
@@ -55,14 +54,8 @@ const CommentWrite = () => {
 
     axios
       .post(`/api/comment`, qs.stringify(data))
-      .then(function (response) {
-        console.log(data);
-        console.log(response);
-      })
-      .catch(function (error) {
-        console.log(data);
-        console.log(error);
-      });
+      .then(function (response) {})
+      .catch(function (error) {});
 
     alert("댓글 작성 완료");
 

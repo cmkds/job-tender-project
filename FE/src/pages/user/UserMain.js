@@ -53,14 +53,12 @@ const UserMain = () => {
 
   //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
   const loginUser = sessionStorage.getItem("loginUser");
-  // console.log(loginUser)
   const [followCheck, setFollowCheck] = useState(true);
   const [followButton, setFollowButton] = useState(followCheck);
   useEffect(() => {
     axios
       .get(`/api/profile/${loginUser}/${params.user}`)
       .then(function (response) {
-        console.log(response);
         setFollowCheck(response.data);
       });
   }, []);
@@ -68,12 +66,9 @@ const UserMain = () => {
     setFollowButton(followCheck);
   }, [followCheck]);
 
-  console.log(followCheck);
-  console.log(followButton);
   // 유저정보 가져오기
   useEffect(() => {
     axios.get(`/api/account/${params.user}`).then(function (response) {
-      console.log(response.data);
       setUserProfileData(response.data);
     });
   }, [params]);
@@ -81,7 +76,6 @@ const UserMain = () => {
   // 게시글수 가져오기
   useEffect(() => {
     axios.get(`/api/main/${params.user}`).then(function (response) {
-      // console.log(response.data);
       setFeedLen(response.data.length);
     });
   }, [params]);
@@ -99,9 +93,6 @@ const UserMain = () => {
     });
   }, [followingLen, params, followButton]);
 
-  // 해당 유저 팔로우 하기
-  // console.log(params);
-
   const followPost = () => {
     const data = {
       follower: loginUser,
@@ -110,12 +101,9 @@ const UserMain = () => {
 
     axios
       .post(`/api/profile/follow`, qs.stringify(data))
-      .then(function (response) {
-        console.log(response.data);
-      });
+      .then(function (response) {});
     setFollowButton(true);
   };
-  // setFollowButton(followCheck);
 
   return (
     <div>
@@ -154,7 +142,6 @@ const UserMain = () => {
         >
           게시글
           <br />
-          {/* 여기 수정 */}
           {feedLen}
         </div>
         <div
@@ -169,7 +156,6 @@ const UserMain = () => {
           <p>
             팔로워
             <br />
-            {/* 여기수정 */}
             {followerLen}
           </p>
         </div>
@@ -185,7 +171,6 @@ const UserMain = () => {
           <p>
             팔로잉
             <br />
-            {/* 여기수정 */}
             {followingLen}
           </p>
 

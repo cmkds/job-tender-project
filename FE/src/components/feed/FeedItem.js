@@ -12,7 +12,6 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
 
 const FeedItem = (feed) => {
-  //로그인 유저 정보  이거 나중에 바꿔야함.
   const loginUser = sessionStorage.getItem("loginUser");
 
   const navigate = useNavigate();
@@ -29,11 +28,9 @@ const FeedItem = (feed) => {
   // 좋아요 수 받아오기
   useEffect(() => {
     axios.get(`/api/feed/heart/${feed.feedSeq}`).then(function (response) {
-      // console.log(response.data.length);
       setLikes(response.data.length);
     });
   }, [likeCheck]);
-  // console.log(`likes : ${likes}`);
 
   // 댓글 받아오기
   useEffect(() => {
@@ -57,13 +54,11 @@ const FeedItem = (feed) => {
   }, [likes]);
 
   const heartButton = () => {
-    // console.log(likeCheck);
     if (likeCheck) {
       // 좋아요가 되어있으므로 취소 요청을 보낸다.
       axios
         .delete(`/api/heart/${feed.feedSeq}/${loginUser}`)
         .then(function (response) {
-          console.log(response);
           setLikeCheck(false);
           setLikesLen(likesLen - 1);
         });
@@ -74,7 +69,6 @@ const FeedItem = (feed) => {
           memberSeq: loginUser,
         })
         .then(function (response) {
-          console.log(response);
           setLikesLen(likesLen + 1);
         });
       setLikeCheck(true);

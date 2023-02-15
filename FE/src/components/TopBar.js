@@ -40,7 +40,6 @@ export default function ButtonAppBar() {
 
   useEffect(() => {
     axios.get(`/api/account/${loginUser}`).then(function (response) {
-      // console.log(response.data.memberProfile);
       setProfileImg(response.data.memberProfile);
     });
   });

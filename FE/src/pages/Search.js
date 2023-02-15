@@ -42,7 +42,6 @@ export default function CustomizedInputBase() {
     axios.get(`/api/accounts`).then(function (response) {
       setUsers(response.data);
       setCopy(response.data);
-      console.log(response.data);
     });
   }, []);
 

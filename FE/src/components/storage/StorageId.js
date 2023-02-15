@@ -17,8 +17,6 @@ const StorageId = () => {
     (it) => parseInt(it.id) === parseInt(id)
   );
 
-  // console.log(targetStorageItem);
-
   return (
     <div>
       <h2

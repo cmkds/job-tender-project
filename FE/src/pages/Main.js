@@ -23,9 +23,7 @@ const Main = () => {
   return (
     <div>
       <TopBar />
-      {/* <MainNavBar></MainNavBar>
-      <NewHotButton></NewHotButton> */}
-      {/* <h2>main</h2> */}
+
       <div>
         <Routes>
           <Route path="/:state/:locationId" element={<MainAll />} />
