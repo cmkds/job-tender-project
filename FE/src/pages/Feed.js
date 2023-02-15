@@ -6,6 +6,7 @@ import axios from "axios";
 import TopBar from "../components/TopBar";
 import FeedList from "../components/feed/FeedList";
 import BottomBar from "../components/BottomBar";
+import { Button } from "@mui/material";
 
 const Feed = () => {
   const navigate = useNavigate();
@@ -36,24 +37,28 @@ const Feed = () => {
       {feedsData.length !== 0 ? (
         <FeedList feedsData={feedsData} />
       ) : (
-        <div>
+        <div style={{marginLeft:'5%', marginTop:'10%'}}>
           <p>새로운 엽서가 없습니다.</p>
           <p>엽서를 올리거나 지역별 인기 엽서를 확인하세요.</p>
           <br />
-          <span
+          <div>
+          <Button
+          sx={{fontFamily:'GangwonEduAll'}}
             onClick={() => {
               navigate("/storage");
             }}
           >
             엽서 올리기
-          </span>
-          <span
+          </Button>
+          <Button
+          sx={{fontFamily:'GangwonEduAll'}}
             onClick={() => {
-              navigate("/main");
+              navigate("/main/hot/0");
             }}
           >
             지역별 인기엽서 확인하기
-          </span>
+          </Button>
+          </div>
         </div>
       )}
       <BottomBar />
