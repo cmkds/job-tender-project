@@ -46,7 +46,7 @@ const Edit = () => {
   //커서 움직이는 용
   const nicknameInput = useRef();
   const memberStateInput = useRef();
-
+  const [nicknameCheck, setNicknameCheck] = useState();
   const [state, setState] = useState({
     memberProfile: "",
     nickname: "",
@@ -63,8 +63,9 @@ const Edit = () => {
         // memberProfile:
         //   "https://xsgames.co/randomusers/assets/avatars/pixel/1.jpg",
         nickname: response.data.nickname,
-        memberState: response.data.nickname,
+        memberState: response.data.memberState,
       });
+      setNicknameCheck(response.data.nickname);
     });
   }, []);
 
@@ -79,20 +80,26 @@ const Edit = () => {
   };
 
   const editUp = () => {
-    axios
-      .get(`/api/account/nickname/${state.nickname}`)
-      .then(function (response) {
-        if (response.data) {
-          alert("중복된 닉네임 입니다. 다른 닉네임을 입력해 주세요.");
-          return;
-        } else {
-          axios
-            .put(`/api/account/${loginUser}`, state)
-            .then(function (response) {
-              navigate("/main/hot/0");
-            });
-        }
+    if (state.nickname === nicknameCheck) {
+      axios.put(`/api/account/${loginUser}`, state).then(function (response) {
+        navigate("/main/hot/0");
       });
+    } else {
+      axios
+        .get(`/api/account/nickname/${state.nickname}`)
+        .then(function (response) {
+          if (response.data) {
+            alert("중복된 닉네임 입니다. 다른 닉네임을 입력해 주세요.");
+            return;
+          } else {
+            axios
+              .put(`/api/account/${loginUser}`, state)
+              .then(function (response) {
+                navigate("/main/hot/0");
+              });
+          }
+        });
+    }
   };
 
   const deleteUp = () => {

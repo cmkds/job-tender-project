@@ -1,6 +1,5 @@
 // // logbox 설명 페이지
 // // /logbox
-// import { useNavigate } from "react-router-dom";
 
 import TopBar from "../components/TopBar";
 
@@ -58,7 +57,9 @@ import Button from "@mui/material/Button";
 import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
 import SwipeableViews from "react-swipeable-views";
-
+import NavBar from "../components/NavBar";
+import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
+import { useNavigate } from "react-router-dom";
 const images = [
   {
     label: "여행지에서의 행복한 기억을",
@@ -94,10 +95,11 @@ const images = [
   },
 ];
 
-function SwipeableTextMobileStepper() {
+function LogBox() {
   const theme = useTheme();
   const [activeStep, setActiveStep] = useState(0);
   const maxSteps = images.length;
+  const navigate = useNavigate();
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -111,10 +113,19 @@ function SwipeableTextMobileStepper() {
     setActiveStep(step);
   };
 
+  const state = 1;
+  const CLIENT_ID = "1cdhp17WpXR_m9BDcOcE"; // 호성이 새로운거
+  const redirectURI = "http://localhost:3000/naver";
+  const naverLogin = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${CLIENT_ID}&redirect_uri=${redirectURI}&state=${state}`;
+
   return (
     <div>
       <Box sx={{ width: "100vw", height: "100vh", flexGrow: 1 }}>
-        <TopBar></TopBar>
+        <NavBar
+          navText={"LogBox?"}
+          leftChild={<ArrowBackIosNewIcon onClick={() => navigate(-1)} />}
+        />
+        {/* <TopBar></TopBar> */}
         <MobileStepper
           steps={maxSteps}
           position="static"
@@ -214,11 +225,15 @@ function SwipeableTextMobileStepper() {
                         }
                         onClick={() => {}}
                       >
-                        <img
-                          src={process.env.PUBLIC_URL + `assets/naverLogin.png`}
-                          alt="naver"
-                          style={{ width: "80%", objectFit: "fill" }}
-                        ></img>
+                        <a href={naverLogin}>
+                          <img
+                            src={
+                              process.env.PUBLIC_URL + `assets/naverLogin.png`
+                            }
+                            alt="naver"
+                            style={{ width: "80%", objectFit: "fill" }}
+                          ></img>
+                        </a>
                       </Button>
                     </Box>
                   </Box>
@@ -257,4 +272,4 @@ function SwipeableTextMobileStepper() {
   );
 }
 
-export default SwipeableTextMobileStepper;
+export default LogBox;

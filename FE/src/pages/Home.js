@@ -32,62 +32,9 @@ const Home = () => {
 
   const navigate = useNavigate();
   const state = 1;
-  // const CLIENT_ID = "DJ94WWgE_wFepnxDsIQa"; // 호성이꺼
   const CLIENT_ID = "1cdhp17WpXR_m9BDcOcE"; // 호성이 새로운거
-  // const CLIENT_ID = "XxdvqpScfLYk66JOWwTB"; // 내꺼
   const redirectURI = "http://localhost:3000/naver";
   const naverLogin = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${CLIENT_ID}&redirect_uri=${redirectURI}&state=${state}`;
-  // const [clicked, setClicked] = useState(false);
-
-  // const printImg = () => {
-  //   if (clicked) {
-  //     return (
-  //       <div>
-  //         <motion.img
-  //           initial={{ scale: 1 }}
-  //           animate={{ scale: 1.2 }}
-  //           className="postOpen"
-  //           onClick={() => {
-  //             navigate("/logbox");
-  //           }}
-  //           src={process.env.PUBLIC_URL + `assets/open2.png`}
-  //         />
-  //         <h2
-  //           style={{
-  //             textAlign: "center",
-  //             wordBreak: "keep-all",
-  //             // paddingBottom: "20%",
-  //           }}
-  //         >
-  //           "소중한 추억을 특별하게 기록하는 방법 알아보기"
-  //         </h2>
-  //       </div>
-  //     );
-  //   } else {
-  //     return (
-  //       <div>
-  //         <motion.img
-  //           initial={{ scale: 1.2 }}
-  //           animate={{ scale: 1 }}
-  //           className="postClosed"
-  //           onClick={() => {
-  //             setClicked(!clicked);
-  //           }}
-  //           src={process.env.PUBLIC_URL + `assets/post.png`}
-  //         />
-  //         <h2
-  //           style={{
-  //             textAlign: "center",
-  //             wordBreak: "keep-all",
-  //             // paddingBottom: "20%",
-  //           }}
-  //         >
-  //           "소중한 추억을 특별하게 기록하는 방법 알아보기"
-  //         </h2>
-  //       </div>
-  //     );
-  //   }
-  // };
 
   return (
     <div className="main" style={{ height: "100vh", paddingTop: "15%" }}>
