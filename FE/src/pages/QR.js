@@ -114,11 +114,15 @@ const QR = () => {
       console.log(postData);
       axios.post(`/api/store`, postData).then(function (response) {
         console.log(response.data);
+        sessionStorage.removeItem("qr");
+        navigate(`/storage`);
       });
-      navigate(`/main/hot/0`);
     } else {
       alert("로그인 해주세요");
     }
+  };
+  const qrSession = () => {
+    sessionStorage.setItem("qr", params.machineDataSeq);
   };
 
   const state = 1;
@@ -227,7 +231,7 @@ const QR = () => {
             로그인 하시면, 엽서를 공유하거나 다른 사람의 엽서를 볼 수 있습니다.
           </h3>
 
-          <a href={naverLogin}>
+          <a href={naverLogin} onClick={qrSession}>
             <img
               src="/assets/naverLogin.png"
               alt="naver"

@@ -25,6 +25,7 @@ const FeedItem = (feed) => {
   //좋아요 여부 체크
   const [likeCheck, setLikeCheck] = useState(false);
 
+  const s3 = "https://team-a502-bucket.s3.ap-northeast-2.amazonaws.com/";
   // 좋아요 수 받아오기
   useEffect(() => {
     axios.get(`/api/feed/heart/${feed.feedSeq}`).then(function (response) {
@@ -83,7 +84,7 @@ const FeedItem = (feed) => {
       {/* array는 [인덱스] 객체는 .key이름 */}
       <div className="post_wrapper">
         <div>
-          <img src={feed.post} alt={feed.post} />
+          <img src={`${s3}${feed.post}`} alt={feed.post} />
         </div>
       </div>
       {/* 게시글 여기에 출력 */}

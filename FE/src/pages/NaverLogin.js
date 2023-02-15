@@ -35,7 +35,14 @@ const NaverLogin = () => {
         if (!(response.data.nickname === "empty")) {
           sessionStorage.setItem("loginUser", response.data.memberSeq);
 
-          navigate(`/main/hot/0`);
+          // console.log(sessionStorage.getItem("qr"));
+          if (sessionStorage.getItem("qr")) {
+            navigate(`/download/${sessionStorage.getItem("qr")}`);
+            return;
+          }
+
+          navigate(`/main/new/0`);
+          return;
         }
       })
       .catch((error) => {
@@ -168,6 +175,7 @@ const NaverLogin = () => {
             wordBreak: "keep-all",
           }}
           // here
+          //
           onClick={() => navigate(`/download/1`)}
         >
           <p style={{ fontSize: "150%", fontFamily: "GangwonEduAll" }}>

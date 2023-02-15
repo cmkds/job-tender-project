@@ -14,16 +14,30 @@ const StorageId = () => {
   const loginUser = sessionStorage.getItem("loginUser");
   const s3 = "https://team-a502-bucket.s3.ap-northeast-2.amazonaws.com/";
   const params = useParams();
-  const [storage, setStorage] = useState({});
+  const [data, setData] = useState({});
 
   useEffect(() => {
     axios
       .get(`/api/mypage/post-new/store/${params.id}`)
       .then(function (response) {
         console.log(response.data);
-        setStorage(response.data);
+        setData(response.data);
       });
   }, []);
+
+  const location = (sep) => {
+    if (sep == 1) {
+      return "서울";
+    } else if (sep == 2) {
+      return "강릉";
+    } else if (sep == 3) {
+      return "경주";
+    } else if (sep == 4) {
+      return "전주";
+    } else if (sep == 5) {
+      return "부산";
+    }
+  };
 
   // console.log(storage);
 
@@ -42,16 +56,20 @@ const StorageId = () => {
           fontFamily: "GangwonEduAll",
         }}
       >
-        <div>{storage.machineDataCreateTime}</div>
-        <div style={{ paddingLeft: "5%" }}>{storage.machineLocationSeq}</div>
+        <div>{data.machineDataCreateTime}</div>
+        <div style={{ paddingLeft: "5%" }}>
+          {location(data.machineLocationSeq)}
+        </div>
       </h2>
       <div>
-        <img
-          // style={"width: 10%;"}
-          src={`${s3}${storage.post}`}
-          alt="사진이 없습니다."
-          style={{ width: "100%" }}
-        />
+        <a href={`${s3}${data.post}`} download>
+          <img
+            // style={"width: 10%;"}
+            src={`${s3}${data.post}`}
+            alt="사진이 없습니다."
+            style={{ width: "100%" }}
+          />
+        </a>
       </div>
 
       <div>
@@ -59,7 +77,7 @@ const StorageId = () => {
           {/* 저장용 */}
           <Route path="/" element={<StorageDownload />} />
           {/* 공유용 */}
-          <Route path="/share" element={<StorageShare />} />
+          <Route path="/share" element={<StorageShare data={data} />} />
         </Routes>
       </div>
     </div>
