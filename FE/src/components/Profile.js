@@ -7,7 +7,7 @@ import axios from "axios";
 
 import Avatar from "@mui/material/Avatar";
 import { makeStyles } from "@material-ui/core/styles";
-
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 // import Avatar from "@material-ui/core/Avatar";
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -58,7 +58,6 @@ const Profile = (userId) => {
         >
           <img
             src={userData.memberProfile}
-            alt={"프로필 이미지가 없습니다."}
             style={{ width: "100%", height: "100%", objectFit: "cover" }}
           ></img>
         </Avatar>

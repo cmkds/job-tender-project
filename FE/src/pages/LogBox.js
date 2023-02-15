@@ -122,7 +122,7 @@ function LogBox() {
     <div>
       <Box sx={{ width: "100vw", height: "100vh", flexGrow: 1 }}>
         <NavBar
-          navText={"LogBox?"}
+          navText={"로그박스?"}
           leftChild={<ArrowBackIosNewIcon onClick={() => navigate(-1)} />}
         />
         {/* <TopBar></TopBar> */}
@@ -231,7 +231,11 @@ function LogBox() {
                               process.env.PUBLIC_URL + `assets/naverLogin.png`
                             }
                             alt="naver"
-                            style={{ width: "80%", objectFit: "fill" }}
+                            style={{
+                              height: "6vh",
+                              display: "flex",
+                              objectFit: "cover",
+                            }}
                           ></img>
                         </a>
                       </Button>
