@@ -156,6 +156,25 @@ const NaverLogin = () => {
             가입하기
           </p>
         </Button>
+        <Button
+          variant="contained"
+          style={{
+            display: "flex",
+            margin: "auto",
+            width: "90%",
+            height: "75px",
+            backgroundColor: "#FFB9B9",
+            marginBottom: "10%",
+            marginTop: "10%",
+            wordBreak: "keep-all",
+          }}
+          // here
+          onClick={navigate("")}
+        >
+          <p style={{ fontSize: "150%", fontFamily: "GangwonEduAll" }}>
+            가입하고 보관함에 사진 저장하러 가기
+          </p>
+        </Button>
       </Card>
       <BottomBar />
     </div>
