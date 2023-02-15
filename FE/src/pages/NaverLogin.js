@@ -168,7 +168,7 @@ const NaverLogin = () => {
             wordBreak: "keep-all",
           }}
           // here
-          onClick={navigate("")}
+          onClick={() => navigate(`/download/1`)}
         >
           <p style={{ fontSize: "150%", fontFamily: "GangwonEduAll" }}>
             가입하고 보관함에 사진 저장하러 가기
