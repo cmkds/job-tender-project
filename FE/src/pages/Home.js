@@ -35,7 +35,7 @@ const Home = () => {
   const CLIENT_ID = "1cdhp17WpXR_m9BDcOcE"; // 호성이 새로운거
   const redirectURI = "http://localhost:3000/naver";
   const naverLogin = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${CLIENT_ID}&redirect_uri=${redirectURI}&state=${state}`;
-
+  console.log(process.env.PUBLIC_URL + `assets/naverLogin.png`);
   return (
     <div className="main" style={{ height: "100vh", paddingTop: "15%" }}>
       <div style={{ display: "flex" }}>
@@ -83,7 +83,7 @@ const Home = () => {
       >
         <a href={naverLogin}>
           <img
-            src={process.env.PUBLIC_URL + `assets/naverLogin.png`}
+            src={process.env.PUBLIC_URL + `/assets/naverLogin.png`}
             alt="naver"
             style={{
               height: "6vh",

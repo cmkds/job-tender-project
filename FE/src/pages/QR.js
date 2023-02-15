@@ -11,6 +11,8 @@ import VideocamIcon from "@mui/icons-material/Videocam";
 import IosShareIcon from "@mui/icons-material/IosShare";
 import IconButton from "@material-ui/core/IconButton";
 import { makeStyles } from "@material-ui/core/styles";
+import { Box } from "@mui/material";
+import Button from "@mui/material/Button";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -28,6 +30,19 @@ const useStyles = makeStyles((theme) => ({
     color: "#FF9999",
   },
 }));
+
+const style = {
+  position: "absolute",
+  top: "75%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: "80%",
+  bgcolor: "rgba(255, 255, 255, 0.5)",
+  borderRadius: "8px",
+  boxShadow: 24,
+  px: 0,
+  pb: 5,
+};
 
 const QR = () => {
   // AWS.config.update({
@@ -51,6 +66,7 @@ const QR = () => {
 
   const navigate = useNavigate();
   const classes = useStyles();
+  const loginUser = sessionStorage.getItem("loginUser");
 
   const params = useParams();
   const s3 = "https://team-a502-bucket.s3.ap-northeast-2.amazonaws.com/";
@@ -111,7 +127,6 @@ const QR = () => {
   const CLIENT_ID = "1cdhp17WpXR_m9BDcOcE"; // 호성이 새로운거
   const redirectURI = `http://localhost:3000/download/${params.machineDataSeq}`;
   const naverLogin = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${CLIENT_ID}&redirect_uri=${redirectURI}&state=${state}`;
-
   return (
     <div>
       <h2
@@ -152,29 +167,80 @@ const QR = () => {
             </IconButton> */}
         </div>
       </div>
-      <p> 로그인하시면 엽서를 공유하거나 다른 사람의 엽서를 볼 수 있습니다. </p>
-      {/* <MyBtn
-        sx={{
-          position: "absolute",
-          left: "50%",
-          top: "85%",
-          transform: "translate(-50%, -50%)",
-          width: "80%",
-        }}
-        onClick={() => {}}
-      > */}
-      <a href={naverLogin}>
-        <img
-          src={process.env.PUBLIC_URL + `assets/naverLogin.png`}
-          alt="naver"
-          style={{
-            height: "6vh",
-            display: "flex",
-            objectFit: "cover",
-          }}
-        ></img>
-      </a>
-      {/* </MyBtn> */}
+      {loginUser ? (
+        <Box sx={{ ...style }}>
+          <img
+            src="/assets/logo2.png"
+            style={{ width: "100%", marginTop: "5%" }}
+          ></img>
+          <Button
+            variant="contained"
+            sx={{
+              display: "flex",
+              width: "80%",
+              height: "5vh",
+              margin: "auto",
+              padding: 0,
+            }}
+            color="error"
+            onClick={() => {}}
+          >
+            <div
+              style={{
+                fontFamily: "GangwonEduAll",
+                fontSize: "25px",
+              }}
+            >
+              보관함에 저장하기
+            </div>
+          </Button>
+          {/* <a href={naverLogin}>
+            <img
+              src="/assets/naverLogin.png"
+              alt="naver"
+              style={{
+                height: "6vh",
+                display: "flex",
+                objectFit: "cover",
+                margin: "auto",
+                marginTop: "10%",
+              }}
+            ></img>
+          </a> */}
+        </Box>
+      ) : (
+        <Box sx={{ ...style }}>
+          <img
+            src="/assets/logo2.png"
+            style={{ width: "100%", marginTop: "5%" }}
+          ></img>
+          <h3
+            style={{
+              margin: "auto",
+              marginTop: "10%",
+              width: "80%",
+              wordBreak: "keep-all",
+              wordSpacing: 2,
+            }}
+          >
+            로그인 하시면, 엽서를 공유하거나 다른 사람의 엽서를 볼 수 있습니다.
+          </h3>
+
+          <a href={naverLogin}>
+            <img
+              src="/assets/naverLogin.png"
+              alt="naver"
+              style={{
+                height: "6vh",
+                display: "flex",
+                objectFit: "cover",
+                margin: "auto",
+                marginTop: "10%",
+              }}
+            ></img>
+          </a>
+        </Box>
+      )}
     </div>
   );
 };
