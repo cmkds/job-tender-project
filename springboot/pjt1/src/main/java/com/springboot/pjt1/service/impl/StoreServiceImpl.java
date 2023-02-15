@@ -36,6 +36,9 @@ public class StoreServiceImpl implements StoreService {
         storeDTO.setVoice(store.getVoice());
         storeDTO.setCreateTime(store.getCreateTime());
         storeDTO.setRecentTime(store.getRecentTime());
+        storeDTO.setMachineLocationSeq(store.getMachineLocationSeq());
+        storeDTO.setMemberSeq(store.getMemberSeq());
+        storeDTO.setMachineDataCreateTime(store.getMachineDataCreateTime());
 
         return storeDTO;
     }
@@ -77,6 +80,9 @@ public class StoreServiceImpl implements StoreService {
         store.setMachineDataCreateTime(storeInputDTO.getMachineDataCreateTime());
         store.setCreateTime(new Date());
         store.setRecentTime(new Date());
+        store.setMemberSeq(storeInputDTO.getMemberSeq());
+        store.setMachineLocationSeq(storeInputDTO.getMachineLocationSeq());
+        store.setVoice(storeInputDTO.getVoice());
 
         Store savedStore = storeDAO.InsertStore(store);
         StoreDTO rStoreDTO = new StoreDTO();
@@ -89,6 +95,9 @@ public class StoreServiceImpl implements StoreService {
         rStoreDTO.setCreateTime(savedStore.getCreateTime());
         rStoreDTO.setRecentTime(savedStore.getRecentTime());
         rStoreDTO.setMachineDataCreateTime(savedStore.getMachineDataCreateTime());
+        rStoreDTO.setMemberSeq(savedStore.getMemberSeq());
+        rStoreDTO.setMachineLocationSeq(savedStore.getMachineLocationSeq());
+        rStoreDTO.setVoice(savedStore.getVoice());
 
         return rStoreDTO;
     }
@@ -123,6 +132,16 @@ public class StoreServiceImpl implements StoreService {
     @Override
     public void deleteStoreByMemberSeq(long memberSeq) {
         storeDAO.DeleteStoreByMemberSeq(memberSeq);
+    }
+
+    @Override
+    public List<StoreDTO> getStoreByMemberSeqDesc(long memberSeq) {
+        return storeDAO.SelectStoreByMemberSeqDesc(memberSeq);
+    }
+
+    @Override
+    public List<StoreDTO> getStoreByStoreSeqDesc(long storeSeq) {
+        return storeDAO.SelectStoreByStoreSeqDesc(storeSeq);
     }
 
 

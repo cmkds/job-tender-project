@@ -8,5 +8,7 @@ import java.util.Optional;
 
 public interface StoreRepository extends JpaRepository<Store, Long> {
     List<Store> findByMemberSeq(long memberSeq);
+    //List<Store> findByMemberSeqByOrderByMemberSeqDesc(long memberSeq);
+    List<Store> findAllByOrderByCreateTimeDesc();
     //Store findByMachineDataSeq(long machineDataSeq);
 }

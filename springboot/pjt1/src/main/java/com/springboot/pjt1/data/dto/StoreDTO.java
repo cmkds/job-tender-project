@@ -17,7 +17,7 @@ public class StoreDTO {
     private String voice;
     private Date createTime;
     private Date recentTime;
-    private Date machineDataCreateTime;
+    private String machineDataCreateTime;
     private long memberSeq;
     private long machineLocationSeq;
 }

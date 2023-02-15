@@ -27,10 +27,7 @@ public class Store {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(nullable = false)
     private Date recentTime;
-
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(nullable = false)
-    private Date machineDataCreateTime;
+    private String machineDataCreateTime;
     @Column(nullable = false)
     private long memberSeq;
     @Column(nullable = false)

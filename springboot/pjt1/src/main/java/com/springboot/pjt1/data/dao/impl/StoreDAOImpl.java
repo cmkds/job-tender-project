@@ -109,5 +109,65 @@ public class StoreDAOImpl implements StoreDAO {
             storeRepository.delete(store);
     }
 
+    @Override
+    public List<StoreDTO> SelectStoreByMemberSeqDesc(long memberSeq) {
+        List<Store> stores = storeRepository.findAllByOrderByCreateTimeDesc();
+
+        List<StoreDTO> storeDTOs = new ArrayList<>();
+
+        for (Store store: stores){
+            if (store.getMemberSeq() != memberSeq)
+                continue;
+
+            StoreDTO storeDTO = new StoreDTO();
+
+            storeDTO.setMemberSeq(store.getStoreSeq());
+            storeDTO.setStoreSeq(store.getStoreSeq());
+            storeDTO.setVoice(store.getVoice());
+            storeDTO.setPost(store.getPost());
+            storeDTO.setVideo(store.getVideo());
+            storeDTO.setRecentTime(store.getRecentTime());
+            storeDTO.setCreateTime(store.getCreateTime());
+            storeDTO.setPhoto(store.getPhoto());
+            storeDTO.setMemberSeq(store.getMemberSeq());
+            storeDTO.setMachineDataCreateTime(store.getMachineDataCreateTime());
+            storeDTO.setMachineLocationSeq(store.getMachineLocationSeq());
+
+            storeDTOs.add(storeDTO);
+        }
+
+        return storeDTOs;
+    }
+
+    @Override
+    public List<StoreDTO> SelectStoreByStoreSeqDesc(long storeSeq) {
+        List<Store> stores = storeRepository.findAllByOrderByCreateTimeDesc();
+
+        List<StoreDTO> storeDTOs = new ArrayList<>();
+
+        for (Store store: stores){
+            if (store.getStoreSeq() != storeSeq)
+                continue;
+
+            StoreDTO storeDTO = new StoreDTO();
+
+            storeDTO.setMemberSeq(store.getStoreSeq());
+            storeDTO.setStoreSeq(store.getStoreSeq());
+            storeDTO.setVoice(store.getVoice());
+            storeDTO.setPost(store.getPost());
+            storeDTO.setVoice(store.getVoice());
+            storeDTO.setRecentTime(store.getRecentTime());
+            storeDTO.setCreateTime(store.getCreateTime());
+            storeDTO.setPhoto(store.getPhoto());
+            storeDTO.setMemberSeq(store.getMemberSeq());
+            storeDTO.setMachineDataCreateTime(store.getMachineDataCreateTime());
+            storeDTO.setMachineLocationSeq(store.getMachineLocationSeq());
+
+            storeDTOs.add(storeDTO);
+        }
+
+        return storeDTOs;
+    }
+
 
 }

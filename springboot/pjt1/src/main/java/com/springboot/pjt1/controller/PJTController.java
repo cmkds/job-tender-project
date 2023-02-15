@@ -521,7 +521,10 @@ public class PJTController {
 
     @GetMapping("/machine/new")
     public ResponseEntity<Long> getMachineDataSeqRecent(){
-        return ResponseEntity.status(HttpStatus.OK).body(machineDataService.getRecentMachineData().getMachineDataSeq());
+        MachineDataDTO machineDataDTO = machineDataService.getRecentMachineData();
+        long result = (machineDataDTO == null) ? -1 : machineDataService.getRecentMachineData().getMachineDataSeq();
+
+        return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
     @ApiOperation(
@@ -575,5 +578,19 @@ public class PJTController {
         return ResponseEntity.status(HttpStatus.OK).body(rMemberDto);
     }
 
+    @GetMapping("/mypage/post-new/member/{memberSeq}")
+
+    public ResponseEntity<List<StoreDTO>> getStoreByMemberSeqDesc(@PathVariable("memberSeq") long memberSeq){
+        List<StoreDTO> storeDTOs = storeService.getStoreByMemberSeqDesc(memberSeq);
+
+        return ResponseEntity.status(HttpStatus.OK).body(storeDTOs);
+    }
+
+    @GetMapping("/mypage/post-new/store/{storeSeq}")
+    public ResponseEntity<StoreDTO> getStoreByStoreSeqDesc(@PathVariable("storeSeq") long storeSeq){
+        StoreDTO storeDTO = storeService.getStore(storeSeq);
+
+        return ResponseEntity.status(HttpStatus.OK).body(storeDTO);
+    }
 
 }

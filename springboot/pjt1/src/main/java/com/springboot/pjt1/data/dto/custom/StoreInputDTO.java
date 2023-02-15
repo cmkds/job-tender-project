@@ -12,5 +12,5 @@ public class StoreInputDTO {
     private String voice;
     private long memberSeq;
     private long machineLocationSeq;
-    private Date machineDataCreateTime;
+    private String machineDataCreateTime;
 }

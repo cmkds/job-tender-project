@@ -13,8 +13,9 @@ public interface StoreService {
     StoreDTO updateStore(long storeSeq, String photo, String video,
                          String post, String voice, long recentSeq)throws Exception;
     void deleteStore(long storeSeq)throws Exception;
-
     List<StoreDTO> getStoreByMemberSeq(long memberSeq);
-
     void deleteStoreByMemberSeq(long memberSeq);
+    List<StoreDTO> getStoreByMemberSeqDesc(long memberSeq);
+
+    List<StoreDTO> getStoreByStoreSeqDesc(long storeSeq);
 }
