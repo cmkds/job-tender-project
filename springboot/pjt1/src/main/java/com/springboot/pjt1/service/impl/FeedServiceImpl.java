@@ -230,6 +230,7 @@ public class FeedServiceImpl implements FeedService {
         feed.setModifyTime(new Date());
         feed.setHeart(0);
         feed.setMemberSeq(feedInputDTO.getMemberSeq());
+        feed.setMachineLocationSeq(feedInputDTO.getMachineLocationSeq());
 
         Feed savedFeed = feedDAO.InsertFeed(feed);
         FeedDTO rFeedDTO = new FeedDTO();
@@ -241,6 +242,7 @@ public class FeedServiceImpl implements FeedService {
         rFeedDTO.setCreateTime(savedFeed.getCreateTime());
         rFeedDTO.setHeart(savedFeed.getHeart());
         rFeedDTO.setMemberSeq(savedFeed.getMemberSeq());
+        feed.setMachineLocationSeq(savedFeed.getMachineLocationSeq());
 
         return rFeedDTO;
     }
