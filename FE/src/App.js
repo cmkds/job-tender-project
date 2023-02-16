@@ -1,11 +1,11 @@
 import "./App.css";
-import { HashRouter as BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { BrowserView, MobileView } from "react-device-detect";
 
 //컴포넌트 import
 // import MyButton from "./components/MyButton";
 // import TopBar from "./components/TopBar";
-import RouteTest from "./components/RouteTest";
+// import RouteTest from "./components/RouteTest";
 import ScrollToTop from "./components/ScrollToTop";
 
 //페이지 import
