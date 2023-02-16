@@ -196,6 +196,31 @@ public class FeedServiceImpl implements FeedService {
     }
 
     @Override
+    public List<FeedDTO> getFollowingFeedAll(List<Long> memberSeqs) {
+        List<FeedDTO> rFeedDTOs = new ArrayList<>();
+
+        for (Long mSeq:memberSeqs) {
+            List<Feed> feeds = feedDAO.SelectFeedByMemberSeq(mSeq);
+
+            for (Feed feed : feeds) {
+                FeedDTO feedDTO = new FeedDTO();
+
+                feedDTO.setMemberSeq(feed.getMemberSeq());
+                feedDTO.setModifyTime(feed.getModifyTime());
+                feedDTO.setContent(feed.getContent());
+                feedDTO.setCreateTime(feed.getCreateTime());
+                feedDTO.setFeedSeq(feed.getFeedSeq());
+                feedDTO.setHeart(feed.getHeart());
+                feedDTO.setPost(feed.getPost());
+                feedDTO.setMachineLocationSeq(feed.getMachineLocationSeq());
+
+                rFeedDTOs.add(feedDTO);
+            }
+        }
+        return rFeedDTOs;
+    }
+
+    @Override
     public List<FeedDTO> getFollowingFeed(List<Long> memberSeqs) {
         List<Feed> feeds = feedDAO.SelectFeedByMemberSeqs(memberSeqs);
         List<FeedDTO> feedDTOs = new ArrayList<>();

@@ -30,4 +30,6 @@ public interface FeedService {
     FeedInputDTO ConvertToInputDTO(FeedDTO feedDTO);
 
     List<FeedDTO> getFeedAllByMemberSeq(long memberSeq);
+
+    List<FeedDTO> getFollowingFeedAll(List<Long> memberSeqs);
 }
