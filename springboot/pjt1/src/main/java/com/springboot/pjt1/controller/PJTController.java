@@ -182,9 +182,10 @@ public class PJTController {
         List<Map.Entry<Long, Integer>> entryList = new LinkedList<>(map.entrySet());
         entryList.sort(Map.Entry.comparingByValue(Comparator.reverseOrder()));
 
-        for(Map.Entry<Long, Integer> entry : entryList)
-            rfeedDTO.add(feedService.getFeed(entry.getKey()));
+        for(Map.Entry<Long, Integer> entry : entryList) {
 
+            rfeedDTO.add(feedService.getFeed(entry.getKey()));
+        }
 
         return ResponseEntity.status(HttpStatus.OK).body(rfeedDTO);
     }
