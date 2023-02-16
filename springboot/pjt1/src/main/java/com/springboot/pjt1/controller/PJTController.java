@@ -183,6 +183,10 @@ public class PJTController {
         entryList.sort(Map.Entry.comparingByValue(Comparator.reverseOrder()));
 
         for(Map.Entry<Long, Integer> entry : entryList) {
+            long feedSeq = entry.getKey();
+
+            if (!feedService.isExistByFeedSeq(feedSeq))
+                continue;
 
             rfeedDTO.add(feedService.getFeed(entry.getKey()));
         }
@@ -216,13 +220,16 @@ public class PJTController {
                 map.put(heartDTO.getFeedSeq(), 1);
         }
 
-        System.out.println(MachineLocationSeq);
         List<Map.Entry<Long, Integer>> entryList = new LinkedList<>(map.entrySet());
         entryList.sort(Map.Entry.comparingByValue(Comparator.reverseOrder()));
 
         for(Map.Entry<Long, Integer> entry : entryList) {
-            FeedDTO feedDTO = feedService.getFeed(entry.getKey());
-            System.out.println(feedDTO.getFeedSeq() + " " + feedDTO.getMachineLocationSeq());
+            long feedSeq = entry.getKey();
+
+            if (!feedService.isExistByFeedSeq(feedSeq))
+                continue;
+
+            FeedDTO feedDTO = feedService.getFeed(feedSeq);
 
             if (feedDTO.getMachineLocationSeq() == MachineLocationSeq)
                 rfeedDTO.add(feedDTO);

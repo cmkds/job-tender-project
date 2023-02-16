@@ -117,5 +117,10 @@ public class FeedDAOImpl implements FeedDAO {
         return feedRepository.findAllByMemberSeq(memberSeq);
     }
 
+    @Override
+    public boolean isExistByFeedSeq(long feedSeq) {
+        return feedRepository.existsByFeedSeq(feedSeq);
+    }
+
 
 }

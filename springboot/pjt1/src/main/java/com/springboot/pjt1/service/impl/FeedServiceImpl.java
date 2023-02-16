@@ -196,6 +196,11 @@ public class FeedServiceImpl implements FeedService {
     }
 
     @Override
+    public boolean isExistByFeedSeq(long feedSeq) {
+        return feedDAO.isExistByFeedSeq(feedSeq);
+    }
+
+    @Override
     public List<FeedDTO> getFollowingFeed(List<Long> memberSeqs) {
         List<Feed> feeds = feedDAO.SelectFeedByMemberSeqs(memberSeqs);
         List<FeedDTO> feedDTOs = new ArrayList<>();

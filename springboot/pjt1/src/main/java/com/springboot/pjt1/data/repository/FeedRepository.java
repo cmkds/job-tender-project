@@ -20,4 +20,6 @@ public interface FeedRepository extends JpaRepository<Feed, Long> {
     List<Feed> findByMachineLocationSeqOrderByCreateTimeDesc(long machineLocationSeq);
 
     List<Feed> findAllByOrderByCreateTimeDesc();
+
+    boolean existsByFeedSeq(long feedSeq);
 }
