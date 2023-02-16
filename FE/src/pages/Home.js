@@ -33,7 +33,8 @@ const Home = () => {
   const navigate = useNavigate();
   const state = 1;
   const CLIENT_ID = "1cdhp17WpXR_m9BDcOcE"; // 호성이 새로운거
-  const redirectURI = "http://localhost:3000/naver";
+  // const redirectURI = "http://localhost:3000/naver";
+  const redirectURI = "https://i8a502.p.ssafy.io/naver";
   const naverLogin = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${CLIENT_ID}&redirect_uri=${redirectURI}&state=${state}`;
   console.log(process.env.PUBLIC_URL + `assets/naverLogin.png`);
   return (
@@ -46,7 +47,10 @@ const Home = () => {
         ></img>
         <Box sx={{ ...style }}>
           <div className="arrow-icon">
-            <div style={{fontSize:'40px', textAlign:'center'}}> click !</div>
+            <div style={{ fontSize: "40px", textAlign: "center" }}>
+              {" "}
+              click !
+            </div>
             <i className="fas fa-arrow-right">
               <KeyboardDoubleArrowDownRoundedIcon
                 sx={{ fontSize: "100px", color: "grey", width: "80vw" }}

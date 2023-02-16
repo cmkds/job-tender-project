@@ -37,10 +37,9 @@ const Menu = () => {
       </div>
       <div
         onClick={() => {
-          navigate("/menual");
+          navigate("/map");
         }}
       >
-      
         <MenuBar leftChild={"로그박스 위치"} rightChild={">"} />
       </div>
       <div
