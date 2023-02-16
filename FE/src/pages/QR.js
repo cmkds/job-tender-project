@@ -175,10 +175,6 @@ const QR = () => {
       </div>
       {loginUser ? (
         <Box sx={{ ...style }}>
-          <img
-            src="/assets/logo2.png"
-            style={{ width: "100%", marginTop: "5%" }}
-          ></img>
           <Button
             variant="contained"
             sx={{
