@@ -46,6 +46,7 @@ const NaverLogin = () => {
           navigate(`/main/new/0`);
           return;
         }
+        setCheck(true);
       })
       .catch((error) => {
         console.log(error);
@@ -76,7 +77,7 @@ const NaverLogin = () => {
       ...state,
       memberProfile: `https://xsgames.co/randomusers/assets/avatars/pixel/${imageNum}.jpg`,
     });
-    setCheck(true);
+    // setCheck(true);
   }, []);
 
   // 받은 파라미터 쿼리 값으로 보내서
@@ -103,7 +104,7 @@ const NaverLogin = () => {
   };
   return (
     <div>
-      {check ? (
+      {check === true ? (
         <div>
           <Card
             sx={{
