@@ -25,6 +25,7 @@ import NaverLogin from "./pages/NaverLogin";
 import Edit from "./pages/Edit";
 import QR from "./pages/QR";
 import NotFoundPage from "./pages/NotFound";
+import IsWeb from "./pages/IsWeb";
 
 import { makeStyles } from "@material-ui/core/styles";
 import { createTheme } from "@material-ui/core/styles";
@@ -51,7 +52,9 @@ function App() {
 
   return (
     <div>
-      <BrowserView>데스크톱브라우져!</BrowserView>
+      <BrowserView>
+        <IsWeb></IsWeb>
+      </BrowserView>
 
       <MobileView>
         <ThemeProvider theme={theme}>
