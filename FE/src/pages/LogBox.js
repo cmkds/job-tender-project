@@ -246,21 +246,24 @@ function LogBox() {
             {images[activeStep].label}
           </div>
         </Paper>
-        {activeStep < maxSteps - 1 &&
-        sessionStorage.getItem("loginUser") ? null : (
-          <a href={naverLogin}>
-            <img
-              src={process.env.PUBLIC_URL + `/assets/naverLogin.png`}
-              alt="naver"
-              style={{
-                height: "6vh",
-                display: "flex",
-                margin: "auto",
-                marginTop: "3%",
-                objectFit: "cover",
-              }}
-            ></img>
-          </a>
+        {activeStep < maxSteps - 1 ? null : (
+
+          sessionStorage.getItem("loginUser") ? null :
+          
+            <a href={naverLogin}>
+              <img
+                src={process.env.PUBLIC_URL + `/assets/naverLogin.png`}
+                alt="naver"
+                style={{
+                  height: "6vh",
+                  display: "flex",
+                  margin:'auto',
+                  marginTop:'3%',
+                  objectFit: "cover",
+                }}
+              ></img>
+            </a>
+          
         )}
       </Box>
     </div>

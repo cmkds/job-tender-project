@@ -1,6 +1,6 @@
 // 시작 페이지 로그인 화면 뜸
 // 로그인시 메인 페이지로 가도록 해야함.
-import React from "react";
+import React, {useEffect} from "react";
 import { useNavigate } from "react-router-dom";
 
 
@@ -23,18 +23,24 @@ const style = {
 };
 
 const Home = () => {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (sessionStorage.getItem("loginUser")) {
+      navigate("/main/new/0");
+    }
+  });
   const MyBtn = styled(Button)`
     display: flex;
     margin: auto;
   `;
 
-  const navigate = useNavigate();
   const state = 1;
   const CLIENT_ID = "1cdhp17WpXR_m9BDcOcE"; // 호성이 새로운거
   // const redirectURI = "http://localhost:3000/naver";
   const redirectURI = "https://i8a502.p.ssafy.io/naver";
   const naverLogin = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${CLIENT_ID}&redirect_uri=${redirectURI}&state=${state}`;
-  console.log(process.env.PUBLIC_URL + `assets/naverLogin.png`);
+  // console.log(process.env.PUBLIC_URL + `assets/naverLogin.png`);
   return (
     <div className="main" style={{ height: "100vh", paddingTop: "15%" }}>
       <div style={{ display: "flex" }}>

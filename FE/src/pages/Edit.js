@@ -131,9 +131,9 @@ const Edit = () => {
             value={state.nickname}
             color="error"
             onChange={handleChangeState}
-            placeholder="최대 10 글자"
+            placeholder="최대 8 글자"
             inputProps={{
-              maxLength: 10,
+              maxLength: 8,
               style: { fontFamily: "GangwonEduAll" },
             }}
             style={{ margin: "auto", display: "flex", width: "90%" }}
