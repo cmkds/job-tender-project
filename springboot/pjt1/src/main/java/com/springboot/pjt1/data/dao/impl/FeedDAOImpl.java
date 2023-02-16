@@ -42,7 +42,7 @@ public class FeedDAOImpl implements FeedDAO {
 
     @Override
     public List<Feed> SelectFeedAllOrderByCreateTime() {
-        return feedRepository.findAllByOrderByCreateTimeAsc();
+        return feedRepository.findAllByOrderByCreateTimeDesc();
     }
 
     @Override
@@ -52,7 +52,7 @@ public class FeedDAOImpl implements FeedDAO {
 
     @Override
     public List<Feed> SelectFeedAllOrderByCreateTimeByCity(long MachineLocationSeq) {
-        return feedRepository.findByMachineLocationSeqOrderByCreateTime(MachineLocationSeq);
+        return feedRepository.findByMachineLocationSeqOrderByCreateTimeDesc(MachineLocationSeq);
     }
 
     @Override
