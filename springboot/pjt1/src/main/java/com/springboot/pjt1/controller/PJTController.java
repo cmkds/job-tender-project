@@ -302,7 +302,7 @@ public class PJTController {
     @GetMapping("/social/{memberSeq}")
     public ResponseEntity<List<FeedDTO>> getFollowingFeed(@PathVariable("memberSeq")  long memberSeq){
         List<Long> memberSeqs = connectService.getFollowings(memberSeq);
-        List<FeedDTO> feedDtos = feedService.getFollowingFeed(memberSeqs);
+        List<FeedDTO> feedDtos = feedService.getFollowingFeedAll(memberSeqs);
 
         return ResponseEntity.status(HttpStatus.OK).body(feedDtos);
     }

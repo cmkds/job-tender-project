@@ -7,6 +7,7 @@ import com.springboot.pjt1.data.repository.FeedRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -114,7 +115,19 @@ public class FeedDAOImpl implements FeedDAO {
 
     @Override
     public List<Feed> SelectFeedAllByMemberSeq(long memberSeq) {
-        return feedRepository.findAllByMemberSeq(memberSeq);
+        List<Feed> feeds = feedRepository.findAllByOrderByCreateTimeDesc();
+        List<Feed> rfeed = new ArrayList<>();
+
+        for (Feed feed:feeds)
+            if (feed.getMemberSeq() == memberSeq)
+                rfeed.add(feed);
+
+        return rfeed;
+    }
+
+    @Override
+    public List<Feed> SelectFeedByMemberSeq(Long mSeq) {
+        return feedRepository.findByMemberSeq(mSeq);
     }
 
     @Override

@@ -19,5 +19,9 @@ public interface FeedDAO {
     void DeleteFeedByMemberSeq(long memberSeq);
     List<Feed> SelectFeedAllByMemberSeq(long memberSeq);
 
+<<<<<<< HEAD
     boolean isExistByFeedSeq(long feedSeq);
+=======
+    List<Feed> SelectFeedByMemberSeq(Long mSeq);
+>>>>>>> c853637d027a68900655a2ffd6803abfa6ac5860
 }

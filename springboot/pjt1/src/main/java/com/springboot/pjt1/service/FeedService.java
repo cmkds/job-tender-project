@@ -31,5 +31,9 @@ public interface FeedService {
 
     List<FeedDTO> getFeedAllByMemberSeq(long memberSeq);
 
+<<<<<<< HEAD
     boolean isExistByFeedSeq(long feedSeq);
+=======
+    List<FeedDTO> getFollowingFeedAll(List<Long> memberSeqs);
+>>>>>>> c853637d027a68900655a2ffd6803abfa6ac5860
 }
