@@ -67,7 +67,7 @@ const Profile = (userId) => {
           style={{
             display: "flex",
             flexDirection: "column",
-            width: "100px",
+            width: "70vw",
           }}
         >
           <div

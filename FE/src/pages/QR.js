@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "space-evenly",
     width: "100%",
-    paddingTop: "10%",
+    paddingTop: "2%",
   },
   largeIcon: {
     fontSize: "4rem !important",
@@ -32,16 +32,17 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const style = {
-  position: "absolute",
-  top: "75%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
+  position: "flex",
+  // top: "75%",
+  // left: "50%",
+  // transform: "translate(-50%, -50%)",
   width: "80%",
   bgcolor: "rgba(255, 255, 255, 0.5)",
   borderRadius: "8px",
   boxShadow: 24,
-  px: 0,
-  pb: 5,
+  margin: "auto",
+  pb: 1,
+  pt: 1,
 };
 
 const QR = () => {
@@ -218,7 +219,7 @@ const QR = () => {
               margin: "auto",
               marginTop: "10%",
               width: "80%",
-              wordBreak: "keep-all",
+              wordBreak: "break-all",
               wordSpacing: 2,
             }}
           >

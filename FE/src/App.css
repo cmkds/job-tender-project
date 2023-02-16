@@ -8,6 +8,11 @@
   font-style: normal;
 }
 
+.stop-scrolling {
+  height: 100%;
+  overflow: hidden;
+}
+
 body {
   background-color: #f6f6f6;
   display: flex;

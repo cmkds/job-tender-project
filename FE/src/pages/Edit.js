@@ -105,7 +105,9 @@ const Edit = () => {
 
   const deleteUp = () => {
     axios.delete(`/api/account/${loginUser}`).then(function (response) {
+      
       alert("탈퇴가 완료되었습니다.");
+      localStorage.removeItem('loginUser')
       navigate(`/`);
     });
   };

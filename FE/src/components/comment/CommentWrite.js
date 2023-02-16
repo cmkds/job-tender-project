@@ -105,6 +105,7 @@ const CommentWrite = () => {
             paddingLeft: "5%",
           }}
           inputProps={{
+            maxLength: 30,
             style: { fontFamily: "GangwonEduAll" },
           }}
           placeholder="댓글 달기"
