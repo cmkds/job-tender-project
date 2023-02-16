@@ -103,9 +103,11 @@ const CommentWrite = () => {
             borderRadius: "40px",
             height: "50px",
             paddingLeft: "5%",
+
           }}
           inputProps={{
             style: { fontFamily: "GangwonEduAll" },
+            maxLength: 50
           }}
           placeholder="댓글 달기"
           ref={commentInput}

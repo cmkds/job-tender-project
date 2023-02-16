@@ -23,7 +23,7 @@ export default function FloatingActionButtons() {
       {category === "hot" ? (
         <Fab
           style={{
-            backgroundColor: "white",
+            backgroundColor: "#CAE4FC",
           }}
           onClick={() => {
             clickButton();
@@ -44,7 +44,7 @@ export default function FloatingActionButtons() {
       ) : (
         <Fab
           style={{
-            backgroundColor: "white",
+            backgroundColor: "#FCBBBB",
           }}
           onClick={() => {
             clickButton();

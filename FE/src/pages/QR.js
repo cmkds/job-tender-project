@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "space-evenly",
     width: "100%",
-    paddingTop: "10%",
+    paddingTop: "2%",
   },
   largeIcon: {
     fontSize: "4rem !important",
@@ -32,16 +32,14 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const style = {
-  position: "absolute",
-  top: "75%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
+  position: "flex",
   width: "80%",
   bgcolor: "rgba(255, 255, 255, 0.5)",
   borderRadius: "8px",
   boxShadow: 24,
+  margin: 'auto',
   px: 0,
-  pb: 5,
+  pb: 2,
 };
 
 const QR = () => {
@@ -174,7 +172,7 @@ const QR = () => {
         </div>
       </div>
       {loginUser ? (
-        <Box sx={{ ...style }}>
+        
           <Button
             variant="contained"
             sx={{
@@ -197,29 +195,18 @@ const QR = () => {
               내 저장소에 저장하고 로그박스로 이동
             </div>
           </Button>
-          {/* <a href={naverLogin}>
-            <img
-              src="/assets/naverLogin.png"
-              alt="naver"
-              style={{
-                height: "6vh",
-                display: "flex",
-                objectFit: "cover",
-                margin: "auto",
-                marginTop: "10%",
-              }}
-            ></img>
-          </a> */}
-        </Box>
+          
+        
       ) : (
         <Box sx={{ ...style }}>
           <h3
             style={{
               margin: "auto",
-              marginTop: "10%",
+              marginTop: "5%",
               width: "80%",
               wordBreak: "keep-all",
               wordSpacing: 2,
+              paddingTop:'5%',
             }}
           >
             로그인 하시면, 엽서를 공유하거나 다른 사람의 엽서를 볼 수 있습니다.
@@ -234,7 +221,7 @@ const QR = () => {
                 display: "flex",
                 objectFit: "cover",
                 margin: "auto",
-                marginTop: "10%",
+                marginTop: "5%",
               }}
             ></img>
           </a>
