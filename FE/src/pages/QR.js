@@ -217,10 +217,6 @@ const QR = () => {
         </Box>
       ) : (
         <Box sx={{ ...style }}>
-          <img
-            src="/assets/logo2.png"
-            style={{ width: "100%", marginTop: "5%" }}
-          ></img>
           <h3
             style={{
               margin: "auto",

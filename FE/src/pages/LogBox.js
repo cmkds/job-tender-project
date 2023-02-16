@@ -247,16 +247,7 @@ function LogBox() {
           </div>
         </Paper>
         {activeStep < maxSteps - 1 ? null : (
-          <Button
-            sx={{
-              position: "absolute",
-              left: "50%",
-              top: "92%",
-              transform: "translate(-50%, -50%)",
-              width: "80%",
-            }}
-            onClick={() => {}}
-          >
+          
             <a href={naverLogin}>
               <img
                 src={process.env.PUBLIC_URL + `/assets/naverLogin.png`}
@@ -264,11 +255,13 @@ function LogBox() {
                 style={{
                   height: "6vh",
                   display: "flex",
+                  margin:'auto',
+                  marginTop:'3%',
                   objectFit: "cover",
                 }}
               ></img>
             </a>
-          </Button>
+          
         )}
       </Box>
     </div>
