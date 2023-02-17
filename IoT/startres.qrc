@@ -1,0 +1,14 @@
+<RCC>
+  <qresource prefix="image">
+    <file>screenassets/next_button.png</file>
+    <file>screenassets/check.png</file>
+    <file>screenassets/background.png</file>
+    <file>screenassets/logo.png</file>
+    <file>screenassets/startBtn.png</file>
+    <file>screenassets/startLetter.png</file>
+  </qresource>
+  <qresource prefix="frame">
+    <file>screenassets/template1.png</file>
+    <file>screenassets/template2.png</file>
+  </qresource>
+</RCC>

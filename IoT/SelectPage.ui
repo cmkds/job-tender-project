@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Form</class>
+ <widget class="QWidget" name="Form">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1152</width>
+    <height>796</height>
+   </rect>
+  </property>
+  <property name="font">
+   <font>
+    <weight>75</weight>
+    <bold>true</bold>
+   </font>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: rgb(255, 221, 221);</string>
+  </property>
+  <widget class="QPushButton" name="videoBtn">
+   <property name="geometry">
+    <rect>
+     <x>300</x>
+     <y>250</y>
+     <width>571</width>
+     <height>141</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>강원교육모두 Bold</family>
+     <pointsize>30</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-image: url(:/images/btn.png);
+background-color: rgba(255, 255, 255, 0);</string>
+   </property>
+   <property name="text">
+    <string>영상편지</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="skipBtn">
+   <property name="geometry">
+    <rect>
+     <x>300</x>
+     <y>410</y>
+     <width>571</width>
+     <height>141</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>강원교육모두 Bold</family>
+     <pointsize>30</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-image: url(:/images/btn.png);
+background-color: rgba(255, 255, 255, 0);</string>
+   </property>
+   <property name="text">
+    <string>넘어가기</string>
+   </property>
+  </widget>
+ </widget>
+ <resources>
+  <include location="image.qrc"/>
+ </resources>
+ <connections>
+  <connection>
+   <sender>videoBtn</sender>
+   <signal>clicked()</signal>
+   <receiver>Form</receiver>
+   <slot>changePage()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>704</x>
+     <y>304</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>905</x>
+     <y>182</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>skipBtn</sender>
+   <signal>clicked()</signal>
+   <receiver>Form</receiver>
+   <slot>changePage2()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>665</x>
+     <y>477</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1078</x>
+     <y>681</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>changePage()</slot>
+  <slot>changePage2()</slot>
+ </slots>
+</ui>

@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Form</class>
+ <widget class="QWidget" name="Form">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1152</width>
+    <height>796</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: rgb(255, 221, 221);</string>
+  </property>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>290</x>
+     <y>30</y>
+     <width>571</width>
+     <height>111</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>강원교육모두 Bold</family>
+     <pointsize>48</pointsize>
+     <weight>50</weight>
+     <bold>false</bold>
+    </font>
+   </property>
+   <property name="text">
+    <string>프레임을 선택해 주세요!</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="frame1Check">
+   <property name="geometry">
+    <rect>
+     <x>250</x>
+     <y>380</y>
+     <width>120</width>
+     <height>120</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-image: url(:/images/check_btn.png);
+background-color: rgba(255, 255, 255, 0);</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QLabel" name="frame2Check">
+   <property name="geometry">
+    <rect>
+     <x>790</x>
+     <y>380</y>
+     <width>120</width>
+     <height>120</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-image: url(:/images/check_btn.png);
+background-color: rgba(255, 255, 255, 0);</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="nextBtn">
+   <property name="geometry">
+    <rect>
+     <x>1000</x>
+     <y>30</y>
+     <width>120</width>
+     <height>120</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-image: url(:/images/next_btn.png);</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="selectFrame2Btn">
+   <property name="geometry">
+    <rect>
+     <x>570</x>
+     <y>220</y>
+     <width>565</width>
+     <height>468</height>
+    </rect>
+   </property>
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-image: url(:/images/frame1.png);</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="selectFrame1Btn">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>220</y>
+     <width>565</width>
+     <height>468</height>
+    </rect>
+   </property>
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-image: url(:/images/frame2.png);</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <zorder>selectFrame2Btn</zorder>
+  <zorder>selectFrame1Btn</zorder>
+  <zorder>label</zorder>
+  <zorder>frame1Check</zorder>
+  <zorder>frame2Check</zorder>
+  <zorder>nextBtn</zorder>
+ </widget>
+ <resources>
+  <include location="images.qrc"/>
+ </resources>
+ <connections>
+  <connection>
+   <sender>selectFrame1Btn</sender>
+   <signal>clicked()</signal>
+   <receiver>Form</receiver>
+   <slot>selectFrame1()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>281</x>
+     <y>321</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>418</x>
+     <y>561</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>selectFrame2Btn</sender>
+   <signal>clicked()</signal>
+   <receiver>Form</receiver>
+   <slot>selectFrame2()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>603</x>
+     <y>321</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>607</x>
+     <y>577</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>nextBtn</sender>
+   <signal>clicked()</signal>
+   <receiver>Form</receiver>
+   <slot>changePage()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>928</x>
+     <y>82</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>952</x>
+     <y>164</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>selectFrame1()</slot>
+  <slot>selectFrame2()</slot>
+  <slot>changePage()</slot>
+ </slots>
+</ui>
