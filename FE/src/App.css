@@ -1,0 +1,344 @@
+@import url("https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&family=Yeon+Sung&display=swap");
+
+@font-face {
+  font-family: "GangwonEduAll";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/GangwonEdu_OTFBoldA.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+.stop-scrolling {
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  background-color: #f6f6f6;
+  display: flex;
+  /* 가로축의 센터 */
+  justify-content: center;
+  /* 세로축의 센터 */
+  align-items: center;
+  /* 현재 웹스크린의 100%를 최소 높이로 갖겠다. */
+  min-height: 100vh;
+  /* html body가 기본적으로 가지고 있는 margin 제거 */
+  margin: 0px;
+  font-family: "GangwonEduAll";
+}
+
+header {
+  font-family: "GangwonEduAll";
+}
+
+.post_wrapper {
+  position: relative;
+  width: 100vw;
+  height: 100vw;
+  background-color: #d9f1ed;
+  margin-top: 3%;
+  margin-bottom: 3%;
+  padding-left: 1%;
+  padding-right: 1%;
+}
+
+.post_wrapper img {
+  position: absolute;
+  top: 5%;
+  left: 5%;
+  max-width: 100%;
+  max-height: 60%;
+}
+
+@media (min-width: 650px) {
+  .App {
+    width: 640px;
+  }
+  .BottomBar {
+    width: 640px;
+  }
+  .post_wrapper {
+    width: 640px;
+  }
+}
+
+@media (max-width: 650px) {
+  .App {
+    width: 100vw;
+  }
+  .BottomBar {
+    width: 100vw;
+  }
+  .post_wrapper {
+    width: 100vw;
+  }
+}
+
+@font-face {
+  font-family: GaangwonEduAll;
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/GangwonEdu_OTFBoldA.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+#root {
+  background-color: white;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+.App {
+  min-height: 100vh;
+  /* padding-left: 20px;
+  padding-right: 20px; */
+}
+
+/* 상단바 */
+header {
+  /* padding-top: 20%; */
+  background-color: #ffb9b9;
+}
+
+.navbar {
+  background-color: #ffffff;
+  height: 75px;
+  width: 100%;
+  max-width: 640px;
+  display: flex;
+  position: fixed;
+  top: 0;
+  margin: auto;
+  z-index: 2;
+  border-bottom: solid 1px black;
+}
+
+.navbar .nav_btn_left {
+  /* padding: 3% 1%; */
+  width: 10%;
+  margin: auto;
+  /* 좌측 고정 */
+}
+.navbar .nav_btn_center {
+  /* padding-left: 20%; */
+  text-align: center;
+  padding-bottom: 2%;
+  margin: auto;
+  font-family: GangwonEduAll;
+  font-size: 30px;
+}
+.navbar .nav_btn_right {
+  padding-right: 5%;
+  width: 10%;
+  margin: auto;
+}
+
+.menubar {
+  border-bottom: solid 1px black;
+
+  padding-top: 30px;
+  padding-bottom: 30px;
+  /* height: 10%; */
+  /* width: 100%; */
+  display: flex;
+  font-family: GangwonEduAll;
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.menubar .menu_btn_left {
+  padding-left: 5%;
+  width: 90%;
+  justify-content: start;
+  /* 좌측 고정 */
+}
+.menubar .menu_btn_center {
+  /* padding-left: 20%; */
+  width: 50%;
+  font-size: 30px;
+  justify-content: center;
+  text-align: center;
+}
+.menubar .menu_btn_right {
+  padding-right: 5%;
+  width: 10%;
+  justify-content: end;
+}
+
+.menubar_last {
+  border-bottom: solid 1px black;
+}
+
+.logoTop {
+  display: flex;
+  margin: auto;
+  height: 80%;
+}
+
+.logo {
+  /* position: flex; */
+  display: flex;
+  margin: auto;
+  margin-top: 0%;
+  /* margin-top: 10%; */
+  /* width: 300px; */
+  width: 80%;
+}
+
+.postClosed {
+  display: flex;
+  margin: auto;
+  width: 50%;
+  /* height: 30%; */
+}
+
+.postOpen {
+  transform-origin: 50% 50%;
+  display: flex;
+  margin: auto;
+  width: 50%;
+  /* height: 30%; */
+}
+
+.card {
+  position: absolute;
+  width: 188px;
+  height: 128px;
+  left: 101px;
+  bottom: 60px;
+
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+}
+
+.card2 {
+  position: absolute;
+  width: 188px;
+  height: 180px;
+  left: 101px;
+  bottom: 60px;
+
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+}
+
+.cardeni {
+  animation: 1s ease-in-out loadEffect2;
+}
+
+@keyframes loadEffect2 {
+  0% {
+    opacity: 0;
+    transform: translateX(-5px);
+  }
+  50% {
+    opacity: 0.5;
+    transform: translateX(-2.5px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0px);
+  }
+}
+
+/* topbar {
+  position: absolute;
+  width: 100%;
+  height: 101px;
+  left: 50%;
+  top: 0px;
+  align-items: center;
+  background: #ffb9b9;
+} */
+
+.BottomBar {
+  min-height: 6vh;
+}
+
+.BottomBarIcon {
+  min-width: 3vh;
+}
+
+.main {
+  position: relative;
+  /* display: flex; */
+  /* height: 700px; */
+  background-image: url("../public/assets/background/3.gif");
+  background-size: cover;
+  margin: auto;
+  /* opacity: 0.8; */
+}
+
+/* .main::before {
+  position: absolute;
+  content: "";
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.4);
+} */
+
+/* 뉴/핫 버튼 */
+.switch-position {
+  position: fixed;
+  /* width: 40%;
+height: 40%; */
+  right: 7%;
+  top: 82%;
+  z-index: 1500;
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+}
+
+.blue_title {
+  padding-top: 5%;
+  margin-left: 5%;
+
+  font-family: "GangwonEduAll";
+  line-height: 17px;
+
+  color: #000aff;
+}
+
+.logbox_text {
+  margin-left: 5%;
+  font-weight: bold;
+  font-family: "GangwonEduAll";
+}
+
+.location_img {
+  display: flex;
+  margin: auto;
+  width: 95%;
+  height: 60%;
+}
+
+@keyframes arrow-move {
+  0% {
+    transform: translateY(20px);
+  }
+  100% {
+    transform: translateY(40px);
+  }
+}
+
+.arrow-icon {
+  display: inline-block;
+  animation: arrow-move 1s linear infinite;
+  margin-bottom: 10%;
+}
+
+/* 
+ */
+.App-body {
+  background-color: #6d7b97;
+  min-height: 50vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-body .alert-message {
+  height: 50px;
+  background-color: #61dafb;
+}
