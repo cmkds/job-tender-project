@@ -16,7 +16,6 @@ const useStyles = makeStyles((theme) => ({
     padding: "2%",
     objectFit: "cover",
     whiteSpace: "nowrap",
-    overflow: "hidden",
     textOverflow: "ellipsis",
   },
   small: {
