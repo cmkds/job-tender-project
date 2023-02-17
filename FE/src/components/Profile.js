@@ -55,6 +55,7 @@ const Profile = (userId) => {
           onClick={() => {
             navigate(`/user/${userId.id}`);
           }}
+          sx={{}}
         >
           <img
             src={userData.memberProfile}
@@ -67,13 +68,13 @@ const Profile = (userId) => {
           style={{
             display: "flex",
             flexDirection: "column",
-            width: "70vw",
+            width: "100%",
           }}
         >
           <div
             style={
               {
-                // display: "block",
+                display: "block",
               }
             }
             className={classes.root}

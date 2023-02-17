@@ -154,15 +154,14 @@ const CommentItem = ({
           </Modal>
         </div>
       )}
-
-      <Grid container>
-        <Grid item xs={5}>
+      <Box sx={{flexGrow: 1}}>
+      <Grid container spacing={1}>
+        <Grid item xs={8} style={{flexBasis: 0}}>
           <div>
             <Profile id={memberSeq} />
           </div>
         </Grid>
-        <Grid item xs={7}>
-          {" "}
+        <Grid item xs={6}>
           <Box
             style={{
               marginRight: "5%",
@@ -180,6 +179,7 @@ const CommentItem = ({
           </Box>
         </Grid>
       </Grid>
+      </Box>
     </div>
   );
 };
