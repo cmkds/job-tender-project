@@ -1,0 +1,635 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Form</class>
+ <widget class="QWidget" name="Form">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1152</width>
+    <height>796</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: rgb(255, 221, 221);</string>
+  </property>
+  <widget class="QWidget" name="verticalWidget" native="true">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>40</y>
+     <width>851</width>
+     <height>701</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgba(255, 255, 255, 0);</string>
+   </property>
+   <layout class="QVBoxLayout" name="exlayout">
+    <property name="spacing">
+     <number>6</number>
+    </property>
+   </layout>
+  </widget>
+  <widget class="QPushButton" name="plusBtn">
+   <property name="geometry">
+    <rect>
+     <x>910</x>
+     <y>200</y>
+     <width>150</width>
+     <height>80</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>휴먼편지체</family>
+     <pointsize>25</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-image: url(:/images/plus_btn.png);</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="colorBtn">
+   <property name="geometry">
+    <rect>
+     <x>920</x>
+     <y>280</y>
+     <width>130</width>
+     <height>130</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>강원교육모두 Bold</family>
+     <pointsize>20</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-image: url(:/images/color_btn.png);</string>
+   </property>
+   <property name="text">
+    <string>color</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="minusBtn">
+   <property name="geometry">
+    <rect>
+     <x>910</x>
+     <y>420</y>
+     <width>150</width>
+     <height>80</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>휴먼편지체</family>
+     <pointsize>25</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-image: url(:/images/minus_btn.png);</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="clearBtn">
+   <property name="geometry">
+    <rect>
+     <x>920</x>
+     <y>510</y>
+     <width>130</width>
+     <height>100</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>휴먼편지체</family>
+     <pointsize>20</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-image: url(:/images/clear_btn.png);</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="redBtn">
+   <property name="geometry">
+    <rect>
+     <x>1070</x>
+     <y>200</y>
+     <width>50</width>
+     <height>50</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-image: url(:/images/color1.png);</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="blueBtn">
+   <property name="geometry">
+    <rect>
+     <x>1070</x>
+     <y>320</y>
+     <width>50</width>
+     <height>50</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-image: url(:/images/color4.png);</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="blackBtn">
+   <property name="geometry">
+    <rect>
+     <x>1070</x>
+     <y>380</y>
+     <width>50</width>
+     <height>50</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-image: url(:/images/color3.png);</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="nextBtn">
+   <property name="geometry">
+    <rect>
+     <x>1000</x>
+     <y>30</y>
+     <width>120</width>
+     <height>120</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-image: url(:/images/next_btn.png);</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QLabel" name="timer">
+   <property name="geometry">
+    <rect>
+     <x>900</x>
+     <y>30</y>
+     <width>100</width>
+     <height>100</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>강원교육모두 Bold</family>
+     <pointsize>48</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pinkBtn">
+   <property name="geometry">
+    <rect>
+     <x>1070</x>
+     <y>440</y>
+     <width>50</width>
+     <height>50</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-image: url(:/images/color2.png);</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="purpleBtn">
+   <property name="geometry">
+    <rect>
+     <x>1070</x>
+     <y>500</y>
+     <width>50</width>
+     <height>50</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-image: url(:/images/color7.png);</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="yellowBtn">
+   <property name="geometry">
+    <rect>
+     <x>1070</x>
+     <y>260</y>
+     <width>50</width>
+     <height>50</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-image: url(:/images/color6.png);</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="skyBtn">
+   <property name="geometry">
+    <rect>
+     <x>1070</x>
+     <y>560</y>
+     <width>50</width>
+     <height>50</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-image: url(:/images/color8.png);</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QLabel" name="imageFrame2">
+   <property name="geometry">
+    <rect>
+     <x>42</x>
+     <y>62</y>
+     <width>314</width>
+     <height>651</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QLabel" name="imageFrame1">
+   <property name="geometry">
+    <rect>
+     <x>42</x>
+     <y>62</y>
+     <width>801</width>
+     <height>501</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QLabel" name="postBackground">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>40</y>
+     <width>846</width>
+     <height>702</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(255, 255, 255);</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>665</x>
+     <y>670</y>
+     <width>50</width>
+     <height>70</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgba(255, 255, 255, 0);
+border-image: url(:/images/logo_image.png);</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_2">
+   <property name="geometry">
+    <rect>
+     <x>700</x>
+     <y>670</y>
+     <width>110</width>
+     <height>70</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-image: url(:/images/logo.png);
+background-color: rgba(255, 255, 255, 0);</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_3">
+   <property name="geometry">
+    <rect>
+     <x>810</x>
+     <y>670</y>
+     <width>40</width>
+     <height>60</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>15</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(255, 221, 221);
+color: rgb(0, 0, 0);
+</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="margin">
+    <number>5</number>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_4">
+   <property name="geometry">
+    <rect>
+     <x>815</x>
+     <y>685</y>
+     <width>31</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>15</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgba(255, 255, 255, 0);</string>
+   </property>
+   <property name="text">
+    <string>QR</string>
+   </property>
+  </widget>
+  <zorder>postBackground</zorder>
+  <zorder>imageFrame2</zorder>
+  <zorder>imageFrame1</zorder>
+  <zorder>plusBtn</zorder>
+  <zorder>colorBtn</zorder>
+  <zorder>minusBtn</zorder>
+  <zorder>clearBtn</zorder>
+  <zorder>redBtn</zorder>
+  <zorder>blueBtn</zorder>
+  <zorder>blackBtn</zorder>
+  <zorder>nextBtn</zorder>
+  <zorder>timer</zorder>
+  <zorder>pinkBtn</zorder>
+  <zorder>purpleBtn</zorder>
+  <zorder>yellowBtn</zorder>
+  <zorder>skyBtn</zorder>
+  <zorder>verticalWidget</zorder>
+  <zorder>label</zorder>
+  <zorder>label_2</zorder>
+  <zorder>label_3</zorder>
+  <zorder>label_4</zorder>
+ </widget>
+ <resources>
+  <include location="image.qrc"/>
+  <include location="images.qrc"/>
+ </resources>
+ <connections>
+  <connection>
+   <sender>plusBtn</sender>
+   <signal>clicked()</signal>
+   <receiver>Form</receiver>
+   <slot>plusSize()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>997</x>
+     <y>205</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1092</x>
+     <y>112</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>minusBtn</sender>
+   <signal>clicked()</signal>
+   <receiver>Form</receiver>
+   <slot>minusSize()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1010</x>
+     <y>430</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1090</x>
+     <y>364</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>colorBtn</sender>
+   <signal>clicked()</signal>
+   <receiver>Form</receiver>
+   <slot>changeColor()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1022</x>
+     <y>317</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1098</x>
+     <y>233</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>clearBtn</sender>
+   <signal>clicked()</signal>
+   <receiver>Form</receiver>
+   <slot>clear()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1021</x>
+     <y>558</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1091</x>
+     <y>476</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>redBtn</sender>
+   <signal>clicked()</signal>
+   <receiver>Form</receiver>
+   <slot>changeRed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1119</x>
+     <y>200</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1012</x>
+     <y>256</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>blueBtn</sender>
+   <signal>clicked()</signal>
+   <receiver>Form</receiver>
+   <slot>changeBlue()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1113</x>
+     <y>330</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1140</x>
+     <y>323</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>blackBtn</sender>
+   <signal>clicked()</signal>
+   <receiver>Form</receiver>
+   <slot>changeBlack()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1100</x>
+     <y>385</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1139</x>
+     <y>386</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>nextBtn</sender>
+   <signal>clicked()</signal>
+   <receiver>Form</receiver>
+   <slot>changePage()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1054</x>
+     <y>86</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1058</x>
+     <y>127</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>yellowBtn</sender>
+   <signal>clicked()</signal>
+   <receiver>Form</receiver>
+   <slot>changeYellow()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1101</x>
+     <y>274</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1133</x>
+     <y>279</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pinkBtn</sender>
+   <signal>clicked()</signal>
+   <receiver>Form</receiver>
+   <slot>changePink()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1090</x>
+     <y>460</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1143</x>
+     <y>452</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>purpleBtn</sender>
+   <signal>clicked()</signal>
+   <receiver>Form</receiver>
+   <slot>changePurple()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1099</x>
+     <y>524</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1138</x>
+     <y>523</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>skyBtn</sender>
+   <signal>clicked()</signal>
+   <receiver>Form</receiver>
+   <slot>changeSky()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1103</x>
+     <y>580</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1140</x>
+     <y>584</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>plusSize()</slot>
+  <slot>minusSize()</slot>
+  <slot>changeColor()</slot>
+  <slot>clearPen()</slot>
+  <slot>clear()</slot>
+  <slot>changeRed()</slot>
+  <slot>changeBlue()</slot>
+  <slot>changeBlack()</slot>
+  <slot>printTime()</slot>
+  <slot>changePage()</slot>
+  <slot>changeYellow()</slot>
+  <slot>changePink()</slot>
+  <slot>changePurple()</slot>
+  <slot>changeSky()</slot>
+ </slots>
+</ui>

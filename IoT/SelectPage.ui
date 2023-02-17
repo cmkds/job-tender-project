@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1024</width>
-    <height>615</height>
+    <width>1152</width>
+    <height>796</height>
    </rect>
   </property>
   <property name="font">
@@ -19,84 +19,53 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: rgb(255, 221, 221);</string>
+  </property>
   <widget class="QPushButton" name="videoBtn">
    <property name="geometry">
     <rect>
-     <x>330</x>
-     <y>180</y>
-     <width>341</width>
-     <height>101</height>
+     <x>300</x>
+     <y>250</y>
+     <width>571</width>
+     <height>141</height>
     </rect>
    </property>
    <property name="font">
     <font>
-     <family>휴먼편지체</family>
+     <family>강원교육모두 Bold</family>
      <pointsize>30</pointsize>
-     <weight>75</weight>
-     <bold>true</bold>
     </font>
    </property>
    <property name="styleSheet">
-    <string notr="true">background-color: rgb(220, 252, 248);</string>
+    <string notr="true">border-image: url(:/images/btn.png);
+background-color: rgba(255, 255, 255, 0);</string>
    </property>
    <property name="text">
-    <string>영상촬영   </string>
+    <string>영상편지</string>
    </property>
   </widget>
   <widget class="QPushButton" name="skipBtn">
    <property name="geometry">
     <rect>
-     <x>330</x>
-     <y>320</y>
-     <width>341</width>
-     <height>101</height>
+     <x>300</x>
+     <y>410</y>
+     <width>571</width>
+     <height>141</height>
     </rect>
    </property>
    <property name="font">
     <font>
-     <family>휴먼편지체</family>
+     <family>강원교육모두 Bold</family>
      <pointsize>30</pointsize>
-     <weight>75</weight>
-     <bold>true</bold>
     </font>
    </property>
    <property name="styleSheet">
-    <string notr="true">background-color: rgb(255, 235, 252);</string>
+    <string notr="true">border-image: url(:/images/btn.png);
+background-color: rgba(255, 255, 255, 0);</string>
    </property>
    <property name="text">
-    <string>넘어가기   </string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="pushButton_3">
-   <property name="geometry">
-    <rect>
-     <x>580</x>
-     <y>200</y>
-     <width>61</width>
-     <height>61</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">border-image: url(:/image/next_button.png);</string>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="pushButton_4">
-   <property name="geometry">
-    <rect>
-     <x>580</x>
-     <y>340</y>
-     <width>61</width>
-     <height>61</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">border-image: url(:/image/next_button.png);</string>
-   </property>
-   <property name="text">
-    <string/>
+    <string>넘어가기</string>
    </property>
   </widget>
  </widget>
@@ -111,12 +80,12 @@
    <slot>changePage()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>661</x>
-     <y>230</y>
+     <x>704</x>
+     <y>304</y>
     </hint>
     <hint type="destinationlabel">
-     <x>735</x>
-     <y>234</y>
+     <x>905</x>
+     <y>182</y>
     </hint>
    </hints>
   </connection>
@@ -127,12 +96,12 @@
    <slot>changePage2()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>666</x>
-     <y>377</y>
+     <x>665</x>
+     <y>477</y>
     </hint>
     <hint type="destinationlabel">
-     <x>740</x>
-     <y>365</y>
+     <x>1078</x>
+     <y>681</y>
     </hint>
    </hints>
   </connection>

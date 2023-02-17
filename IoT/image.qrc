@@ -1,20 +1,36 @@
 <RCC>
-  <qresource prefix="image">
-    <file>check.png</file>
-    <file>logo.png</file>
-    <file>logo_image.png</file>
-    <file>logo_image_circle.png</file>
-    <file>logo_sample.PNG</file>
-    <file>logo_sample2.PNG</file>
-    <file>logo_text.png</file>
-    <file>minus.png</file>
-    <file>next_button.png</file>
-    <file>pen.png</file>
-    <file>plus.png</file>
-    <file>return.png</file>
-    <file>start_button.png</file>
-    <file>template1.png</file>
-    <file>template2.png</file>
-    <file>background.png</file>
+  <qresource>
+    <file>images/bg2.png</file>
+    <file>images/bg3.png</file>
+    <file>images/bg4.png</file>
+    <file>images/bg5.png</file>
+    <file>images/bg6.png</file>
+    <file>images/btn.png</file>
+    <file>images/check_btn.png</file>
+    <file>images/clear_btn.png</file>
+    <file>images/color_btn.png</file>
+    <file>images/color1.png</file>
+    <file>images/color2.png</file>
+    <file>images/color3.png</file>
+    <file>images/color4.png</file>
+    <file>images/color5.png</file>
+    <file>images/color6.png</file>
+    <file>images/color7.png</file>
+    <file>images/color8.png</file>
+    <file>images/color9.png</file>
+    <file>images/color10.png</file>
+    <file>images/frame1.png</file>
+    <file>images/frame2.png</file>
+    <file>images/input.png</file>
+    <file>images/logo.png</file>
+    <file>images/logo_image.png</file>
+    <file>images/minus_btn.png</file>
+    <file>images/next_btn.png</file>
+    <file>images/plus_btn.png</file>
+    <file>images/s3.png</file>
+    <file>images/start_btn.png</file>
+    <file>images/t2.png</file>
+    <file>images/t3.png</file>
+    <file>images/t4.png</file>
   </qresource>
 </RCC>

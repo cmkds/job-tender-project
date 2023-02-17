@@ -1,3 +1,5 @@
+import os
+import time
 from PyQt5 import QtWidgets, QtCore, QtGui
 from PyQt5.QtWidgets import *
 from PyQt5.uic import loadUi
@@ -10,15 +12,145 @@ from PyQt5.QtGui import *
 import requests
 import xml.etree.ElementTree as ET
 
+from gpiozero import Button
+from signal import pause
+from time import sleep
+
+from datetime import datetime
+from os import rename
+
+
 from PyQt5.QtGui import QFontDatabase, QFont
+
+import boto3
+from botocore.client import Config
+
+import MySQLdb
 
 import image_rc
 import images_rc
 
 import numpy as np
 
+import qrcode
+from PIL import Image
+
+# 파일 업로드 s3 관련 권한을 가진 IAM계정 정보
+ACCESS_KEY_ID = "AKIA2TBRAOMD4EYNB5MS"
+ACCESS_SECRET_KEY = "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"
+BUCKET_NAME = "team-a502-bucket"
+
+
 # 사진 촬영 완료 Flag
 pictureFin = False
+
+videoFin = False
+
+
+
+def QRCreate():
+    BASE_API = 'https://i8a502.p.ssafy.io/'
+    response = requests.get(BASE_API + 'api/machine/new')
+    save_path = f'./qr/{int(response.text)+1}.png'
+    url = f'{BASE_API}download/{int(response.text)+1}'
+    qr = qrcode.QRCode(version=1, box_size=1, border=3)
+    qr.add_data(url)
+    img = qr.make_image(fill_color="black", back_color="white")
+    img.save(save_path)
+    return save_path
+
+
+
+
+
+def DBUpload(time, photo, post, video):
+    machine_seq = 1
+    photo = photo.split('/')[2]
+    post = post.split('/')[2]
+    if video != None:
+        video = video.split('/')[2]
+
+    db = MySQLdb.connect(host='i8a502.p.ssafy.io', user='ssafy', password='4913', database='mydb')
+    cur = db.cursor()
+
+    # insert
+    if video == None:
+        query = "insert into mydb.machine_data(machine_seq, create_time, photo, post) values (%s, %s, %s, %s)"
+        value = (machine_seq, time, photo, post)
+    else:
+        query = "insert into mydb.machine_data(machine_seq, create_time, photo, post, video) values (%s, %s, %s, %s, %s)"
+        value = (machine_seq, time, photo, post, video)
+
+    cur.execute(query, value)
+
+    db.commit()
+
+    print("dbupload")
+
+    cur.close()
+    db.close()
+
+def handleUpload(f): # f = 파일명
+    data = open(f, 'rb')
+
+    # '로컬의 해당파일경로'+ 파일명 + 확장자
+    s3 = boto3.resource(
+        's3',
+        aws_access_key_id=ACCESS_KEY_ID,
+        aws_secret_access_key=ACCESS_SECRET_KEY,
+        config=Config(signature_version='s3v4')
+    )
+
+    if ".png" in f:
+        uploadRoute = f.split('/')
+        s3.Bucket(BUCKET_NAME).put_object(
+            Key=uploadRoute[2], Body=data, ContentType='image/png')
+    elif ".jpg" in f:
+        uploadRoute = f.split('/')
+        s3.Bucket(BUCKET_NAME).put_object(
+            Key=uploadRoute[2], Body=data, ContentType='image/jpg')
+    elif ".mp4" in f:
+        uploadRoute = f.split('/')
+        s3.Bucket(BUCKET_NAME).put_object(
+            Key=uploadRoute[2], Body=data, ContentType='video/mp4')
+        
+
+def renameFile(num):
+    now = datetime.now()
+
+    # print("photo_" + now.strftime('%Y-%m-%d_%H%M%S%M') + ".jpg")
+    # print("post_" + now.strftime('%Y-%m-%d_%H%M%S%M') + ".jpg")
+    # print("video_" + now.strftime('%Y-%m-%d_%H%M%S%M') + ".mp4")
+
+    photo = "./picture/photo{}.png".format(selectPicturePage.selectNum)
+    post = "./final/final.jpg"
+    video = "./video/video.mp4"
+
+    uploadTime = now.strftime('%Y-%m-%d_%H%M%S%M')
+    time = datetime.today().strftime("%Y-%m-%d %H:%M:%S")
+
+    renamePhoto = "./final/photo_" + uploadTime + ".png"
+    renamePost = "./final/post_" + uploadTime + ".jpg"
+
+    if num == 1:
+        renameVideo = "./final/video_" + uploadTime + ".mp4"
+    else:
+        renameVideo = None
+
+    rename(photo, renamePhoto)
+    rename(post, renamePost)
+    if num == 1:
+        rename(video, renameVideo)
+
+    handleUpload(renamePhoto) # s3에 파일 업로드 (서버 저장소)
+    handleUpload(renamePost)
+
+    if num == 1:
+        handleUpload(renameVideo)
+
+    DBUpload(time, renamePhoto, renamePost, renameVideo) # db에 파일 이름 저장
+
+
 def findAddress():
     uri = 'http://openapi.epost.go.kr/postal/retrieveNewAdressAreaCdService/retrieveNewAdressAreaCdService/getNewAddressListAreaCd'
     service_key = 'LYn67ZcmpVcl8UZTD%2B697IwsAMAkKPidZkk7K2X6ROHRXJwy7HkftIdP6qit4dh5emCC4g8mnW7HFXruqfEYmQ%3D%3D'
@@ -27,14 +159,7 @@ def findAddress():
     print('=============== 도로명 주소 입력=======================')
 
     seach_se = 'road'
-    #srchwrd = input('도로명 입력(예: 서문대로 745) : ')
-    #print(1)
-    #print('AddressInput.text')
-    #print(2)
-    #print(addressPage.abc.text)
-    #print(3)
-    #print(AddressInput.text)
-    #print(4)
+
     srchwrd = addressPage.abc.text
 
     payload = {'ServiceKey': service_key_decoding, 'searchSe': seach_se,
@@ -48,44 +173,74 @@ def findAddress():
 
     print('=============== 결과 출력 =======================')
 
-    # for r in newAddressListAreaCd:
-    #     print(f'도로명 주소 : {r.findtext("lnmAdres")}')
-    #     print(f'우편번호 : {r.findtext("zipNo")}')
-    #     print('--------------------------------------------------------------------')
-
-    # for r in newAddressListAreaCd:
-    #     selectNum = r
-    #     addressPage.abc.textEditOutput.append(f'도로명 주소 : {r.findtext("lnmAdres")}\n'
-    #                                           f'우편번호 : {r.findtext("zipNo")}\n'
-    #                                           f'----------------------------------------------------------------------------------------------------------------')
-    #     addr = r.findtext("lnmAdres")
-    #     num = r.findtext("zipNo")
-    #     btn = QPushButton('선택')
 
 
+def finalImageSave(path):  # bg : jpg     #photo : jpg     #memo : png
+    print(path)
 
+    bgimage = Image.open("./bgimage/bg{}.jpg".format(backgroundPage.selectBgNum))
+    bgimage = bgimage.resize((750,500))
 
-def finalImageSave():  # bg : jpg     #photo : jpg     #memo : png
-    bgimage = cv2.imread("./bgimage/bg{}.jpg".format(backgroundPage.selectBgNum), cv2.IMREAD_COLOR)
-
+    # bgimage = cv2.imread(QRCreate(), cv2.IMREAD_COLOR)
     if selectFramePage.selectNum == 1:  # 가로
-        picture = cv2.imread("./picture/photo{}.jpg".format(selectPicturePage.selectNum), cv2.IMREAD_COLOR)
-        picture = cv2.resize(picture, (700, 350))
+        picture = Image.open("./picture/photo{}.png".format(selectPicturePage.selectNum))
+        picture = picture.resize((700, 350))
     elif selectFramePage.selectNum == 2:  # 세로
-        picture = cv2.imread("./picture/photo{}.jpg".format(selectPicturePage.selectNum), cv2.IMREAD_COLOR)
-        picture = cv2.resize(picture, (275, 450))
+        picture = Image.open("./picture/photo{}.png".format(selectPicturePage.selectNum))
+        picture = picture.resize((275, 450))
+
     # picture = cv2.imread('./picture/photo1.jpg', cv2.IMREAD_COLOR)
+    if selectFramePage.selectNum == 1:  # 가로
+        bgimage.paste(im=picture,box=(25,25))
+    elif selectFramePage.selectNum == 2:  # 세로
+        bgimage.paste(im=picture,box=(25,25))
+    #bgimage.paste(im=picture,box=(20,20))
+    bgimage.save("./final/final.jpg")
+
+    bgimage = cv2.imread("./final/final.jpg", cv2.IMREAD_COLOR)
+
     memo = cv2.imread("./memo/memo1.png", cv2.IMREAD_COLOR)
     mask = cv2.imread("./picture/mask.png", cv2.IMREAD_GRAYSCALE)
     image = cv2.imread("./memo/memo1.png", cv2.IMREAD_UNCHANGED)
+    #qrImage = cv2.imread(path, cv2.IMREAD_COLOR)
+    qrImage = Image.open(path)
+    logoImage = cv2.imread("./images/logo_image.png", cv2.IMREAD_COLOR)
+    logoText = cv2.imread("./images/logo2.png", cv2.IMREAD_COLOR)
+    mask4 = cv2.imread("./images/logo_image.png", cv2.IMREAD_UNCHANGED)
+    mask5 = cv2.imread("./images/logo.png", cv2.IMREAD_UNCHANGED)
+    ori_text = cv2.imread("./images/logo2.png", cv2.IMREAD_COLOR)
+
+    #cv2.imshow('',qrImage)
+    #cv2.waitKey()
+    
+    new_logo = np.zeros_like(logoImage)
+    new_text = np.zeros_like(logoText)
+
+    for i in range(logoImage.shape[0]):
+        for j in range(logoImage.shape[1]):
+            if sum(logoImage[i][j]) > 240:
+                new_logo[i][j] = [0, 0, 255]
+
+    for i in range(logoText.shape[0]):
+        for j in range(logoText.shape[1]):
+            if sum(logoText[i][j]) < 240:
+                new_text[i][j] = [255, 255, 255]
+
+    logoImage = new_logo
+    logoText = new_text
+    #cv2.imshow('', logoText)
 
     bgimage = cv2.resize(bgimage, (750, 500))  # 150 100
     # picture = cv2.resize(picture, (275, 450))  # 55 90
     # picture2 = cv2.resize(picture, (700, 350)) # 140 70
     memo = cv2.resize(memo, (750, 500))  # 55 90 #858 598
-
+    #qrImage = cv2.resize(qrImage, (45, 45))
+    logoImage = cv2.resize(logoImage, (35, 35))
+    logoText = cv2.resize(logoText, (87, 35))
+    ori_text = cv2.resize(ori_text, (87, 35))
+    # cv2.imshow('', logoText)
     h1, w1 = bgimage.shape[:2]
-    h2, w2 = picture.shape[:2]
+    #h2, w2 = picture.shape[:2]
     h3, w3 = memo.shape[:2]
 
     # mask = cv2.resize(bgimage, (w2, h2))
@@ -94,38 +249,129 @@ def finalImageSave():  # bg : jpg     #photo : jpg     #memo : png
     # print(h2, w2) #720 426
     # print(h3, w3) #598 858
 
-    mask = cv2.resize(mask, (w2, h2))
+    #mask = cv2.resize(mask, (w2, h2))
     image = cv2.resize(image, (w3, h3))
     mask2 = image[:, :, 3]
+    mask3 = cv2.resize(mask, (45, 45))  # QR크기
+    mask4 = cv2.resize(mask4, (35, 35))  # 로고 이미지 크기
+    mask5 = cv2.resize(mask5, (87, 35))  # 로고 글자  크기
 
-    if selectFramePage.selectNum == 1:  # 가로
-        crop = bgimage[20:h2 + 20, 20:w2 + 20]
-    elif selectFramePage.selectNum == 2:  # 세로
-        crop = bgimage[25:h2 + 25, 25:w2 + 25]
+    mask4 = logoImage[:, :, 2]
+    # cv2.imshow('',mask4)
+    mask5 = logoText[:, :, :]
+
+
+
+    # cv2.imshow('',mask5)
+    #logoImageCopy = logoImage[:, :, :-1]
+    #logoTextCopy = logoText[:, :, :-1]
+    
 
     # crop = bgimage[20:h2 + 20, 20:w2 + 20]
-    cv2.copyTo(picture, mask, crop)
+    #cv2.copyTo(picture, mask, crop)
     # cv2.imshow('bgimage', bgimage)
 
-    #cv2.imshow("bgimage", bgimage)
+    # cv2.imshow("bgimage", bgimage)
 
     crop2 = bgimage[0:h3, 0:w3]
     cv2.copyTo(memo, mask2, crop2)
 
-    #cv2.imshow("bgimage", bgimage)
-    # cv2.imshow('memo', memo)
-    # cv2.imshow('picture', picture)
-    # cv2.imshow('mask', mask)
+    # crop3 = bgimage[h3 - 45:h3 - 10, w3 - 45:w3 - 10]
+    crop3 = bgimage[h3 - 48:h3 - 3, w3 - 48:w3 - 3]
+    #cv2.copyTo(qrImage, mask3, crop3)
+
+    crop4 = bgimage[h3 - 45:h3 - 10, w3 - 157:w3 - 122]
+    cv2.copyTo(logoImage, mask4, crop4)
+
+    # cv2.imshow('', logoText)
+
+    crop5 = bgimage[h3 - 45:h3 - 10, w3 - 132:w3 - 45]
+    cv2.copyTo(ori_text, mask5, crop5)
 
     bgimage = cv2.resize(bgimage, (825, 550))
     cv2.imwrite("./final/final.jpg".format(), bgimage)  # 사진 저장
+    #cv2.imshow('',bgimage)
     #cv2.waitKey()
+    bgimage = Image.open("./final/final.jpg")
+    print('qr garo sero',np.array(qrImage).shape)
+    
+    bgimage.paste(im=qrImage, box=( 780, 505))
+    bgimage.save("./final/final.jpg")
+    
+class VideoThread(QThread):
+    def __init__(self):
+        super().__init__()
+        self.resolution = [1280, 720] # 카메라 상수 (해상도)
 
+        # 사진 비율_frame1 138 : 70
+        # 사진 비율_frame2 55 : 93
+        self.screenSize = [1011,571]
+        self.videoFlag = True
+
+    # 실시간 촬영 화면 보여주기 (cam.start() 일때 실행)
+    def run(self):
+        global videoFin
+        #frame1 가로 138 , 세로 70 -> 1000 * 508
+        #frame2 가로 55 , 세로 93 -> 414 * 700
+
+        videoPage.videoScreen.resize(self.screenSize[0],self.screenSize[1])
+        videoPage.videoScreen.move(70,170)
+        self.cam = cv2.VideoCapture(0) # 카메라 작동
+
+        self.cam.set(cv2.CAP_PROP_FRAME_WIDTH, self.resolution[0]) # 가로 해상도 설정
+        self.cam.set(cv2.CAP_PROP_FRAME_HEIGHT, self.resolution[1]) # 세로 해상도 설정
+
+        #fps = self.cam.get(cv2.CAP_PROP_FPS) # 초당 카메라 영상 프레임 갯수
+        fps = 30
+        
+        if fps == 0.0:
+            fps = 30.0
+
+
+        fourcc = cv2.VideoWriter_fourcc(*'avc1')
+        out = cv2.VideoWriter('./video/video.mp4', fourcc, fps/4, (self.resolution[0], self.resolution[1]))
+
+        TIME_PER_FRAME = 1 / fps
+
+        while self.videoFlag: #true : 실시간 / false : 정지
+            ret, frame = self.cam.read()
+
+
+            if ret:
+                frame = cv2.flip(frame, 1)
+                out.write(frame)
+
+                frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+                # img[세로 , 가로]
+
+                resizeFrame = cv2.resize(frame,
+                                       (self.screenSize[0], self.screenSize[1]),
+                                       interpolation=cv2.INTER_CUBIC)
+
+                h, w, c = resizeFrame.shape
+                qFrame = QImage(resizeFrame.data, w, h, w * c, QImage.Format_RGB888)
+
+                # 자른 사진 화면에 띄우기
+                streamingPixmap = QPixmap.fromImage(qFrame)
+
+                videoPage.videoScreen.setPixmap(streamingPixmap)
+
+                #cv2.imshow("VideoFrame", frame)
+            else:
+                print("streampicture x")
+
+            sleep(TIME_PER_FRAME)
+
+        out.release()
+        videoFin = True
+        self.cam.release()
+        print("video off")
 
 class CameraThread(QThread):
     def __init__(self , frameNum):
         super().__init__()
         picturePage1.command.connect(self.takePicture)
+        # button.when_pressed = self.takePicture
         self.frameNum = frameNum
         self.resolution = [1280, 720] # 카메라 상수 (해상도)
 
@@ -140,6 +386,7 @@ class CameraThread(QThread):
             [80,150],
             [420,140]
         ]
+        # self.remoconThread = RemoteControlThread()
 
     # 실시간 촬영 화면 보여주기 (cam.start() 일때 실행)
     def run(self):
@@ -166,9 +413,9 @@ class CameraThread(QThread):
 
 
             if ret:
+                img = cv2.flip(img, 1)
                 img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
                 # img[세로 , 가로]
-
                 # 촬영중인 사진 화면 선택한 프레임에 맞게 자르기
                 if self.frameNum == 1:
                     afterHeight = (self.resolution[0] * self.pictureRatio[self.frameNum - 1][1]) // self.pictureRatio[self.frameNum - 1][0]
@@ -203,7 +450,7 @@ class CameraThread(QThread):
         ret, img = self.cam.read()
 
         if ret: # true : 사진 촬영 정상 작동시
-
+            img = cv2.flip(img, 1)
             # 찍은 사진 선택한 프레임에 맞게 자르기
             if self.frameNum == 1:
                 afterHeight = (self.resolution[0] * self.pictureRatio[self.frameNum - 1][1]) // \
@@ -215,9 +462,9 @@ class CameraThread(QThread):
                              self.pictureRatio[self.frameNum - 1][1]
                 temp = (self.resolution[0] - afterWidth) // 2
                 img2 = img[:, temp:(self.resolution[0] - temp)]
-
+          
             # img = cv2.flip(img, 1)
-            cv2.imwrite('./picture/photo{}.jpg'.format(cnt), img2) # 사진 저장
+            cv2.imwrite('./picture/photo{}.png'.format(cnt), img2) # 사진 저장
 
             self.cameraFlag = False
 
@@ -234,6 +481,10 @@ class CameraThread(QThread):
 
             sleep(1) # 1초간 화면 정지
             pictureFin = True # 사진 촬영 종료 flag
+            if pictureFin:
+                print("yes")
+            else:
+                print("nonono")
         else:
             print("takepicture x")
 
@@ -245,11 +496,14 @@ class StartPage(QWidget):
         loadUi("StartPage.ui", self)
 
     def startButton(self):
-       widget.setCurrentIndex(widget.currentIndex()+1)
+        self.qr = QRCreate()
+        widget.setCurrentIndex(widget.currentIndex()+1)
 
 
 # 프레임 선택 페이지
 class SelectFramePage(QWidget):
+    commandTimer = QtCore.pyqtSignal(int)  # 사진 촬영 페이지 타이머 시작 신호
+    commandCamera = QtCore.pyqtSignal(int)  # 카메라 쓰레드 시작 신호
     #선택한 프레임 번호
     selectNum = 0
     def __init__(self):
@@ -277,36 +531,49 @@ class SelectFramePage(QWidget):
         if self.selectNum != 0:
             self.frame1Check.setHidden(True)
             self.frame2Check.setHidden(True)
+            self.commandTimer.emit(1)
+            self.commandCamera.emit(self.selectNum)
             widget.setCurrentIndex(widget.currentIndex()+1)
+            picturePage1.pictureCnt = 0
+            picturePage1.flag = 0
+            picturePage1.click = 0
 
 
 # 결제 페이지
-class CostPage(QWidget):
-    commandTimer = QtCore.pyqtSignal(int) # 사진 촬영 페이지 타이머 시작 신호
-    commandCamera = QtCore.pyqtSignal(int) # 카메라 쓰레드 시작 신호
+# class CostPage(QWidget):
+#     commandTimer = QtCore.pyqtSignal(int) # 사진 촬영 페이지 타이머 시작 신호
+#     commandCamera = QtCore.pyqtSignal(int) # 카메라 쓰레드 시작 신호
+#     def __init__(self):
+#         super(CostPage, self).__init__()
+#         loadUi("CostPage.ui", self)
+#
+#     def changePage(self):
+#         self.commandTimer.emit(1)
+#         widget.setCurrentIndex(widget.currentIndex()+1)
+#         self.commandCamera.emit(selectFramePage.selectNum) # 1, 2
 
-    def __init__(self):
-        super(CostPage, self).__init__()
-        loadUi("CostPage.ui", self)
 
-    def changePage(self):
-        self.commandTimer.emit(1)
-        widget.setCurrentIndex(widget.currentIndex()+1)
-        self.commandCamera.emit(selectFramePage.selectNum) # 1, 2
-
-
-# 사진 촬영 페이지
+# 사진 촬영 페이지ss
 class PicturePage1(QWidget):
     command = QtCore.pyqtSignal(int)  # 몇번째 사진인지 알려주는 신호 (1,2,3,4)
     upload_command = QtCore.pyqtSignal(int)  # 사진 모두 찍은 이후 업로드 하기 위한 신호
+    video_command = QtCore.pyqtSignal(int)
     def __init__(self):
         super(PicturePage1, self).__init__()
         loadUi("PicturePage1.ui", self)
         self.time = 10  # 10초 타이머
         self.timer.setText(str(self.time))
-        costPage.commandTimer.connect(self.createTimer)
-        costPage.commandCamera.connect(self.showCamera)
-        self.pictureCnt = 0 # 찍은 사진 갯수
+        selectFramePage.commandTimer.connect(self.createTimer)
+        selectFramePage.commandCamera.connect(self.showCamera)
+        self.pictureCnt = 0  # 찍은 사진 갯수
+        self.flag = 0
+        self.click = 0
+        self.button = Button(23)
+        self.button.when_pressed = self.clickBtn
+
+    def clickBtn(self):
+        self.click = 1
+
 
     # 카메라 실행
     def showCamera(self, frameNum):
@@ -315,8 +582,13 @@ class PicturePage1(QWidget):
         self.camThread.start()
         self.camThread.cameraFlag = True
 
+        #self.remoconThread = RemoteControlThread()
+        #self.remoconThread.start()
+
+
     # 타이머 생성 및 실행
     def createTimer(self):
+        self.click = 0
         self.time = 11
         self.timerVar = QTimer()  # 타이머 생성
         self.timerVar.setInterval(1000)  # 타이머 간격 설정 (1초)
@@ -330,6 +602,11 @@ class PicturePage1(QWidget):
         if self.time == 0:
             self.time = 11
             self.takePicture()
+        if self.click == 1:
+            self.time = 11
+            self.takePicture()
+            self.click = 0
+
 
     # 페이지 변경
     def changePage(self):
@@ -338,22 +615,29 @@ class PicturePage1(QWidget):
         self.camThread.cam.release()  # 카메라 종료
         self.timerVar.stop()  # 타이머 중지
         self.upload_command.emit(1)  # 사진 업로드 가능 신호
+        self.video_command.emit(1)
         widget.setCurrentIndex(widget.currentIndex()+1)
+        self.cnt.setText("1")
 
     # 사진 촬영 (4번)
     def takePicture(self):
         global pictureFin
         if self.pictureCnt < 4:
             self.pictureCnt += 1
+            self.cnt.setText(str(self.pictureCnt + 1))
             self.command.emit(self.pictureCnt)
             self.timerVar.stop()  # 타이머 멈춤
             while not pictureFin:  # 다음 타이머 실행 대기
                 sleep(0.1)
 
             if self.pictureCnt < 4:
-                self.camThread.start()  # 실시간 화면 다시 시작
+                print("1212")
+                self.camThread.start()
+                print("33434")# 실시간 화면 다시 시작
                 self.createTimer()  # 타이머 다시 시작
+                print("45454")
                 self.camThread.cameraFlag = True
+                print("67666")
                 pictureFin = False
             else:
                 self.pictureCnt = 0
@@ -366,7 +650,7 @@ class SelectPicturePage(QWidget):
     selectNum = 0
     def __init__(self):
         super(SelectPicturePage, self).__init__()
-        loadUi("SelectPicturePage.ui",self)
+        loadUi("SelectPicturePage.ui", self)
         picturePage1.upload_command.connect(self.pictureUpload)
         self.picture1Check.setHidden(True)
         self.picture2Check.setHidden(True)
@@ -403,10 +687,10 @@ class SelectPicturePage(QWidget):
 
 
     def pictureUpload(self):
-        self.selectPicture1Btn.setStyleSheet("border-image:url('./picture/photo1.jpg')")
-        self.selectPicture2Btn.setStyleSheet("border-image:url('./picture/photo2.jpg')")
-        self.selectPicture3Btn.setStyleSheet("border-image:url('./picture/photo3.jpg')")
-        self.selectPicture4Btn.setStyleSheet("border-image:url('./picture/photo4.jpg')")
+        self.selectPicture1Btn.setStyleSheet("border-image:url('./picture/photo1.png')")
+        self.selectPicture2Btn.setStyleSheet("border-image:url('./picture/photo2.png')")
+        self.selectPicture3Btn.setStyleSheet("border-image:url('./picture/photo3.png')")
+        self.selectPicture4Btn.setStyleSheet("border-image:url('./picture/photo4.png')")
 
         if selectFramePage.selectNum == 1:
 
@@ -489,10 +773,10 @@ class BackgroundPage(QWidget):
     def uploadPicture(self, pictureNum, frameNum):
         if frameNum == 1:
             self.imageFrame1.setHidden(False)
-            self.imageFrame1.setStyleSheet("border-image:url('./picture/photo{}.jpg')".format(pictureNum))
+            self.imageFrame1.setStyleSheet("border-image:url('./picture/photo{}.png')".format(pictureNum))
         elif frameNum == 2:
             self.imageFrame2.setHidden(False)
-            self.imageFrame2.setStyleSheet("border-image:url('./picture/photo{}.jpg')".format(pictureNum))
+            self.imageFrame2.setStyleSheet("border-image:url('./picture/photo{}.png')".format(pictureNum))
 
     def uploadBackground(self):
         self.bgImage1.setStyleSheet("border-image:url('./bgimage/bg{}.jpg');"
@@ -645,10 +929,11 @@ class MemoPage(QWidget):
         self.postBackground.setStyleSheet("border-image:url('./bgimage/bg{}.jpg')".format(backgroundPage.selectBgNum))
         if selectFramePage.selectNum == 1:
             self.imageFrame1.setHidden(False)
-            self.imageFrame1.setStyleSheet("border-image:url('./picture/photo{}.jpg')".format(selectPicturePage.selectNum))
+            self.imageFrame1.setStyleSheet("border-image:url('./picture/photo{}.png')".format(selectPicturePage.selectNum))
         elif selectFramePage.selectNum == 2:
             self.imageFrame2.setHidden(False)
-            self.imageFrame2.setStyleSheet("border-image:url('./picture/photo{}.jpg')".format(selectPicturePage.selectNum))
+
+            self.imageFrame2.setStyleSheet("border-image:url('./picture/photo{}.png')".format(selectPicturePage.selectNum))
 
 
     def changePage(self):
@@ -656,6 +941,10 @@ class MemoPage(QWidget):
         widget.setCurrentIndex(widget.currentIndex()+1)
         self.command.emit(1) #신호 전송
         self.timerVar.stop()
+        self.memowidget.brush_size = 8
+        self.memowidget.brush_color = Qt.black
+        self.imageFrame1.setHidden(True)
+        self.imageFrame2.setHidden(True)
 
 
 class MyApp(QWidget):
@@ -670,7 +959,7 @@ class MyApp(QWidget):
         minus_command.connect(self.minusSize_r)
         color_command.connect(self.color)
         save_command.connect(self.save)
-        self.brush_size = 5
+        self.brush_size = 8
         self.brush_color = Qt.black
         self.last_point = QPoint()
         #self.initUI()
@@ -701,10 +990,10 @@ class MyApp(QWidget):
         self.brush_size += 1
 
     def minusSize_r(self):
-        if self.brush_size >= 1:
+        if self.brush_size >= 5:
             self.brush_size -= 1
         else:
-            self.brush_size = 1
+            self.brush_size = 5
 
     def paintEvent(self, e):
         canvas = QPainter(self)
@@ -743,10 +1032,12 @@ class AddressPage(QWidget):
         loadUi("AddressPage.ui", self)
         #self.dialog = QWidget()
 
+
     def findAddress(self):
         self.abc = AddressInput()
 
     def changePage(self):
+        self.move(300, 300)
         widget.setCurrentIndex(widget.currentIndex()+1)
         self.command.emit(1) #신호 전송
         self.saveAddr()
@@ -756,6 +1047,14 @@ class AddressPage(QWidget):
         print(self.addressMain)
         print(self.addressDetail)
         self.addressImage = AddressImage()
+        printPage.img.setStyleSheet("border-image:url('./final/final.jpg')")
+        printPage.addr.setStyleSheet("border-image:url('./final/addr.jpg')")
+        printPage.printStart()
+        self.senderText = self.textEditSender.clear()
+        self.receiverText = self.textEditReceiver.clear()
+        self.addressNum = self.textEditNum.clear()
+        self.addressMain = self.textEditAddress.clear()
+        self.addressDetail = self.textEditDetail.clear()
 
 
     def saveAddr(self):
@@ -771,6 +1070,7 @@ class AddressInput(QWidget):
     def __init__(self):
         super(AddressInput, self).__init__()
         loadUi("AddressInput.ui", self)
+        self.move(200, 200)
         self.show()
         self.text = ""
         self.newAddressListAreaCd = []
@@ -778,22 +1078,27 @@ class AddressInput(QWidget):
         self.chooseNum = 0
         self.addressArr = []
         self.addressNum = []
-        self.textEdit.setFontPointSize(12) # 폰트 사이즈 지정
-        self.textEdit.setFontPointSize(30)
+        self.listWidget.itemSelectionChanged.connect(self.selectChanged)
+        #self.textEdit.setFontPointSize(12) # 폰트 사이즈 지정
+        #self.textEdit.setFontPointSize(30)
+
 
     def search(self):
         self.text = self.textEdit.toPlainText()
-        self.textEdit.setFontPointSize(12) # 폰트 사이즈 지정
-        self.textEdit.setFontPointSize(30)
+        #self.textEdit.setFontPointSize(12) # 폰트 사이즈 지정
+        #self.textEdit.setFontPointSize(30)
         print(self.text)
         findAddress()
 
         for r in self.newAddressListAreaCd:
             self.check += 1
-            addressPage.abc.textEditOutput.append(f'선택 번호 : {self.check}\n'
-                                                  f'도로명 주소 : {r.findtext("lnmAdres")}\n'
-                                                  f'우편번호 : {r.findtext("zipNo")}\n'
-                                                  f'------------------------------------------------')
+            print(self.check)
+            nowAddress = QListWidgetItem(f'선택 번호 : {self.check}\n 도로명 주소 : {r.findtext("lnmAdres")}\n 우편번호 : {r.findtext("zipNo")}\n')
+            self.listWidget.addItem(nowAddress)
+            # addressPage.abc.textEditOutput.append(f'선택 번호 : {self.check}\n'
+            #                                       f'도로명 주소 : {r.findtext("lnmAdres")}\n'
+            #                                       f'우편번호 : {r.findtext("zipNo")}\n'
+            #                                       f'------------------------------------------------')
             self.addr = r.findtext("lnmAdres")
             self.num = r.findtext("zipNo")
             self.addressArr.append(self.addr)
@@ -802,16 +1107,24 @@ class AddressInput(QWidget):
             #self.btn.resize(30, 30)
             #self.btn.clicked.connect(self.inputAll)
 
+    def selectChanged(self):
+        #list_item = self.listWidget.selectedItems()
+        self.selectedNum = self.listWidget.currentRow()
+        print(self.selectedNum)
+
+
+
     def finish(self):
-        self.chooseNum = int(self.textEditNum.toPlainText())
+        self.chooseNum = self.selectedNum
         print(self.chooseNum)
         # if self.check == self.chooseNum :
         #     print(self.addr)
         #     print(self.num)
-        print(self.addressArr[self.chooseNum - 1])
-        print(self.addressNum[self.chooseNum - 1])
-        addressPage.textEditNum.setText(self.addressNum[self.chooseNum - 1])
-        addressPage.textEditAddress.setText(self.addressArr[self.chooseNum - 1])
+        print(self.addressArr[self.chooseNum])
+        print(self.addressNum[self.chooseNum])
+        addressPage.textEditNum.setText(self.addressNum[self.chooseNum])
+        addressPage.textEditAddress.setText(self.addressArr[self.chooseNum])
+        self.hide()
 
 
 class AddressImage(QWidget):
@@ -847,12 +1160,20 @@ class PrintPage(QWidget):
         #self.time = 3
 
     def createTimer(self):
-        self.time = 3
+        self.time = 4
         self.timerVar = QTimer()
         self.timerVar.setInterval(1000)
         self.timerVar.timeout.connect(self.printTime)
         self.timerVar.start()
-        finalImageSave()  # **********************************
+        finalImageSave(startPage.qr)  # **********************************
+        # self.img.setStyleSheet("border-image:url('./final/final.jpg')")
+        # self.addr.setStyleSheet("border-image:url('./final/addr.jpg')")
+
+    def printStart(self):
+        os.system("lp -d Canon_SELPHY_CP1300 ./final/final.jpg")
+        print("post print")
+        os.system("lp -d Canon_G3010_series_1 ./final/addr.jpg")
+        print("envelope print")
 
     def printTime(self):
         self.time -= 1
@@ -869,6 +1190,7 @@ class PrintPage(QWidget):
 class SelectPage(QWidget):
     command = QtCore.pyqtSignal(int)
     command2 = QtCore.pyqtSignal(int)#신호 생성
+    video = 0
     def __init__(self):
         super(SelectPage, self).__init__()
         loadUi("SelectPage.ui", self)
@@ -876,16 +1198,30 @@ class SelectPage(QWidget):
         # self.skipBtn.clicked.connect(self.changePage2)
 
     def changePage(self):
+        start = time.time()
+        self.video = 1
         widget.setCurrentIndex(widget.currentIndex()+1)
-        self.command.emit(1) #신호 전송
+        self.command.emit(self.video) #신호 전송
+        end = time.time()
+        print('changePage spand time :', end-start)
 
     def changePage2(self):
-        widget.setCurrentIndex(widget.currentIndex()+3)
-        self.command2.emit(1)
+        
+        self.video = 0
+        #widget.setCurrentIndex(widget.currentIndex()+3)
+        start = time.time()
+        widget.setCurrentIndex(11)
+        end = time.time()
+        print('changePage spand time :', end-start)
+        start2 = time.time()
+        self.command2.emit(self.video)
+        end2 = time.time()
+        print('changePage spand time2 :', end2-start2)
 
 
 class ReadyPage(QWidget):
-    command = QtCore.pyqtSignal(int)  # 신호 생성
+    command = QtCore.pyqtSignal(int)  # 신호 생
+    start_command = QtCore.pyqtSignal(int)
     def __init__(self):
         super(ReadyPage, self).__init__()
         loadUi("ReadyPage.ui", self)
@@ -912,6 +1248,7 @@ class ReadyPage(QWidget):
         widget.setCurrentIndex(widget.currentIndex() + 1)
         self.timerVar.stop()
         self.command.emit(1)
+        self.start_command.emit(1)
 
 
 class VideoPage(QWidget):
@@ -920,29 +1257,74 @@ class VideoPage(QWidget):
         super(VideoPage, self).__init__()
         loadUi("VideoPage.ui", self)
         readyPage.command.connect(self.createTimer)
+        self.flag = False
+        #picturePage1.video_command.connect(self.changeFlag) #picture page 넘어갈때
+        #readyPage.start_command.connect(self.changeFlag)
         # 영상 시간 timer
-        self.time = 20
+        self.click = 0
+        self.time = 10
         self.timer.setText(str(self.time))
+
+
+
+    # def changeFlag(self):
+    #     print("r1")
+    #     self.button = Button(24)
+    #     self.button.when_pressed = self.clickBtn
+    #     print("r2")
+    #     self.flag = True
+    #
+    #
+    # def clickBtn(self):
+    #     if self.flag:
+    #         self.click = 1
+    #         print("r3")
+    #     else:
+    #         self.click = 0
+    #         print("r4")
+
 
     def createTimer(self):
         print("a")
-        self.time = 21
+        self.time = 11
         self.timerVar = QTimer()
         self.timerVar.setInterval(1000)
         self.timerVar.timeout.connect(self.printTime)
         self.timerVar.start()
         print("b")
+        self.showVideo()
 
     def printTime(self):
         self.time -= 1
         self.timer.setText(str(self.time))
         if self.time == 0:
+            self.time = 11
             self.changePage()
+        # if self.click == 1:
+        #     self.time = 21
+        #     print("r5")
+        #     self.changePage()
+        #     self.click = 0
+        #     print("r6")
+
+    def showVideo(self):
+        self.videoThread = VideoThread()
+        self.videoThread.start()
+        self.videoThread.videoFlag = True
 
     def changePage(self):
+        global videoFin
         widget.setCurrentIndex(widget.currentIndex()+1)
-        self.command.emit(1)  # 신호 전송
+        self.videoThread.videoFlag = False
         self.timerVar.stop()
+        while not videoFin:  # 다음 타이머 실행 대기
+            sleep(0.1)
+        self.command.emit(1)  # 신호 전송
+        print("cf false")
+        videoFin = False
+        self.flag = False
+        print("r7")
+        #self.videoThread.cam.release()  # 카메라 종료
 
 
 class FinishPage(QWidget):
@@ -953,18 +1335,23 @@ class FinishPage(QWidget):
         videoPage.command.connect(self.createTimer)
         #self.time = 6
 
-    def createTimer(self):
-        self.time = 6
+    def createTimer(self, num):
+        self.number = num
+        self.time = 11
         self.timerVar = QTimer()
         self.timerVar.setInterval(1000)
         self.timerVar.timeout.connect(self.printTime)
         self.timerVar.start()
+        #renameFile(num)
 
     def printTime(self):
         self.time -= 1
-        if self.time == 0:
+        if self.time == 8:
+            renameFile(self.number)
+        elif self.time == 0:
             widget.setCurrentIndex(0)
             self.timerVar.stop()
+
 
 
 
@@ -973,6 +1360,8 @@ class FinishPage(QWidget):
 if __name__ == "__main__" :
     #QApplication : 프로그램을 실행시켜주는 클래스
     app = QApplication(sys.argv)
+
+
 
     #폰트 바꾸기
     # fontDB = QFontDatabase()
@@ -986,7 +1375,7 @@ if __name__ == "__main__" :
     #레이아웃 인스턴스 생성
     startPage = StartPage()
     selectFramePage = SelectFramePage()
-    costPage = CostPage()
+    #costPage = CostPage()
     picturePage1 = PicturePage1()
     #picturePage2 = PicturePage2()
     selectPicturePage = SelectPicturePage()
@@ -999,6 +1388,8 @@ if __name__ == "__main__" :
     videoPage = VideoPage()
     finishPage = FinishPage()
 
+
+
     #배경이미지
     # pixmap = QPixmap("./screenassets/background.png")
     # palette = QPalette()
@@ -1008,7 +1399,7 @@ if __name__ == "__main__" :
     #Widget 추가
     widget.addWidget(startPage)
     widget.addWidget(selectFramePage)
-    widget.addWidget(costPage)
+    #widget.addWidget(costPage)
     widget.addWidget(picturePage1)
     #widget.addWidget(picturePage2)
     widget.addWidget(selectPicturePage)
@@ -1025,6 +1416,7 @@ if __name__ == "__main__" :
     widget.setFixedHeight(796)
     widget.setFixedWidth(1152)
     widget.setStyleSheet("background-color: rgb(255, 221, 221);")
+    #widget.showFullScreen()
     widget.show()
 
     #프로그램을 이벤트루프로 진입시키는(프로그램을 작동시키는) 코드

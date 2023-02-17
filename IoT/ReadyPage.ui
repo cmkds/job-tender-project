@@ -6,32 +6,54 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1024</width>
-    <height>600</height>
+    <width>1152</width>
+    <height>796</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: rgb(255, 221, 221);</string>
+  </property>
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
-     <x>260</x>
-     <y>260</y>
-     <width>501</width>
-     <height>91</height>
+     <x>200</x>
+     <y>330</y>
+     <width>771</width>
+     <height>121</height>
     </rect>
    </property>
    <property name="font">
     <font>
-     <family>휴먼편지체</family>
-     <pointsize>35</pointsize>
-     <weight>75</weight>
-     <bold>true</bold>
+     <family>강원교육모두 Bold</family>
+     <pointsize>48</pointsize>
+     <weight>50</weight>
+     <bold>false</bold>
     </font>
    </property>
    <property name="text">
-    <string>촬영을 준비해 주세요!</string>
+    <string>영상 편지 녹화를 준비해 주세요~</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="timer">
+   <property name="geometry">
+    <rect>
+     <x>520</x>
+     <y>460</y>
+     <width>120</width>
+     <height>120</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>강원교육모두 Bold</family>
+     <pointsize>60</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string/>
    </property>
   </widget>
  </widget>
@@ -39,4 +61,7 @@
   <include location="image.qrc"/>
  </resources>
  <connections/>
+ <slots>
+  <slot>printTime()</slot>
+ </slots>
 </ui>
