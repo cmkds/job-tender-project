@@ -15,11 +15,11 @@ import UserMain from "./user/UserMain";
 
 const User = () => {
   const navigate = useNavigate();
-  useEffect(() => {
-    if (!sessionStorage.getItem("loginUser")) {
-      navigate("/");
-    }
-  });
+  // useEffect(() => {
+  //   if (!sessionStorage.getItem("loginUser")) {
+  //     navigate("/");
+  //   }
+  // });
 
   return (
     <div>

@@ -12,11 +12,11 @@ import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 const Comment = () => {
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (!sessionStorage.getItem("loginUser")) {
-      navigate("/");
-    }
-  });
+  // useEffect(() => {
+  //   if (!sessionStorage.getItem("loginUser")) {
+  //     navigate("/");
+  //   }
+  // });
 
   return (
     <div>

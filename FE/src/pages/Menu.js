@@ -8,11 +8,11 @@ import TopBar from "../components/TopBar";
 import { useEffect } from "react";
 const Menu = () => {
   const navigate = useNavigate();
-  useEffect(() => {
-    if (!sessionStorage.getItem("loginUser")) {
-      navigate("/");
-    }
-  });
+  // useEffect(() => {
+  //   if (!sessionStorage.getItem("loginUser")) {
+  //     navigate("/");
+  //   }
+  // });
   return (
     <div>
       <TopBar />

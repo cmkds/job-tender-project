@@ -1,11 +1,11 @@
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { BrowserView, MobileView } from "react-device-detect";
+// import { BrowserView, MobileView } from "react-device-detect";
 
 //컴포넌트 import
 // import MyButton from "./components/MyButton";
 // import TopBar from "./components/TopBar";
-// import RouteTest from "./components/RouteTest";
+import RouteTest from "./components/RouteTest";
 import ScrollToTop from "./components/ScrollToTop";
 
 //페이지 import
@@ -52,48 +52,48 @@ function App() {
 
   return (
     <div>
-      <BrowserView>
+      {/* <BrowserView>
         <IsWeb></IsWeb>
-      </BrowserView>
+      </BrowserView> */}
 
-      <MobileView>
-        <ThemeProvider theme={theme}>
-          <div className={classes.root}>
-            <BrowserRouter>
-              <ScrollToTop />
-              <div className="App">
-                <Routes>
-                  <Route path="/" element={<Home />}></Route>
-                  <Route path="/menu" element={<Menu />}></Route>
-                  <Route path="/map" element={<Map />}></Route>
-                  <Route path="/menual" element={<Menual />}></Route>
-                  <Route path="/main/*" element={<Main />}></Route>
-                  <Route
-                    path="/logbox"
-                    element={<LogBox className="stop-scrolling" />}
-                  ></Route>
-                  <Route path="/feed/:id" element={<Feed />}></Route>
-                  <Route path="/storage/*" element={<Storage />}></Route>
-                  <Route path="/user/*" element={<User />}></Route>
-                  <Route path="/comment/:feedId" element={<Comment />}></Route>
-                  <Route path="/sign-up" element={<SignUp />}></Route>
-                  <Route path="/search" element={<Search />}></Route>
-                  {/* <Route path="/download/*" element={<Download />}></Route> */}
-                  <Route path="/naver" element={<NaverLogin />}></Route>
-                  <Route path="/edit" element={<Edit />}></Route>
-                  <Route
-                    path="/download/:machineDataSeq"
-                    element={<QR />}
-                  ></Route>
-                  {/* <Route path="/search" element={<Search />}></Route> */}
-                  <Route path="/*" element={<NotFoundPage />} />
-                </Routes>
-              </div>
-              {/* <RouteTest /> */}
-            </BrowserRouter>
-          </div>
-        </ThemeProvider>
-      </MobileView>
+      {/* <MobileView> */}
+      <ThemeProvider theme={theme}>
+        <div className={classes.root}>
+          <BrowserRouter>
+            <ScrollToTop />
+            <div className="App">
+              <Routes>
+                <Route path="/" element={<Home />}></Route>
+                <Route path="/menu" element={<Menu />}></Route>
+                <Route path="/map" element={<Map />}></Route>
+                <Route path="/menual" element={<Menual />}></Route>
+                <Route path="/main/*" element={<Main />}></Route>
+                <Route
+                  path="/logbox"
+                  element={<LogBox className="stop-scrolling" />}
+                ></Route>
+                <Route path="/feed/:id" element={<Feed />}></Route>
+                <Route path="/storage/*" element={<Storage />}></Route>
+                <Route path="/user/*" element={<User />}></Route>
+                <Route path="/comment/:feedId" element={<Comment />}></Route>
+                <Route path="/sign-up" element={<SignUp />}></Route>
+                <Route path="/search" element={<Search />}></Route>
+                {/* <Route path="/download/*" element={<Download />}></Route> */}
+                <Route path="/naver" element={<NaverLogin />}></Route>
+                <Route path="/edit" element={<Edit />}></Route>
+                <Route
+                  path="/download/:machineDataSeq"
+                  element={<QR />}
+                ></Route>
+                {/* <Route path="/search" element={<Search />}></Route> */}
+                <Route path="/*" element={<NotFoundPage />} />
+              </Routes>
+            </div>
+            <RouteTest />
+          </BrowserRouter>
+        </div>
+      </ThemeProvider>
+      {/* </MobileView> */}
     </div>
   );
 }

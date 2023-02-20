@@ -53,6 +53,7 @@ const UserMain = () => {
 
   //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
   const loginUser = sessionStorage.getItem("loginUser");
+  // const loginUser = 22;
   const [followCheck, setFollowCheck] = useState(true);
   const [followButton, setFollowButton] = useState(followCheck);
   useEffect(() => {

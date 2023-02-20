@@ -17,11 +17,11 @@ import MainAll from "./main/MainAll";
 
 const Main = () => {
   const navigate = useNavigate();
-  useEffect(() => {
-    if (!sessionStorage.getItem("loginUser")) {
-      navigate("/");
-    }
-  });
+  // useEffect(() => {
+  //   if (!sessionStorage.getItem("loginUser")) {
+  //     navigate("/");
+  //   }
+  // });
   return (
     <div>
       <TopBar />

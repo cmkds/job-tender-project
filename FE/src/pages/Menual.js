@@ -10,11 +10,11 @@ import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 const Menual = () => {
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (!sessionStorage.getItem("loginUser")) {
-      navigate("/");
-    }
-  });
+  // useEffect(() => {
+  //   if (!sessionStorage.getItem("loginUser")) {
+  //     navigate("/");
+  //   }
+  // });
   return (
     <div>
       <NavBar
