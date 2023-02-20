@@ -37,7 +37,7 @@ const style = {
   bgcolor: "rgba(255, 255, 255, 0.5)",
   borderRadius: "8px",
   boxShadow: 24,
-  margin: 'auto',
+  margin: "auto",
   px: 0,
   pb: 2,
 };
@@ -172,31 +172,28 @@ const QR = () => {
         </div>
       </div>
       {loginUser ? (
-        
-          <Button
-            variant="contained"
-            sx={{
-              display: "flex",
-              width: "80%",
-              height: "13vh",
-              margin: "auto",
-              padding: 0,
-              wordBreak: "keep-all",
-              backgroundColor: "#ffb9b9",
+        <Button
+          variant="contained"
+          sx={{
+            display: "flex",
+            width: "80%",
+            height: "13vh",
+            margin: "auto",
+            padding: 0,
+            wordBreak: "keep-all",
+            backgroundColor: "#ffb9b9",
+          }}
+          onClick={save}
+        >
+          <div
+            style={{
+              fontFamily: "GangwonEduAll",
+              fontSize: "25px",
             }}
-            onClick={save}
           >
-            <div
-              style={{
-                fontFamily: "GangwonEduAll",
-                fontSize: "25px",
-              }}
-            >
-              내 저장소에 저장하고 로그박스로 이동
-            </div>
-          </Button>
-          
-        
+            내 저장소에 저장하고 로그박스로 이동
+          </div>
+        </Button>
       ) : (
         <Box sx={{ ...style }}>
           <h3
@@ -206,7 +203,7 @@ const QR = () => {
               width: "80%",
               wordBreak: "break-all",
               wordSpacing: 2,
-              paddingTop:'5%',
+              paddingTop: "5%",
             }}
           >
             로그인 하시면, 엽서를 공유하거나 다른 사람의 엽서를 볼 수 있습니다.
