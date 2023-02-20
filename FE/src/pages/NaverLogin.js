@@ -97,7 +97,11 @@ const NaverLogin = () => {
         } else {
           axios.put(`/api/account/${userId}`, state).then(function (response) {
             sessionStorage.setItem("loginUser", userId);
-            navigate("/main/new/0");
+            if (sessionStorage.getItem("qr")) {
+              navigate(`/download/${sessionStorage.getItem("qr")}`);
+              return;
+            } else {navigate("/main/new/0");}
+            
           });
         }
       });
@@ -123,9 +127,9 @@ const NaverLogin = () => {
                 value={state.nickname}
                 color="error"
                 onChange={handleChangeState}
-                placeholder="최대 10 글자"
+                placeholder="최대 8 글자"
                 inputProps={{
-                  maxLength: 10,
+                  maxLength: 8,
                   style: { fontFamily: "GangwonEduAll" },
                 }}
                 style={{ margin: "auto", display: "flex", width: "90%" }}
@@ -168,7 +172,7 @@ const NaverLogin = () => {
                 가입하기
               </p>
             </Button>
-            <Button
+            {/* <Button
               variant="contained"
               style={{
                 display: "flex",
@@ -182,12 +186,14 @@ const NaverLogin = () => {
               }}
               // here
               //
-              onClick={() => navigate(`/download/1`)}
+              
+
+              onClick={() => navigate(`/download/${sessionStorage.getItem("qr")}`)}
             >
               <p style={{ fontSize: "150%", fontFamily: "GangwonEduAll" }}>
                 가입하고 보관함에 사진 저장하러 가기
               </p>
-            </Button>
+            </Button> */}
           </Card>
           <BottomBar />
         </div>

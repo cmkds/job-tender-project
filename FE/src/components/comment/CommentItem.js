@@ -1,4 +1,4 @@
-import { useState, useRef, Fragment } from "react";
+import { useState, useRef, Fragment, useEffect } from "react";
 
 import axios from "axios";
 import qs from "qs";
@@ -43,7 +43,7 @@ const CommentItem = ({
     const handleClose = () => {
       setOpen(false);
     };
-
+    
     return (
       <Fragment>
         <Button
@@ -116,6 +116,7 @@ const CommentItem = ({
     axios.delete(`/api/comment/${commentSeq}`).then(function (response) {});
     // 수정은 완료되는데 돔을 재가동해야함
     change();
+    setOpen(false);
   };
 
   // @@@@@@@@@@@@@@@@
@@ -153,15 +154,13 @@ const CommentItem = ({
           </Modal>
         </div>
       )}
-
       <Grid container>
-        <Grid item xs={5}>
+        <Grid item xs={6}>
           <div>
             <Profile id={memberSeq} />
           </div>
         </Grid>
-        <Grid item xs={7}>
-          {" "}
+        <Grid item xs={6}>
           <Box
             style={{
               marginRight: "5%",

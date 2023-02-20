@@ -16,7 +16,6 @@ const useStyles = makeStyles((theme) => ({
     padding: "2%",
     objectFit: "cover",
     whiteSpace: "nowrap",
-    overflow: "hidden",
     textOverflow: "ellipsis",
   },
   small: {
@@ -55,6 +54,7 @@ const Profile = (userId) => {
           onClick={() => {
             navigate(`/user/${userId.id}`);
           }}
+          sx={{}}
         >
           <img
             src={userData.memberProfile}
@@ -67,13 +67,13 @@ const Profile = (userId) => {
           style={{
             display: "flex",
             flexDirection: "column",
-            width: "100px",
+            width: "100%",
           }}
         >
           <div
             style={
               {
-                // display: "block",
+                display: "block",
               }
             }
             className={classes.root}

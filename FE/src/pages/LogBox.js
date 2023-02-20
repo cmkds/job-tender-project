@@ -247,6 +247,8 @@ function LogBox() {
           </div>
         </Paper>
         {activeStep < maxSteps - 1 ? null : (
+
+          sessionStorage.getItem("loginUser") ? null :
           
             <a href={naverLogin}>
               <img

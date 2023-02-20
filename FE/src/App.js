@@ -68,7 +68,10 @@ function App() {
                   <Route path="/map" element={<Map />}></Route>
                   <Route path="/menual" element={<Menual />}></Route>
                   <Route path="/main/*" element={<Main />}></Route>
-                  <Route path="/logbox" element={<LogBox />}></Route>
+                  <Route
+                    path="/logbox"
+                    element={<LogBox className="stop-scrolling" />}
+                  ></Route>
                   <Route path="/feed/:id" element={<Feed />}></Route>
                   <Route path="/storage/*" element={<Storage />}></Route>
                   <Route path="/user/*" element={<User />}></Route>
